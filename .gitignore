@@ -1,4 +1,18 @@
-# Executables
+#VS specific
+
+*.suo
+*.user
+*.pdb
+*.positions
+*proj.user
+*proj.*.user
+*.ncb
+*.plg
+*.opt
+*.ilk
+*.pch
+*.idb
+*.clw
+*.aps
+*.VC.db
 *.exe
-*.out
-*.app
