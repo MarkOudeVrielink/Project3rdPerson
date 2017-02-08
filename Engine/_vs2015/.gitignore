@@ -14,6 +14,7 @@
 *.clw
 *.aps
 *.VC.db
+*.VC.VC.opendb
 *.exe
 
 #Object files
