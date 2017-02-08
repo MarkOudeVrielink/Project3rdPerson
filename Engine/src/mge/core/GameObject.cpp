@@ -6,6 +6,8 @@ using namespace std;
 #include "mge/core/Mesh.hpp"
 #include "mge/behaviours/AbstractBehaviour.hpp"
 
+#include "BulletCollision\CollisionShapes\btBoxShape.h"
+
 GameObject::GameObject(std::string pName, glm::vec3 pPosition )
 :	_name( pName ), _transform( glm::translate( pPosition ) ),
     _parent(NULL), _children(), _mesh( NULL ),_behaviour( NULL ), _material(NULL)

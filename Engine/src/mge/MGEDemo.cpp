@@ -53,8 +53,7 @@ void MGEDemo::_initializeScene()
     _world->add(camera);
     _world->setMainCamera(camera);
 
-    //MESHES
-
+    //#MESHES
     //load a bunch of meshes we will be using throughout this demo
     //each mesh only has to be loaded once, but can be used multiple times:
     //F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
@@ -63,14 +62,13 @@ void MGEDemo::_initializeScene()
     Mesh* suzannaMeshF = Mesh::load (config::MGE_MODEL_PATH+"suzanna_flat.obj");
     Mesh* teapotMeshS = Mesh::load (config::MGE_MODEL_PATH+"teapot_smooth.obj");
 
-    //MATERIALS
-
+    //#MATERIALS
     AbstractMaterial* colorMaterial = new ColorMaterial (glm::vec3(0.2f,0,0.2f));
     AbstractMaterial* textureMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"land.jpg"));
     AbstractMaterial* textureMaterial2 = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"bricks.jpg"));
 
     //SCENE SETUP
-
+	/*
     GameObject* plane = new GameObject ("plane", glm::vec3(0,0,0));
     plane->scale(glm::vec3(5,5,5));
     plane->setMesh(planeMeshDefault);
@@ -88,8 +86,8 @@ void MGEDemo::_initializeScene()
     monkey->setMaterial(colorMaterial);
     monkey->setBehaviour (new RotatingBehaviour());
     _world->add(monkey);
-
-    camera->setBehaviour(new LookAt (teapot));
+	*/
+    //camera->setBehaviour(new LookAt (teapot));
 }
 
 void MGEDemo::_render() {

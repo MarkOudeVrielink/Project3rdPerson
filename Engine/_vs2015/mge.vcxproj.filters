@@ -20,6 +20,15 @@
     <Filter Include="MGE Source files\mge\util">
       <UniqueIdentifier>{7d824c34-4bb6-43a4-a48a-0d68b7aad6e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="mgEngine">
+      <UniqueIdentifier>{6db0c995-2fc0-4447-96f1-ae9ce5f282a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mgEngine\Collision">
+      <UniqueIdentifier>{c8f9afb6-180b-4210-a24f-cd771890bed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mgEngine\Collision\Colliders">
+      <UniqueIdentifier>{06b9860f-e522-457d-94ad-6758e1b1ec9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp">
@@ -79,6 +88,12 @@
     <ClInclude Include="..\src\mge\config.hpp">
       <Filter>MGE Source files\mge</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mgengine\Collision\Colliders\AbstractCollider.h">
+      <Filter>mgEngine\Collision\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Collision\CollisionManager.h">
+      <Filter>mgEngine\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -134,6 +149,12 @@
     </ClCompile>
     <ClCompile Include="..\src\mge\MGEDemo.cpp">
       <Filter>MGE Source files\mge</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Collision\Colliders\AbstractCollider.cpp">
+      <Filter>mgEngine\Collision\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Collision\CollisionManager.cpp">
+      <Filter>mgEngine\Collision</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

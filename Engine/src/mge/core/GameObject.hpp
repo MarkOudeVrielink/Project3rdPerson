@@ -11,6 +11,8 @@ class AbstractMaterial;
 class World;
 class Mesh;
 
+class btBoxShape;
+
 /**
  * A GameObject wraps all data required to display an (interactive / dynamic) object, but knows nothing about OpenGL or rendering.
  * You will need to alter this class to add colliders etc.
