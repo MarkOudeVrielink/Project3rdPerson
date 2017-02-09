@@ -28,7 +28,7 @@ void KeysBehaviour::update( float pStep )
 		turnSpeed = +_turnSpeed;
 	}
 	//translate the object in its own local space
-	_owner->translate( glm::vec3(0.0f, 0.0f, moveSpeed*pStep ) );
+	//_owner->translate( glm::vec3(0.0f, 0.0f, moveSpeed*pStep ) );
 
 	//we can also translate directly, basically we take the z axis from the matrix
 	//which is normalized and multiply it by moveSpeed*step, than we add it to the
@@ -36,6 +36,13 @@ void KeysBehaviour::update( float pStep )
 	//glm::mat4 transform = _owner->getTransform();
 	//transform[3] += transform[2] * moveSpeed*pStep;
 	//_owner->setTransform(transform);
+	//
+
+
+	///SpaceshipMovement
+	_owner->translate(glm::vec3(turnSpeed*pStep, 0.0f, 0.0f));
+
+
 
 	//rotate the object in its own local space
 	_owner->rotate( glm::radians(turnSpeed*pStep), glm::vec3(0.0f, 1.0f, 0.0f ) );

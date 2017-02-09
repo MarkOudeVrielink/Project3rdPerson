@@ -20,12 +20,20 @@ using namespace std;
 #include "mge/behaviours/KeysBehaviour.hpp"
 #include "mge/behaviours/LookAt.hpp"
 
+#include "mgengine/UI/ImageBehaviour.h"
+
 #include "mge/util/DebugHud.hpp"
 
 #include "mge/config.hpp"
 #include "mge/MGEDemo.hpp"
 
 #include "btBulletCollisionCommon.h"
+
+#include "mygame/Enemy.h"
+#include "mgengine/LevelEditor/LevelEditor.h"
+#include "mygame\Behaviours\SpaceShipBehaviour.h"
+#include "mygame\Behaviours\CameraBehaviour.h"
+
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo():AbstractGame (),_hud(0)
@@ -48,11 +56,11 @@ void MGEDemo::_initializeScene()
     _renderer->setClearColor(0,0,0);
 
     //add camera first (it will be updated last)
-    Camera* camera = new Camera ("camera", glm::vec3(0,6,7));
-    camera->rotate(glm::radians(-40.0f), glm::vec3(1,0,0));
+    Camera* camera = new Camera ("camera", glm::vec3(0,100,7));
+    camera->rotate(glm::radians(-90.0f), glm::vec3(1,0,0));
     _world->add(camera);
     _world->setMainCamera(camera);
-
+	camera->setBehaviour(new CameraBehaviour(20));
     //MESHES
 
     //load a bunch of meshes we will be using throughout this demo
@@ -61,13 +69,13 @@ void MGEDemo::_initializeScene()
     Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane.obj");
     //Mesh* cubeMeshF = Mesh::load (config::MGE_MODEL_PATH+"cube_flat.obj");
     Mesh* suzannaMeshF = Mesh::load (config::MGE_MODEL_PATH+"suzanna_flat.obj");
-    Mesh* teapotMeshS = Mesh::load (config::MGE_MODEL_PATH+"teapot_smooth.obj");
+    Mesh* teapotMeshS = Mesh::load (config::MGE_MODEL_PATH+"ship.obj");
 
     //MATERIALS
 
     AbstractMaterial* colorMaterial = new ColorMaterial (glm::vec3(0.2f,0,0.2f));
     AbstractMaterial* textureMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"land.jpg"));
-    AbstractMaterial* textureMaterial2 = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"bricks.jpg"));
+    AbstractMaterial* textureMaterial2 = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"ship.png"));
 
     //SCENE SETUP
 
@@ -75,25 +83,43 @@ void MGEDemo::_initializeScene()
     plane->scale(glm::vec3(5,5,5));
     plane->setMesh(planeMeshDefault);
     plane->setMaterial(textureMaterial);
-    _world->add(plane);
+    //_world->add(plane);
 
-    GameObject* teapot = new GameObject ("teapot", glm::vec3(-3,1,0));
-    teapot->setMesh (teapotMeshS);
-    teapot->setMaterial(textureMaterial2);
-    teapot->setBehaviour (new KeysBehaviour());
-    _world->add(teapot);
+	Enemy* Enemy1 = new Enemy("Diablo", glm::vec3(0, 0, 0));
+	Enemy1->rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
+	Enemy1->scale(glm::vec3(.5f, .5f, .5f));
+	Enemy1->setMesh(teapotMeshS);
+	Enemy1->setMaterial(textureMaterial2);
+	Enemy1->setBehaviour(new SpaceShipBehaviour(60, 60));
+	_world->add(Enemy1);
 
-    GameObject* monkey = new GameObject ("monkey", glm::vec3(3,1,0));
+
+	///Enemy1->add(camera);
+    /*GameObject* spaceShip = new GameObject ("teapot", glm::vec3(-3,1,0));
+	spaceShip->rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
+	spaceShip->scale(glm::vec3(.01f, .01f, .01f));
+
+    spaceShip->setMesh (teapotMeshS);
+    spaceShip->setMaterial(textureMaterial2);
+    spaceShip->setBehaviour (new KeysBehaviour(600,600));
+    _world->add(spaceShip);
+	*/
+    GameObject* monkey = new GameObject ("monkey", glm::vec3(0,0,0));
     monkey->setMesh (suzannaMeshF);
     monkey->setMaterial(colorMaterial);
     monkey->setBehaviour (new RotatingBehaviour());
     _world->add(monkey);
+	
+	_levelEditor = new LevelEditorBehaviour(_window);
+	GameObject *LevelEditor = new GameObject("test", glm::vec3(0, 0, 0));
+	LevelEditor->setBehaviour(_levelEditor);
+	_world->add(LevelEditor);
 
-    camera->setBehaviour(new LookAt (teapot));
+   // camera->setBehaviour(new LookAt (teapot));
 }
 
 void MGEDemo::_render() {
-    AbstractGame::_render();
+   AbstractGame::_render();
     _updateHud();
 }
 
@@ -103,6 +129,7 @@ void MGEDemo::_updateHud() {
 
     _hud->setDebugInfo(debugInfo);
     _hud->draw();
+	_levelEditor->DrawUI();
 }
 
 MGEDemo::~MGEDemo()

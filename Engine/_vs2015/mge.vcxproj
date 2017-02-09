@@ -171,6 +171,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
+    <ClInclude Include="..\src\mgengine\LevelEditor\LevelEditor.h" />
+    <ClInclude Include="..\src\mgengine\UI\ImageBehaviour.h" />
     <ClInclude Include="..\src\mge\behaviours\AbstractBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\KeysBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\LookAt.hpp" />
@@ -189,9 +191,17 @@
     <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp" />
     <ClInclude Include="..\src\mge\MGEDemo.hpp" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
+    <ClInclude Include="..\src\mygame\Behaviours\CameraBehaviour.h" />
+    <ClInclude Include="..\src\mygame\Behaviours\SpaceShipBehaviour.h" />
+    <ClInclude Include="..\src\mygame\Enemy.h" />
+    <ClInclude Include="..\src\mygame\EnemyWave.h" />
+    <ClInclude Include="..\src\mygame\Level.h" />
+    <ClInclude Include="EMPTY.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\mgengine\LevelEditor\LevelEditor.cpp" />
+    <ClCompile Include="..\src\mgengine\UI\ImageBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\AbstractBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\KeysBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\LookAt.cpp" />
@@ -209,6 +219,12 @@
     <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\MGEDemo.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
+    <ClCompile Include="..\src\mygame\Behaviours\CameraBehaviour.cpp" />
+    <ClCompile Include="..\src\mygame\Behaviours\SpaceShipBehaviour.cpp" />
+    <ClCompile Include="..\src\mygame\Enemy.cpp" />
+    <ClCompile Include="..\src\mygame\EnemyWave.cpp" />
+    <ClCompile Include="..\src\mygame\Level.cpp" />
+    <ClCompile Include="EMPTY.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

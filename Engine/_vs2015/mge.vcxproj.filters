@@ -20,6 +20,18 @@
     <Filter Include="MGE Source files\mge\util">
       <UniqueIdentifier>{7d824c34-4bb6-43a4-a48a-0d68b7aad6e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MGE Source files\mge\LevelEditor">
+      <UniqueIdentifier>{a2a4be3c-4040-4389-aba9-db91eaa213e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MGE Source files\mge\mygame">
+      <UniqueIdentifier>{773ea173-ad49-4cdd-8f86-7587ca3d6080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MGE Source files\mge\UI">
+      <UniqueIdentifier>{9a0bcf96-f4b6-4dde-8c1f-5f8067ca7e94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MGE Source files\mge\mygame\Behaviours">
+      <UniqueIdentifier>{86950641-9546-4347-a992-251ea41a10fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp">
@@ -79,6 +91,28 @@
     <ClInclude Include="..\src\mge\config.hpp">
       <Filter>MGE Source files\mge</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mgengine\LevelEditor\LevelEditor.h">
+      <Filter>MGE Source files\mge\LevelEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="EMPTY.h" />
+    <ClInclude Include="..\src\mygame\Level.h">
+      <Filter>MGE Source files\mge\mygame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\Enemy.h">
+      <Filter>MGE Source files\mge\mygame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\EnemyWave.h">
+      <Filter>MGE Source files\mge\mygame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\UI\ImageBehaviour.h">
+      <Filter>MGE Source files\mge\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\Behaviours\SpaceShipBehaviour.h">
+      <Filter>MGE Source files\mge\mygame\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\Behaviours\CameraBehaviour.h">
+      <Filter>MGE Source files\mge\mygame\Behaviours</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -134,6 +168,30 @@
     </ClCompile>
     <ClCompile Include="..\src\mge\MGEDemo.cpp">
       <Filter>MGE Source files\mge</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\LevelEditor\LevelEditor.cpp">
+      <Filter>MGE Source files\mge\LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="EMPTY.cpp">
+      <Filter>MGE Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Level.cpp">
+      <Filter>MGE Source files\mge\mygame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Enemy.cpp">
+      <Filter>MGE Source files\mge\mygame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\EnemyWave.cpp">
+      <Filter>MGE Source files\mge\mygame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\UI\ImageBehaviour.cpp">
+      <Filter>MGE Source files\mge\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Behaviours\SpaceShipBehaviour.cpp">
+      <Filter>MGE Source files\mge\mygame\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Behaviours\CameraBehaviour.cpp">
+      <Filter>MGE Source files\mge\mygame\Behaviours</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

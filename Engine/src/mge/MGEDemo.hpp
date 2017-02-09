@@ -2,7 +2,7 @@
 #define MGEDEMO_H
 
 #include <mge/core/AbstractGame.hpp>
-
+#include "mgengine/LevelEditor/LevelEditor.h"
 class DebugHud;
 
 class MGEDemo: public AbstractGame
@@ -28,6 +28,8 @@ class MGEDemo: public AbstractGame
 
         MGEDemo(const MGEDemo&);
         MGEDemo& operator=(const MGEDemo&);
+		LevelEditorBehaviour * _levelEditor;
+
 };
 
 #endif // MGEDEMO_H
