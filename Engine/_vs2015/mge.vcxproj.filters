@@ -26,8 +26,11 @@
     <Filter Include="mgEngine\Collision">
       <UniqueIdentifier>{c8f9afb6-180b-4210-a24f-cd771890bed3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="mgEngine\Collision\Colliders">
-      <UniqueIdentifier>{06b9860f-e522-457d-94ad-6758e1b1ec9b}</UniqueIdentifier>
+    <Filter Include="mgEngine\Behaviours">
+      <UniqueIdentifier>{d0c1e9fa-71c7-4d78-82d4-174c0debee1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mgEngine\Core">
+      <UniqueIdentifier>{23aefb4d-e5cc-4dbc-a819-146dfb4a32e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -88,11 +91,32 @@
     <ClInclude Include="..\src\mge\config.hpp">
       <Filter>MGE Source files\mge</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mgengine\Collision\Colliders\AbstractCollider.h">
-      <Filter>mgEngine\Collision\Colliders</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\mgengine\Collision\CollisionManager.h">
       <Filter>mgEngine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\core\Actor.h">
+      <Filter>mgEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\core\Scene.h">
+      <Filter>mgEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\OrbitBehaviour.h">
+      <Filter>MGE Source files\mge\behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\ActorMovement.h">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.h">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Core\ControlledActor.h">
+      <Filter>mgEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Core\ObjectActor.h">
+      <Filter>mgEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\BulletBehaviour.h">
+      <Filter>mgEngine\Behaviours</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -150,11 +174,32 @@
     <ClCompile Include="..\src\mge\MGEDemo.cpp">
       <Filter>MGE Source files\mge</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mgengine\Collision\Colliders\AbstractCollider.cpp">
-      <Filter>mgEngine\Collision\Colliders</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\mgengine\Collision\CollisionManager.cpp">
       <Filter>mgEngine\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\core\Actor.cpp">
+      <Filter>mgEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\core\Scene.cpp">
+      <Filter>mgEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\OrbitBehaviour.cpp">
+      <Filter>MGE Source files\mge\behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\ActorMovement.cpp">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.cpp">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Core\ControlledActor.cpp">
+      <Filter>mgEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Core\ObjectActor.cpp">
+      <Filter>mgEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\BulletBehaviour.cpp">
+      <Filter>mgEngine\Behaviours</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

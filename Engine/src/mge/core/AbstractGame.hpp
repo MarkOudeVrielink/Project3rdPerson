@@ -55,6 +55,8 @@ class AbstractGame
         //process any sfml window events (see SystemEventDispatcher/Listener)
         virtual void _processEvents();
 
+		
+
 		sf::RenderWindow* _window;  //sfml window to render into
 		Renderer* _renderer;        //the renderer class to render the world
 		World* _world;              //the root game object that represents our scene

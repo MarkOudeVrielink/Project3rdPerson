@@ -171,11 +171,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
-    <ClInclude Include="..\src\mgengine\Collision\Colliders\AbstractCollider.h" />
+    <ClInclude Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.h" />
+    <ClInclude Include="..\src\mgengine\Behaviours\ActorMovement.h" />
+    <ClInclude Include="..\src\mgengine\Behaviours\BulletBehaviour.h" />
     <ClInclude Include="..\src\mgengine\Collision\CollisionManager.h" />
+    <ClInclude Include="..\src\mgengine\core\Actor.h" />
+    <ClInclude Include="..\src\mgengine\Core\ControlledActor.h" />
+    <ClInclude Include="..\src\mgengine\Core\ObjectActor.h" />
+    <ClInclude Include="..\src\mgengine\core\Scene.h" />
     <ClInclude Include="..\src\mge\behaviours\AbstractBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\KeysBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\LookAt.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\OrbitBehaviour.h" />
     <ClInclude Include="..\src\mge\behaviours\RotatingBehaviour.hpp" />
     <ClInclude Include="..\src\mge\config.hpp" />
     <ClInclude Include="..\src\mge\core\AbstractGame.hpp" />
@@ -194,11 +201,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\mgengine\Collision\Colliders\AbstractCollider.cpp" />
+    <ClCompile Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.cpp" />
+    <ClCompile Include="..\src\mgengine\Behaviours\ActorMovement.cpp" />
+    <ClCompile Include="..\src\mgengine\Behaviours\BulletBehaviour.cpp" />
     <ClCompile Include="..\src\mgengine\Collision\CollisionManager.cpp" />
+    <ClCompile Include="..\src\mgengine\core\Actor.cpp" />
+    <ClCompile Include="..\src\mgengine\Core\ControlledActor.cpp" />
+    <ClCompile Include="..\src\mgengine\Core\ObjectActor.cpp" />
+    <ClCompile Include="..\src\mgengine\core\Scene.cpp" />
     <ClCompile Include="..\src\mge\behaviours\AbstractBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\KeysBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\LookAt.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\OrbitBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\RotatingBehaviour.cpp" />
     <ClCompile Include="..\src\mge\core\AbstractGame.cpp" />
     <ClCompile Include="..\src\mge\core\Camera.cpp" />

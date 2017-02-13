@@ -6,8 +6,6 @@ using namespace std;
 #include "mge/core/Mesh.hpp"
 #include "mge/behaviours/AbstractBehaviour.hpp"
 
-#include "BulletCollision\CollisionShapes\btBoxShape.h"
-
 GameObject::GameObject(std::string pName, glm::vec3 pPosition )
 :	_name( pName ), _transform( glm::translate( pPosition ) ),
     _parent(NULL), _children(), _mesh( NULL ),_behaviour( NULL ), _material(NULL)
@@ -24,6 +22,21 @@ GameObject::~GameObject()
         remove (child);
         delete child;
     }
+	
+	if (_mesh) {
+		//delete _mesh;
+		_mesh = NULL;
+	}
+
+	if (_behaviour) {
+		//delete _behaviour;
+		_behaviour = NULL;
+	}
+	
+	if (_material) {
+		//delete _material;
+		_material = NULL;
+	}
 
     //do not forget to delete behaviour, material, mesh, collider manually if required!
 }
