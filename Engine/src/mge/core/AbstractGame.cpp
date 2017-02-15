@@ -102,8 +102,11 @@ void AbstractGame::run()
             glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
 		    while (timeSinceLastUpdate > timePerFrame) {
-                timeSinceLastUpdate -= timePerFrame;				
+                timeSinceLastUpdate -= timePerFrame;
+				/*update physics for the world.*/
 				_world->physicsManager->SimulatePhysics(timePerFrame.asSeconds());
+				_world->physicsManager->CheckCollisions();
+
                 _update(timePerFrame.asSeconds());
 		    }
 

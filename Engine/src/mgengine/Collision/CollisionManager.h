@@ -2,13 +2,14 @@
 #define COLLISIONMANAGER_H
 
 #include <vector>
+#include <map>
 #include "btBulletDynamicsCommon.h"
+#include "mgengine\Core\Actor.h"
 
-struct physicsObject {
-	int					id;
-	bool				hit;
+struct physicsObject {	
 	btCollisionObject*	body;
-	physicsObject(btCollisionObject* b, int i) : body(b), id(i), hit(false) {}
+	Actor*				actor;
+	physicsObject(btCollisionObject* b, Actor* a) : actor(a), body(b) {}
 };
 
 class CollisionManager
@@ -17,12 +18,11 @@ public:
 	CollisionManager();
 	~CollisionManager();
 
-	void AddCollisionActor(btRigidBody* pBody);
+	void AddCollisionActor(btRigidBody* pBody, Actor* pActor);
 	void RemoveCollisionActor(btRigidBody* pBody);
 
 	void SimulatePhysics(float pTimeStep);
-
-	bool CallBackDispatcher(btManifoldPoint& pCollisionPoint,const btCollisionObjectWrapper* pObject1, int id1, int index1, const btCollisionObjectWrapper* pObject2, int id2, int index2);
+	void CheckCollisions();
 
 private:
 	btDiscreteDynamicsWorld*	_physicsWorld;

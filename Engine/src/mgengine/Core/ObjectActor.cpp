@@ -1,7 +1,7 @@
 #include "ObjectActor.h"
 
-ObjectActor::ObjectActor(World* pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, float pMass, ObjectType pType)
-	: Actor(pWorld, pName, pPosition, pCollider, pMass), _type(pType)
+ObjectActor::ObjectActor(World* pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, float pMass)
+	: Actor(pWorld, pName, pPosition, pCollider, pType, pMass)
 {
 
 }
@@ -17,7 +17,8 @@ void ObjectActor::update(float pStep)
 	AjustPosition();
 }
 
-ObjectType ObjectActor::GetType()
+void ObjectActor::OnCollision(Actor * pActor)
 {
-	return _type;
+	if (_actorBehaviour)
+		_actorBehaviour->OnCollision(pActor);
 }

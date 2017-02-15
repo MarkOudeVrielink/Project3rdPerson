@@ -103,9 +103,6 @@
     <ClInclude Include="..\src\mge\behaviours\OrbitBehaviour.h">
       <Filter>MGE Source files\mge\behaviours</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mgengine\Behaviours\ActorMovement.h">
-      <Filter>mgEngine\Behaviours</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.h">
       <Filter>mgEngine\Behaviours</Filter>
     </ClInclude>
@@ -117,6 +114,18 @@
     </ClInclude>
     <ClInclude Include="..\src\mgengine\Behaviours\BulletBehaviour.h">
       <Filter>mgEngine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\PickUpBehaviour.h">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\PlayerBehaviour.h">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\EnemyBehaviour.h">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Collision\CollisionFilters.h">
+      <Filter>mgEngine\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -186,9 +195,6 @@
     <ClCompile Include="..\src\mge\behaviours\OrbitBehaviour.cpp">
       <Filter>MGE Source files\mge\behaviours</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mgengine\Behaviours\ActorMovement.cpp">
-      <Filter>mgEngine\Behaviours</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.cpp">
       <Filter>mgEngine\Behaviours</Filter>
     </ClCompile>
@@ -199,6 +205,15 @@
       <Filter>mgEngine\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mgengine\Behaviours\BulletBehaviour.cpp">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\PickUpBehaviour.cpp">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\PlayerBehaviour.cpp">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\EnemyBehaviour.cpp">
       <Filter>mgEngine\Behaviours</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,8 +1,8 @@
 #ifndef ABSTRACTACTORBEHAVIOUR_H
 #define ABSTRACTACTORBEHAVIOUR_H
 
-class Actor;
 class btRigidBody;
+class Actor;
 
 class AbstractActorBehaviour {
 public:
@@ -14,6 +14,7 @@ public:
 	void SetOwnerBody(btRigidBody* pBody);
 
 	virtual void update(float pStep) = 0;
+	virtual void OnCollision(Actor* pActor);
 
 protected:
 

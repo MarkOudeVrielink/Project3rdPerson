@@ -21,7 +21,9 @@ using namespace std;
 #include "mge/behaviours/LookAt.hpp"
 #include "mge\behaviours\OrbitBehaviour.h"
 
-#include "mgengine\Behaviours\ActorMovement.h"
+#include "mgengine\Behaviours\PlayerBehaviour.h"
+#include "mgengine\Behaviours\EnemyBehaviour.h"
+#include "mgengine\Behaviours\PickUpBehaviour.h"
 
 #include "mge/util/DebugHud.hpp"
 
@@ -32,6 +34,7 @@ using namespace std;
 
 #include "mgengine\Collision\CollisionManager.h"
 #include "mgengine\Core\ControlledActor.h"
+#include "mgengine\Core\ObjectActor.h"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo():AbstractGame (),_hud(0)
@@ -54,7 +57,7 @@ void MGEDemo::_initializeScene()
     _renderer->setClearColor(0,0,0);
 
     //add camera first (it will be updated last)
-    Camera* camera = new Camera ("camera", glm::vec3(0,10,0));
+    Camera* camera = new Camera ("camera", glm::vec3(0,30,0));
     camera->rotate(glm::radians(-90.0f), glm::vec3(1,0,0));
     _world->add(camera);
     _world->setMainCamera(camera);
@@ -69,7 +72,8 @@ void MGEDemo::_initializeScene()
 
     //#MATERIALS
     AbstractMaterial* colorMaterial = new ColorMaterial (glm::vec3(0.2f,0,0.5f));
-    AbstractMaterial* textureMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"land.jpg"));
+	AbstractMaterial* colorMaterialGreen = new ColorMaterial(glm::vec3(0.0f, 1, 0.0f));
+    AbstractMaterial* textureMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"engin1.png"));
     AbstractMaterial* textureMaterial2 = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"bricks.jpg"));
 
 	GameObject* plane = new GameObject("plane", glm::vec3(0,0,0));
@@ -78,17 +82,23 @@ void MGEDemo::_initializeScene()
 	plane->setMaterial(textureMaterial);
 	//_world->add(plane);	
 
-	ControlledActor* player = new ControlledActor(_world, "player", glm::vec3(0, 0, 3), new btSphereShape(1), 1);	
+	ControlledActor* player = new ControlledActor(_world, "Player", glm::vec3(0, 0, 3), new btSphereShape(1), ActorType::Type_Player, 1);	
 	player->setMesh(suzannaMeshF);
 	player->setMaterial(colorMaterial);	
-	player->setActorBehaviour(new ActorMovement(suzannaMeshF, colorMaterial, 20));
+	player->setActorBehaviour(new PlayerBehaviour(suzannaMeshF, colorMaterial, 20));
 	_world->add(player);	
 
-	Actor* player1 = new Actor(_world, "player1", glm::vec3(0, 0, -3), new btSphereShape(1), 15);
-	player1->setMesh(teapotMeshS);
-	player1->setMaterial(colorMaterial);
-	_world->add(player1);	
+	ControlledActor* enemy = new ControlledActor(_world, "RB_ENEMY", glm::vec3(0, 0, -3), new btSphereShape(1), ActorType::Type_Enemy, 15);
+	enemy->setMesh(teapotMeshS);
+	enemy->setMaterial(colorMaterial);
+	enemy->setActorBehaviour(new EnemyBehaviour(teapotMeshS, colorMaterialGreen));
+	_world->add(enemy);	
 	
+	ObjectActor* pickUp = new ObjectActor(_world, "PickUp", glm::vec3(-15, 0, -5), new btSphereShape(0.5f), ActorType::Type_PickUp, 1);
+	pickUp->setMesh(teapotMeshS);
+	pickUp->setMaterial(colorMaterialGreen);
+	pickUp->setActorBehaviour(new PickUpBehaviour());
+	_world->add(pickUp);
 	//camera->setBehaviour(new OrbitBehaviour(player, _window, 15, 5, 15));
 }
 

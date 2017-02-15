@@ -16,3 +16,8 @@ void AbstractActorBehaviour::SetOwnerBody(btRigidBody * pBody)
 {
 	_ownerBody = pBody;
 }
+
+void AbstractActorBehaviour::OnCollision(Actor * pActor)
+{
+	
+}

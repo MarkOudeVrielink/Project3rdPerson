@@ -3,20 +3,22 @@
 
 #include "mgengine\Core\Actor.h"
 
-enum ObjectType {
-	StaticObeject, Bullet
-};
 
 class ObjectActor : public Actor {
 public :
-	ObjectActor(World* pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape* pCollider, float pMass = 0, ObjectType pType = ObjectType::StaticObeject);
+	ObjectActor(World* pWorld, 
+				std::string pName,
+				glm::vec3 pPosition,
+				btCollisionShape* pCollider = new btSphereShape(1),
+				ActorType pType				= ActorType::Type_StaticObject,
+				float pMass					= 0);
 	~ObjectActor();
 
 	virtual void update(float pStep);
-
-	ObjectType GetType();
+	virtual void OnCollision(Actor* pActor);
+		
 private:
-	ObjectType _type;
+	
 };
 #endif // !OBJECTACTOR_H
 

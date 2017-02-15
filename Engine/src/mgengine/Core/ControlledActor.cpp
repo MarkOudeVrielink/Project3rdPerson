@@ -1,12 +1,13 @@
 #include "mgengine\Core\ControlledActor.h"
+#include "mgengine\Behaviours\EnemyBehaviour.h"
 
 #include <SFML/Window/Keyboard.hpp>
 #include <iostream>
 
-ControlledActor::ControlledActor(World* pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape* pCollider, float pMass, float pHealth, float pStrength)
-	: Actor(pWorld, pName, pPosition, pCollider, pMass), _health(pHealth), _strength(pStrength)
+ControlledActor::ControlledActor(World* pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape* pCollider, ActorType pType, float pMass, float pHealth, float pStrength)
+	: Actor(pWorld, pName, pPosition, pCollider, pType, pMass), _health(pHealth), _strength(pStrength)
 {
-	//initRigidBody(pCollider);
+	//initRigidBody(pCollider);	
 }
 
 ControlledActor::~ControlledActor()
@@ -15,10 +16,15 @@ ControlledActor::~ControlledActor()
 }
 
 void ControlledActor::update(float pStep)
-{
-		
+{		
 	AjustPosition();
-	if (_actorBehaviour) _actorBehaviour->update(pStep);
+	if (_actorBehaviour)  _actorBehaviour->update(pStep); 
+}
+
+void ControlledActor::OnCollision(Actor * pActor)
+{
+	if (_actorBehaviour)
+		_actorBehaviour->OnCollision(pActor);
 }
 
 float ControlledActor::GetHealth()
@@ -29,9 +35,15 @@ float ControlledActor::GetHealth()
 void ControlledActor::TakeDamage(float pDamage)
 {
 	_health -= pDamage;
-
+	
 	if (_health <= 0) {
-		std::cout << "dieded" << std::endl;
-		//this->~ControlledActor();
+		if (_type == ActorType::Type_Enemy) {
+			EnemyBehaviour* behavior = (EnemyBehaviour*)_actorBehaviour;
+			behavior->SpawnDrop();//INPUT amount of drops enemies drop.
+			delete this;
+		}
+		else {
+			delete this;
+		}
 	}
 }

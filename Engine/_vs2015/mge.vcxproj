@@ -172,8 +172,11 @@
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
     <ClInclude Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.h" />
-    <ClInclude Include="..\src\mgengine\Behaviours\ActorMovement.h" />
+    <ClInclude Include="..\src\mgengine\Behaviours\EnemyBehaviour.h" />
+    <ClInclude Include="..\src\mgengine\Behaviours\PlayerBehaviour.h" />
     <ClInclude Include="..\src\mgengine\Behaviours\BulletBehaviour.h" />
+    <ClInclude Include="..\src\mgengine\Behaviours\PickUpBehaviour.h" />
+    <ClInclude Include="..\src\mgengine\Collision\CollisionFilters.h" />
     <ClInclude Include="..\src\mgengine\Collision\CollisionManager.h" />
     <ClInclude Include="..\src\mgengine\core\Actor.h" />
     <ClInclude Include="..\src\mgengine\Core\ControlledActor.h" />
@@ -202,8 +205,10 @@
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.cpp" />
-    <ClCompile Include="..\src\mgengine\Behaviours\ActorMovement.cpp" />
+    <ClCompile Include="..\src\mgengine\Behaviours\EnemyBehaviour.cpp" />
+    <ClCompile Include="..\src\mgengine\Behaviours\PlayerBehaviour.cpp" />
     <ClCompile Include="..\src\mgengine\Behaviours\BulletBehaviour.cpp" />
+    <ClCompile Include="..\src\mgengine\Behaviours\PickUpBehaviour.cpp" />
     <ClCompile Include="..\src\mgengine\Collision\CollisionManager.cpp" />
     <ClCompile Include="..\src\mgengine\core\Actor.cpp" />
     <ClCompile Include="..\src\mgengine\Core\ControlledActor.cpp" />
