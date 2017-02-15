@@ -1,13 +1,23 @@
 #include "Actor.h"
 #include "mge\core\World.hpp"
 
+/*Creates an actor that can collide with anything.*/
 Actor::Actor(World* pWorld,std::string pName, glm::vec3 pPosition, btCollisionShape* pCollider, ActorType pType, float pMass)
 	: GameObject(pName, pPosition), _mass(pMass), _world (pWorld), _type(pType), _actorBehaviour(NULL)
 {
 	initRigidBody(pCollider);
 }
 
-Actor::~Actor() {	
+/*Creates an actor that collides with what the specified group/mask is supposed to collide with.
+E.g. group: player matches with mask: player. This way the player collides with the type of objects it's supposed to collide with.
+*/
+Actor::Actor(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, short pCollisionGroup, short pCollisionMask, float pMass)
+	: GameObject(pName, pPosition), _mass(pMass), _world(pWorld), _type(pType), _actorBehaviour(NULL)
+{
+	initRigidBody(pCollider, pCollisionGroup, pCollisionMask);
+}
+
+Actor::~Actor() {
 	RemoveRigidBodyFromWorld();
 	
 	if (_actorBehaviour){
@@ -17,10 +27,10 @@ Actor::~Actor() {
 }
 
 void Actor::update(float pStep) {
-	//AjustPosition();
+	AjustPosition();
 	
-	//TODO: Figure out why this isn't working when actor doesn't have a behaviour.
-	if (_actorBehaviour) _actorBehaviour->update(pStep); 
+	if (_actorBehaviour) 
+		_actorBehaviour->update(pStep); 
 }
 
 btRigidBody* Actor::GetRigidBody() {
@@ -74,9 +84,24 @@ void Actor::AjustPosition() {
 	setTransform(floatToMat4(mat));
 }
 
+void Actor::initRigidBody(btCollisionShape * pCollider)
+{
+	//Cast our glm::mat4 to a btTransform. So we sync our rigidbody's position with that of the object.
+	btTransform btT;
+	btT.setFromOpenGLMatrix(glm::value_ptr(_transform));
+
+	//Setup the rigidbody of the actor.
+	btMotionState* motion = new btDefaultMotionState(btT);
+	btRigidBody::btRigidBodyConstructionInfo info(_mass, motion, pCollider, btVector3(0, 0, 0));
+	_rigidBody = new btRigidBody(info);
+	_rigidBody->setActivationState(DISABLE_DEACTIVATION); //We disable this so it won't go to sleep as soon as the rigidbody stops moving.
+
+	_world->physicsManager->AddCollisionActor(_rigidBody, this);
+}
+
 //TODO: Make it more ajustable.
-void Actor::initRigidBody(btCollisionShape* pCollider) {
-	//Cast our glm::mat4 to a btTransform.	
+void Actor::initRigidBody(btCollisionShape* pCollider, short pGroup, short pMask) {
+	//Cast our glm::mat4 to a btTransform. So we sync our rigidbody's position with that of the object.	
 	btTransform btT;
 	btT.setFromOpenGLMatrix(glm::value_ptr(_transform));
 	
@@ -86,7 +111,7 @@ void Actor::initRigidBody(btCollisionShape* pCollider) {
 	_rigidBody = new btRigidBody(info);
 	_rigidBody->setActivationState(DISABLE_DEACTIVATION);
 
-	_world->physicsManager->AddCollisionActor(_rigidBody, this);
+	_world->physicsManager->AddCollisionActor(_rigidBody, this, pGroup, pMask);
 
 	//_rigidBody->setCollisionFlags(_rigidBody->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);	
 }

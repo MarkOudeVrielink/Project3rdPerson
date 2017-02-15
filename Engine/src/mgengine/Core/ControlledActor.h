@@ -14,6 +14,17 @@ public:
 					float pMass					= 1.0f, 
 					float pHealth				= 10.0f, 
 					float pStrength				= 1.0f);
+
+	ControlledActor(World* pWorld,
+					std::string pName,
+					glm::vec3 pPosition,
+					btCollisionShape* pCollider = new btSphereShape(1),
+					ActorType pType				= ActorType::Type_Enemy,
+					float pMass					= 1.0f,
+					short pCollisionGroup		= 0,
+					short pCollsionMask			= 0,
+					float pHealth				= 10.0f,
+					float pStrength				= 1.0f);
 	~ControlledActor();
 
 	virtual void update(float pStep);

@@ -9,6 +9,8 @@
 #include "mge\materials\AbstractMaterial.hpp"
 #include "mge/core/Mesh.hpp"
 
+#include "mgengine\Collision\CollisionFilters.h"
+
 #include <SFML/Window/Keyboard.hpp>//UNDO: unnecessary include, is here just for testing purposes.
 
 EnemyBehaviour::EnemyBehaviour(Mesh* pDropMesh, AbstractMaterial* pDropMaterial) 
@@ -36,7 +38,7 @@ void EnemyBehaviour::SpawnDrop(int pAmount)
 	for (int i = 0; i < pAmount; i++) {
 		glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, -2.5f);
 
-		ObjectActor* pickup = new ObjectActor(_owner->GetWorld(), "pickup", spawnPoint, new btSphereShape(0.4f), ActorType::Type_PickUp, 1);
+		ObjectActor* pickup = new ObjectActor(_owner->GetWorld(), "pickup", spawnPoint, new btSphereShape(0.4f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith);
 		//bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
 		pickup->setMesh(_dropMesh);
 		pickup->setMaterial(_dropMaterial);
@@ -51,7 +53,7 @@ void EnemyBehaviour::SpawnBullet()
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, 2.5f);
 
-	ObjectActor* bullet = new ObjectActor(_owner->GetWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, 1);
+	ObjectActor* bullet = new ObjectActor(_owner->GetWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_BULLET, CF::bulletCollidesWith);
 	bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
 	bullet->setMesh(_dropMesh);
 	bullet->setMaterial(_dropMaterial);

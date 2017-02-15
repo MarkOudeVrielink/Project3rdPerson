@@ -12,10 +12,10 @@ namespace CF{
 		COL_PICKUP		= BIT(3)
 	};
 
-	short playerCollidesWith	= COL_BULLET | COL_ENEMY | COL_PICKUP;
-	short enemyCollidesWith		= COL_BULLET | COL_PLAYER;
-	short bulletCollidesWith	= COL_PLAYER | COL_ENEMY;
-	short pickupCollidesWith	= COL_PLAYER;
+	const short playerCollidesWith	= COL_BULLET | COL_ENEMY | COL_PICKUP;
+	const short enemyCollidesWith	= COL_BULLET | COL_PLAYER;
+	const short bulletCollidesWith	= COL_PLAYER | COL_ENEMY;
+	const short pickupCollidesWith	= COL_PLAYER;
 }
 
 #endif // !COLLISIONCONFIG_H

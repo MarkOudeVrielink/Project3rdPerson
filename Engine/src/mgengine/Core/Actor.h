@@ -4,25 +4,8 @@
 #include "btBulletDynamicsCommon.h"
 #include "mge\core\GameObject.hpp"
 #include "mgengine\Behaviours\AbstractActorBehaviour.h"
-//#include "mgengine\Collision\CollisionFilters.h"
 
-//namespace CF {
-//
-//#define BIT(x) (1<<(x))
-//
-//	enum collisiontypes {
-//		COL_NOTHING = 0,
-//		COL_PLAYER	= BIT(0),
-//		COL_ENEMY	= BIT(1),
-//		COL_BULLET	= BIT(2),
-//		COL_PICKUP	= BIT(3)
-//	};
-//
-//	short playerCollidesWith	= COL_BULLET | COL_ENEMY | COL_PICKUP;
-//	short enemyCollidesWith		= COL_BULLET | COL_PLAYER;
-//	short bulletCollidesWith	= COL_PLAYER | COL_ENEMY;
-//	short pickupCollidesWith	= COL_PLAYER;
-//}
+#include <iostream>
 
 class World;
 
@@ -37,7 +20,16 @@ public:
 			glm::vec3 pPosition, 
 			btCollisionShape* pCollider = new btSphereShape(1.0f), 
 			ActorType pType				= ActorType::Type_StaticObject,
-			float pMass					= 0.0f); 
+			float pMass					= 1.0f); 
+	
+	Actor(	World* pWorld,
+			std::string pName,
+			glm::vec3 pPosition,
+			btCollisionShape* pCollider = new btSphereShape(1.0f),
+			ActorType pType				= ActorType::Type_StaticObject,
+			short pCollisionGroup		= 0,
+			short pCollisionMask		= 0,
+			float pMass					= 1.0f);
 	~Actor();
 
 	virtual void update(float pStep);
@@ -52,8 +44,8 @@ public:
 	ActorType GetType();
 	
 protected:
-//	void initRigidBody(btCollisionShape* pCollider, CF::collisiontypes pType, short pMask);
 	void initRigidBody(btCollisionShape* pCollider);
+	void initRigidBody(btCollisionShape* pCollider, short pGroup, short pMask);	
 	void RemoveRigidBodyFromWorld();
 	void AjustPosition();
 

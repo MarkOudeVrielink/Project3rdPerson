@@ -19,6 +19,7 @@ public:
 	~CollisionManager();
 
 	void AddCollisionActor(btRigidBody* pBody, Actor* pActor);
+	void AddCollisionActor(btRigidBody* pBody, Actor* pActor, short pGroup, short pMask);
 	void RemoveCollisionActor(btRigidBody* pBody);
 
 	void SimulatePhysics(float pTimeStep);

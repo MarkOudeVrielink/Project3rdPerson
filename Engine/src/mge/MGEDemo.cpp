@@ -28,6 +28,7 @@ using namespace std;
 #include "mge/util/DebugHud.hpp"
 
 #include "mge/config.hpp"
+#include "mgengine\Collision\CollisionFilters.h"
 #include "mge/MGEDemo.hpp"
 
 #include "btBulletDynamicsCommon.h"
@@ -82,19 +83,19 @@ void MGEDemo::_initializeScene()
 	plane->setMaterial(textureMaterial);
 	//_world->add(plane);	
 
-	ControlledActor* player = new ControlledActor(_world, "Player", glm::vec3(0, 0, 3), new btSphereShape(1), ActorType::Type_Player, 1);	
+	ControlledActor* player = new ControlledActor(_world, "Player", glm::vec3(0, 0, 3), new btSphereShape(1), ActorType::Type_Player, 1, CF::COL_PLAYER, CF::playerCollidesWith);	
 	player->setMesh(suzannaMeshF);
 	player->setMaterial(colorMaterial);	
 	player->setActorBehaviour(new PlayerBehaviour(suzannaMeshF, colorMaterial, 20));
 	_world->add(player);	
 
-	ControlledActor* enemy = new ControlledActor(_world, "RB_ENEMY", glm::vec3(0, 0, -3), new btSphereShape(1), ActorType::Type_Enemy, 15);
+	ControlledActor* enemy = new ControlledActor(_world, "RB_ENEMY", glm::vec3(0, 0, -3), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith);
 	enemy->setMesh(teapotMeshS);
 	enemy->setMaterial(colorMaterial);
 	enemy->setActorBehaviour(new EnemyBehaviour(teapotMeshS, colorMaterialGreen));
 	_world->add(enemy);	
 	
-	ObjectActor* pickUp = new ObjectActor(_world, "PickUp", glm::vec3(-15, 0, -5), new btSphereShape(0.5f), ActorType::Type_PickUp, 1);
+	ObjectActor* pickUp = new ObjectActor(_world, "PickUp", glm::vec3(-15, 0, -5), new btSphereShape(0.5f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith, 1);
 	pickUp->setMesh(teapotMeshS);
 	pickUp->setMaterial(colorMaterialGreen);
 	pickUp->setActorBehaviour(new PickUpBehaviour());

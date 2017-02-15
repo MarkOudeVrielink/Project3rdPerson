@@ -25,11 +25,23 @@ CollisionManager::~CollisionManager()
 	delete _physicsWorld;
 }
 
-void CollisionManager::AddCollisionActor(btRigidBody* pBody, Actor* pActor) {
-	//TODO: Check if the given actor isn't already present in the vector.
-	//HACK: Make it so you can set the type of the object when creating it in order to set the correct id here.
+/*Add the rigidbody to the physicsworld*/
+void CollisionManager::AddCollisionActor(btRigidBody * pBody, Actor * pActor)
+{
 	_physicsBodies.push_back(new physicsObject(pBody, pActor));
-	_physicsWorld->addRigidBody(pBody);	
+	_physicsWorld->addRigidBody(pBody);
+
+	pBody->setUserPointer(_physicsBodies[_physicsBodies.size() - 1]);
+}
+
+/*Adds the rigidbody to the physicsworld.
+	@param pGroup: the collision group the actor belongs to.
+	@param pMask: the collision mask stores the collisions the group collides with.
+*/
+void CollisionManager::AddCollisionActor(btRigidBody* pBody, Actor* pActor, short pGroup, short pMask) {
+	//TODO: Check if the given actor isn't already present in the vector.	
+	_physicsBodies.push_back(new physicsObject(pBody, pActor));
+	_physicsWorld->addRigidBody(pBody, pGroup, pMask);	
 
 	pBody->setUserPointer(_physicsBodies[_physicsBodies.size()-1]);
 }
@@ -40,8 +52,7 @@ void CollisionManager::RemoveCollisionActor(btRigidBody* pBody) {
 }
 
 void CollisionManager::SimulatePhysics(float pTimeStep) {
-	_physicsWorld->stepSimulation(pTimeStep);
-	
+	_physicsWorld->stepSimulation(pTimeStep);	
 }
 
 void CollisionManager::CheckCollisions()

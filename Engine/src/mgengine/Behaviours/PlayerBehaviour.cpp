@@ -11,6 +11,8 @@
 #include "mge/materials/ColorMaterial.hpp"
 #include "mge/core/Mesh.hpp"
 
+#include "mgengine\Collision\CollisionFilters.h"
+
 PlayerBehaviour::PlayerBehaviour(Mesh* pMesh,AbstractMaterial* pMaterial, float pSpeed) : AbstractActorBehaviour(), _moveSpeed(pSpeed), _mesh(pMesh), _material(pMaterial) {
 	_timer		= 0;
 	_fireRate	= 12;
@@ -125,7 +127,7 @@ void PlayerBehaviour::SpawnBullet(float pBulletPower)
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, -2.5f);
 
-	ObjectActor* bullet = new ObjectActor(_owner->GetWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, 1);
+	ObjectActor* bullet = new ObjectActor(_owner->GetWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_BULLET, CF::bulletCollidesWith, 1);
 	bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
 	bullet->setMesh(_mesh);
 	bullet->setMaterial(_material);

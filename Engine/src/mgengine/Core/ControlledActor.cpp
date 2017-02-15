@@ -1,13 +1,19 @@
 #include "mgengine\Core\ControlledActor.h"
 #include "mgengine\Behaviours\EnemyBehaviour.h"
 
-#include <SFML/Window/Keyboard.hpp>
-#include <iostream>
-
+/*Create a deafault ControlledActor.*/
 ControlledActor::ControlledActor(World* pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape* pCollider, ActorType pType, float pMass, float pHealth, float pStrength)
 	: Actor(pWorld, pName, pPosition, pCollider, pType, pMass), _health(pHealth), _strength(pStrength)
 {
-	//initRigidBody(pCollider);	
+
+}
+
+/*Creates an actor that collides with what the specified group/mask is supposed to collide with.
+E.g. group: player matches with mask: player. This way the player collides with the type of objects it's supposed to collide with.
+*/
+ControlledActor::ControlledActor(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, float pMass, short pCollisionGroup, short pCollsionMask, float pHealth, float pStrength)
+	: Actor(pWorld, pName, pPosition, pCollider, pType, pCollisionGroup, pCollsionMask, pMass), _health(pHealth), _strength(pStrength)
+{
 }
 
 ControlledActor::~ControlledActor()
