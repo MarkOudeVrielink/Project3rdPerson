@@ -192,10 +192,13 @@
     <ClInclude Include="..\src\mge\MGEDemo.hpp" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
     <ClInclude Include="..\src\mygame\Behaviours\CameraBehaviour.h" />
+    <ClInclude Include="..\src\mygame\Behaviours\EnemyBehaviour.h" />
     <ClInclude Include="..\src\mygame\Behaviours\SpaceShipBehaviour.h" />
     <ClInclude Include="..\src\mygame\Enemy.h" />
     <ClInclude Include="..\src\mygame\EnemyWave.h" />
     <ClInclude Include="..\src\mygame\Level.h" />
+    <ClInclude Include="..\src\mygame\LevelManager.h" />
+    <ClInclude Include="..\src\mygame\Waypoint.h" />
     <ClInclude Include="EMPTY.h" />
   </ItemGroup>
   <ItemGroup>
@@ -220,10 +223,13 @@
     <ClCompile Include="..\src\mge\MGEDemo.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
     <ClCompile Include="..\src\mygame\Behaviours\CameraBehaviour.cpp" />
+    <ClCompile Include="..\src\mygame\Behaviours\EnemyBehaviour.cpp" />
     <ClCompile Include="..\src\mygame\Behaviours\SpaceShipBehaviour.cpp" />
     <ClCompile Include="..\src\mygame\Enemy.cpp" />
     <ClCompile Include="..\src\mygame\EnemyWave.cpp" />
     <ClCompile Include="..\src\mygame\Level.cpp" />
+    <ClCompile Include="..\src\mygame\LevelManager.cpp" />
+    <ClCompile Include="..\src\mygame\Waypoint.cpp" />
     <ClCompile Include="EMPTY.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

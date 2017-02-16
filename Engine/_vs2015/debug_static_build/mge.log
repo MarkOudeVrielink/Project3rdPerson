@@ -1,3 +1,28 @@
-﻿  ImageBehaviour.cpp
+﻿  Waypoint.cpp
+  LevelManager.cpp
+  Level.cpp
+  EnemyWave.cpp
+  Enemy.cpp
+  SpaceShipBehaviour.cpp
+  EnemyBehaviour.cpp
+  CameraBehaviour.cpp
+  MGEDemo.cpp
+  AbstractGame.cpp
+  RotatingBehaviour.cpp
+  LookAt.cpp
+  KeysBehaviour.cpp
+  ImageBehaviour.cpp
+  LevelEditor.cpp
+c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\leveleditor\leveleditor.cpp(47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\leveleditor\leveleditor.cpp(104): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\leveleditor\leveleditor.cpp(101): warning C4101: 'sz': unreferenced local variable
+  Generating Code...
+  Compiling...
+  DebugHud.cpp
+  TextureMaterial.cpp
+  ColorMaterial.cpp
+  main.cpp
+  Generating Code...
+glew32sd.lib(glew.obj) : warning LNK4099: PDB 'glew_static.pdb' was not found with 'glew32sd.lib(glew.obj)' or at 'C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\_vs2015\debug_static_exe\glew_static.pdb'; linking object as if no debug info
   mge.vcxproj -> C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\_vs2015\debug_static_exe/mge.exe
   mge.vcxproj -> debug_static_exe/mge.pdb (Full PDB)

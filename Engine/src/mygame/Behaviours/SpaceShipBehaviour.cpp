@@ -1,7 +1,7 @@
 #include "SpaceShipBehaviour.h"
 #include "mge/core/GameObject.hpp"
 #include <SFML/Window/Keyboard.hpp>
-SpaceShipBehaviour::SpaceShipBehaviour(float pMoveSpeed, float pTurnSpeed) : AbstractBehaviour(), _moveSpeed(pMoveSpeed), _turnSpeed(pTurnSpeed)
+SpaceShipBehaviour::SpaceShipBehaviour(float pMoveSpeed, float pTurnSpeed) : AbstractBehaviour(), _moveSpeed(pMoveSpeed), _sideSpeed(pTurnSpeed)
 {
 }
 
@@ -10,20 +10,20 @@ SpaceShipBehaviour::~SpaceShipBehaviour()
 }
 void SpaceShipBehaviour::update(float pStep)
 {
-	float moveSpeed = 40.0f; //default if no keys
-	float turnSpeed = 0.0f;
+	float moveSpeed = 0.0f; //default if no keys
+	float sideSpeed = 0.0f;
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		moveSpeed = _moveSpeed;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		moveSpeed = 60-_moveSpeed;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		moveSpeed = -_moveSpeed;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		turnSpeed = -_turnSpeed;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		sideSpeed = -_sideSpeed;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		turnSpeed = _turnSpeed;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		sideSpeed = _sideSpeed;
 	}
 	//translate the object in its own local space
 	//_owner->translate( glm::vec3(0.0f, 0.0f, moveSpeed*pStep ) );
@@ -38,7 +38,7 @@ void SpaceShipBehaviour::update(float pStep)
 
 
 	///SpaceshipMovement
-	_owner->translate(glm::vec3(turnSpeed*pStep, 0.0f, moveSpeed*pStep));
+	_owner->translate(glm::vec3(sideSpeed*pStep, 0.0f, moveSpeed*pStep));
 
 
 

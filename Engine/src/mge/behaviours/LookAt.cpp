@@ -19,13 +19,13 @@ void LookAt::update(float pStep)
     //two ways of doing the same thing:
 
     //Through GLM
-    /*
+    
     _owner->setTransform(
         glm::inverse (
             glm::lookAt (_owner->getWorldPosition(), _target->getWorldPosition(), glm::vec3(0,1,0))
         )
     );
-    */
+    
 
     //manually
     //the other way then you would expect, the camera is flipped over the z axis we are staring out of its a.. basically ;)

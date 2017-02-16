@@ -113,6 +113,15 @@
     <ClInclude Include="..\src\mygame\Behaviours\CameraBehaviour.h">
       <Filter>MGE Source files\mge\mygame\Behaviours</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mygame\Waypoint.h">
+      <Filter>MGE Source files\mge\mygame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\Behaviours\EnemyBehaviour.h">
+      <Filter>MGE Source files\mge\mygame\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\LevelManager.h">
+      <Filter>MGE Source files\mge\mygame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -192,6 +201,15 @@
     </ClCompile>
     <ClCompile Include="..\src\mygame\Behaviours\CameraBehaviour.cpp">
       <Filter>MGE Source files\mge\mygame\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Waypoint.cpp">
+      <Filter>MGE Source files\mge\mygame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Behaviours\EnemyBehaviour.cpp">
+      <Filter>MGE Source files\mge\mygame\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\LevelManager.cpp">
+      <Filter>MGE Source files\mge\mygame</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
