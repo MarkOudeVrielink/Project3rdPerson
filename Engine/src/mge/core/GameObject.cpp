@@ -16,12 +16,28 @@ GameObject::~GameObject()
 {
     //detach all children
     cout << "GC running on:" << _name << endl;
+	_parent->remove(this);
 
+	if (_behaviour) {
+		delete _behaviour;
+		_behaviour = NULL;
+	}
+	
     while (_children.size() > 0) {
         GameObject* child = _children[0];
         remove (child);
         delete child;
     }
+	
+	if (_mesh) {
+		//delete _mesh;
+		_mesh = NULL;
+	}
+		
+	if (_material) {
+		//delete _material;
+		_material = NULL;
+	}
 
     //do not forget to delete behaviour, material, mesh, collider manually if required!
 }
@@ -168,7 +184,7 @@ void GameObject::update(float pStep)
 	if (_behaviour) _behaviour->update(pStep);
 
     for (int i = _children.size()-1; i >= 0; --i ) {
-        _children[i]->update(pStep);
+		_children[i]->update(pStep);
     }
 }
 

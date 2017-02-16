@@ -6,9 +6,11 @@ using namespace std;
 #include "mge/core/Renderer.hpp"
 #include "mge/core/World.hpp"
 
+
 AbstractGame::AbstractGame():_window(NULL),_renderer(NULL),_world(NULL), _fps(0)
 {
     //ctor
+
 }
 
 AbstractGame::~AbstractGame()
@@ -34,7 +36,11 @@ void AbstractGame::initialize() {
 
 void AbstractGame::_initializeWindow() {
 	cout << "Initializing window..." << endl;
+<<<<<<< HEAD
 	_window = new sf::RenderWindow( sf::VideoMode(1920,1080), "My Game!", sf::Style::Default, sf::ContextSettings(24,8,0,3,3));
+=======
+	_window = new sf::RenderWindow( sf::VideoMode(1080,900), "My Game!", sf::Style::Default, sf::ContextSettings(24,8,0,3,3));
+>>>>>>> origin/master
 	//_window->setVerticalSyncEnabled(true);
     cout << "Window initialized." << endl << endl;
 }
@@ -101,6 +107,10 @@ void AbstractGame::run()
 
 		    while (timeSinceLastUpdate > timePerFrame) {
                 timeSinceLastUpdate -= timePerFrame;
+				/*update physics for the world.*/
+				_world->physicsManager->SimulatePhysics(timePerFrame.asSeconds());
+				_world->physicsManager->CheckCollisions();
+
                 _update(timePerFrame.asSeconds());
 		    }
 

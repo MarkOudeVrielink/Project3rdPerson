@@ -1,5 +1,4 @@
 #VS specific
-
 *.suo
 *.user
 *.pdb
@@ -15,7 +14,15 @@
 *.clw
 *.aps
 *.VC.db
+*.VC.VC.opendb
 *.exe
 
 #Object files
 *.obj
+
+#Directories to exclude
+debug_dynamic_build/*
+debug_dynamic_exe/*
+debug_static_exe/*
+release_dynamic_exe/*
+release_static_exe/*

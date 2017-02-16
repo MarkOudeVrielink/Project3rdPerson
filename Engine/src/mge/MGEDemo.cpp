@@ -19,15 +19,25 @@ using namespace std;
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/behaviours/KeysBehaviour.hpp"
 #include "mge/behaviours/LookAt.hpp"
+#include "mge\behaviours\OrbitBehaviour.h"
+
+#include "mgengine\Behaviours\PlayerBehaviour.h"
+#include "mgengine\Behaviours\EnemyBehaviour.h"
+#include "mgengine\Behaviours\PickUpBehaviour.h"
 
 #include "mgengine/UI/ImageBehaviour.h"
 
 #include "mge/util/DebugHud.hpp"
 
 #include "mge/config.hpp"
+#include "mgengine\Collision\CollisionFilters.h"
 #include "mge/MGEDemo.hpp"
 
-#include "btBulletCollisionCommon.h"
+#include "btBulletDynamicsCommon.h"
+
+#include "mgengine\Collision\CollisionManager.h"
+#include "mgengine\Core\ControlledActor.h"
+#include "mgengine\Core\ObjectActor.h"
 
 #include "mygame/Enemy.h"
 #include "mgengine/LevelEditor/LevelEditor.h"
@@ -56,6 +66,7 @@ void MGEDemo::_initializeScene()
     _renderer->setClearColor(0,0,0);
 
     //add camera first (it will be updated last)
+<<<<<<< HEAD
     Camera* camera = new Camera ("camera", glm::vec3(0,100,0));
     camera->rotate(glm::radians(-90.0f), glm::vec3(1,0,0));
     _world->add(camera);
@@ -125,6 +136,51 @@ void MGEDemo::_initializeScene()
 	_world->add(LevelEditor);
 
    // camera->setBehaviour(new LookAt (teapot));
+=======
+    Camera* camera = new Camera ("camera", glm::vec3(0,30,0));
+    camera->rotate(glm::radians(-90.0f), glm::vec3(1,0,0));
+    _world->add(camera);
+    _world->setMainCamera(camera);
+
+    //#MESHES
+    //load a bunch of meshes we will be using throughout this demo
+    //each mesh only has to be loaded once, but can be used multiple times:
+    //F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
+    Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane.obj");    
+    Mesh* suzannaMeshF = Mesh::load (config::MGE_MODEL_PATH+"suzanna_flat.obj");
+    Mesh* teapotMeshS = Mesh::load (config::MGE_MODEL_PATH+"teapot_smooth.obj");
+
+    //#MATERIALS
+    AbstractMaterial* colorMaterial = new ColorMaterial (glm::vec3(0.2f,0,0.5f));
+	AbstractMaterial* colorMaterialGreen = new ColorMaterial(glm::vec3(0.0f, 1, 0.0f));
+    AbstractMaterial* textureMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"engin1.png"));
+    AbstractMaterial* textureMaterial2 = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"bricks.jpg"));
+
+	GameObject* plane = new GameObject("plane", glm::vec3(0,0,0));
+	plane->scale(glm::vec3(5,0,5));
+	plane->setMesh(planeMeshDefault);
+	plane->setMaterial(textureMaterial);
+	//_world->add(plane);	
+
+	ControlledActor* player = new ControlledActor(_world, "Player", glm::vec3(0, 0, 3), new btSphereShape(1), ActorType::Type_Player, 1, CF::COL_PLAYER, CF::playerCollidesWith);	
+	player->setMesh(suzannaMeshF);
+	player->setMaterial(colorMaterial);	
+	player->setActorBehaviour(new PlayerBehaviour(suzannaMeshF, colorMaterial, 20));
+	_world->add(player);	
+
+	ControlledActor* enemy = new ControlledActor(_world, "RB_ENEMY", glm::vec3(0, 0, -3), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith);
+	enemy->setMesh(teapotMeshS);
+	enemy->setMaterial(colorMaterial);
+	enemy->setActorBehaviour(new EnemyBehaviour(teapotMeshS, colorMaterialGreen));
+	_world->add(enemy);	
+	
+	ObjectActor* pickUp = new ObjectActor(_world, "PickUp", glm::vec3(-15, 0, -5), new btSphereShape(0.5f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith, 1);
+	pickUp->setMesh(teapotMeshS);
+	pickUp->setMaterial(colorMaterialGreen);
+	pickUp->setActorBehaviour(new PickUpBehaviour());
+	_world->add(pickUp);
+	//camera->setBehaviour(new OrbitBehaviour(player, _window, 15, 5, 15));
+>>>>>>> origin/master
 }
 
 void MGEDemo::_render() {
@@ -143,5 +199,6 @@ void MGEDemo::_updateHud() {
 
 MGEDemo::~MGEDemo()
 {
+	//delete collsionManager;
 	//dtor
 }

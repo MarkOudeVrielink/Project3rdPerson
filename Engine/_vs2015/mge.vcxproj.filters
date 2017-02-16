@@ -20,6 +20,7 @@
     <Filter Include="MGE Source files\mge\util">
       <UniqueIdentifier>{7d824c34-4bb6-43a4-a48a-0d68b7aad6e5}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="MGE Source files\mge\LevelEditor">
       <UniqueIdentifier>{a2a4be3c-4040-4389-aba9-db91eaa213e8}</UniqueIdentifier>
     </Filter>
@@ -31,6 +32,19 @@
     </Filter>
     <Filter Include="MGE Source files\mge\mygame\Behaviours">
       <UniqueIdentifier>{86950641-9546-4347-a992-251ea41a10fe}</UniqueIdentifier>
+=======
+    <Filter Include="mgEngine">
+      <UniqueIdentifier>{6db0c995-2fc0-4447-96f1-ae9ce5f282a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mgEngine\Collision">
+      <UniqueIdentifier>{c8f9afb6-180b-4210-a24f-cd771890bed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mgEngine\Behaviours">
+      <UniqueIdentifier>{d0c1e9fa-71c7-4d78-82d4-174c0debee1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mgEngine\Core">
+      <UniqueIdentifier>{23aefb4d-e5cc-4dbc-a819-146dfb4a32e4}</UniqueIdentifier>
+>>>>>>> origin/master
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +105,7 @@
     <ClInclude Include="..\src\mge\config.hpp">
       <Filter>MGE Source files\mge</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="..\src\mgengine\LevelEditor\LevelEditor.h">
       <Filter>MGE Source files\mge\LevelEditor</Filter>
     </ClInclude>
@@ -121,6 +136,43 @@
     </ClInclude>
     <ClInclude Include="..\src\mygame\LevelManager.h">
       <Filter>MGE Source files\mge\mygame</Filter>
+=======
+    <ClInclude Include="..\src\mgengine\Collision\CollisionManager.h">
+      <Filter>mgEngine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\core\Actor.h">
+      <Filter>mgEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\core\Scene.h">
+      <Filter>mgEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\OrbitBehaviour.h">
+      <Filter>MGE Source files\mge\behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.h">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Core\ControlledActor.h">
+      <Filter>mgEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Core\ObjectActor.h">
+      <Filter>mgEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\BulletBehaviour.h">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\PickUpBehaviour.h">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\PlayerBehaviour.h">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\EnemyBehaviour.h">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Collision\CollisionFilters.h">
+      <Filter>mgEngine\Collision</Filter>
+>>>>>>> origin/master
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +230,7 @@
     <ClCompile Include="..\src\mge\MGEDemo.cpp">
       <Filter>MGE Source files\mge</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="..\src\mgengine\LevelEditor\LevelEditor.cpp">
       <Filter>MGE Source files\mge\LevelEditor</Filter>
     </ClCompile>
@@ -210,6 +263,40 @@
     </ClCompile>
     <ClCompile Include="..\src\mygame\LevelManager.cpp">
       <Filter>MGE Source files\mge\mygame</Filter>
+=======
+    <ClCompile Include="..\src\mgengine\Collision\CollisionManager.cpp">
+      <Filter>mgEngine\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\core\Actor.cpp">
+      <Filter>mgEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\core\Scene.cpp">
+      <Filter>mgEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\OrbitBehaviour.cpp">
+      <Filter>MGE Source files\mge\behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.cpp">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Core\ControlledActor.cpp">
+      <Filter>mgEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Core\ObjectActor.cpp">
+      <Filter>mgEngine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\BulletBehaviour.cpp">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\PickUpBehaviour.cpp">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\PlayerBehaviour.cpp">
+      <Filter>mgEngine\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\EnemyBehaviour.cpp">
+      <Filter>mgEngine\Behaviours</Filter>
+>>>>>>> origin/master
     </ClCompile>
   </ItemGroup>
 </Project>

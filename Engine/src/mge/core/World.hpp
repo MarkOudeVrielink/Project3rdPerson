@@ -2,6 +2,7 @@
 #define WORLD_H
 
 #include "mge/core/GameObject.hpp"
+#include "mgengine\Collision\CollisionManager.h"
 
 class Camera;
 
@@ -12,7 +13,9 @@ class World : public GameObject
 
 		void setMainCamera (Camera* pCamera);
 		Camera* getMainCamera();
-
+		
+		//TODO: make this neat again, you know with a dumb getter.
+		CollisionManager* physicsManager;
 	private:
 	    Camera* _mainCamera;
 
