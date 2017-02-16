@@ -1,12 +1,84 @@
-﻿  LevelEditor.cpp
-..\src\mgengine\LevelEditor\LevelEditor.cpp(47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-..\src\mgengine\LevelEditor\LevelEditor.cpp(119): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-..\src\mgengine\LevelEditor\LevelEditor.cpp(116): warning C4101: 'sz': unreferenced local variable
-  Generating code
-  1 of 1671 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-glew32s.lib(glew.obj) : warning LNK4099: PDB 'glew_static.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\_vs2015\release_static_exe\glew_static.pdb'; linking object as if no debug info
-  mge.vcxproj -> C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\_vs2015\release_static_exe/mge.exe
-  mge.vcxproj -> release_static_exe/mge.pdb (Full PDB)
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(936,5): warning MSB8027: Two or more files with the name of EnemyBehaviour.cpp will produce outputs to the same location. This can lead to an incorrect build result.  The files involved are ..\src\mgengine\Behaviours\EnemyBehaviour.cpp, ..\src\mygame\Behaviours\EnemyBehaviour.cpp.
+release_static_build/EnemyBehaviour.obj : warning LNK4042: object specified more than once; extras ignored
+BulletDynamics.lib(btDiscreteDynamicsWorld.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletDynamics.lib(btDiscreteDynamicsWorld.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletDynamics.lib(btSequentialImpulseConstraintSolver.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletDynamics.lib(btSequentialImpulseConstraintSolver.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletDynamics.lib(btRigidBody.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletDynamics.lib(btRigidBody.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletDynamics.lib(btTypedConstraint.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletDynamics.lib(btTypedConstraint.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletDynamics.lib(btConeTwistConstraint.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletDynamics.lib(btConeTwistConstraint.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletDynamics.lib(btGeneric6DofConstraint.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletDynamics.lib(btGeneric6DofConstraint.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btCollisionShape.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btCollisionShape.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btConvexShape.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btConvexShape.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btDefaultCollisionConfiguration.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btDefaultCollisionConfiguration.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btDbvtBroadphase.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btDbvtBroadphase.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btCollisionDispatcher.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btCollisionDispatcher.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btCollisionObject.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btCollisionObject.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btManifoldResult.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btManifoldResult.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btCollisionWorld.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btCollisionWorld.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btSimulationIslandManager.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btSimulationIslandManager.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btPolyhedralConvexShape.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btPolyhedralConvexShape.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btConvexConvexAlgorithm.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btConvexConvexAlgorithm.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btEmptyCollisionAlgorithm.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btEmptyCollisionAlgorithm.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btConvexConcaveCollisionAlgorithm.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btConvexConcaveCollisionAlgorithm.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btCompoundCollisionAlgorithm.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btCompoundCollisionAlgorithm.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btCompoundCompoundCollisionAlgorithm.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btCompoundCompoundCollisionAlgorithm.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btConvexPlaneCollisionAlgorithm.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btConvexPlaneCollisionAlgorithm.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btBoxBoxCollisionAlgorithm.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btBoxBoxCollisionAlgorithm.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btSphereSphereCollisionAlgorithm.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btSphereSphereCollisionAlgorithm.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btSphereTriangleCollisionAlgorithm.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btSphereTriangleCollisionAlgorithm.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btDbvt.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btDbvt.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btOverlappingPairCache.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btOverlappingPairCache.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btBvhTriangleMeshShape.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btBvhTriangleMeshShape.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btUnionFind.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btUnionFind.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btConvexPolyhedron.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btConvexPolyhedron.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btActivatingCollisionAlgorithm.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btActivatingCollisionAlgorithm.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btPolyhedralContactClipping.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btPolyhedralContactClipping.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btCollisionAlgorithm.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btCollisionAlgorithm.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btHashedSimplePairCache.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btHashedSimplePairCache.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btQuantizedBvh.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btQuantizedBvh.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+BulletCollision.lib(btOptimizedBvh.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+BulletCollision.lib(btOptimizedBvh.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+LinearMath.lib(btQuickprof.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+LinearMath.lib(btQuickprof.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+LinearMath.lib(btConvexHullComputer.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+LinearMath.lib(btConvexHullComputer.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+LinearMath.lib(btGeometryUtil.obj) : error LNK2038: mismatch detected for '_ITERATOR_DEBUG_LEVEL': value '2' doesn't match value '0' in main.obj
+LinearMath.lib(btGeometryUtil.obj) : error LNK2038: mismatch detected for 'RuntimeLibrary': value 'MDd_DynamicDebug' doesn't match value 'MD_DynamicRelease' in main.obj
+LINK : warning LNK4098: defaultlib 'MSVCRTD' conflicts with use of other libs; use /NODEFAULTLIB:library
+ControlledActor.obj : error LNK2001: unresolved external symbol "public: void __thiscall EnemyBehaviour::SpawnDrop(int)" (?SpawnDrop@EnemyBehaviour@@QAEXH@Z)
+MGEDemo.obj : error LNK2001: unresolved external symbol "public: __thiscall EnemyBehaviour::EnemyBehaviour(class Mesh *,class AbstractMaterial *)" (??0EnemyBehaviour@@QAE@PAVMesh@@PAVAbstractMaterial@@@Z)
+release_static_exe/mge.exe : fatal error LNK1120: 2 unresolved externals

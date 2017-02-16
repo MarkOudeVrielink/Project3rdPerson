@@ -171,12 +171,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
-<<<<<<< HEAD
     <ClInclude Include="..\src\mgengine\LevelEditor\LevelEditor.h" />
     <ClInclude Include="..\src\mgengine\UI\ImageBehaviour.h" />
-=======
     <ClInclude Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.h" />
-    <ClInclude Include="..\src\mgengine\Behaviours\EnemyBehaviour.h" />
+    <ClInclude Include="..\src\mgengine\Behaviours\ActorEnemyBehaviour.h" />
     <ClInclude Include="..\src\mgengine\Behaviours\PlayerBehaviour.h" />
     <ClInclude Include="..\src\mgengine\Behaviours\BulletBehaviour.h" />
     <ClInclude Include="..\src\mgengine\Behaviours\PickUpBehaviour.h" />
@@ -186,7 +184,6 @@
     <ClInclude Include="..\src\mgengine\Core\ControlledActor.h" />
     <ClInclude Include="..\src\mgengine\Core\ObjectActor.h" />
     <ClInclude Include="..\src\mgengine\core\Scene.h" />
->>>>>>> origin/master
     <ClInclude Include="..\src\mge\behaviours\AbstractBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\KeysBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\LookAt.hpp" />
@@ -218,12 +215,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="..\src\mgengine\LevelEditor\LevelEditor.cpp" />
     <ClCompile Include="..\src\mgengine\UI\ImageBehaviour.cpp" />
-=======
     <ClCompile Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.cpp" />
-    <ClCompile Include="..\src\mgengine\Behaviours\EnemyBehaviour.cpp" />
+    <ClCompile Include="..\src\mgengine\Behaviours\ActorEnemyBehaviour.cpp" />
     <ClCompile Include="..\src\mgengine\Behaviours\PlayerBehaviour.cpp" />
     <ClCompile Include="..\src\mgengine\Behaviours\BulletBehaviour.cpp" />
     <ClCompile Include="..\src\mgengine\Behaviours\PickUpBehaviour.cpp" />
@@ -232,7 +227,6 @@
     <ClCompile Include="..\src\mgengine\Core\ControlledActor.cpp" />
     <ClCompile Include="..\src\mgengine\Core\ObjectActor.cpp" />
     <ClCompile Include="..\src\mgengine\core\Scene.cpp" />
->>>>>>> origin/master
     <ClCompile Include="..\src\mge\behaviours\AbstractBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\KeysBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\LookAt.cpp" />
