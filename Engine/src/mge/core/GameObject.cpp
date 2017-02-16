@@ -10,11 +10,35 @@ GameObject::GameObject(std::string pName, glm::vec3 pPosition )
 :	_name( pName ), _transform( glm::translate( pPosition ) ),
     _parent(NULL), _children(), _mesh( NULL ),_behaviour( NULL ), _material(NULL)
 {
-	//_scale = _transform;
+	_scale = _transform;
 }
 
 GameObject::~GameObject()
 {
+    //detach all children
+    cout << "GC running on:" << _name << endl;
+	_parent->remove(this);
+
+	if (_behaviour) {
+		delete _behaviour;
+		_behaviour = NULL;
+	}
+	
+    while (_children.size() > 0) {
+        GameObject* child = _children[0];
+        remove (child);
+        delete child;
+    }
+	
+	if (_mesh) {
+		//delete _mesh;
+		_mesh = NULL;
+	}
+		
+	if (_material) {
+		//delete _material;
+		_material = NULL;
+	}
 
     //do not forget to delete behaviour, material, mesh, collider manually if required!
 }
