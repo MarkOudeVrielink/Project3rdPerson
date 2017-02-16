@@ -16,7 +16,7 @@ BulletBehaviour::~BulletBehaviour()
 }
 
 void BulletBehaviour::update(float pStep)
-{
+{	
 	if (_direction == Direction::Up) {
 		_force = btVector3(0,0,-_speed);
 	}
@@ -36,20 +36,24 @@ void BulletBehaviour::update(float pStep)
 /*Using a down cast to get the right behaviour and actor. This won't work if the actor is not configured correctly. 
 However, the actors in the scene should be set-up correct in any case.*/
 void BulletBehaviour::OnCollision(Actor * pOther)
-{	
+{		
 	ActorType type = pOther->GetType();
 
-	if (type == ActorType::Type_Enemy && _bulletOwner == BulletOwner::Player) {	
+	if (type == ActorType::Type_Enemy && _bulletOwner == BulletOwner::Player) {			
 		ControlledActor* enemy = (ControlledActor*)pOther;
 		enemy->TakeDamage(_power);
-		_owner->~Actor();
+
+		if (_owner->GetType() != ActorType::Type_Nova) {
+			_owner->~Actor();			
+		}
 	}
 	else if (type == ActorType::Type_Player && _bulletOwner == BulletOwner::Enemy) {
+		std::cout << "hit player" << std::endl;
 		/*ControlledActor* player = (ControlledActor*)pOther;
 		player->TakeDamage(_power);
 		_owner->~Actor();*/
-	}
-	else if(type != ActorType::Type_Bullet){
+	}	
+	else if(type != ActorType::Type_Bullet && _owner->GetType() != ActorType::Type_Nova){
 		_owner->~Actor();
 	}
 	//TODO: Add sfx. "plink"?

@@ -70,6 +70,7 @@ class GameObject
 	protected:
 		std::string _name;
 		glm::mat4 _transform;
+		glm::mat4 _scale;
 
         GameObject* _parent;
 		std::vector<GameObject*> _children;
@@ -86,5 +87,4 @@ class GameObject
         GameObject(const GameObject&);
         GameObject& operator=(const GameObject&);
 };
-
 #endif // GAMEOBJECT_H

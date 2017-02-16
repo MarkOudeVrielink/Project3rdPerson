@@ -25,7 +25,7 @@ public :
 
 	virtual void update(float pStep);
 	virtual void OnCollision(Actor* pActor);
-		
+
 private:
 	
 };
