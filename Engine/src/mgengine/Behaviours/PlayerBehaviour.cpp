@@ -114,12 +114,18 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 	}
 }
 
+/*works in a crummy way... but it serves it's purpose.*/
 void PlayerBehaviour::SpawnNova()
 {	
-	//glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, -2.5f);
+	glm::vec3 spawnPoint = glm::vec3(0, 0, 20);
 
-	//ObjectActor* nova = new ObjectActor(_owner->GetWorld(), "Nova", spawnPoint, new btBoxShape(btVector3(1, 1, 10)), ActorType::Type_Nova, 1);
-	//_owner->getParent()->add(nova);
+	ObjectActor* nova = new ObjectActor(_owner->GetWorld(), "Nova", spawnPoint, new btBoxShape(btVector3(75,1,1)), ActorType::Type_Nova, CF::COL_PLAYERNOVA, CF::playerNovaCollidesWith, 1);
+	nova->setActorBehaviour(new BulletBehaviour(5.5f, 10, 10));
+	nova->setMesh(_mesh);
+	nova->setMaterial(_material);
+	_owner->getParent()->add(nova);
+
+	std::cout << "Nova" << std::endl;
 }
 
 //TODO: Maybe make some way off accessing the world cache with textures and meshes? Just so that I don't have to pass those on in the contructor.
@@ -127,7 +133,7 @@ void PlayerBehaviour::SpawnBullet(float pBulletPower)
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, -2.5f);
 
-	ObjectActor* bullet = new ObjectActor(_owner->GetWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_BULLET, CF::bulletCollidesWith, 1);
+	ObjectActor* bullet = new ObjectActor(_owner->GetWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_PLAYERBULLET, CF::playerBulletCollidesWith, 1);
 	bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
 	bullet->setMesh(_mesh);
 	bullet->setMaterial(_material);

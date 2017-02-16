@@ -168,11 +168,23 @@ void MGEDemo::_initializeScene()
 	player->setActorBehaviour(new PlayerBehaviour(suzannaMeshF, colorMaterial, 20));
 	_world->add(player);	
 
-	ControlledActor* enemy = new ControlledActor(_world, "RB_ENEMY", glm::vec3(0, 0, -3), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith);
-	enemy->setMesh(teapotMeshS);
-	enemy->setMaterial(colorMaterial);
-	enemy->setActorBehaviour(new EnemyBehaviour(teapotMeshS, colorMaterialGreen));
-	_world->add(enemy);	
+	ControlledActor* enemy0 = new ControlledActor(_world, "ENEMY0", glm::vec3(-20, 0, -18), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
+	enemy0->setMesh(teapotMeshS);
+	enemy0->setMaterial(colorMaterial);
+	enemy0->setActorBehaviour(new EnemyBehaviour(teapotMeshS, colorMaterialGreen));
+	_world->add(enemy0);	
+
+	ControlledActor* enemy1 = new ControlledActor(_world, "ENEMY1", glm::vec3(0, 0, -15), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
+	enemy1->setMesh(teapotMeshS);
+	enemy1->setMaterial(colorMaterial);
+	enemy1->setActorBehaviour(new EnemyBehaviour(teapotMeshS, colorMaterialGreen));
+	_world->add(enemy1);
+
+	ControlledActor* enemy2 = new ControlledActor(_world, "ENEMY2", glm::vec3(20, 0, -1), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
+	enemy2->setMesh(teapotMeshS);
+	enemy2->setMaterial(colorMaterial);
+	enemy2->setActorBehaviour(new EnemyBehaviour(teapotMeshS, colorMaterialGreen));
+	_world->add(enemy2);
 	
 	ObjectActor* pickUp = new ObjectActor(_world, "PickUp", glm::vec3(-15, 0, -5), new btSphereShape(0.5f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith, 1);
 	pickUp->setMesh(teapotMeshS);

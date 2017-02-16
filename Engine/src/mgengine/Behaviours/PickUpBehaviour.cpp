@@ -12,7 +12,7 @@ PickUpBehaviour::~PickUpBehaviour()
 
 void PickUpBehaviour::update(float pStep)
 {
-	_ownerBody->applyForce(btVector3(0,0,_speed), btVector3(0, 0, _speed));
+	_ownerBody->applyForce(btVector3(0,0,_speed), btVector3(0, 0, _speed));	
 }
 
 void PickUpBehaviour::OnCollision(Actor * pOther)
