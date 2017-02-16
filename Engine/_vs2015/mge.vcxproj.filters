@@ -228,7 +228,6 @@
     <ClCompile Include="..\src\mge\MGEDemo.cpp">
       <Filter>MGE Source files\mge</Filter>
     </ClCompile>
-
     <ClCompile Include="..\src\mgengine\LevelEditor\LevelEditor.cpp">
       <Filter>MGE Source files\mge\LevelEditor</Filter>
     </ClCompile>

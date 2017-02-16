@@ -139,6 +139,7 @@ Mesh* Mesh::load(string pFileName)
 
                 //Have we read exactly 10 elements?
 				if ( count == 10 ) {
+					
 
                     //process 3 triplets, one for each vertex (which is first element of the triplet)
 					for ( int i = 0; i < 3; ++i ) {

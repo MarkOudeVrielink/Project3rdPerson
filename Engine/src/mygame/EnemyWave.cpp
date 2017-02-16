@@ -10,6 +10,7 @@ EnemyWave::EnemyWave()
 		Enemy* Enemy1 = new Enemy("Diablo", glm::vec3(0, 0, 0));
 		_enemies.push_back(Enemy1);
 	}
+	_enemy = Mesh::load(config::MGE_MODEL_PATH + "ship.obj");//LAG HERE
 }
 //TODO: Set the delay between enemies relative to the speed of the enemies to avoid them colliding between them
 
@@ -52,9 +53,10 @@ void EnemyWave::SpawnEnemy(World * pWorld)//TODO:change to Level scope
 			80.0f / 1080 * _wayPoints.at(0)->getPosition().y - 40);
 
 		Enemy* Enemy1 = new Enemy("Enemy", pos);
-		Mesh* enemy = Mesh::load(config::MGE_MODEL_PATH + "ship.obj");
+		
+		cout << "ENEMY CREATED" << endl;
 		AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png"));
-		Enemy1->setMesh(enemy);
+		Enemy1->setMesh(_enemy);
 		Enemy1->setMaterial(textureMaterial2);
 
 		if(!_editorMode)
@@ -62,6 +64,7 @@ void EnemyWave::SpawnEnemy(World * pWorld)//TODO:change to Level scope
 		else if(_editorMode)
 		{
 			EnemyBehaviour* behave = new EnemyBehaviour(&_wayPoints, _snapTime);
+			
 			Enemy1->setBehaviour(behave);
 			behave->SaveOriginalTransform();
 			

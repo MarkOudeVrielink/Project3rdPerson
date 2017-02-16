@@ -29,6 +29,7 @@ private:
 	std::vector<Waypoint*> _wayPoints;
 
 	float* _snapTime = 0;
+	Mesh* _enemy;
 	bool _editorMode = true;
 
 };

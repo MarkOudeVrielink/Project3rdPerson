@@ -16,7 +16,6 @@ LevelEditorBehaviour::LevelEditorBehaviour(sf::RenderWindow *pWindow, World *pWo
 
 	if (!_font.loadFromFile(config::MGE_FONT_PATH + "arial.ttf")) {
 		cout << "Could not load font, exiting..." << endl;
-
 	}
 
 	//Start Draw the time of the current Snap
