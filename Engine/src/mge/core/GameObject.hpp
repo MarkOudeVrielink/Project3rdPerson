@@ -70,7 +70,7 @@ class GameObject
 	protected:
 		std::string _name;
 		glm::mat4 _transform;
-		glm::mat4 _scale;
+		glm::vec3 _scale;
 
         GameObject* _parent;
 		std::vector<GameObject*> _children;

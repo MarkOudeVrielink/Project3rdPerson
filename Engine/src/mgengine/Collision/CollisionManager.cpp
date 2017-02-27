@@ -42,8 +42,8 @@ void CollisionManager::AddCollisionActor(btRigidBody* pBody, Actor* pActor, shor
 	//TODO: Check if the given actor isn't already present in the vector.	
 	_physicsBodies.push_back(new physicsObject(pBody, pActor));
 	_physicsWorld->addRigidBody(pBody, pGroup, pMask);	
-
-	pBody->setUserPointer(_physicsBodies[_physicsBodies.size()-1]);
+	
+	pBody->setUserPointer(_physicsBodies[_physicsBodies.size()-1]);	
 }
 
 void CollisionManager::RemoveCollisionActor(btRigidBody* pBody) {
@@ -59,23 +59,25 @@ void CollisionManager::CheckCollisions()
 {	
 	/* Browse all collision pairs */
 	int numManifolds = _physicsWorld->getDispatcher()->getNumManifolds();
-	for (int i = 0; i<numManifolds; i++)
-	{
+	for (int i = 0; i < numManifolds; i++)//HACK: FIX THIS!!!
+	{	
 		btPersistentManifold* contactManifold = _physicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
 		const btCollisionObject* obA = contactManifold->getBody0();
 		const btCollisionObject* obB = contactManifold->getBody1();
-
-		/* Check all contacts points */
-		int numContacts = contactManifold->getNumContacts();
-		for (int j = 0; j<numContacts; j++)
-		{
-			btManifoldPoint& pt = contactManifold->getContactPoint(j);
-			if (pt.getDistance()<0.f)
-			{				
-				((physicsObject*)obA->getUserPointer())->actor->OnCollision(((physicsObject*)obB->getUserPointer())->actor);
-				((physicsObject*)obB->getUserPointer())->actor->OnCollision(((physicsObject*)obA->getUserPointer())->actor);
+		
+		if (obA != nullptr && obB != nullptr) {
+			/* Check all contacts points */
+			int numContacts = contactManifold->getNumContacts();
+			for (int j = 0; j<numContacts; j++)
+			{
+				btManifoldPoint& pt = contactManifold->getContactPoint(j);
+				if (pt.getDistance()<0.f)
+				{				
+					((physicsObject*)obA->getUserPointer())->actor->OnCollision(((physicsObject*)obB->getUserPointer())->actor);
+					((physicsObject*)obB->getUserPointer())->actor->OnCollision(((physicsObject*)obA->getUserPointer())->actor);
+				}
 			}
-		}
+		}		
 	}
 }
 

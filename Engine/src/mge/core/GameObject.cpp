@@ -10,7 +10,7 @@ GameObject::GameObject(std::string pName, glm::vec3 pPosition )
 :	_name( pName ), _transform( glm::translate( pPosition ) ),
     _parent(NULL), _children(), _mesh( NULL ),_behaviour( NULL ), _material(NULL)
 {
-	_scale = _transform;
+	_scale = glm::vec3(1,1,1);
 }
 
 GameObject::~GameObject()
@@ -172,7 +172,7 @@ void GameObject::translate(glm::vec3 pTranslation)
 void GameObject::scale(glm::vec3 pScale)
 {
 	setTransform(glm::scale(_transform, pScale));
-	//_scale = _transform;
+	_scale = pScale;
 }
 
 void GameObject::rotate(float pAngle, glm::vec3 pAxis)

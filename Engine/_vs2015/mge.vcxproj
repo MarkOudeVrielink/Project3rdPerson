@@ -171,6 +171,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
+    <ClInclude Include="..\src\mgengine\Core\MeshHolder.h" />
+    <ClInclude Include="..\src\mgengine\Core\ResourceHolder.h" />
     <ClInclude Include="..\src\mgengine\LevelEditor\LevelEditor.h" />
     <ClInclude Include="..\src\mgengine\UI\ImageBehaviour.h" />
     <ClInclude Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.h" />
@@ -215,6 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\mgengine\Core\MeshHolder.cpp" />
     <ClCompile Include="..\src\mgengine\LevelEditor\LevelEditor.cpp" />
     <ClCompile Include="..\src\mgengine\UI\ImageBehaviour.cpp" />
     <ClCompile Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.cpp" />

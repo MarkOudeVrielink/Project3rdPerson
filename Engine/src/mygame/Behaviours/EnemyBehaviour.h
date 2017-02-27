@@ -1,19 +1,27 @@
 #pragma once
 #include "mygame/Waypoint.h"
-#include "mge/behaviours/AbstractBehaviour.hpp"
+#include "mgengine\Behaviours\AbstractActorBehaviour.h"
 #include <glm.hpp>
 using namespace std;
-class EnemyBehaviour : public AbstractBehaviour
+
+class Mesh;
+class AbstractMaterial;
+
+class EnemyBehaviour : public AbstractActorBehaviour
 {
 public:
 
 	EnemyBehaviour(std::vector<Waypoint*> *pWayPoints);
 	EnemyBehaviour(std::vector<Waypoint*> *pWayPoints, float * ptime);
-	~EnemyBehaviour();
+	virtual ~EnemyBehaviour();
+
 	void SaveOriginalTransform();
 	virtual void update(float pStep);
+	virtual void OnCollision(Actor* pOther);
 	void UpdateEditorMode(float pStep);
 	
+	void SpawnDrop(int pAmount = 1);
+	//void SpawnBullet();
 private:
 	float _moveSpeed;
 	float _turnSpeed;
@@ -34,5 +42,9 @@ private:
 	float _secondsAlreadyRendered = 0;
 	float _spawnedTime = 0;
 	bool _movingBackwards = false;
+
+	btScalar _angle;
+	//Mesh*				_dropMesh;
+	//AbstractMaterial*	_dropMaterial;
 };
 

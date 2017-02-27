@@ -17,8 +17,17 @@ public:
 private:
 	void SpawnBullet(float pBulletPower);
 	void SpawnNova();
+	
+	void FireWeapon();
+	void Move();
+	void IsInvulnerable();
 
-	float	_timer;
+	bool	_invulnerable;
+	float	_invulnerabilityTime;
+	float	_invulnerabilityTimer;
+	int		_defaultFlags;
+
+	float	_weaponTimer;
 	float	_fireRate;
 	bool	_fired;
 	bool	_overheat;

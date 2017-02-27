@@ -1,5 +1,5 @@
 #include "mgengine\Core\ControlledActor.h"
-#include "mgengine\Behaviours\ActorEnemyBehaviour.h"
+#include "mygame\Behaviours\EnemyBehaviour.h"
 
 /*Create a deafault ControlledActor.*/
 ControlledActor::ControlledActor(World* pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape* pCollider, ActorType pType, float pMass, float pHealth, float pStrength)
@@ -24,7 +24,8 @@ ControlledActor::~ControlledActor()
 void ControlledActor::update(float pStep)
 {		
 	AjustPosition();
-	if (_actorBehaviour)  _actorBehaviour->update(pStep); 
+	if (_actorBehaviour)  
+		_actorBehaviour->update(pStep); 
 }
 
 void ControlledActor::OnCollision(Actor * pActor)
@@ -44,7 +45,7 @@ void ControlledActor::TakeDamage(float pDamage)
 	
 	if (_health <= 0) {
 		if (_type == ActorType::Type_Enemy) {
-			ActorEnemyBehaviour* behavior = (ActorEnemyBehaviour*)_actorBehaviour;
+			EnemyBehaviour* behavior = (EnemyBehaviour*)_actorBehaviour;
 			behavior->SpawnDrop();//INPUT amount of drops enemies drop.
 			delete this;
 		}

@@ -1,62 +1,52 @@
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\vc140.pdb
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\vc140.idb
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\main.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\abstractbehaviour.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\keysbehaviour.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\lookat.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\rotatingbehaviour.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\abstractgame.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\camera.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\gameobject.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mesh.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\renderer.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\shaderprogram.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\texture.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\world.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\abstractmaterial.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\colormaterial.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\texturematerial.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mgedemo.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\debughud.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\enemy.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\enemywave.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\level.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\empty.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\leveleditor.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\imagebehaviour.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\camerabehaviour.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\enemybehaviour.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\spaceshipbehaviour.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\levelmanager.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\waypoint.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\controlledactor.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\objectactor.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\scene.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\orbitbehaviour.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\abstractactorbehaviour.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\playerbehaviour.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\bulletbehaviour.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\pickupbehaviour.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\collisionmanager.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\actor.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\actorenemybehaviour.obj
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_exe\mge.ilk
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_exe\mge.exe
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_exe\mge.pdb
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mgedemo.obj.enc
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\cl.command.1.tlog
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\cl.read.1.tlog
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\cl.write.1.tlog
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\link-cvtres.read.1.tlog
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\link-cvtres.write.1.tlog
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\link-rc.read.1.tlog
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\link-rc.write.1.tlog
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\link.16272-cvtres.read.1.tlog
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\link.16272-cvtres.write.1.tlog
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\link.16272-rc.read.1.tlog
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\link.16272-rc.write.1.tlog
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\link.16272.read.1.tlog
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\link.16272.write.1.tlog
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\link.command.1.tlog
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\link.read.1.tlog
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\_vs2015\debug_static_build\mge.tlog\link.write.1.tlog
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\vc140.pdb
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\vc140.idb
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\gameobject.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\mesh.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\renderer.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\shaderprogram.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\texture.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\world.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\abstractmaterial.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\colormaterial.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\texturematerial.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\mgedemo.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\debughud.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\camerabehaviour.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\enemybehaviour.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\spaceshipbehaviour.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\enemy.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\enemywave.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\level.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\levelmanager.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\waypoint.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\empty.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\main.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\leveleditor.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\imagebehaviour.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\abstractactorbehaviour.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\actorenemybehaviour.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\playerbehaviour.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\bulletbehaviour.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\pickupbehaviour.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\collisionmanager.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\actor.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\controlledactor.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\objectactor.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\scene.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\abstractbehaviour.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\keysbehaviour.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\lookat.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\orbitbehaviour.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\rotatingbehaviour.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\abstractgame.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\camera.obj
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_exe\mge.ilk
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_exe\mge.exe
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_exe\mge.pdb
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_exe/mge.exe
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\mge.tlog\cl.command.1.tlog
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\mge.tlog\cl.read.1.tlog
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\mge.tlog\cl.write.1.tlog
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\mge.tlog\link.command.1.tlog
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\mge.tlog\link.read.1.tlog
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\_vs2015\debug_static_build\mge.tlog\link.write.1.tlog
