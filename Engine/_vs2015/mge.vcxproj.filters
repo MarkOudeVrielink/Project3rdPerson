@@ -20,7 +20,6 @@
     <Filter Include="MGE Source files\mge\util">
       <UniqueIdentifier>{7d824c34-4bb6-43a4-a48a-0d68b7aad6e5}</UniqueIdentifier>
     </Filter>
-
     <Filter Include="MGE Source files\mge\LevelEditor">
       <UniqueIdentifier>{a2a4be3c-4040-4389-aba9-db91eaa213e8}</UniqueIdentifier>
     </Filter>
@@ -32,7 +31,7 @@
     </Filter>
     <Filter Include="MGE Source files\mge\mygame\Behaviours">
       <UniqueIdentifier>{86950641-9546-4347-a992-251ea41a10fe}</UniqueIdentifier>
-   </Filter>
+    </Filter>
     <Filter Include="mgEngine">
       <UniqueIdentifier>{6db0c995-2fc0-4447-96f1-ae9ce5f282a8}</UniqueIdentifier>
     </Filter>
@@ -44,7 +43,6 @@
     </Filter>
     <Filter Include="mgEngine\Core">
       <UniqueIdentifier>{23aefb4d-e5cc-4dbc-a819-146dfb4a32e4}</UniqueIdentifier>
-
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -131,11 +129,11 @@
       <Filter>MGE Source files\mge\mygame</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mygame\Behaviours\EnemyBehaviour.h">
-      <Filter>MGE Source files\mge\mygame\Behaviours</Filter> 
+      <Filter>MGE Source files\mge\mygame\Behaviours</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mygame\LevelManager.h">
       <Filter>MGE Source files\mge\mygame</Filter>
-	  </ClInclude>
+    </ClInclude>
     <ClInclude Include="..\src\mgengine\Collision\CollisionManager.h">
       <Filter>mgEngine\Collision</Filter>
     </ClInclude>
@@ -166,11 +164,18 @@
     <ClInclude Include="..\src\mgengine\Behaviours\PlayerBehaviour.h">
       <Filter>mgEngine\Behaviours</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mgengine\Behaviours\EnemyBehaviour.h">
-      <Filter>mgEngine\Behaviours</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\mgengine\Collision\CollisionFilters.h">
       <Filter>mgEngine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\ActorEnemyBehaviour.h" />
+    <ClInclude Include="..\src\mgengine\Parser\LevelParser.h">
+      <Filter>MGE Source files\mge\LevelEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Parser\pugiconfig.hpp">
+      <Filter>MGE Source files\mge\LevelEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Parser\pugixml.hpp">
+      <Filter>MGE Source files\mge\LevelEditor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -260,7 +265,7 @@
     </ClCompile>
     <ClCompile Include="..\src\mygame\LevelManager.cpp">
       <Filter>MGE Source files\mge\mygame</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="..\src\mgengine\Collision\CollisionManager.cpp">
       <Filter>mgEngine\Collision</Filter>
     </ClCompile>
@@ -291,9 +296,14 @@
     <ClCompile Include="..\src\mgengine\Behaviours\PlayerBehaviour.cpp">
       <Filter>mgEngine\Behaviours</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mgengine\Behaviours\EnemyBehaviour.cpp">
-      <Filter>mgEngine\Behaviours</Filter>
-
+    <ClCompile Include="..\src\mgengine\Behaviours\ActorEnemyBehaviour.cpp">
+      <Filter>MGE Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Parser\LevelParser.cpp">
+      <Filter>MGE Source files\mge\LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Parser\pugixml.cpp">
+      <Filter>MGE Source files\mge\LevelEditor</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

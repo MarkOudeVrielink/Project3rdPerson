@@ -1,7 +1,12 @@
 #include "Level.h"
 #include <SFML\Graphics.hpp>
 #include <SFML\Graphics\RenderWindow.hpp>
-
+//EmptyLEvel
+Level::Level()
+{
+	_indexWave = -1; //Safe check in case we do +1 in the index wave when loading xml
+}
+//TODO: Add setter for the sf::RenderWindow 
 Level::Level(sf::RenderWindow *pWindow) : _window(pWindow)
 {
 	_waves.push_back(new EnemyWave());
@@ -12,15 +17,17 @@ Level::Level(sf::RenderWindow *pWindow) : _window(pWindow)
 Level::~Level()
 {
 }
-
+//TODO:: Add current wave setSize
+//TODO:: Add current wave setDelayBetweenEnemies
 void Level::CreateWaypoint(sf::Vector2f pWayPos, float pSec)
 {
-	_waves.at(_indexWave)->addWaypoint(new Waypoint(pWayPos, _currentEnemyWave->getWaypoints()->size(), _waves.size(), _window), pSec);
+	cout << pSec << "Time when adding waypoint" << endl;
+	_waves.at(_indexWave)->addWaypoint(new Waypoint(pWayPos, _currentEnemyWave->getWaypoints()->size(), _indexWave, _window), pSec);
 }
 
 void Level::StartLevel(World* pWorld)
 {
-	_world = pWorld;	
+	_world = pWorld;
 }
 
 int Level::getIndexWave()
@@ -48,7 +55,7 @@ bool Level::RunLevel(float* pSec)
 		if (enemyWave->CheckSpawnTimeNextEnemy(pSec))
 			enemyWave->SpawnEnemy(_world);
 	}
-	
+
 	return false;
 }
 
@@ -59,22 +66,35 @@ EnemyWave * Level::getCurrentWave()
 //Add breakpoint if we dont have enough waves
 EnemyWave * Level::NextEnemyWave()
 {
-	
-	_indexWave++;
-	cout << _indexWave << "<NEXT index " << endl;
-	_currentEnemyWave = _waves.at(_indexWave);
-	cout << _waves.size() << "<waves size " << endl;
-	return _currentEnemyWave;
+	if (_indexWave < _waves.size())
+	{
+		_indexWave++;
+		cout << _indexWave << "<NEXT index " << endl;
+		_currentEnemyWave = _waves.at(_indexWave);
+		cout << _waves.size() << "<waves size " << endl;
+		return _currentEnemyWave;
+	}
+	else {
+		cout << "We should not keep going up in the wave" << endl;
+		return 0;
+	}
 }
 
 EnemyWave * Level::PreviousWave()
 {
-
-	_indexWave--;
-	cout << _indexWave << "<PREVIOUS index " << endl;
-	_currentEnemyWave = _waves.at(_indexWave);
-	cout << _waves.size() << "<waves size " << endl;
-	return _currentEnemyWave;
+	if (_indexWave > 0)
+	{
+		_indexWave--;
+		cout << _indexWave << "<PREVIOUS index " << endl;
+		_currentEnemyWave = _waves.at(_indexWave);
+		cout << _waves.size() << "<waves size " << endl;
+		return _currentEnemyWave;
+	}
+	else 
+	{
+		cout << "We should not keep going low in the wave" << endl;
+		return 0;
+	}
 }
 
 EnemyWave * Level::NewWave()
@@ -127,6 +147,11 @@ float Level::getCurrentSnapTime()
 void Level::setCurrentSnapTime(float pSec)
 {
 	_currentSnapTime = pSec;
+}
+
+void Level::setRenderWindow(sf::RenderWindow* pWindow)
+{
+	_window = pWindow;
 }
 
 //TODO:

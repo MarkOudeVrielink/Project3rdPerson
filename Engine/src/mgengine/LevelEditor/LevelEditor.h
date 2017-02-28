@@ -1,4 +1,5 @@
 #pragma once
+#include <TGUI/TGUI.hpp>
 #include "mge/behaviours/AbstractBehaviour.hpp"
 #include "mgengine/UI/ImageBehaviour.h"
 #include "mge/config.hpp"
@@ -11,7 +12,11 @@ class LevelEditorBehaviour:public AbstractBehaviour
 {
 public:
 	LevelEditorBehaviour(sf::RenderWindow *pWindow, World *pWorld);
+	void InitializeHud(tgui::Gui * pGuiRef);
 	~LevelEditorBehaviour();
+	void UpdateGUIData();
+	void NextWave();
+	void PrevWave();
 	void draw(sf::CircleShape circle);	
 	virtual void update(float pStep);
 	void DrawUI();
@@ -19,6 +24,8 @@ public:
 	void draw(sf::RectangleShape pCircle);
 	void DotGrid();
 	void DrawReferenceGrid();
+	void CheckSaveLevel();
+	void CheckLoadLevel();
 	void SaveLevel();
 	void LoadLevel();
 private:
@@ -48,5 +55,8 @@ private:
 	void UpdateWaypointCreation();
 	void UpdateStartLevelPreview();
 	void UpdateWaveSelection();
+
+	//GUI
+	tgui::Label::Ptr wavesLabel;
 };
 

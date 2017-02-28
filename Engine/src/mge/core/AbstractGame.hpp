@@ -1,6 +1,6 @@
 #ifndef ABSTRACTGAME_H
 #define ABSTRACTGAME_H
-
+#include <TGUI/TGUI.hpp>
 #include <SFML/Graphics.hpp>
 #include <GL/glew.h>
 #include <string>
@@ -61,11 +61,11 @@ class AbstractGame
 		Renderer* _renderer;        //the renderer class to render the world
 		World* _world;              //the root game object that represents our scene
 		float _fps;                 //stores the real fps
-
+		tgui::Gui _gui;// { *_window };
     private:
         AbstractGame(const AbstractGame&);
         AbstractGame& operator=(const AbstractGame&);
-
+		
 
 };
 

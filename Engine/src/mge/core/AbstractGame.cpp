@@ -1,5 +1,5 @@
 #include "AbstractGame.hpp"
-
+#include <TGUI/TGUI.hpp>
 #include <iostream>
 using namespace std;
 
@@ -38,7 +38,7 @@ void AbstractGame::_initializeWindow() {
 	cout << "Initializing window..." << endl;
 
 	_window = new sf::RenderWindow( sf::VideoMode(1920,1080), "My Game!", sf::Style::Default, sf::ContextSettings(24,8,0,3,3));
-
+	_gui.setWindow(*_window);
 	//_window->setVerticalSyncEnabled(true);
     cout << "Window initialized." << endl << endl;
 }
@@ -94,8 +94,7 @@ void AbstractGame::run()
 	sf::Clock renderClock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
-
-
+	
 	while (_window->isOpen()) {
 		timeSinceLastUpdate += updateClock.restart();
 
@@ -112,8 +111,13 @@ void AbstractGame::run()
 
                 _update(timePerFrame.asSeconds());
 		    }
-
+			
             _render();
+			glActiveTexture(GL_TEXTURE0);
+			_window->pushGLStates();
+			_gui.draw();
+			_window->popGLStates();
+		
             _window->display();
 
             float timeSinceLastRender = renderClock.restart().asSeconds();
@@ -142,7 +146,7 @@ void AbstractGame::_processEvents()
         //give all system event listeners a chance to handle events
         //optionally to be implemented by you...
         //SystemEventDispatcher::dispatchEvent(event);
-
+		_gui.handleEvent(event);
         switch (event.type) {
             case sf::Event::Closed:
                 exit = true;

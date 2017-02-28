@@ -101,13 +101,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\TGUI-0.7\include;..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32d.lib;opengl32.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies);BulletDynamics.lib;BulletCollision.lib;LinearMath.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bullet_physics\bullet3-2.83.7\lib;..\src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32d.lib;opengl32.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies);BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;tgui.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\TGUI-0.7\lib;..\bullet_physics\bullet3-2.83.7\lib;..\src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Static|Win32'">
@@ -117,13 +117,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;SFML_STATIC;GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\TGUI-0.7\include;..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32sd.lib;sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-audio-s-d.lib;sfml-system-s-d.lib;opengl32.lib;freetype.lib;jpeg.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;%(AdditionalDependencies);BulletDynamics.lib;BulletCollision.lib;LinearMath.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bullet_physics\bullet3-2.83.7\lib;..\src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32sd.lib;sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-audio-s-d.lib;sfml-system-s-d.lib;opengl32.lib;freetype.lib;jpeg.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;%(AdditionalDependencies);BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;tgui-s-d.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\TGUI-0.7\lib;..\bullet_physics\bullet3-2.83.7\lib;..\src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release Dynamic|Win32'">
@@ -135,15 +135,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\TGUI-0.7\include;..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfml-audio.lib;%(AdditionalDependencies);BulletDynamics.lib;BulletCollision.lib;LinearMath.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bullet_physics\bullet3-2.83.7\lib;..\src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfml-audio.lib;%(AdditionalDependencies);BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;tgui.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\TGUI-0.7\lib;..\bullet_physics\bullet3-2.83.7\lib;..\src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release Static|Win32'">
@@ -155,23 +155,26 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;SFML_STATIC;GLEW_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\TGUI-0.7\include;..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32s.lib;sfml-graphics-s.lib;sfml-window-s.lib;sfml-audio-s.lib;sfml-system-s.lib;opengl32.lib;freetype.lib;jpeg.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;%(AdditionalDependencies);BulletDynamics.lib;BulletCollision.lib;LinearMath.lib</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;sfml-graphics-s.lib;sfml-window-s.lib;sfml-audio-s.lib;sfml-system-s.lib;opengl32.lib;freetype.lib;jpeg.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;%(AdditionalDependencies);BulletDynamics.lib;BulletCollision.lib;LinearMath.lib;tgui.lib</AdditionalDependencies>
       <IgnoreAllDefaultLibraries>
       </IgnoreAllDefaultLibraries>
       <IgnoreSpecificDefaultLibraries>LIBCMT</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>..\bullet_physics\bullet3-2.83.7\lib;..\src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\TGUI-0.7\lib;..\bullet_physics\bullet3-2.83.7\lib;..\src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
     <ClInclude Include="..\src\mgengine\LevelEditor\LevelEditor.h" />
+    <ClInclude Include="..\src\mgengine\Parser\LevelParser.h" />
+    <ClInclude Include="..\src\mgengine\Parser\pugiconfig.hpp" />
+    <ClInclude Include="..\src\mgengine\Parser\pugixml.hpp" />
     <ClInclude Include="..\src\mgengine\UI\ImageBehaviour.h" />
     <ClInclude Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.h" />
     <ClInclude Include="..\src\mgengine\Behaviours\ActorEnemyBehaviour.h" />
@@ -216,6 +219,8 @@
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\mgengine\LevelEditor\LevelEditor.cpp" />
+    <ClCompile Include="..\src\mgengine\Parser\LevelParser.cpp" />
+    <ClCompile Include="..\src\mgengine\Parser\pugixml.cpp" />
     <ClCompile Include="..\src\mgengine\UI\ImageBehaviour.cpp" />
     <ClCompile Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.cpp" />
     <ClCompile Include="..\src\mgengine\Behaviours\ActorEnemyBehaviour.cpp" />

@@ -1,18 +1,4 @@
-﻿  EnemyWave.cpp
-  LevelEditor.cpp
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\leveleditor\leveleditor.cpp(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\leveleditor\leveleditor.cpp(118): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\leveleditor\leveleditor.cpp(115): warning C4101: 'sz': unreferenced local variable
-  ControlledActor.cpp
-  ActorEnemyBehaviour.cpp
-  Mesh.cpp
-  GameObject.cpp
-  AbstractGame.cpp
-  MGEDemo.cpp
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  LevelManager.cpp
-  Level.cpp
-  main.cpp
+﻿  Level.cpp
+c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mygame\level.cpp(69): warning C4018: '<': signed/unsigned mismatch
   mge.vcxproj -> C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\_vs2015\debug_static_exe/mge.exe
   mge.vcxproj -> debug_static_exe/mge.pdb (Full PDB)

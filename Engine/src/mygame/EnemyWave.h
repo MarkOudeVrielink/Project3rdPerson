@@ -9,17 +9,27 @@ public:
 	EnemyWave();
 	~EnemyWave();
 	void addWaypoint(Waypoint * pWaypoint, float pSec);
-	std::vector<Waypoint*>* getWaypoints();
+
 	void DrawWaypoints();
 	void SpawnEnemy(World * pWorld);
 	bool CheckSpawnTimeNextEnemy(float* pSec);
 	void UpdateEditorModePosition(float *pSec);
 	void TestRealTime();
 	void TestEditorMode();
+
+	const float* getStartTime() const;
+	const int* getSizeWave() const;
+	const float* getDelayBetweenEnemies() const;
+	const std::vector<Waypoint*>* getWaypoints() const;
+
+	void setWaypoints(std::vector<Waypoint*> pWaypoints);
+	void setStartTime(float pStartTime);
+	void setSizeWave(int pSizeWave);
+	void setDelayBetweenEnemies(float pDelayEnemies);
 private:
 	float _startTimeWave = 10000;
 	int _sizeWave = 5;
-	int _quantitySpawnedEnemies = 0; 
+	int _quantitySpawnedEnemies = 0;
 	float _timeAtLastEnemySpawned = 0; //Time in Seconds when the last enemy was spawned
 	float _delayBetweenEnemies = .5f; //Delay between every enemy in the wave
 	std::vector<Enemy*> _enemies;
