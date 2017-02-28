@@ -150,7 +150,7 @@ void EnemyBehaviour::AiBasic(float pStep)
 		_ownerBody->translate(btVector3(delta.x * _moveSpeed, 0.0f, delta.y * _moveSpeed));	
 	}
 }
-
+//The same AI but going to the previous waypoint
 void EnemyBehaviour::AiBasicBackWards(float pStep)
 {
 	if (_tarjet == nullptr)
@@ -204,40 +204,3 @@ void EnemyBehaviour::AiBasicBackWards(float pStep)
 	}
 	
 }
-///OLD AI but still was working with some comments about improvemnts, in other words, saved in case I mess up
-/*
-//TODO: Interpolate rotation with next waypoint
-if (_tarjet == nullptr) {
-	cout << "MOVE" << endl;
-	_tarjet = _wayPoints->at(_index++);//index++ maybe
-}
-
-
-glm::vec3 tarjet(160.0f / 1920 * _tarjet->getPosition().x - 80, 0, 80.0f / 1080 * _tarjet->getPosition().y - 40);
-glm::vec3 pos = _owner->getWorldPosition();
-glm::vec3 forward = glm::normalize(_owner->getLocalPosition() - tarjet);
-glm::vec3 right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), forward));
-glm::vec3 up = glm::cross(forward, right);
-if (_wayPoints->size() >= _index) {
-	//THIS OVERRIDE SCALING(?), the 1.5f change the scale, if higher number -> smaller model,  if smaller number -> bigger model
-	_owner->setTransform(
-		glm::mat4(glm::vec4(right, 0), glm::vec4(up, 0), glm::vec4(forward, 0), glm::vec4(_owner->getLocalPosition(), 1.0f))
-	);
-}
-
-//_owner->setTransform(glm::transpose(glm::lookAt(_owner->getWorldPosition(), glm::vec3(tarjet) , glm::vec3(0, 1, 0))));
-glm::vec2 delta = glm::vec2(tarjet.x, tarjet.z) - glm::vec2(pos.x, pos.z);
-float length = glm::length(delta);
-if (length< _moveSpeed*pStep && _wayPoints->size() > _index) {
-	cout << _owner->getWorldPosition().x << "<x" << _owner->getWorldPosition().z << "<z" << endl;
-	_tarjet = _wayPoints->at(_index++);
-
-}
-else {
-	if (_wayPoints->size() == _index) //Increment index so we dont keep rotating in order to keep moving and leave the screen
-		_index++;
-	float xPos = delta.x / length;//Not using since we rotate to the direction we want to move and just need to move forward now
-	float yPos = delta.y / length;//
-
-	_owner->translate(glm::vec3(0 * _moveSpeed, 0.0f, -1 * pStep*_moveSpeed));
-}*/

@@ -2,39 +2,51 @@
 <Level>
   <Wave startTimeWave="0" sizeWave="5" delayBetweenEnemies="0.5">
     <Waypoints>
-      <WavePoint x="496" y="596" />
-      <WavePoint x="497" y="596" />
-      <WavePoint x="775" y="687" />
-      <WavePoint x="901" y="704" />
-      <WavePoint x="1040" y="700" />
+      <WavePoint x="1203" y="560" />
+      <WavePoint x="1063" y="673" />
+      <WavePoint x="914" y="703" />
+      <WavePoint x="694" y="670" />
+      <WavePoint x="630" y="623" />
     </Waypoints>
   </Wave>
   <Wave startTimeWave="0" sizeWave="5" delayBetweenEnemies="0.5">
     <Waypoints>
-      <WavePoint x="1144" y="334" />
-      <WavePoint x="999" y="318" />
-      <WavePoint x="852" y="306" />
-      <WavePoint x="692" y="263" />
-      <WavePoint x="583" y="287" />
-      <WavePoint x="573" y="296" />
+      <WavePoint x="1312" y="551" />
+      <WavePoint x="1304" y="603" />
+      <WavePoint x="1296" y="625" />
+      <WavePoint x="1242" y="669" />
+      <WavePoint x="1232" y="669" />
+      <WavePoint x="1151" y="577" />
+      <WavePoint x="1120" y="522" />
+      <WavePoint x="1096" y="485" />
+      <WavePoint x="1106" y="361" />
+      <WavePoint x="1089" y="285" />
+      <WavePoint x="966" y="221" />
+      <WavePoint x="867" y="211" />
     </Waypoints>
   </Wave>
   <Wave startTimeWave="0" sizeWave="5" delayBetweenEnemies="0.5">
     <Waypoints>
-      <WavePoint x="699" y="675" />
-      <WavePoint x="757" y="588" />
-      <WavePoint x="798" y="541" />
-      <WavePoint x="853" y="477" />
-      <WavePoint x="915" y="393" />
-      <WavePoint x="1003" y="250" />
-      <WavePoint x="1041" y="220" />
-      <WavePoint x="1087" y="209" />
-      <WavePoint x="1293" y="357" />
-      <WavePoint x="1414" y="686" />
-      <WavePoint x="1352" y="554" />
-      <WavePoint x="1349" y="437" />
-      <WavePoint x="1365" y="338" />
-      <WavePoint x="1374" y="254" />
+      <WavePoint x="1237" y="127" />
+      <WavePoint x="1122" y="120" />
+      <WavePoint x="1009" y="128" />
+      <WavePoint x="847" y="150" />
+      <WavePoint x="755" y="186" />
+      <WavePoint x="663" y="237" />
+      <WavePoint x="591" y="317" />
+      <WavePoint x="566" y="453" />
+      <WavePoint x="557" y="569" />
+      <WavePoint x="600" y="707" />
+      <WavePoint x="703" y="781" />
+      <WavePoint x="887" y="829" />
+      <WavePoint x="1148" y="853" />
+      <WavePoint x="1308" y="797" />
+      <WavePoint x="1298" y="248" />
+      <WavePoint x="1380" y="189" />
+      <WavePoint x="1370" y="152" />
+      <WavePoint x="1360" y="139" />
+      <WavePoint x="436" y="316" />
+      <WavePoint x="551" y="514" />
     </Waypoints>
   </Wave>
 </Level>

@@ -21,7 +21,7 @@ LevelManager::~LevelManager()
 void LevelManager::StartLevel()
 {
 	
-	_currentLevel->StartLevel(_world);
+	_currentLevel->ReferenceWorld(_world);
 }
 
 int LevelManager::getIndexLevel()

@@ -4,6 +4,7 @@
 static class LevelParser
 {
 public:
-	static void SaveLevel(Level* pLevel);
+	//static void SaveLevel(Level* pLevel);
+	static void SaveLevel(Level * pLevel, string pfileName);
 	static Level *LoadLevel(string pName, sf::RenderWindow* pWindow);
 };

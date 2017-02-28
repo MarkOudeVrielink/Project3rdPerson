@@ -13,7 +13,7 @@ EnemyWave::EnemyWave()
 		Enemy* Enemy1 = new Enemy("Diablo", glm::vec3(0, 0, 0));
 		_enemies.push_back(Enemy1);
 	}
-	_enemy = Mesh::load(config::MGE_MODEL_PATH + "potato.obj");//LAG HERE
+	_enemy = Mesh::load(config::MGE_MODEL_PATH + "ship.obj");//LAG HERE
 }
 //TODO: Set the delay between enemies relative to the speed of the enemies to avoid them colliding between them
 
@@ -50,6 +50,22 @@ void EnemyWave::DrawWaypoints()
 		waypoint->Draw();
 	}
 }
+void EnemyWave::setAsMainWave()
+{
+	//cout << "DRAW WAYPOINT" << endl;
+	for (auto &waypoint : _wayPoints)
+	{
+		waypoint->MainWaypoint();
+	}
+}
+void EnemyWave::setAsSecondaryWave()
+{
+	//cout << "DRAW WAYPOINT" << endl;
+	for (auto &waypoint : _wayPoints)
+	{
+		waypoint->SecondaryWaypoint();
+	}
+}
 //Spawn one enemy at the first waypoint of the list
 void EnemyWave::SpawnEnemy(World * pWorld)//TODO:change to Level scope
 {	//Check if we finished spawning all the enmies of this wave
@@ -64,33 +80,22 @@ void EnemyWave::SpawnEnemy(World * pWorld)//TODO:change to Level scope
 			0,
 			80.0f / 1080 * _wayPoints.at(0)->getPosition().y - 40);
 
-<<<<<<< HEAD
-		Enemy* Enemy1 = new Enemy("Enemy", pos);
-		AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "potato.png"));
-=======
+
+		//Enemy* Enemy1 = new Enemy("Enemy", pos);
+		//AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "potato.png"));
+
 		//Enemy* Enemy1 = new Enemy("Enemy", pos);
 		ControlledActor* Enemy1 = new ControlledActor(pWorld, "Enemy", pos, new btSphereShape(1), ActorType::Type_Enemy, 1,  CF::COL_ENEMY, CF::enemyCollidesWith);
 		
 		cout << "ENEMY CREATED" << endl;
 		AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png"));
->>>>>>> origin/master
+
 		Enemy1->setMesh(_enemy);
 		cout << "Mesh set" << endl;
 		Enemy1->setMaterial(textureMaterial2);
-<<<<<<< HEAD
-		cout << "Material set" << endl;
-		if (!_editorMode)
-		{
-			Enemy1->setBehaviour(new EnemyBehaviour(&_wayPoints));
-			cout << "Behaviour set" << endl;
-		}
-		else if (_editorMode)
-		{
-			EnemyBehaviour* behave = new EnemyBehaviour(&_wayPoints, _snapTime);
-			cout << "Behaviour set" << endl;
-			Enemy1->setBehaviour(behave);
-=======
 
+		cout << "Material set" << endl;
+		
 		if(!_editorMode)
 			Enemy1->setActorBehaviour(new EnemyBehaviour(&_wayPoints));
 		else if(_editorMode)
@@ -98,7 +103,7 @@ void EnemyWave::SpawnEnemy(World * pWorld)//TODO:change to Level scope
 			EnemyBehaviour* behave = new EnemyBehaviour(&_wayPoints, _snapTime);
 			
 			Enemy1->setActorBehaviour(behave);
->>>>>>> origin/master
+
 			behave->SaveOriginalTransform();
 
 		}
@@ -138,6 +143,7 @@ void EnemyWave::TestEditorMode()
 	_editorMode = true;
 }
 
+#pragma region getters
 const float * EnemyWave::getStartTime() const
 {
 	cout << "START TIME !!!!!!!" << _startTimeWave << endl;
@@ -154,6 +160,30 @@ const float * EnemyWave::getDelayBetweenEnemies() const
 	return &_delayBetweenEnemies;
 }
 
+const float * EnemyWave::getSpeed() const
+{
+	return &_speed;
+}
+
+const float * EnemyWave::getShootRatio() const
+{
+	return &_shootRatio;
+}
+const int * EnemyWave::getEnemyType() const
+{
+	return &_enemyType;
+}
+const int * EnemyWave::getEnemyBehaviour() const
+{
+	return &_enemyBehaviour;
+}
+const float * EnemyWave::getHealth() const
+{
+	return &_health;
+}
+#pragma endregion
+
+#pragma region Setters
 void EnemyWave::setWaypoints(std::vector<Waypoint*> pWaypoints)
 {
 	_wayPoints = pWaypoints;
@@ -173,3 +203,29 @@ void EnemyWave::setDelayBetweenEnemies(float pDelayEnemies)
 {
 	_delayBetweenEnemies = pDelayEnemies;
 }
+
+void EnemyWave::setSpeed(float pSpeed)
+{
+	_speed = pSpeed;
+}
+
+void EnemyWave::setShootRatio(float pRatio)
+{
+	_shootRatio = pRatio;
+}
+
+void EnemyWave::setEnemyType(float pType)
+{
+	_enemyType = pType;
+}
+
+void EnemyWave::setEnemyBehaviour(float pBehaviour)
+{
+	_enemyBehaviour = pBehaviour;
+}
+
+void EnemyWave::setHealth(float pHealth)
+{
+	_health = pHealth;
+}
+#pragma endregion

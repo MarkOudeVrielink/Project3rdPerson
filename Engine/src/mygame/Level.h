@@ -12,7 +12,7 @@ public:
 	Level(sf::RenderWindow *pWindow);
 	~Level();
 	void CreateWaypoint(sf::Vector2f pWayPos, float pSec);
-	void StartLevel(World *pWorld);
+	void ReferenceWorld(World *pWorld);
 	int getIndexWave();
 	bool RunLevel(sf::Time* pTime);
 	bool RunLevel(float* pSec);

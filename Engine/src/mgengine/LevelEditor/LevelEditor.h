@@ -15,8 +15,16 @@ public:
 	void InitializeHud(tgui::Gui * pGuiRef);
 	~LevelEditorBehaviour();
 	void UpdateGUIData();
+	static float checkTextInBox(tgui::EditBox::Ptr pBox);
+	static int checkComboBox(tgui::ComboBox::Ptr pBox);
+	void UpdateGUIDataAtWaveChange();
+	static void setBoxDefault(tgui::EditBox::Ptr pBox, float pX);
 	void NextWave();
 	void PrevWave();
+	void NewWave();
+	void NextLevel();
+	void PrevLevel();
+	void NewLevel();
 	void draw(sf::CircleShape circle);	
 	virtual void update(float pStep);
 	void DrawUI();
@@ -28,6 +36,7 @@ public:
 	void CheckLoadLevel();
 	void SaveLevel();
 	void LoadLevel();
+	void LoadLevelInitialize();
 private:
 	sf::RenderWindow *_window;
 	std::list<RawImage*> _images;
@@ -35,7 +44,7 @@ private:
 	sf::Font _font;
 	sf::Text _currentSnapTimeText;
 	vector<sf::Text> _textReference;
-	Level* _currentLevel;	
+
 	World* _world;	
 	float _scrollBar = 0;
 	float _scrollLastSecond = 0;
@@ -56,7 +65,20 @@ private:
 	void UpdateStartLevelPreview();
 	void UpdateWaveSelection();
 
+
+	Level* _currentLevel;
+	std::vector<Level*> _levels;
+	int _indexLevel = 0;
 	//GUI
 	tgui::Label::Ptr wavesLabel;
+	tgui::Label::Ptr levelsLabel;
+	tgui::EditBox::Ptr editQuantityBox;
+	tgui::EditBox::Ptr timeStartBox;
+	tgui::EditBox::Ptr timeEndBox;
+	tgui::EditBox::Ptr speedBox;
+	tgui::EditBox::Ptr shootRBox;
+	tgui::ComboBox::Ptr enemyTypeBox;
+	tgui::ComboBox::Ptr behaviourBox;
+	tgui::EditBox::Ptr healthBox;
 };
 

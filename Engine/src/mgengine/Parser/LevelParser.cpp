@@ -3,7 +3,7 @@
 #include"mygame\EnemyWave.h"
 #include <vector>
 std::string const XML_FILE_PATH = "C://MyTemp/PugiXml/MyDemo.xml";
-void LevelParser::SaveLevel(Level * pLevel)
+void LevelParser::SaveLevel(Level * pLevel,string pfileName = "demo")
 {
 	pugi::xml_document doc;
 	pugi::xml_node declarationNode = doc.append_child(pugi::node_declaration);
@@ -32,18 +32,19 @@ void LevelParser::SaveLevel(Level * pLevel)
 		}
 	}
 
-	doc.save_file((config::MGE_FONT_PATH +"/demo.xml").c_str(), PUGIXML_TEXT("  "));
-	cout << "saved" << endl;
+	doc.save_file((config::MGE_FONT_PATH +"/"+ pfileName+".xml").c_str(), PUGIXML_TEXT("  "));
+	cout << "saved... "<< pfileName << endl;
 }
 
-Level* LevelParser::LoadLevel(string pName, sf::RenderWindow* pWindow)
+Level* LevelParser::LoadLevel(string pName ="demo", sf::RenderWindow* pWindow= NULL)
 {
 	pugi::xml_document doc;
-	pugi::xml_parse_result result = doc.load_file((config::MGE_FONT_PATH + "/demo.xml").c_str());
+	pugi::xml_parse_result result = doc.load_file((config::MGE_FONT_PATH + "/"+ pName+".xml").c_str());
 	if (!result)
 	{
 		std::cout << "Parse error: " << result.description()
 			<< ", character pos= " << result.offset<<endl;
+		return NULL;
 	}
 	// A valid XML document must have a single root node
 	pugi::xml_node root = doc.document_element();

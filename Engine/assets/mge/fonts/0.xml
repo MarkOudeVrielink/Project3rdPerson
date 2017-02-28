@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<Level>
+  <Wave startTimeWave="10000" sizeWave="21" delayBetweenEnemies="0.5">
+    <Waypoints />
+  </Wave>
+</Level>

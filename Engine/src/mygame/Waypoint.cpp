@@ -27,10 +27,20 @@ void Waypoint::Draw()
 	_window->pushGLStates();
 	_window->draw(shape);
 	_window->draw(_debugText);
-	_window->popGLStates();
-	
+	_window->popGLStates();	
+}
+void Waypoint::MainWaypoint()
+{
+	if (_orderInList == 0) shape.setFillColor(sf::Color(255, 215, 0));
+	else shape.setFillColor(sf::Color(0, 128, 0));
+	shape.setRadius(7);
 
-	
+}
+void Waypoint::SecondaryWaypoint()
+{
+	if (_orderInList == 0) shape.setFillColor(sf::Color(205, 92, 92));//Light Red
+	else shape.setFillColor(sf::Color(30, 144, 255));//Light Blue
+	shape.setRadius(5);
 }
 
 sf::Vector2f Waypoint::getPosition()
@@ -49,8 +59,8 @@ void Waypoint::_createDebugInfo()
 	_debugText = sf::Text();
 	shape.setRadius(5);
 
-	if(_orderInList == 0) shape.setFillColor(sf::Color::Red);
-	else shape.setFillColor(sf::Color::Blue);
+	if(_orderInList == 0) shape.setFillColor(sf::Color(205, 92, 92));//Light Red
+	else shape.setFillColor(sf::Color(30, 144, 255));//Light Blue
 
 	_debugText.setFont(_font);
 	_debugText.setCharacterSize(16);

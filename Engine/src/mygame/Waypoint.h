@@ -10,6 +10,8 @@ public:
 	~Waypoint();
 	void CreateWaypoint(sf::Vector2i pWayPos);
 	void Draw();
+	void MainWaypoint();
+	void SecondaryWaypoint();
 	//std::vector<sf::CircleShape> _wayPoints;
 	sf::Vector2f getPosition();
 private:

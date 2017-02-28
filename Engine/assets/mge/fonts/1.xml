@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<Level>
+  <Wave startTimeWave="0" sizeWave="5" delayBetweenEnemies="0.5">
+    <Waypoints>
+      <WavePoint x="1276" y="463" />
+      <WavePoint x="982" y="117" />
+      <WavePoint x="775" y="131" />
+      <WavePoint x="523" y="366" />
+      <WavePoint x="630" y="766" />
+      <WavePoint x="884" y="867" />
+      <WavePoint x="1050" y="830" />
+    </Waypoints>
+  </Wave>
+  <Wave startTimeWave="0" sizeWave="5" delayBetweenEnemies="0.5">
+    <Waypoints>
+      <WavePoint x="1264" y="157" />
+      <WavePoint x="1134" y="179" />
+      <WavePoint x="879" y="324" />
+      <WavePoint x="690" y="463" />
+      <WavePoint x="677" y="730" />
+    </Waypoints>
+  </Wave>
+</Level>

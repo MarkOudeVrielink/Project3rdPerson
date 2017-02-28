@@ -128,11 +128,11 @@ void MGEDemo::_initializeScene()
 	GameObject *LevelEditor = new GameObject("test", glm::vec3(0, 0, 0));
 	LevelEditor->setBehaviour(_levelEditor);
 	_world->add(LevelEditor);
-<<<<<<< HEAD
+
 	_levelEditor->InitializeHud(&_gui);
-=======
+
 	/**/
->>>>>>> origin/master
+
    // camera->setBehaviour(new LookAt (teapot));
 
   /*  Camera* camera = new Camera ("camera", glm::vec3(0,30,0));

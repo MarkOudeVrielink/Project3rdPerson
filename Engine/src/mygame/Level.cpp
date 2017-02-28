@@ -24,8 +24,8 @@ void Level::CreateWaypoint(sf::Vector2f pWayPos, float pSec)
 	cout << pSec << "Time when adding waypoint" << endl;
 	_waves.at(_indexWave)->addWaypoint(new Waypoint(pWayPos, _currentEnemyWave->getWaypoints()->size(), _indexWave, _window), pSec);
 }
-
-void Level::StartLevel(World* pWorld)
+//Add reference to the world
+void Level::ReferenceWorld(World* pWorld)
 {
 	_world = pWorld;
 }
@@ -66,7 +66,7 @@ EnemyWave * Level::getCurrentWave()
 //Add breakpoint if we dont have enough waves
 EnemyWave * Level::NextEnemyWave()
 {
-	if (_indexWave < _waves.size())
+	if (_indexWave < _waves.size()-1)
 	{
 		_indexWave++;
 		cout << _indexWave << "<NEXT index " << endl;
@@ -135,6 +135,10 @@ void Level::DrawAllWavesWayPoints()
 {
 	for (auto wave : _waves)
 	{
+		if (wave == _currentEnemyWave)
+			wave->setAsMainWave();
+		else
+			wave->setAsSecondaryWave();
 		wave->DrawWaypoints();
 	}
 }
