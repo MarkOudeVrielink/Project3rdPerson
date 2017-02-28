@@ -1,48 +1,45 @@
-﻿  EMPTY.cpp
-  Waypoint.cpp
-  LevelManager.cpp
-  Level.cpp
+﻿  Level.cpp
+c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mygame\level.cpp(69): warning C4018: '<': signed/unsigned mismatch
   EnemyWave.cpp
-  Enemy.cpp
-  SpaceShipBehaviour.cpp
   EnemyBehaviour.cpp
-  CameraBehaviour.cpp
-  DebugHud.cpp
   MGEDemo.cpp
-  TextureMaterial.cpp
-  ColorMaterial.cpp
-  AbstractMaterial.cpp
   World.cpp
-  Texture.cpp
-  ShaderProgram.cpp
-  Renderer.cpp
-  Mesh.cpp
   GameObject.cpp
-  Generating Code...
-  Compiling...
-  Camera.cpp
   AbstractGame.cpp
-  RotatingBehaviour.cpp
-  OrbitBehaviour.cpp
-  LookAt.cpp
-  KeysBehaviour.cpp
-  AbstractBehaviour.cpp
-  Scene.cpp
-  ObjectActor.cpp
   ControlledActor.cpp
   Actor.cpp
   CollisionManager.cpp
   PickUpBehaviour.cpp
-  BulletBehaviour.cpp
   PlayerBehaviour.cpp
-  ActorEnemyBehaviour.cpp
-  AbstractActorBehaviour.cpp
-  ImageBehaviour.cpp
+  pugixml.cpp
+  LevelParser.cpp
+c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\parser\levelparser.h(9): warning C4091: 'static ': ignored on left of 'LevelParser' when no variable is declared
+c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\parser\levelparser.cpp(27): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\parser\levelparser.cpp(28): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   LevelEditor.cpp
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\leveleditor\leveleditor.cpp(46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\leveleditor\leveleditor.cpp(118): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\leveleditor\leveleditor.cpp(115): warning C4101: 'sz': unreferenced local variable
+c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\parser\levelparser.h(9): warning C4091: 'static ': ignored on left of 'LevelParser' when no variable is declared
+c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\leveleditor\leveleditor.cpp(49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\leveleditor\leveleditor.cpp(382): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mgengine\leveleditor\leveleditor.cpp(379): warning C4101: 'sz': unreferenced local variable
   main.cpp
+  Generating Code...
+  Compiling...
+  LevelManager.cpp
+  Enemy.cpp
+  SpaceShipBehaviour.cpp
+  CameraBehaviour.cpp
+  TextureMaterial.cpp
+  ColorMaterial.cpp
+  Renderer.cpp
+  Camera.cpp
+  RotatingBehaviour.cpp
+  OrbitBehaviour.cpp
+  LookAt.cpp
+  KeysBehaviour.cpp
+  Scene.cpp
+  ObjectActor.cpp
+  BulletBehaviour.cpp
+  ActorEnemyBehaviour.cpp
   Generating Code...
 BulletDynamics.lib(btConeTwistConstraint.obj) : warning LNK4099: PDB 'BulletDynamics.pdb' was not found with 'BulletDynamics.lib(btConeTwistConstraint.obj)' or at 'C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\_vs2015\debug_dynamic_exe\BulletDynamics.pdb'; linking object as if no debug info
 BulletDynamics.lib(btGeneric6DofConstraint.obj) : warning LNK4099: PDB 'BulletDynamics.pdb' was not found with 'BulletDynamics.lib(btGeneric6DofConstraint.obj)' or at 'C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\_vs2015\debug_dynamic_exe\BulletDynamics.pdb'; linking object as if no debug info
