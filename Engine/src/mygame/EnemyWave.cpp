@@ -3,6 +3,9 @@
 #include "mge/materials/TextureMaterial.hpp"
 #include "mge/config.hpp"
 #include "mygame\Behaviours\EnemyBehaviour.h"
+#include "mgengine\Core\ControlledActor.h"
+#include "mgengine\Collision\CollisionFilters.h"
+
 EnemyWave::EnemyWave()
 {
 	for (int i = 0; i < 5;i++)
@@ -61,11 +64,20 @@ void EnemyWave::SpawnEnemy(World * pWorld)//TODO:change to Level scope
 			0,
 			80.0f / 1080 * _wayPoints.at(0)->getPosition().y - 40);
 
+<<<<<<< HEAD
 		Enemy* Enemy1 = new Enemy("Enemy", pos);
 		AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "potato.png"));
+=======
+		//Enemy* Enemy1 = new Enemy("Enemy", pos);
+		ControlledActor* Enemy1 = new ControlledActor(pWorld, "Enemy", pos, new btSphereShape(1), ActorType::Type_Enemy, 1,  CF::COL_ENEMY, CF::enemyCollidesWith);
+		
+		cout << "ENEMY CREATED" << endl;
+		AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png"));
+>>>>>>> origin/master
 		Enemy1->setMesh(_enemy);
 		cout << "Mesh set" << endl;
 		Enemy1->setMaterial(textureMaterial2);
+<<<<<<< HEAD
 		cout << "Material set" << endl;
 		if (!_editorMode)
 		{
@@ -77,6 +89,16 @@ void EnemyWave::SpawnEnemy(World * pWorld)//TODO:change to Level scope
 			EnemyBehaviour* behave = new EnemyBehaviour(&_wayPoints, _snapTime);
 			cout << "Behaviour set" << endl;
 			Enemy1->setBehaviour(behave);
+=======
+
+		if(!_editorMode)
+			Enemy1->setActorBehaviour(new EnemyBehaviour(&_wayPoints));
+		else if(_editorMode)
+		{
+			EnemyBehaviour* behave = new EnemyBehaviour(&_wayPoints, _snapTime);
+			
+			Enemy1->setActorBehaviour(behave);
+>>>>>>> origin/master
 			behave->SaveOriginalTransform();
 
 		}

@@ -17,7 +17,7 @@ void PickUpBehaviour::update(float pStep)
 
 void PickUpBehaviour::OnCollision(Actor * pOther)
 {
-	if (pOther->GetType() == ActorType::Type_Player) {
+	if (pOther->GetType() == ActorType::Type_Player) {		
 		_owner->~Actor();
 	}
 }

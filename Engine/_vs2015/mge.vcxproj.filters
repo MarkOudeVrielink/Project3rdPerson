@@ -176,6 +176,11 @@
     </ClInclude>
     <ClInclude Include="..\src\mgengine\Parser\pugixml.hpp">
       <Filter>MGE Source files\mge\LevelEditor</Filter>
+    <ClInclude Include="..\src\mgengine\Core\ResourceHolder.h">
+      <Filter>mgEngine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Core\MeshHolder.h">
+      <Filter>mgEngine\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -304,6 +309,8 @@
     </ClCompile>
     <ClCompile Include="..\src\mgengine\Parser\pugixml.cpp">
       <Filter>MGE Source files\mge\LevelEditor</Filter>
+    <ClCompile Include="..\src\mgengine\Core\MeshHolder.cpp">
+      <Filter>mgEngine\Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

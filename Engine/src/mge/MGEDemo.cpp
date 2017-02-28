@@ -45,6 +45,7 @@ using namespace std;
 #include "mygame\Behaviours\SpaceShipBehaviour.h"
 #include "mygame\Behaviours\CameraBehaviour.h"
 
+#include "mgengine\Core\MeshHolder.h"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo():AbstractGame (),_hud(0)
@@ -73,36 +74,32 @@ void MGEDemo::_initializeScene()
     _world->add(camera);
     _world->setMainCamera(camera);
 	//camera->setBehaviour(new CameraBehaviour(20));
-    //MESHES
-
-    //load a bunch of meshes we will be using throughout this demo
-    //each mesh only has to be loaded once, but can be used multiple times:
-    //F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
-   // Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane.obj");
+   
+	//MESHES	  
+    //Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane.obj");
     //Mesh* cubeMeshF = Mesh::load (config::MGE_MODEL_PATH+"cube_flat.obj");
+	//_world->loadMesh(Meshes::Player, Mesh::load(config::MGE_MODEL_PATH + "ship.obj"));
     Mesh* testingMesh = Mesh::load (config::MGE_MODEL_PATH+"explosion.obj");
     Mesh* teapotMeshS = Mesh::load (config::MGE_MODEL_PATH+"ship.obj");
 
     //MATERIALS
-
-  //  AbstractMaterial* colorMaterial0 = new ColorMaterial (glm::vec3(0.2f,0,0.2f));
-  //  AbstractMaterial* textureMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"land.jpg"));
+    //AbstractMaterial* colorMaterial0 = new ColorMaterial (glm::vec3(0.2f,0,0.2f));
+	//AbstractMaterial* textureMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"land.jpg"));
 	AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png"));
 	AbstractMaterial* textureTestingObject = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "explosion.png"));
 
     //SCENE SETUP
 
   
-
-	Enemy* Enemy1 = new Enemy("Diablo", glm::vec3(0, 0, 0));
-	Enemy1->rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
-	//Enemy1->scale(glm::vec3(.5f, .5f, .5f));
-	Enemy1->setMesh(teapotMeshS);
-	Enemy1->setMaterial(textureMaterial2);
-	Enemy1->setBehaviour(new SpaceShipBehaviour(60, 60));
-	_world->add(Enemy1);
-
-
+	/**/
+	//Enemy* Enemy1 = new Enemy("Diablo", glm::vec3(0, 0, 0));
+	//Enemy1->rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
+	////Enemy1->scale(glm::vec3(.5f, .5f, .5f));
+	//Enemy1->setMesh(teapotMeshS);
+	//Enemy1->setMaterial(textureMaterial2);
+	//Enemy1->setBehaviour(new SpaceShipBehaviour(60, 60));
+	//_world->add(Enemy1);
+	
 	///Enemy1->add(camera);
     /*GameObject* spaceShip = new GameObject ("teapot", glm::vec3(-3,1,0));
 	spaceShip->rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
@@ -131,7 +128,11 @@ void MGEDemo::_initializeScene()
 	GameObject *LevelEditor = new GameObject("test", glm::vec3(0, 0, 0));
 	LevelEditor->setBehaviour(_levelEditor);
 	_world->add(LevelEditor);
+<<<<<<< HEAD
 	_levelEditor->InitializeHud(&_gui);
+=======
+	/**/
+>>>>>>> origin/master
    // camera->setBehaviour(new LookAt (teapot));
 
   /*  Camera* camera = new Camera ("camera", glm::vec3(0,30,0));
@@ -139,15 +140,16 @@ void MGEDemo::_initializeScene()
     _world->add(camera);
     _world->setMainCamera(camera);
 	*/
-    //#MESHES
+    //MESHES
     //load a bunch of meshes we will be using throughout this demo
     //each mesh only has to be loaded once, but can be used multiple times:
     //F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
     Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane.obj");    
-   Mesh* suzannaMeshF = Mesh::load (config::MGE_MODEL_PATH+"suzanna_flat.obj");
+  // Mesh* suzannaMeshF = Mesh::load (config::MGE_MODEL_PATH+"suzanna_flat.obj");
+	_world->loadMesh(Meshes::Player, config::MGE_MODEL_PATH + "ship.obj");
    // Mesh* teapotMeshS = Mesh::load (config::MGE_MODEL_PATH+"teapot_smooth.obj");
 
-    //#MATERIALS
+    //MATERIALS
     AbstractMaterial* colorMaterial = new ColorMaterial (glm::vec3(0.2f,0,0.5f));
 	AbstractMaterial* colorMaterialGreen = new ColorMaterial(glm::vec3(0.0f, 1, 0.0f));
     AbstractMaterial* textureMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"engin1.png"));
@@ -160,9 +162,9 @@ void MGEDemo::_initializeScene()
 	//_world->add(plane);	
 
 	ControlledActor* player = new ControlledActor(_world, "Player", glm::vec3(0, 0, 3), new btSphereShape(1), ActorType::Type_Player, 1, CF::COL_PLAYER, CF::playerCollidesWith);	
-	player->setMesh(suzannaMeshF);
+	player->setMesh(_world->getMesh(Meshes::Player));
 	player->setMaterial(colorMaterial);	
-	player->setActorBehaviour(new PlayerBehaviour(suzannaMeshF, colorMaterial, 20));
+	player->setActorBehaviour(new PlayerBehaviour(_world->getMesh(Meshes::Player), colorMaterial, 20));
 	_world->add(player);	
 
 	ControlledActor* enemy0 = new ControlledActor(_world, "ENEMY0", glm::vec3(-20, 0, -18), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
@@ -171,23 +173,25 @@ void MGEDemo::_initializeScene()
 	enemy0->setActorBehaviour(new ActorEnemyBehaviour(teapotMeshS, colorMaterialGreen));
 	_world->add(enemy0);	
 
-	ControlledActor* enemy1 = new ControlledActor(_world, "ENEMY1", glm::vec3(0, 0, -15), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
+	ControlledActor* enemy1 = new ControlledActor(_world, "ENEMY1", glm::vec3(0, 0, -18), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
 	enemy1->setMesh(teapotMeshS);
 	enemy1->setMaterial(colorMaterial);
 	enemy1->setActorBehaviour(new ActorEnemyBehaviour(teapotMeshS, colorMaterialGreen));
 	_world->add(enemy1);
 
-	ControlledActor* enemy2 = new ControlledActor(_world, "ENEMY2", glm::vec3(20, 0, -1), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
-	enemy2->setMesh(teapotMeshS);
+	ControlledActor* enemy2 = new ControlledActor(_world, "ENEMY2", glm::vec3(20, 0, -18), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
+	enemy2->setMesh(teapotMeshS);	
 	enemy2->setMaterial(colorMaterial);
 	enemy2->setActorBehaviour(new ActorEnemyBehaviour(teapotMeshS, colorMaterialGreen));
 	_world->add(enemy2);
 	
-	ObjectActor* pickUp = new ObjectActor(_world, "PickUp", glm::vec3(-15, 0, -5), new btSphereShape(0.5f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith, 1);
-	pickUp->setMesh(teapotMeshS);
-	pickUp->setMaterial(colorMaterialGreen);
-	pickUp->setActorBehaviour(new PickUpBehaviour());
-	_world->add(pickUp);
+	//ObjectActor* pickUp = new ObjectActor(_world, "PickUp", glm::vec3(-15, 0, -5), new btSphereShape(0.5f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith, 1);
+	//pickUp->scale(glm::vec3(0.2f,0.2f,0.2f));
+	//pickUp->setMesh(teapotMeshS);
+	//pickUp->setMaterial(colorMaterialGreen);
+	//pickUp->setActorBehaviour(new PickUpBehaviour());
+	//_world->add(pickUp);
+
 	//camera->setBehaviour(new OrbitBehaviour(player, _window, 15, 5, 15));
 
 }

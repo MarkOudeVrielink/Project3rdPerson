@@ -71,7 +71,6 @@ AbstractActorBehaviour* Actor::getActorBehaviour() const
 	return _actorBehaviour;
 }
 
-//TODO: Make it so it keeps original scaling.
 void Actor::AjustPosition() {	
 	float mat[16];
 	btTransform t;
@@ -80,8 +79,8 @@ void Actor::AjustPosition() {
 	_rigidBody->getMotionState()->getWorldTransform(t);
 	
 	//Cast is to a glm::mat4 and set the OpenGL transform to that of the btTransform.
-	t.getOpenGLMatrix(mat);	
-	setTransform(floatToMat4(mat));
+	t.getOpenGLMatrix(mat);		
+	setTransform(glm::scale(floatToMat4(mat), _scale));
 }
 
 void Actor::initRigidBody(btCollisionShape * pCollider)

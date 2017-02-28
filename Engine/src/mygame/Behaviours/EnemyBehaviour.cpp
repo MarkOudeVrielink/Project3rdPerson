@@ -1,18 +1,22 @@
-#include "EnemyBehaviour.h"
-#include <list>
+#include "mgengine\Core\ObjectActor.h"
+#include "mgengine\Core\Actor.h"
 #include "mygame/Waypoint.h"
+#include "EnemyBehaviour.h"
 #include "mygame/Enemy.h"
+
+#include <list>
 #include <glm.hpp>
+
 EnemyBehaviour::EnemyBehaviour(std::vector<Waypoint*> *pWayPoints)
 {
 	_wayPoints = pWayPoints;
-	_moveSpeed = 20.0f;
+	_moveSpeed = 0.5f;
 }
 
 EnemyBehaviour::EnemyBehaviour(std::vector<Waypoint*>* pWayPoints, float * ptime)
 {
 	_wayPoints = pWayPoints;
-	_moveSpeed = 20.0f;
+	_moveSpeed = 0.5f;
 	_levelEditorMode = true;//MoveAccording to the time, so no constant movement
 	_referenceToArtificialLevelTime = ptime;
 	_spawnedTime = *ptime;
@@ -51,6 +55,12 @@ void EnemyBehaviour::update(float pStep)
 		*/
 
 }
+
+void EnemyBehaviour::OnCollision(Actor * pOther)
+{
+	
+}
+
 //FRAMERATE ISSUE COULD BE FIX IF WE SAVED LAST TIME WE CHANGE WAYPOINT AND ONLY ROTATE WHEN WE CHANGE NODE
 void EnemyBehaviour::UpdateEditorMode(float pStep)
 {
@@ -73,6 +83,10 @@ void EnemyBehaviour::UpdateEditorMode(float pStep)
 	}
 
 }
+void EnemyBehaviour::SpawnDrop(int pAmount)
+{
+	//TODO: add drops.
+}
 //Pass the frame length and move the enemy the distance it should move in that frame
 // Approx -> 0.01666666 length of frame * 60 = is equal to one sec
 void EnemyBehaviour::AiBasic(float pStep)
@@ -92,36 +106,51 @@ void EnemyBehaviour::AiBasic(float pStep)
 	}
 
 
-	glm::vec3 tarjet(160.0f / 1920 * _tarjet->getPosition().x - 80, 0, 80.0f / 1080 * _tarjet->getPosition().y - 40);
+	glm::vec3 target(160.0f / 1920 * _tarjet->getPosition().x - 80, 0, 80.0f / 1080 * _tarjet->getPosition().y - 40);
 	glm::vec3 pos = _owner->getWorldPosition();
-	glm::vec3 forward = glm::normalize(_owner->getWorldPosition() - tarjet);
-	glm::vec3 right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), forward));
-	glm::vec3 up = glm::cross(forward, right);
+	//glm::vec3 forward = glm::normalize(_owner->getWorldPosition() - tarjet);
+	//glm::vec3 right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), forward));
+	//glm::vec3 up = glm::cross(forward, right);	
+
+	btScalar dX = pos.x - target.x;
+	btScalar dZ = pos.z - target.z;
+	_angle = atan2(dX, dZ);
+
 	if (_wayPoints->size() >= (float)_index) {
-		//THIS OVERRIDE SCALING(?), the 1.5f change the scale, if higher number -> smaller model,  if smaller number -> bigger model
-		_owner->setTransform(
-			glm::mat4(glm::vec4(right, 0), glm::vec4(up, 0), glm::vec4(forward, 0), glm::vec4(_owner->getWorldPosition(), 1.0f))
-		);
+		//Create a quaternion with that's rotated towards the right angle.
+		btQuaternion newRotation;
+		newRotation.setRotation(btVector3(0,1,0), btScalar(_angle));
+		
+		//Get the objects current transform.
+		btTransform trans;
+		trans.setFromOpenGLMatrix(glm::value_ptr(_owner->getWorldTransform()));
+
+		//Set the new rotation.
+		trans.setRotation(newRotation);
+		_ownerBody->setWorldTransform(trans);
 	}
 
 	//_owner->setTransform(glm::transpose(glm::lookAt(_owner->getWorldPosition(), glm::vec3(tarjet) , glm::vec3(0, 1, 0))));
-	glm::vec2 delta = glm::vec2(tarjet.x, tarjet.z) - glm::vec2(pos.x, pos.z);
+	glm::vec2 delta = glm::vec2(target.x, target.z) - glm::vec2(pos.x, pos.z);
 	float length = glm::length(delta);
-	if (length< _moveSpeed*pStep && _wayPoints->size() > (float)_index) {
+	if (length < _moveSpeed  && _wayPoints->size() > (float)_index) {
 		cout << _owner->getWorldPosition().x << "<x" << _owner->getWorldPosition().z << "<z" << endl;
 		_tarjet = _wayPoints->at(_index++);
 
+		std::cout << _index;	
 	}
 	else {
 		if (_wayPoints->size() == _index) //Increment index so we dont keep rotating in order to keep moving and leave the screen
 			_index++;
-		float xPos = delta.x / length;//Not using since we rotate to the direction we want to move and just need to move forward now
-		float yPos = delta.y / length;//
+		//float xPos = delta.x / length;//Not using since we rotate to the direction we want to move and just need to move forward now
+		//float yPos = delta.y / length;//
+		delta = glm::normalize(delta);		
 
-		_owner->translate(glm::vec3(0 * _moveSpeed, 0.0f, -1 * pStep*_moveSpeed));
-
+		//_owner->translate(glm::vec3(0 * _moveSpeed, 0.0f, -1 * pStep*_moveSpeed));
+		_ownerBody->translate(btVector3(delta.x * _moveSpeed, 0.0f, delta.y * _moveSpeed));	
 	}
 }
+
 void EnemyBehaviour::AiBasicBackWards(float pStep)
 {
 	if (_tarjet == nullptr)

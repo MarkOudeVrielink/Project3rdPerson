@@ -43,10 +43,9 @@ LevelEditorBehaviour::LevelEditorBehaviour(sf::RenderWindow *pWindow, World *pWo
 			text.setFont(_font);
 			text.setCharacterSize(16);
 			text.setFillColor(sf::Color::White);
-
-
+			
 			text.setString(std::to_string(i));
-			text.setPosition(sf::Vector2f(350, 1080 - i));
+			text.setPosition(sf::Vector2f((float)350,(float) 1080 - i));
 			glActiveTexture(GL_TEXTURE0);
 			_window->pushGLStates();
 			_window->draw(text);
@@ -335,8 +334,6 @@ void LevelEditorBehaviour::DrawUI()
 	DrawReferenceGrid();
 	//Add Indicator to know which waypoints are from which wave 
 	_currentLevel->DrawAllWavesWayPoints();
-
-
 }
 void LevelEditorBehaviour::DrawGrid()
 {
@@ -376,10 +373,10 @@ void LevelEditorBehaviour::DrawReferenceGrid()
 	_currentSnapTimeText.setString("Sec: " + std::to_string(_secReferenceScrollBar));	
 	_window->draw(_currentSnapTimeText);
 	sf::Vector2f position;
-	std::string::size_type sz;
+	//std::string::size_type sz;
 	for (auto &text : _textReference) {
 		position = text.getPosition();
-		position.y = std::stoi((std::string) text.getString()); //String to int		
+		position.y = (float)std::stoi((std::string) text.getString()); //String to int		
 		position.y = 1080 - position.y + _scrollBar; //1080 is height of the screen resolution
 		text.setPosition(position);
 		std::string debug_time = "TIME: " + std::to_string(_time.getElapsedTime().asSeconds());

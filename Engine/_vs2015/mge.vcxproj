@@ -171,6 +171,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
+    <ClInclude Include="..\src\mgengine\Core\MeshHolder.h" />
+    <ClInclude Include="..\src\mgengine\Core\ResourceHolder.h" />
     <ClInclude Include="..\src\mgengine\LevelEditor\LevelEditor.h" />
     <ClInclude Include="..\src\mgengine\Parser\LevelParser.h" />
     <ClInclude Include="..\src\mgengine\Parser\pugiconfig.hpp" />
@@ -218,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\mgengine\Core\MeshHolder.cpp" />
     <ClCompile Include="..\src\mgengine\LevelEditor\LevelEditor.cpp" />
     <ClCompile Include="..\src\mgengine\Parser\LevelParser.cpp" />
     <ClCompile Include="..\src\mgengine\Parser\pugixml.cpp" />
