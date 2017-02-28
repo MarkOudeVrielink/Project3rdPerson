@@ -106,8 +106,8 @@ void AbstractGame::run()
                 timeSinceLastUpdate -= timePerFrame;
 
 				/*update physics for the world.*/
-				_world->physicsManager->SimulatePhysics(timePerFrame.asSeconds());
-				_world->physicsManager->CheckCollisions();
+				_world->GetCollisionManager()->SimulatePhysics(timePerFrame.asSeconds());
+				_world->GetCollisionManager()->CheckCollisions();
 
                 _update(timePerFrame.asSeconds());
 		    }

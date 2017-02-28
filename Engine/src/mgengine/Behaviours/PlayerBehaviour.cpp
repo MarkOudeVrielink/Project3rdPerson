@@ -1,4 +1,5 @@
 #include "PlayerBehaviour.h"
+#include "mge\core\World.hpp"
 #include "AbstractActorBehaviour.h"
 #include "mgengine\Behaviours\BulletBehaviour.h"
 #include "mgengine\Behaviours\PickUpBehaviour.h"
@@ -6,14 +7,15 @@
 #include "mgengine\Core\Actor.h"
 #include "mgengine\Core\ObjectActor.h"
 #include "mgengine\Core\ControlledActor.h"
-#include <SFML/Window/Keyboard.hpp>
+#include <SFML\Window\Keyboard.hpp>
 
-#include "mge/materials/ColorMaterial.hpp"
-#include "mge/core/Mesh.hpp"
+#include "mge\materials\ColorMaterial.hpp"
+#include "mge\core\Mesh.hpp"
 
 #include "mgengine\Collision\CollisionFilters.h"
 
-PlayerBehaviour::PlayerBehaviour(Mesh* pMesh,AbstractMaterial* pMaterial, float pSpeed) : AbstractActorBehaviour(), _moveSpeed(pSpeed), _mesh(pMesh), _material(pMaterial) {
+PlayerBehaviour::PlayerBehaviour(Mesh* pMesh,AbstractMaterial* pMaterial, float pSpeed) : AbstractActorBehaviour(), _moveSpeed(pSpeed), _mesh(pMesh), _material(pMaterial) 
+{
 	_invulnerable			= false;
 	_invulnerabilityTime	= 50;
 	_invulnerabilityTimer	= 0;	
@@ -57,12 +59,14 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 
 	if(type == ActorType::Type_Enemy){		
 		if (!_invulnerable) {
-			_ownerBody->translate(btVector3(0, 0, 10));
+			//_ownerBody->translate(btVector3(0, 0, 10));
 
 			ControlledActor* player = (ControlledActor*)_owner;
 			_defaultFlags = _ownerBody->getCollisionFlags();
-			player->TakeDamage(4);
 			_invulnerable = true; //TODO: Add some kind of visual effect.
+
+			_owner->GetWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Hit);
+			player->TakeDamage(4);
 		}
 	}
 	else if (type ==ActorType::Type_PickUp) {
@@ -71,6 +75,7 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 		_score	+= pickup->GetPoints();
 		std::cout << "score: " << _score << " | charge " << _charge << std::endl;
 
+		_owner->GetWorld()->GetResourceManager()->PlaySound(SoundEffect::Drop_Pick);
 		_ownerBody->setLinearVelocity(btVector3(0, 0, 0));
 	}
 }
@@ -122,29 +127,25 @@ void PlayerBehaviour::Move()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 		moveSpeed = -_moveSpeed;
-		force = btVector3(0, 0, moveSpeed);
-		//_ownerBody->applyForce(force, force);
-		_ownerBody->translate(force / 50);
+		force += btVector3(0, 0, moveSpeed);	
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 		moveSpeed = _moveSpeed;
-		force = btVector3(0, 0, moveSpeed);
-		//_ownerBody->applyForce(force, force);
-		_ownerBody->translate(force / 50);
+		force += btVector3(0, 0, moveSpeed);			
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		moveSpeed = _moveSpeed;
-		force = btVector3(moveSpeed, 0, 0);
-		//_ownerBody->applyForce(force, force);
-		_ownerBody->translate(force / 50);
+		force += btVector3(moveSpeed, 0, 0);
+		
+		_owner->SetRotation(glm::vec3(0, 0, 1), -0.05f);	
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		moveSpeed = -_moveSpeed;
-		force = btVector3(moveSpeed, 0, 0);
-		//_ownerBody->applyForce(force, force); 
-		_ownerBody->translate(force / 50);
-
-	}
+		force += btVector3(moveSpeed, 0, 0);
+		
+		_owner->SetRotation(glm::vec3(0, 0, 1), 0.05f);		
+	}	
+	_ownerBody->translate(force / 25);
 }
 
 void PlayerBehaviour::IsInvulnerable()
@@ -159,20 +160,21 @@ void PlayerBehaviour::IsInvulnerable()
 	}
 }
 
-//TODO: Maybe make some way off accessing the world cache with textures and meshes? Just so that I don't have to pass those on in the contructor.
 void PlayerBehaviour::SpawnBullet(float pBulletPower)
 {
-	glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, -2.5f);
+	glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, -3.0f);
 
 	ObjectActor* bullet = new ObjectActor(_owner->GetWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_PLAYERBULLET, CF::playerBulletCollidesWith, 1);
 	bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
 	bullet->setMesh(_mesh);
 	bullet->setMaterial(_material);
-	bullet->setActorBehaviour(new BulletBehaviour(0.6f, pBulletPower));		
-	_owner->getParent()->add(bullet); //HACK: make sure we add it to the world, in case of nested objects.
+	bullet->setActorBehaviour(new BulletBehaviour(0.6f, pBulletPower));
+	_owner->GetWorld()->add(bullet);
 
 	_weaponTimer = 0;
 	_fired = true;
-	_heat += 20;	
+	_heat += 20;
+
+	_owner->GetWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Shoot);
 }
 
