@@ -38,9 +38,9 @@ AbstractMaterial* ResourceManager::getMaterial(Materials::ID pId)
 
 #pragma region Audio
 
-void ResourceManager::PlaySound(SoundEffect::ID pEffect)
+void ResourceManager::PlaySound(SoundEffect::ID pEffect, float pVolume)
 {
-	_soundPlayer.Play(pEffect);
+	_soundPlayer.Play(pEffect, pVolume);
 }
 
 void ResourceManager::PlayMusic(Music::ID pMusic)

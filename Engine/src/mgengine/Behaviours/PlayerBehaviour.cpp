@@ -175,6 +175,6 @@ void PlayerBehaviour::SpawnBullet(float pBulletPower)
 	_fired = true;
 	_heat += 20;
 
-	_owner->GetWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Shoot);
+	_owner->GetWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Shoot, 20.0f);
 }
 

@@ -12,10 +12,11 @@ SoundPlayer::SoundPlayer() : _soundBuffers(), _sounds()
 	_soundBuffers.load(SoundEffect::Enemy_Hit,		config::MGE_SOUND_PATH + "Enemy_Hit_sfx.wav");
 }
 
-void SoundPlayer::Play(SoundEffect::ID pEffect)
+void SoundPlayer::Play(SoundEffect::ID pEffect, float pVolume)
 {
 	_sounds.push_back(sf::Sound(_soundBuffers.get(pEffect)));
-	_sounds.back().play();
+	_sounds.back().setVolume(pVolume);
+	_sounds.back().play();	
 }
 
 void SoundPlayer::RemoveStoppedSound()
