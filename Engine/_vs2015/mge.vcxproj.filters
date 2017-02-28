@@ -44,6 +44,9 @@
     <Filter Include="mgEngine\Core">
       <UniqueIdentifier>{23aefb4d-e5cc-4dbc-a819-146dfb4a32e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="mgEngine\Resources">
+      <UniqueIdentifier>{5c9b1002-0e3b-4bcb-bf87-e02da0aebe40}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp">
@@ -168,11 +171,23 @@
       <Filter>mgEngine\Collision</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mgengine\Behaviours\ActorEnemyBehaviour.h" />
-    <ClInclude Include="..\src\mgengine\Core\ResourceHolder.h">
-      <Filter>mgEngine\Core</Filter>
+    <ClInclude Include="..\src\mgengine\Resources\ResourceHolder.h">
+      <Filter>mgEngine\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mgengine\Core\MeshHolder.h">
-      <Filter>mgEngine\Core</Filter>
+    <ClInclude Include="..\src\mgengine\Resources\MusicPlayer.h">
+      <Filter>mgEngine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Resources\SoundPlayer.h">
+      <Filter>mgEngine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Resources\SFMLResourceHolder.h">
+      <Filter>mgEngine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Resources\ResourceIdentifiers.h">
+      <Filter>mgEngine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Resources\ResourceManager.h">
+      <Filter>mgEngine\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -296,8 +311,17 @@
     <ClCompile Include="..\src\mgengine\Behaviours\ActorEnemyBehaviour.cpp">
       <Filter>MGE Source files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mgengine\Core\MeshHolder.cpp">
-      <Filter>mgEngine\Core</Filter>
+    <ClCompile Include="MusicPlayer.cpp">
+      <Filter>mgEngine\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Resources\ResourceHolder.cpp">
+      <Filter>mgEngine\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Resources\SoundPlayer.cpp">
+      <Filter>mgEngine\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Resources\ResourceManager.cpp">
+      <Filter>mgEngine\Resources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

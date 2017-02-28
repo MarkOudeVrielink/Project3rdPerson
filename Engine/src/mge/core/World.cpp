@@ -5,8 +5,8 @@ using namespace std;
 World::World():GameObject("root"), _mainCamera(0)
 {
 	//ctor
-	physicsManager = new CollisionManager();
-	_meshHolder = new MeshHolder();
+	_resourceManager = new ResourceManager();
+	_physicsManager = new CollisionManager();
 }
 
 void World::setMainCamera (Camera* pCamera) {
@@ -17,22 +17,12 @@ Camera* World::getMainCamera () {
     return _mainCamera;
 }
 
-void World::loadMesh(Meshes::ID pId, const std::string pFileName)
+ResourceManager * World::GetResourceManager()
 {
-	_meshHolder->Load(pId, pFileName);
+	return _resourceManager;
 }
 
-Mesh* World::getMesh(Meshes::ID pId)
-{	
-	return _meshHolder->Get(pId);
+CollisionManager * World::GetCollisionManager()
+{
+	return _physicsManager;
 }
-
-//void World::loadMaterial(Materials::ID pId, AbstractMaterial* pMaterial)
-//{
-//	_materialHolder.load(pId, pMaterial);
-//}
-
-//AbstractMaterial * World::getMaterial(Materials::ID pId)
-//{
-//	return _materialHolder.get(pId);
-//}

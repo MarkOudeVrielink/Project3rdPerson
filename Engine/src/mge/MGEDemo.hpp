@@ -3,6 +3,7 @@
 
 #include <mge/core/AbstractGame.hpp>
 #include "mgengine/LevelEditor/LevelEditor.h"
+
 class DebugHud;
 
 class MGEDemo: public AbstractGame
@@ -22,7 +23,7 @@ class MGEDemo: public AbstractGame
 	    virtual void _render();
 
 	private:
-		DebugHud* _hud;                   //hud display
+		DebugHud* _hud;//hud display		
 
         void _updateHud();
 

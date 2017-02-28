@@ -171,9 +171,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
-    <ClInclude Include="..\src\mgengine\Core\MeshHolder.h" />
-    <ClInclude Include="..\src\mgengine\Core\ResourceHolder.h" />
     <ClInclude Include="..\src\mgengine\LevelEditor\LevelEditor.h" />
+    <ClInclude Include="..\src\mgengine\Resources\MusicPlayer.h" />
+    <ClInclude Include="..\src\mgengine\Resources\ResourceHolder.h" />
+    <ClInclude Include="..\src\mgengine\Resources\ResourceIdentifiers.h" />
+    <ClInclude Include="..\src\mgengine\Resources\ResourceManager.h" />
+    <ClInclude Include="..\src\mgengine\Resources\SFMLResourceHolder.h" />
+    <ClInclude Include="..\src\mgengine\Resources\SoundPlayer.h" />
     <ClInclude Include="..\src\mgengine\UI\ImageBehaviour.h" />
     <ClInclude Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.h" />
     <ClInclude Include="..\src\mgengine\Behaviours\ActorEnemyBehaviour.h" />
@@ -217,8 +221,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\mgengine\Core\MeshHolder.cpp" />
     <ClCompile Include="..\src\mgengine\LevelEditor\LevelEditor.cpp" />
+    <ClCompile Include="..\src\mgengine\Resources\ResourceHolder.cpp" />
+    <ClCompile Include="..\src\mgengine\Resources\ResourceManager.cpp" />
+    <ClCompile Include="..\src\mgengine\Resources\SoundPlayer.cpp" />
     <ClCompile Include="..\src\mgengine\UI\ImageBehaviour.cpp" />
     <ClCompile Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.cpp" />
     <ClCompile Include="..\src\mgengine\Behaviours\ActorEnemyBehaviour.cpp" />
@@ -257,6 +263,7 @@
     <ClCompile Include="..\src\mygame\LevelManager.cpp" />
     <ClCompile Include="..\src\mygame\Waypoint.cpp" />
     <ClCompile Include="EMPTY.cpp" />
+    <ClCompile Include="MusicPlayer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

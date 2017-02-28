@@ -42,7 +42,7 @@ btRigidBody* Actor::GetRigidBody() {
 
 void Actor::RemoveRigidBodyFromWorld()
 {
-	_world->physicsManager->RemoveCollisionActor(_rigidBody);	
+	_world->GetCollisionManager()->RemoveCollisionActor(_rigidBody);
 }
 
 void Actor::setActorBehaviour(AbstractActorBehaviour* pBehaviour)
@@ -60,6 +60,21 @@ World* Actor::GetWorld()
 ActorType Actor::GetType()
 {
 	return _type;
+}
+
+void Actor::SetRotation(glm::vec3 pAxis, btScalar pAngle)
+{
+	//Create a quaternion with that's rotated towards the right angle.
+	btQuaternion newRotation;
+	newRotation.setRotation(btVector3(pAxis.x, pAxis.y, pAxis.z), pAngle);
+
+	//Get the objects current transform.
+	btTransform trans;
+	trans.setFromOpenGLMatrix(glm::value_ptr(getWorldTransform()));
+
+	//Set the new rotation.
+	trans.setRotation(newRotation);
+	_rigidBody->setWorldTransform(trans);
 }
 
 void Actor::OnCollision(Actor * pOther)
@@ -95,7 +110,7 @@ void Actor::initRigidBody(btCollisionShape * pCollider)
 	_rigidBody = new btRigidBody(info);
 	_rigidBody->setActivationState(DISABLE_DEACTIVATION); //We disable this so it won't go to sleep as soon as the rigidbody stops moving.
 
-	_world->physicsManager->AddCollisionActor(_rigidBody, this);
+	_world->GetCollisionManager()->AddCollisionActor(_rigidBody, this);
 }
 
 //TODO: Make it more ajustable.
@@ -110,7 +125,7 @@ void Actor::initRigidBody(btCollisionShape* pCollider, short pGroup, short pMask
 	_rigidBody = new btRigidBody(info);
 	_rigidBody->setActivationState(DISABLE_DEACTIVATION);
 
-	_world->physicsManager->AddCollisionActor(_rigidBody, this, pGroup, pMask);
+	_world->GetCollisionManager()->AddCollisionActor(_rigidBody, this, pGroup, pMask);
 
 	//_rigidBody->setCollisionFlags(_rigidBody->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);	
 }

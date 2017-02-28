@@ -45,7 +45,8 @@ using namespace std;
 #include "mygame\Behaviours\SpaceShipBehaviour.h"
 #include "mygame\Behaviours\CameraBehaviour.h"
 
-#include "mgengine\Core\MeshHolder.h"
+#include "mgengine\Resources\ResourceHolder.h"
+#include "mgengine\Resources\ResourceIdentifiers.h"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo():AbstractGame (),_hud(0)
@@ -65,10 +66,8 @@ void MGEDemo::initialize() {
 //build the game _world
 void MGEDemo::_initializeScene()
 {
-    _renderer->setClearColor(0,0,0);
-
+    _renderer->setClearColor(0,0,0);	
     //add camera first (it will be updated last)
-
     Camera* camera = new Camera ("camera", glm::vec3(0,100,0));
     camera->rotate(glm::radians(-90.0f), glm::vec3(1,0,0));
     _world->add(camera);
@@ -88,9 +87,7 @@ void MGEDemo::_initializeScene()
 	AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png"));
 	AbstractMaterial* textureTestingObject = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "explosion.png"));
 
-    //SCENE SETUP
-
-  
+    //SCENE SETUP  
 	/**/
 	//Enemy* Enemy1 = new Enemy("Diablo", glm::vec3(0, 0, 0));
 	//Enemy1->rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
@@ -131,65 +128,66 @@ void MGEDemo::_initializeScene()
 	/**/
    // camera->setBehaviour(new LookAt (teapot));
 
-  /*  Camera* camera = new Camera ("camera", glm::vec3(0,30,0));
+    /*Camera* camera = new Camera ("camera", glm::vec3(0,30,0));
     camera->rotate(glm::radians(-90.0f), glm::vec3(1,0,0));
     _world->add(camera);
     _world->setMainCamera(camera);
 	*/
-    //MESHES
-    //load a bunch of meshes we will be using throughout this demo
-    //each mesh only has to be loaded once, but can be used multiple times:
-    //F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
-    Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane.obj");    
-  // Mesh* suzannaMeshF = Mesh::load (config::MGE_MODEL_PATH+"suzanna_flat.obj");
-	_world->loadMesh(Meshes::Player, config::MGE_MODEL_PATH + "ship.obj");
-   // Mesh* teapotMeshS = Mesh::load (config::MGE_MODEL_PATH+"teapot_smooth.obj");
 
+    //MESHES
+    Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane.obj");  
+	Mesh* cube = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Player, config::MGE_MODEL_PATH + "ship.obj");
+	
     //MATERIALS
-    AbstractMaterial* colorMaterial = new ColorMaterial (glm::vec3(0.2f,0,0.5f));
+	_world->GetResourceManager()->loadMaterial(Materials::Player, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Enemy, new ColorMaterial (glm::vec3(0.2f,0,0.5f)));
+
 	AbstractMaterial* colorMaterialGreen = new ColorMaterial(glm::vec3(0.0f, 1, 0.0f));
     AbstractMaterial* textureMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"engin1.png"));
-   // AbstractMaterial* textureMaterial2 = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"bricks.jpg"));
-
-	GameObject* plane = new GameObject("plane", glm::vec3(0,0,0));
-	plane->scale(glm::vec3(5,0,5));
-	plane->setMesh(planeMeshDefault);
-	plane->setMaterial(textureMaterial);
-	//_world->add(plane);	
-
+  		
 	ControlledActor* player = new ControlledActor(_world, "Player", glm::vec3(0, 0, 3), new btSphereShape(1), ActorType::Type_Player, 1, CF::COL_PLAYER, CF::playerCollidesWith);	
-	player->setMesh(_world->getMesh(Meshes::Player));
-	player->setMaterial(colorMaterial);	
-	player->setActorBehaviour(new PlayerBehaviour(_world->getMesh(Meshes::Player), colorMaterial, 20));
+	player->scale(glm::vec3(0.8f, 0.8f, 0.8f));
+	player->setMesh(_world->GetResourceManager()->getMesh(Meshes::Player));
+	player->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Player));
+	player->setActorBehaviour(new PlayerBehaviour(_world->GetResourceManager()->getMesh(Meshes::Player), _world->GetResourceManager()->getMaterial(Materials::Player), 20));
 	_world->add(player);	
 
 	ControlledActor* enemy0 = new ControlledActor(_world, "ENEMY0", glm::vec3(-20, 0, -18), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
 	enemy0->setMesh(teapotMeshS);
-	enemy0->setMaterial(colorMaterial);
+	enemy0->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Enemy));
 	enemy0->setActorBehaviour(new ActorEnemyBehaviour(teapotMeshS, colorMaterialGreen));
 	_world->add(enemy0);	
 
-	ControlledActor* enemy1 = new ControlledActor(_world, "ENEMY1", glm::vec3(0, 0, -18), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
-	enemy1->setMesh(teapotMeshS);
-	enemy1->setMaterial(colorMaterial);
-	enemy1->setActorBehaviour(new ActorEnemyBehaviour(teapotMeshS, colorMaterialGreen));
-	_world->add(enemy1);
-
-	ControlledActor* enemy2 = new ControlledActor(_world, "ENEMY2", glm::vec3(20, 0, -18), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
-	enemy2->setMesh(teapotMeshS);	
-	enemy2->setMaterial(colorMaterial);
-	enemy2->setActorBehaviour(new ActorEnemyBehaviour(teapotMeshS, colorMaterialGreen));
-	_world->add(enemy2);
+	//_world->GetResourceManager()->PlayMusic(Music::MenuTheme);
 	
-	//ObjectActor* pickUp = new ObjectActor(_world, "PickUp", glm::vec3(-15, 0, -5), new btSphereShape(0.5f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith, 1);
-	//pickUp->scale(glm::vec3(0.2f,0.2f,0.2f));
-	//pickUp->setMesh(teapotMeshS);
-	//pickUp->setMaterial(colorMaterialGreen);
-	//pickUp->setActorBehaviour(new PickUpBehaviour());
-	//_world->add(pickUp);
+#pragma region PlayfieldBoundaries
+	Actor* top = new Actor(_world, "top", glm::vec3(0,0,-55), new btBoxShape(btVector3(50, 0.5f, 0.5f)), ActorType::Type_StaticObject, CF::COL_BOUNDARY, CF::boundaryCollidesWith, 0);
+	//top->scale(glm::vec3(40, 1, 1));
+	//top->setMesh(cube);
+	//top->setMaterial(colorMaterialGreen);
+	_world->add(top);
 
-	//camera->setBehaviour(new OrbitBehaviour(player, _window, 15, 5, 15));
+	Actor* bottom = new Actor(_world, "bottom", glm::vec3(0, 0, 55), new btBoxShape(btVector3(50, 0.5f, 0.5f)), ActorType::Type_StaticObject, CF::COL_BOUNDARY, CF::boundaryCollidesWith, 0);
+	//bottom->scale(glm::vec3(40, 1, 1));
+	//bottom->setMesh(cube);
+	//bottom->setMaterial(colorMaterialGreen);
+	_world->add(bottom);
 
+	Actor* left = new Actor(_world, "left", glm::vec3(-45, 0, 0), new btBoxShape(btVector3(0.5f, 0.5f, 80.0f)), ActorType::Type_StaticObject, CF::COL_BOUNDARY, CF::boundaryCollidesWith, 0);
+	//left->scale(glm::vec3(1, 1, 80));
+	//left->setMesh(cube);
+	//left->setMaterial(colorMaterialGreen);
+	_world->add(left);
+
+	Actor* right = new Actor(_world, "right", glm::vec3(45, 0, 0), new btBoxShape(btVector3(0.5f, 0.5f, 80.0f)), ActorType::Type_StaticObject, CF::COL_BOUNDARY, CF::boundaryCollidesWith, 0);
+	//right->scale(glm::vec3(1, 1, 80));
+	//right->setMesh(cube);
+	//right->setMaterial(colorMaterialGreen);
+	_world->add(right);
+#pragma endregion
+
+	//camera->setBehaviour(new OrbitBehaviour(player, _window, 15, 5, 15));	
 }
 
 void MGEDemo::_render() {

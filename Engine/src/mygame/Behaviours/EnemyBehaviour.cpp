@@ -117,17 +117,7 @@ void EnemyBehaviour::AiBasic(float pStep)
 	_angle = atan2(dX, dZ);
 
 	if (_wayPoints->size() >= (float)_index) {
-		//Create a quaternion with that's rotated towards the right angle.
-		btQuaternion newRotation;
-		newRotation.setRotation(btVector3(0,1,0), btScalar(_angle));
-		
-		//Get the objects current transform.
-		btTransform trans;
-		trans.setFromOpenGLMatrix(glm::value_ptr(_owner->getWorldTransform()));
-
-		//Set the new rotation.
-		trans.setRotation(newRotation);
-		_ownerBody->setWorldTransform(trans);
+		_owner->SetRotation(glm::vec3(0,1,0), _angle);
 	}
 
 	//_owner->setTransform(glm::transpose(glm::lookAt(_owner->getWorldPosition(), glm::vec3(tarjet) , glm::vec3(0, 1, 0))));
@@ -142,12 +132,9 @@ void EnemyBehaviour::AiBasic(float pStep)
 	else {
 		if (_wayPoints->size() == _index) //Increment index so we dont keep rotating in order to keep moving and leave the screen
 			_index++;
-		//float xPos = delta.x / length;//Not using since we rotate to the direction we want to move and just need to move forward now
-		//float yPos = delta.y / length;//
-		delta = glm::normalize(delta);		
-
-		//_owner->translate(glm::vec3(0 * _moveSpeed, 0.0f, -1 * pStep*_moveSpeed));
-		_ownerBody->translate(btVector3(delta.x * _moveSpeed, 0.0f, delta.y * _moveSpeed));	
+		
+		delta = glm::normalize(delta);	//Get difference between object and target.
+		_ownerBody->translate(btVector3(delta.x * _moveSpeed, 0.0f, delta.y * _moveSpeed));	 //Move toward target with set speed.
 	}
 }
 

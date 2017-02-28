@@ -1,5 +1,6 @@
 #include "mgengine\Core\ControlledActor.h"
 #include "mygame\Behaviours\EnemyBehaviour.h"
+#include "mge\core\World.hpp"
 
 /*Create a deafault ControlledActor.*/
 ControlledActor::ControlledActor(World* pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape* pCollider, ActorType pType, float pMass, float pHealth, float pStrength)
@@ -47,6 +48,7 @@ void ControlledActor::TakeDamage(float pDamage)
 		if (_type == ActorType::Type_Enemy) {
 			EnemyBehaviour* behavior = (EnemyBehaviour*)_actorBehaviour;
 			behavior->SpawnDrop();//INPUT amount of drops enemies drop.
+			_world->GetResourceManager()->PlaySound(SoundEffect::Enemy_Death_1);
 			delete this;
 		}
 		else {

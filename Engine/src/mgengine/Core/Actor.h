@@ -42,6 +42,8 @@ public:
 
 	World* GetWorld();
 	ActorType GetType();
+
+	void SetRotation(glm::vec3 pAxis, btScalar pAngle);
 	
 protected:
 	void initRigidBody(btCollisionShape* pCollider);
