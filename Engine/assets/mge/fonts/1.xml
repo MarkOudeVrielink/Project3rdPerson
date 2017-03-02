@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 <Level>
-  <Wave startTimeWave="3" health="1" speed="40" shootRatio="3" enemyType="5" enemyBehaviour="0" sizeWave="10" delayBetweenEnemies="0.5">
+  <Wave startTimeWave="3" health="2" speed="40" shootRatio="3" enemyType="5" enemyBehaviour="0" sizeWave="10" delayBetweenEnemies="0.5">
     <Waypoints>
       <WavePoint x="1386" y="150" />
       <WavePoint x="1183" y="86" />
@@ -16,7 +16,7 @@
       <WavePoint x="1218" y="279" />
     </Waypoints>
   </Wave>
-  <Wave startTimeWave="1" health="1" speed="60" shootRatio="3" enemyType="2" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5">
+  <Wave startTimeWave="1" health="3" speed="60" shootRatio="3" enemyType="2" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5">
     <Waypoints>
       <WavePoint x="1413" y="328" />
       <WavePoint x="1183" y="219" />

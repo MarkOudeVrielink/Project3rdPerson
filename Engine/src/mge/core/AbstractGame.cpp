@@ -116,6 +116,7 @@ void AbstractGame::run()
 		    }
 			
             _render();
+			//TGUI library draw call
 			glActiveTexture(GL_TEXTURE0);
 			_window->pushGLStates();
 			_gui.draw();

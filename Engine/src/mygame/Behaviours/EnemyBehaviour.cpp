@@ -229,8 +229,8 @@ void EnemyBehaviour::SpawnDrop(int pAmount)
 
 		ObjectActor* pickup = new ObjectActor(_owner->GetWorld(), "pickup", spawnPoint, new btSphereShape(0.7f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith);
 		//bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
-		pickup->setMesh(_dropMesh);
-		pickup->setMaterial(_dropMaterial);
+//		pickup->setMesh(_dropMesh);
+//		pickup->setMaterial(_dropMaterial);
 		pickup->setActorBehaviour(new PickUpBehaviour());
 		_owner->getParent()->add(pickup);
 	}

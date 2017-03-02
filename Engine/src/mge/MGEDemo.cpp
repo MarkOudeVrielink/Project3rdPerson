@@ -74,11 +74,7 @@ void MGEDemo::_initializeScene()
     camera->rotate(glm::radians(-90.0f), glm::vec3(1,0,0));
     _world->add(camera);
     _world->setMainCamera(camera);
-	//camera->setBehaviour(new CameraBehaviour(20));
-   
 
-
-	
 	_levelEditor = new LevelEditorBehaviour(_window, _world);
 	_levelEditor->InitializeHud(&_gui);
 	_levelEditor->setActive(false);
@@ -90,20 +86,7 @@ void MGEDemo::_initializeScene()
 	_world->add(MenuObject);
 
 	menuScreen->InitializeMenu(&_gui);
-
-	/**/
-
-   // camera->setBehaviour(new LookAt (teapot));
-
-    /*Camera* camera = new Camera ("camera", glm::vec3(0,30,0));
-    camera->rotate(glm::radians(-90.0f), glm::vec3(1,0,0));
-    _world->add(camera);
-    _world->setMainCamera(camera);
-	*/
-
-    //MESHES
-    Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane.obj");  
-	Mesh* cube = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
+	//MESHES
 	_world->GetResourceManager()->loadMesh(Meshes::Player, config::MGE_MODEL_PATH + "ship.obj");
 	_world->GetResourceManager()->loadMesh(Meshes::Yogurt, config::MGE_MODEL_PATH + "Yogurt_90.obj");
 	_world->GetResourceManager()->loadMesh(Meshes::Sushi, config::MGE_MODEL_PATH + "Sushi_90.obj");
@@ -124,46 +107,8 @@ void MGEDemo::_initializeScene()
 	_world->GetResourceManager()->loadMaterial(Materials::Pizza, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Pizza_texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Muffin, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Muffin_texture.png")));
 
-		
-		
-=======
 	_world->GetResourceManager()->loadMaterial(Materials::Enemy, new ColorMaterial (glm::vec3(0.2f,0,0.5f)));
 
-	AbstractMaterial* colorMaterialGreen = new ColorMaterial(glm::vec3(0.0f, 1, 0.0f));
-    AbstractMaterial* textureMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"engin1.png"));
-  		
-	ControlledActor* player = new ControlledActor(_world, "Player", glm::vec3(0, 0, 3), new btSphereShape(1), ActorType::Type_Player, 1, CF::COL_PLAYER, CF::playerCollidesWith, 3);	
-	player->scale(glm::vec3(0.8f, 0.8f, 0.8f));
-	player->setMesh(_world->GetResourceManager()->getMesh(Meshes::Player));
-	player->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Player));
-	player->setActorBehaviour(new PlayerBehaviour(_world->GetResourceManager()->getMesh(Meshes::Player), _world->GetResourceManager()->getMaterial(Materials::Player), 20));
-	_world->add(player);	
-
-	ControlledActor* enemy0 = new ControlledActor(_world, "ENEMY0", glm::vec3(-20, 0, -18), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
-	enemy0->setMesh(teapotMeshS);
-	enemy0->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Enemy));
-	enemy0->setActorBehaviour(new ActorEnemyBehaviour(teapotMeshS, colorMaterialGreen));
-	_world->add(enemy0);	
->>>>>>> origin/master
-
-
-	ControlledActor* enemy1 = new ControlledActor(_world, "ENEMY1", glm::vec3(40, 0, 55), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
-	enemy1->setMesh(teapotMeshS);
-	enemy1->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Enemy));
-	enemy1->setActorBehaviour(new ActorEnemyBehaviour(teapotMeshS, colorMaterialGreen));
-	_world->add(enemy1);
-
-	ControlledActor* enemy2 = new ControlledActor(_world, "ENEMY2", glm::vec3(-40, 0, -55), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
-	enemy2->setMesh(teapotMeshS);
-	enemy2->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Enemy));
-	enemy2->setActorBehaviour(new ActorEnemyBehaviour(teapotMeshS, colorMaterialGreen));
-	_world->add(enemy2);
-
-	/*ObjectActor* enemy1 = new ObjectActor(_world, "ENEMY0", glm::vec3(-20, 0, 0), new btSphereShape(2), ActorType::Type_PickUp,CF::COL_PICKUP, CF::pickupCollidesWith, 3);
-	enemy1->setMesh(teapotMeshS);
-	enemy1->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Enemy));
-	enemy1->setActorBehaviour(new PickUpBehaviour());
-	_world->add(enemy1);*/
 
 	_world->GetResourceManager()->PlayMusic(Music::MenuTheme);
 	_world->GetResourceManager()->SetVolume(30.0f);

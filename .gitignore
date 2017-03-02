@@ -1,2 +1,6 @@
 Engine/assets/TGUI-0.7/lib/tgui-s-d.lib
 *.log
+Engine/TGUI-0.7/lib/tgui-s-d.lib
+Engine/_vs2015/release_dynamic_build/mge.tlog/unsuccessfulbuild
+mge.vcxproj.filters
+mge.vcxproj.user

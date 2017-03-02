@@ -22,6 +22,10 @@ public:
 	Level* DeleteLevel();
 	virtual void update(float pStep);
 
+	void StartGameFromMenu();
+
+	void LoadLevel();
+
 private:
 	Level *_currentLevel;//change to private and create get method
 	std::vector<Level> _levels;
@@ -30,7 +34,7 @@ private:
 	int _indexLevel = 0;
 	World* _world;
 	sf::Clock _time;
-
+	bool _startGame = false;
 };
 
 

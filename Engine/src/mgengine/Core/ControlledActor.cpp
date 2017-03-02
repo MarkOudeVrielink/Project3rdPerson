@@ -50,10 +50,10 @@ void ControlledActor::TakeDamage(float pDamage)
 	
 	if (_health <= 0) {
 		if (_type == ActorType::Type_Enemy) {
-			EnemyBehaviour* behavior = (EnemyBehaviour*)_actorBehaviour;
-			behavior->SpawnDrop();//INPUT amount of drops enemies drop.
+			//EnemyBehaviour* behavior = (EnemyBehaviour*)_actorBehaviour;
+			//behavior->SpawnDrop();//INPUT amount of drops enemies drop.
 			_world->GetResourceManager()->PlaySound(SoundEffect::Enemy_Death_1, 10.0f);
-			
+			//
 			Destroy();
 		}
 	}
