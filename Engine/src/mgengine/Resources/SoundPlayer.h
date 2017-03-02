@@ -12,7 +12,7 @@
 class SoundPlayer : private sf::NonCopyable{
 public:
 				SoundPlayer();
-	void		Play(SoundEffect::ID pEffect);
+	void		Play(SoundEffect::ID pEffect, float pVolume = 100.0f);
 	void		RemoveStoppedSound();
 
 private:

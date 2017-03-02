@@ -17,13 +17,13 @@ ObjectActor::ObjectActor(World * pWorld, std::string pName, glm::vec3 pPosition,
 
 ObjectActor::~ObjectActor()
 {	
-	RemoveRigidBodyFromWorld();
+	_removeRigidBodyFromWorld();
 }
 
 void ObjectActor::update(float pStep)
 {
 	if (_actorBehaviour) _actorBehaviour->update(pStep);
-	AjustPosition();
+	_ajustPosition();
 }
 
 void ObjectActor::OnCollision(Actor * pActor)

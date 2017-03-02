@@ -6,6 +6,7 @@
 #include "mgengine\Behaviours\AbstractActorBehaviour.h"
 
 #include <iostream>
+#include <SFML/System/Thread.hpp>
 
 class World;
 
@@ -43,23 +44,25 @@ public:
 	World* GetWorld();
 	ActorType GetType();
 
-	void SetRotation(glm::vec3 pAxis, btScalar pAngle);
-	
-protected:
-	void initRigidBody(btCollisionShape* pCollider);
-	void initRigidBody(btCollisionShape* pCollider, short pGroup, short pMask);	
-	void RemoveRigidBodyFromWorld();
-	void AjustPosition();
+	void SetRotation(glm::vec3 pAxis, btScalar pAngle);	
+	void Destroy();
 
-	glm::mat4 floatToMat4(float* pMatrix);	
+protected:
+	void _initRigidBody(btCollisionShape* pCollider);
+	void _initRigidBody(btCollisionShape* pCollider, short pGroup, short pMask);	
+	void _removeRigidBodyFromWorld();
+	void _ajustPosition();
+		
+	void _setDirty();
+
+	glm::mat4 _floatToMat4(float* pMatrix);	
 
 	AbstractActorBehaviour* _actorBehaviour;
 	World*					_world;
 	ActorType				_type;
-	btRigidBody*			_rigidBody;
+	btRigidBody*			_rigidBody;	
 
-	float					_mass;
-	
+	float					_mass;	
 };
 
 #endif // !ACTOR_H

@@ -140,9 +140,6 @@
     <ClInclude Include="..\src\mgengine\core\Actor.h">
       <Filter>mgEngine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mgengine\core\Scene.h">
-      <Filter>mgEngine\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\mge\behaviours\OrbitBehaviour.h">
       <Filter>MGE Source files\mge\behaviours</Filter>
     </ClInclude>
@@ -275,9 +272,6 @@
       <Filter>mgEngine\Collision</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mgengine\core\Actor.cpp">
-      <Filter>mgEngine\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mgengine\core\Scene.cpp">
       <Filter>mgEngine\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\behaviours\OrbitBehaviour.cpp">

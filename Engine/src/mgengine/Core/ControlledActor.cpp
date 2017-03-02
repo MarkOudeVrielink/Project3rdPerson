@@ -24,7 +24,7 @@ ControlledActor::~ControlledActor()
 
 void ControlledActor::update(float pStep)
 {		
-	AjustPosition();
+	_ajustPosition();
 	if (_actorBehaviour)  
 		_actorBehaviour->update(pStep); 
 }
@@ -52,11 +52,9 @@ void ControlledActor::TakeDamage(float pDamage)
 		if (_type == ActorType::Type_Enemy) {
 			EnemyBehaviour* behavior = (EnemyBehaviour*)_actorBehaviour;
 			behavior->SpawnDrop();//INPUT amount of drops enemies drop.
-			_world->GetResourceManager()->PlaySound(SoundEffect::Enemy_Death_1);
-			delete this;
-		}
-		else {
-			delete this;
+			_world->GetResourceManager()->PlaySound(SoundEffect::Enemy_Death_1, 10.0f);
+			
+			Destroy();
 		}
 	}
 }

@@ -20,7 +20,7 @@ public:
 		void loadMaterial(Materials::ID pId, AbstractMaterial* pMaterial);
 		AbstractMaterial* getMaterial(Materials::ID pId);
 
-		void PlaySound(SoundEffect::ID pEffect);
+		void PlaySound(SoundEffect::ID pEffect, float pVolume = 100.0f);
 
 		void PlayMusic(Music::ID pMusic);
 		void StopMusic();

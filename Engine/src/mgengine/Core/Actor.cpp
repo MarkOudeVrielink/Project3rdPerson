@@ -1,11 +1,12 @@
 #include "Actor.h"
 #include "mge\core\World.hpp"
 
+#include <functional>
 /*Creates an actor that can collide with anything.*/
 Actor::Actor(World* pWorld,std::string pName, glm::vec3 pPosition, btCollisionShape* pCollider, ActorType pType, float pMass)
 	: GameObject(pName, pPosition), _mass(pMass), _world (pWorld), _type(pType), _actorBehaviour(NULL)
 {
-	initRigidBody(pCollider);
+	_initRigidBody(pCollider);	
 }
 
 /*Creates an actor that collides with what the specified group/mask is supposed to collide with.
@@ -14,11 +15,11 @@ E.g. group: player matches with mask: player. This way the player collides with 
 Actor::Actor(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, short pCollisionGroup, short pCollisionMask, float pMass)
 	: GameObject(pName, pPosition), _mass(pMass), _world(pWorld), _type(pType), _actorBehaviour(NULL)
 {
-	initRigidBody(pCollider, pCollisionGroup, pCollisionMask);
+	_initRigidBody(pCollider, pCollisionGroup, pCollisionMask);	
 }
 
 Actor::~Actor() {
-	RemoveRigidBodyFromWorld();
+	_removeRigidBodyFromWorld();
 	
 	if (_actorBehaviour){
 		delete _actorBehaviour;
@@ -27,7 +28,7 @@ Actor::~Actor() {
 }
 
 void Actor::update(float pStep) {
-	AjustPosition();
+	_ajustPosition();
 	
 	if (_actorBehaviour) 
 		_actorBehaviour->update(pStep); 
@@ -40,7 +41,7 @@ btRigidBody* Actor::GetRigidBody() {
 }
 
 
-void Actor::RemoveRigidBodyFromWorld()
+void Actor::_removeRigidBodyFromWorld()
 {
 	_world->GetCollisionManager()->RemoveCollisionActor(_rigidBody);
 }
@@ -77,6 +78,12 @@ void Actor::SetRotation(glm::vec3 pAxis, btScalar pAngle)
 	_rigidBody->setWorldTransform(trans);
 }
 
+/*Destroys this actor after the given amount of time.*/
+void Actor::Destroy()
+{		
+	_setDirty();	
+}
+
 void Actor::OnCollision(Actor * pOther)
 {
 }
@@ -86,7 +93,7 @@ AbstractActorBehaviour* Actor::getActorBehaviour() const
 	return _actorBehaviour;
 }
 
-void Actor::AjustPosition() {	
+void Actor::_ajustPosition() {	
 	float mat[16];
 	btTransform t;
 
@@ -95,10 +102,15 @@ void Actor::AjustPosition() {
 	
 	//Cast is to a glm::mat4 and set the OpenGL transform to that of the btTransform.
 	t.getOpenGLMatrix(mat);		
-	setTransform(glm::scale(floatToMat4(mat), _scale));
+	setTransform(glm::scale(_floatToMat4(mat), _scale));
 }
 
-void Actor::initRigidBody(btCollisionShape * pCollider)
+void Actor::_setDirty()
+{
+	_world->SetDirtyActor(this);
+}
+
+void Actor::_initRigidBody(btCollisionShape * pCollider)
 {
 	//Cast our glm::mat4 to a btTransform. So we sync our rigidbody's position with that of the object.
 	btTransform btT;
@@ -113,8 +125,7 @@ void Actor::initRigidBody(btCollisionShape * pCollider)
 	_world->GetCollisionManager()->AddCollisionActor(_rigidBody, this);
 }
 
-//TODO: Make it more ajustable.
-void Actor::initRigidBody(btCollisionShape* pCollider, short pGroup, short pMask) {
+void Actor::_initRigidBody(btCollisionShape* pCollider, short pGroup, short pMask) {
 	//Cast our glm::mat4 to a btTransform. So we sync our rigidbody's position with that of the object.	
 	btTransform btT;
 	btT.setFromOpenGLMatrix(glm::value_ptr(_transform));
@@ -126,12 +137,10 @@ void Actor::initRigidBody(btCollisionShape* pCollider, short pGroup, short pMask
 	_rigidBody->setActivationState(DISABLE_DEACTIVATION);
 
 	_world->GetCollisionManager()->AddCollisionActor(_rigidBody, this, pGroup, pMask);
-
-	//_rigidBody->setCollisionFlags(_rigidBody->getCollisionFlags() | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);	
 }
 
 /*@param takes a 16-element float array an converts it to a glm::Mat4.*/
-glm::mat4 Actor::floatToMat4(float * pMatrix)
+glm::mat4 Actor::_floatToMat4(float * pMatrix)
 {
 	return glm::mat4(	pMatrix[0],		pMatrix[1],		pMatrix[2],		pMatrix[3],
 						pMatrix[4],		pMatrix[5],		pMatrix[6],		pMatrix[7],

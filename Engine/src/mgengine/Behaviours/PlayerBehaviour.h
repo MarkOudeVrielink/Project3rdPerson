@@ -3,6 +3,8 @@
 
 #include "mgengine\Behaviours\AbstractActorBehaviour.h"
 
+#include <glm.hpp>
+
 class Mesh;
 class AbstractMaterial;
 
@@ -18,9 +20,11 @@ private:
 	void SpawnBullet(float pBulletPower);
 	void SpawnNova();
 	
-	void FireWeapon();
+	void FireWeapon(float pTime);
 	void Move();
-	void IsInvulnerable();
+	void IsInvulnerable(float pTime);
+
+	glm::vec3 _spawnOffset;
 
 	bool	_invulnerable;
 	float	_invulnerabilityTime;
@@ -34,12 +38,15 @@ private:
 
 	float	_coolDownTime;
 	float	_heat;
+	float	_timeToOverheat;
+	float	_coolDownRate;
+
 	float	_charge;
 	float	_maxCharge;
-	float	_beginNova;
-	float	_endNova;
+	
 	float	_score;
 
+	float				_tiltAngle;
 	float				_moveSpeed;	
 	Mesh*				_mesh;
 	AbstractMaterial*	_material;
