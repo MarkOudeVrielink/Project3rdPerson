@@ -7,6 +7,7 @@
 
 class Mesh;
 class AbstractMaterial;
+class PlayerMaterial;
 
 class PlayerBehaviour : public AbstractActorBehaviour {
 public:
@@ -15,6 +16,8 @@ public:
 	
 	virtual void update(float pStep);
 	virtual void OnCollision(Actor* pOther);
+
+	void setup();
 	
 private:
 	void SpawnBullet(float pBulletPower);
@@ -50,6 +53,7 @@ private:
 	float				_moveSpeed;	
 	Mesh*				_mesh;
 	AbstractMaterial*	_material;
+	PlayerMaterial*		_playerMaterial;
 };
 
 #endif // !ACTORMOVEMENT_H

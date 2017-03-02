@@ -15,6 +15,7 @@ using namespace std;
 
 #include "mge/materials/ColorMaterial.hpp"
 #include "mge/materials/TextureMaterial.hpp"
+#include "mgengine\Materials\PlayerMaterial.h"
 
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/behaviours/KeysBehaviour.hpp"
@@ -140,7 +141,7 @@ void MGEDemo::_initializeScene()
 	_world->GetResourceManager()->loadMesh(Meshes::Player, config::MGE_MODEL_PATH + "ship.obj");
 	
     //MATERIALS
-	_world->GetResourceManager()->loadMaterial(Materials::Player, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Player, new PlayerMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Enemy, new ColorMaterial (glm::vec3(0.2f,0,0.5f)));
 
 	AbstractMaterial* colorMaterialGreen = new ColorMaterial(glm::vec3(0.0f, 1, 0.0f));
@@ -158,7 +159,6 @@ void MGEDemo::_initializeScene()
 	enemy0->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Enemy));
 	enemy0->setActorBehaviour(new ActorEnemyBehaviour(teapotMeshS, colorMaterialGreen));
 	_world->add(enemy0);	
-
 
 	ControlledActor* enemy1 = new ControlledActor(_world, "ENEMY1", glm::vec3(40, 0, 55), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
 	enemy1->setMesh(teapotMeshS);

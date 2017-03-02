@@ -12,6 +12,10 @@ void AbstractActorBehaviour::SetOwner(Actor* pOwner) {
 	_owner = pOwner;
 }
 
+void AbstractActorBehaviour::setup()
+{
+}
+
 void AbstractActorBehaviour::SetOwnerBody(btRigidBody * pBody)
 {
 	_ownerBody = pBody;

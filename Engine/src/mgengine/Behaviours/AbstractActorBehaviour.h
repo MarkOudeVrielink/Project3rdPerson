@@ -11,8 +11,9 @@ public:
 	virtual ~AbstractActorBehaviour() = 0;
 
 	virtual void SetOwner(Actor* pActor);
-	void SetOwnerBody(btRigidBody* pBody);
-
+	virtual void setup();
+			void SetOwnerBody(btRigidBody* pBody);
+			
 	virtual void update(float pStep) = 0;
 	virtual void OnCollision(Actor* pActor);
 
