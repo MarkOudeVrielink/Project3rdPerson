@@ -14,6 +14,7 @@ public:
 	void SecondaryWaypoint();
 	//std::vector<sf::CircleShape> _wayPoints;
 	sf::Vector2f getPosition();
+	sf::Vector2f getWorldPos();
 private:
 	sf::Vector2f _waypointPosition;
 	int _orderInList;

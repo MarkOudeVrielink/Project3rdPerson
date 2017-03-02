@@ -19,9 +19,11 @@ public:
 	static int checkComboBox(tgui::ComboBox::Ptr pBox);
 	void UpdateGUIDataAtWaveChange();
 	static void setBoxDefault(tgui::EditBox::Ptr pBox, float pX);
+	void setComboBoxDefault(tgui::ComboBox::Ptr pBox, int pX);
 	void NextWave();
 	void PrevWave();
 	void NewWave();
+	void ClearWave();
 	void NextLevel();
 	void PrevLevel();
 	void NewLevel();
@@ -37,6 +39,8 @@ public:
 	void SaveLevel();
 	void LoadLevel();
 	void LoadLevelInitialize();
+	void setActive(bool pActive);
+	bool getActive();
 private:
 	sf::RenderWindow *_window;
 	std::list<RawImage*> _images;
@@ -70,15 +74,17 @@ private:
 	std::vector<Level*> _levels;
 	int _indexLevel = 0;
 	//GUI
+	tgui::Panel::Ptr _panel;
 	tgui::Label::Ptr wavesLabel;
 	tgui::Label::Ptr levelsLabel;
 	tgui::EditBox::Ptr editQuantityBox;
 	tgui::EditBox::Ptr timeStartBox;
-	tgui::EditBox::Ptr timeEndBox;
+	tgui::EditBox::Ptr delayBetweenEBox;
 	tgui::EditBox::Ptr speedBox;
-	tgui::EditBox::Ptr shootRBox;
+	tgui::EditBox::Ptr shootRBox2;
 	tgui::ComboBox::Ptr enemyTypeBox;
 	tgui::ComboBox::Ptr behaviourBox;
 	tgui::EditBox::Ptr healthBox;
+	bool _active = true;
 };
 

@@ -39,6 +39,10 @@ float ControlledActor::GetHealth()
 {
 	return _health;
 }
+void ControlledActor::SetHealth(float pHealth)
+{
+	_health = pHealth;
+}
 
 void ControlledActor::TakeDamage(float pDamage)
 {

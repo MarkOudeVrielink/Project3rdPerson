@@ -11,12 +11,7 @@
 using namespace std;
 LevelEditorBehaviour::LevelEditorBehaviour(sf::RenderWindow *pWindow, World *pWorld) :AbstractBehaviour()
 {
-	_window = pWindow;
-
-	_images.push_back(new RawImage(config::MGE_TEXTURE_PATH +
-		"bricks.jpg", glm::vec2(50, 50), _window));
-//	_levels.push_back( new Level(_window));
-	//_currentLevel = _levels.at(_indexLevel);
+	_window = pWindow;	
 	_world = pWorld;
 	LoadLevelInitialize();
 	if (!_font.loadFromFile(config::MGE_FONT_PATH + "arial.ttf")) {
@@ -59,7 +54,8 @@ LevelEditorBehaviour::LevelEditorBehaviour(sf::RenderWindow *pWindow, World *pWo
 
 	}
 	StartGame();
-	LoadLevelInitialize();
+
+	//LoadLevelInitialize();
 
 }
 LevelEditorBehaviour::~LevelEditorBehaviour()
@@ -71,6 +67,10 @@ LevelEditorBehaviour::~LevelEditorBehaviour()
 void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 {
 	auto theme = tgui::Theme::create("TGUI-0.7/widgets/TransparentGrey.txt");
+	_panel = tgui::Panel::create();
+	_panel->setSize(1920, 1080);
+	_panel->setBackgroundColor(tgui::Color(0, 0, 0, 0));
+	pGuiRef->add(_panel);
 #pragma region Waves
 	#pragma region Waves Selection
 		#pragma region Waves counter
@@ -82,13 +82,13 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 			wavesLabel->setPosition(windowWidth*0.855, 0.005f * windowHeight);
 			wavesLabel->setTextSize(28);
 			wavesLabel->setVerticalAlignment(tgui::Label::VerticalAlignment::Center);
-			pGuiRef->add(wavesLabel);
+			_panel->add(wavesLabel);
 	#pragma endregion Waves counter //No layout
 		#pragma region Waves Buttons
 			tgui::HorizontalLayout::Ptr layout0 = tgui::HorizontalLayout::create();
 			layout0->setSize(350, 30);
 			layout0->setPosition(windowWidth*0.8, 0.05f * windowHeight);
-			pGuiRef->add(layout0);
+			_panel->add(layout0);
 
 			auto prevWaveButton = tgui::Button::create();
 			prevWaveButton->setText("Prev");
@@ -98,12 +98,18 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 			newWaveButton->setText("New");
 			layout0->add(newWaveButton);
 
+
+			auto clearWaveButton = tgui::Button::copy(prevWaveButton);
+			clearWaveButton->setText("Clear");
+			layout0->add(clearWaveButton);
+
 			auto nextWaveButton = tgui::Button::copy(prevWaveButton);
 			nextWaveButton->setText("Next");
 			layout0->add(nextWaveButton);
 			prevWaveButton->connect("pressed", &LevelEditorBehaviour::PrevWave, this);
 			nextWaveButton->connect("pressed", &LevelEditorBehaviour::NextWave, this);
 			newWaveButton->connect("pressed", &LevelEditorBehaviour::NewWave, this);
+			clearWaveButton->connect("pressed", &LevelEditorBehaviour::ClearWave, this);
 
 		#pragma endregion end of 0, wave buttons 
 	#pragma endregion end of TOP of the waves
@@ -113,7 +119,7 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 			layout1->setSize(350, 50);
 
 			layout1->setPosition(windowWidth*0.8, 0.12f * windowHeight);
-			pGuiRef->add(layout1);
+			_panel->add(layout1);
 
 			tgui::Label::Ptr quantityLabel = theme->load("label");
 			quantityLabel->setText("Number of Enemies: ");
@@ -129,7 +135,7 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 			tgui::HorizontalLayout::Ptr layout2 = tgui::HorizontalLayout::create();
 			layout2->setSize(350, 30);
 			layout2->setPosition(windowWidth*0.8, 0.17f * windowHeight);
-			pGuiRef->add(layout2);
+			_panel->add(layout2);
 
 			tgui::Label::Ptr timeStart = theme->load("label");
 			timeStart->setText("Time Start: ");
@@ -146,24 +152,24 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 			tgui::HorizontalLayout::Ptr layout3 = tgui::HorizontalLayout::create();
 			layout3->setSize(350, 30);
 			layout3->setPosition(windowWidth*0.8, 0.2f * windowHeight);
-			pGuiRef->add(layout3);
+			_panel->add(layout3);
 
-			tgui::Label::Ptr timeEnd = theme->load("label");
-			timeEnd->setText("Time End: ");
-			timeEnd->setTextSize(24);
-			timeEnd->setVerticalAlignment(tgui::Label::VerticalAlignment::Center);
-			layout3->add(timeEnd);
+			tgui::Label::Ptr delayBetweenE = theme->load("label");
+			delayBetweenE->setText("Delay E:");
+			delayBetweenE->setTextSize(24);
+			delayBetweenE->setVerticalAlignment(tgui::Label::VerticalAlignment::Center);
+			layout3->add(delayBetweenE);
 
-			timeEndBox = tgui::EditBox::create();
-			timeEndBox->setDefaultText("0");//TODO add variable with actual number
-			timeEndBox->setTextSize(24);
-			layout3->add(timeEndBox, "timeE");//timeStart
+			delayBetweenEBox = tgui::EditBox::create();
+			delayBetweenEBox->setDefaultText("-1");//TODO add variable with actual number
+			delayBetweenEBox->setTextSize(24);
+			layout3->add(delayBetweenEBox, "timeE");//timeStart
 		#pragma endregion end of 3
 		#pragma region Enemies Speed
 			tgui::HorizontalLayout::Ptr layout4 = tgui::HorizontalLayout::create();
 			layout4->setSize(350, 30);
 			layout4->setPosition(windowWidth*0.8, 0.23f * windowHeight);
-			pGuiRef->add(layout4);
+			_panel->add(layout4);
 
 			tgui::Label::Ptr speed = theme->load("label");
 			speed->setText("Speed: ");
@@ -180,7 +186,7 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 			tgui::HorizontalLayout::Ptr layout5 = tgui::HorizontalLayout::create();
 			layout5->setSize(350, 30);
 			layout5->setPosition(windowWidth*0.8, 0.26f * windowHeight);
-			pGuiRef->add(layout5);
+			_panel->add(layout5);
 
 			tgui::Label::Ptr shootR = theme->load("label");
 			shootR->setText("Shoot Ratio:");
@@ -188,16 +194,16 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 			shootR->setVerticalAlignment(tgui::Label::VerticalAlignment::Center);
 			layout5->add(shootR);
 
-			shootRBox = tgui::EditBox::create();
-			shootRBox->setDefaultText("1.5 for example");//TODO add variable with actual number
-			shootRBox->setTextSize(24);
-			layout5->add(shootRBox, "shootRatio");//timeStart
+			shootRBox2 = tgui::EditBox::create();
+			shootRBox2->setDefaultText("1.5");//TODO add variable with actual number
+			shootRBox2->setTextSize(24);
+			layout5->add(shootRBox2, "shootRatioBox2");//timeStart
 		#pragma endregion end of 5
 		#pragma region EnemyTypes
 			tgui::HorizontalLayout::Ptr layout6 = tgui::HorizontalLayout::create();
 			layout6->setSize(350, 30);
 			layout6->setPosition(windowWidth*0.8, 0.29f * windowHeight);
-			pGuiRef->add(layout6);
+			_panel->add(layout6);
 
 			tgui::Label::Ptr enemyType = theme->load("label");
 			enemyType->setText("Enemy Type:");
@@ -206,17 +212,22 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 			layout6->add(enemyType);
 
 			enemyTypeBox = tgui::ComboBox::create();
-			enemyTypeBox->addItem("Type 1");
-			enemyTypeBox->addItem("Type 2");
-			enemyTypeBox->addItem("Type 3");
-			enemyTypeBox->setSelectedItem("Type 1");
+			enemyTypeBox->addItem("Player");
+			enemyTypeBox->addItem("Enemy");
+			enemyTypeBox->addItem("Yogurt");
+			enemyTypeBox->addItem("Sushi");
+			enemyTypeBox->addItem("Sandwich");
+			enemyTypeBox->addItem("Potato");
+			enemyTypeBox->addItem("Pizza");
+			enemyTypeBox->addItem("Muffin");
+			enemyTypeBox->setSelectedItem("Sandwich");
 			layout6->add(enemyTypeBox);
 		#pragma endregion end of 6
 		#pragma region Enemy behaviours
 			tgui::HorizontalLayout::Ptr layout7 = tgui::HorizontalLayout::create();
 			layout7->setSize(350, 30);
 			layout7->setPosition(windowWidth*0.8, 0.32f * windowHeight);
-			pGuiRef->add(layout7);
+			_panel->add(layout7);
 
 			tgui::Label::Ptr behaviourLabel = theme->load("label");
 			behaviourLabel->setText("Behaviour:");
@@ -233,7 +244,7 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 			tgui::HorizontalLayout::Ptr layout8 = tgui::HorizontalLayout::create();
 			layout8->setSize(350, 30);
 			layout8->setPosition(windowWidth*0.8, 0.35f * windowHeight);
-			pGuiRef->add(layout8);
+			_panel->add(layout8);
 
 			tgui::Label::Ptr health = theme->load("label");
 			health->setText("Health:");
@@ -256,7 +267,7 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 			table->setBackgroundColor({ 203,201,207 });
 			table->setFixedColumnWidth(0, 80);
 			table->setStripesRowsColor({ 135,206,250 }, { 233,233,233 });
-			pGuiRef->add(table);
+			_panel->add(table);
 
 			tgui::ComboBox::Ptr button3 = tgui::ComboBox::create();
 			button3->addItem("Type 1");
@@ -293,7 +304,7 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 				tgui::HorizontalLayout::Ptr layoutParser = tgui::HorizontalLayout::create();
 				layoutParser->setSize(350, 30);
 				layoutParser->setPosition(windowWidth*0.8, 0.8f * windowHeight);
-				pGuiRef->add(layoutParser);
+				_panel->add(layoutParser);
 
 				auto saveButton = tgui::Button::create();
 				saveButton->setText("Save");
@@ -309,7 +320,7 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 				tgui::HorizontalLayout::Ptr layoutLevelName = tgui::HorizontalLayout::create();
 				layoutLevelName->setSize(350, 30);
 				layoutLevelName->setPosition(windowWidth*0.8, 0.83f * windowHeight);
-				pGuiRef->add(layoutLevelName);
+				_panel->add(layoutLevelName);
 
 				levelsLabel = theme->load("label");
 				levelsLabel->setText("Level: " + std::to_string(_indexLevel));
@@ -323,7 +334,7 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 				tgui::HorizontalLayout::Ptr layoutLevelSelect = tgui::HorizontalLayout::create();
 				layoutLevelSelect->setSize(350, 30);
 				layoutLevelSelect->setPosition(windowWidth*0.8, 0.86f * windowHeight);
-				pGuiRef->add(layoutLevelSelect);
+				_panel->add(layoutLevelSelect);
 
 				auto prevLevelButton = tgui::Button::create();
 				prevLevelButton->setText("Prev");
@@ -341,6 +352,7 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 				newLevelButton->connect("pressed", &LevelEditorBehaviour::NewLevel, this);
 	#pragma endregion  end of LayoutParser Buttons
 #pragma endregion
+				UpdateGUIDataAtWaveChange();
 }
 #pragma region TGUI Methods
 void LevelEditorBehaviour::UpdateGUIData()
@@ -353,41 +365,53 @@ void LevelEditorBehaviour::UpdateGUIData()
 	if (checkTextInBox(timeStartBox) != -1) {
 		_currentLevel->getCurrentWave()->setStartTime(checkTextInBox(timeStartBox));
 	}
-	if (checkTextInBox(timeEndBox) != -1) {
-		//_currentLevel->getCurrentWave()->set(checkTextInBox(timeEndBox));//TODO:: ADD End Time per wave
+	if (checkTextInBox(delayBetweenEBox) != -1) {
+		_currentLevel->getCurrentWave()->setDelayBetweenEnemies(checkTextInBox(delayBetweenEBox));//TODO:: ADD End Time per wave
 	}
 	if (checkTextInBox(speedBox) != -1) {
 		_currentLevel->getCurrentWave()->setSpeed(checkTextInBox(speedBox));//TODO: Add speed in waves
 	}
-	if (checkTextInBox(shootRBox) != -1) {
-		_currentLevel->getCurrentWave()->setShootRatio(checkTextInBox(shootRBox));//TODO: Add shootRatio in waves
+	if (checkTextInBox(shootRBox2) != -1) {
+		
+		_currentLevel->getCurrentWave()->setShootRatio(checkTextInBox(shootRBox2));//TODO: Add shootRatio in waves
+		
 	}
 	if (checkComboBox(enemyTypeBox) != -1){
-		_currentLevel->getCurrentWave()->setEnemyType(checkTextInBox(shootRBox));//TODO: Add enemies types in waves
+		_currentLevel->getCurrentWave()->setEnemyType(Materials::ID((int)checkComboBox(enemyTypeBox)));//TODO: Add enemies types in waves
 	}
 	if (checkComboBox(behaviourBox) != -1) {
-		_currentLevel->getCurrentWave()->setShootRatio(checkTextInBox(shootRBox));//TODO: Add enemies behaviour in waves
+		//_currentLevel->getCurrentWave()->setShootRatio(checkComboBox(behaviourBox));//TODO: Add enemies behaviour in waves
 	}
 	if (checkTextInBox(healthBox) != -1) {
-		_currentLevel->getCurrentWave()->setHealth(checkTextInBox(shootRBox));//TODO: Add enemies health in waves
+		_currentLevel->getCurrentWave()->setHealth(checkTextInBox(healthBox));//TODO: Add enemies health in waves
 	}
 }
 void LevelEditorBehaviour::UpdateGUIDataAtWaveChange()
 {
 	setBoxDefault(editQuantityBox, *_currentLevel->getCurrentWave()->getSizeWave());
 	setBoxDefault(timeStartBox, *_currentLevel->getCurrentWave()->getStartTime());
+	setBoxDefault(speedBox, *_currentLevel->getCurrentWave()->getSpeed());
+	setBoxDefault(shootRBox2, *_currentLevel->getCurrentWave()->getShootRatio());
+	cout << *_currentLevel->getCurrentWave()->getShootRatio() << endl;
+	cout << *_currentLevel->getCurrentWave()->getShootRatio() << endl;
+	cout << *_currentLevel->getCurrentWave()->getShootRatio() << endl;
+	cout << *_currentLevel->getCurrentWave()->getShootRatio() << endl;
+	setBoxDefault(healthBox, *_currentLevel->getCurrentWave()->getHealth());
+	setBoxDefault(delayBetweenEBox, *_currentLevel->getCurrentWave()->getDelayBetweenEnemies());
+	setComboBoxDefault(enemyTypeBox, *_currentLevel->getCurrentWave()->getEnemyType());
+	//setBoxDefault(timeStartBox, *_currentLevel->getCurrentWave()->getStartTime());
 	//TODO:: ADD End Time per wave
-	//TODO: Add speed in waves
+	//DONE: Add speed in waves
 	//TODO: Add enemies Types
 	//TODO: Add enemies behaviour
-	//TODO: Add enemies Health
+	//DONE: Add enemies Health
 
 }
 
 float LevelEditorBehaviour::checkTextInBox(tgui::EditBox::Ptr pBox)
 {
-	int number = std::stof((string)pBox->getDefaultText());
-	if (pBox->getText() != "") {
+	float number = std::stof((string)pBox->getDefaultText());
+	if (pBox->getText() != "" && pBox->getText() != ".") {
 		number = std::stof((string)pBox->getText());
 		return number;
 	}
@@ -401,11 +425,17 @@ int LevelEditorBehaviour::checkComboBox(tgui::ComboBox::Ptr pBox)
 	}
 	return -1;
 }
-void LevelEditorBehaviour::setBoxDefault(tgui::EditBox::Ptr pBox,float pX)
+void LevelEditorBehaviour::setBoxDefault(tgui::EditBox::Ptr pBox, float pX)
 {
 	pBox->setText("");
 	pBox->setDefaultText(std::to_string(pX));
+
+}
+void LevelEditorBehaviour::setComboBoxDefault(tgui::ComboBox::Ptr pBox, int pX)
+{
 	
+	pBox->setSelectedItemByIndex((pX));
+
 }
 #pragma region Wave
 void LevelEditorBehaviour::NextWave()
@@ -428,6 +458,11 @@ void LevelEditorBehaviour::NewWave()
 	_currentLevel->NewWave();
 	_currentWave = _currentLevel->getIndexWave();
 	UpdateGUIDataAtWaveChange();
+}
+void LevelEditorBehaviour::ClearWave()
+{
+	 _currentLevel->DeleteWave();
+	NextWave();
 }
 #pragma endregion
 #pragma region Level
@@ -506,7 +541,7 @@ void LevelEditorBehaviour::update(float pStep)
 #pragma region UI Methods
 void LevelEditorBehaviour::DrawUI()
 {
-	_images.back()->draw();
+	//_images.back()->draw();
 
 	DrawGrid();
 	//if (_renderReference)
@@ -530,14 +565,14 @@ void LevelEditorBehaviour::DrawGrid()
 
 	sf::RectangleShape rectangle;
 	rectangle.setSize(sf::Vector2f(400, 10000));
-	rectangle.setFillColor(sf::Color(0, 141, 250, 255));
+	rectangle.setFillColor(sf::Color(0, 141, 250, 100));
 	rectangle.setOutlineThickness(1);
 	rectangle.setPosition(0, 0);
 	draw(rectangle);
 
 	sf::RectangleShape rectangle2;
 	rectangle2.setSize(sf::Vector2f(400, 10000));
-	rectangle2.setFillColor(sf::Color(0, 141, 250, 255));
+	rectangle2.setFillColor(sf::Color(0, 141, 250, 100));
 	rectangle2.setOutlineThickness(1);
 	rectangle2.setPosition(1520, 0);
 	draw(rectangle2);
@@ -629,6 +664,7 @@ void LevelEditorBehaviour::UpdateStartLevelPreview()
 		StartGame();
 		_gameStarted = true;
 	}
+	
 }
 
 void LevelEditorBehaviour::UpdateWaveSelection()
@@ -651,10 +687,15 @@ void LevelEditorBehaviour::UpdateWaveSelection()
 		PrevWave();
 		_numKeyPressed = true;
 	}
+	else if( !_numKeyPressed && sf::Keyboard::isKeyPressed(sf::Keyboard::M) && !_gameStarted)
+	{
+		ClearWave();
+	}
 	//Restart cache of keypressed
 	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) &&
 		!sf::Keyboard::isKeyPressed(sf::Keyboard::Num2) &&
-		!sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+		!sf::Keyboard::isKeyPressed(sf::Keyboard::Num3) &&
+		!sf::Keyboard::isKeyPressed(sf::Keyboard::M))
 	{
 		_numKeyPressed = false;
 	}
@@ -716,7 +757,20 @@ void LevelEditorBehaviour::LoadLevelInitialize()
 	}
 	UpdateGUIDataAtWaveChange();
 }
+
 #pragma endregion
+void LevelEditorBehaviour::setActive(bool pActive)
+{
+	_active = pActive;
+	if (!_active)
+		_panel->hide();
+	else
+		_panel->show();
+}
+bool LevelEditorBehaviour::getActive()
+{
+	return _active;
+}
 #pragma region Draw shapes NOT USING
 //Draw a circle shape, need optimizing, not using when this comment was created
 void LevelEditorBehaviour::draw(sf::CircleShape pCircle)

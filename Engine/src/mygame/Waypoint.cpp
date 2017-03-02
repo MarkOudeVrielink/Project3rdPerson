@@ -47,6 +47,11 @@ sf::Vector2f Waypoint::getPosition()
 {
 	return (sf::Vector2f)_waypointPosition;
 }
+sf::Vector2f Waypoint::getWorldPos()
+{
+
+	return sf::Vector2f (192.0f / 1920 * _waypointPosition.x - 96,  108.0f / 1080 * _waypointPosition.y - 54);
+}
 
 void Waypoint::_createDebugInfo()
 {

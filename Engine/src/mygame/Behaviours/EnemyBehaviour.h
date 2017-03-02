@@ -1,7 +1,9 @@
 #pragma once
 #include "mygame/Waypoint.h"
+#include "SFML\System.hpp"
 #include "mgengine\Behaviours\AbstractActorBehaviour.h"
 #include <glm.hpp>
+#include "mgengine\Resources\ResourceIdentifiers.h"
 using namespace std;
 
 class Mesh;
@@ -20,13 +22,24 @@ public:
 	virtual void OnCollision(Actor* pOther);
 	void UpdateEditorMode(float pStep);
 	
+	void setShootRatio(float pShootPerSec);
+	void setSpeed(float pSpeed);
+	void setEnemyType(Materials::ID pType);
+	float getShootRatio();
+	float getSpeed();
+	Materials::ID getEnemyType();
+
 	void SpawnDrop(int pAmount = 1);
+	void SpawnBullet();
 	//void SpawnBullet();
 private:
-	float _moveSpeed;
-	float _turnSpeed;
 	std::vector<Waypoint*>* _wayPoints;
 	Waypoint *_tarjet = nullptr;
+
+	float _moveSpeed;
+	float _turnSpeed;	
+	float _shootRatio =2;
+	Materials::ID _enemyType;
 	int _index = 0;
 	bool _levelEditorMode = true;
 	//In SECONDS last snap sec moment
@@ -42,8 +55,13 @@ private:
 	float _secondsAlreadyRendered = 0;
 	float _spawnedTime = 0;
 	bool _movingBackwards = false;
+	sf::Clock updateClock;
+	sf::Time timeSinceLastShoot = sf::Time::Zero;
 
 	btScalar _angle;
+	Mesh*				_dropMesh;
+	AbstractMaterial*	_dropMaterial;
+
 	//Mesh*				_dropMesh;
 	//AbstractMaterial*	_dropMaterial;
 };

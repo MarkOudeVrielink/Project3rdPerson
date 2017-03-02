@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 <Level>
-  <Wave startTimeWave="0" sizeWave="5" delayBetweenEnemies="0.5">
+  <Wave startTimeWave="3" health="1" speed="40" shootRatio="3" enemyType="5" enemyBehaviour="0" sizeWave="10" delayBetweenEnemies="0.5">
     <Waypoints>
-      <WavePoint x="1276" y="463" />
-      <WavePoint x="982" y="117" />
-      <WavePoint x="775" y="131" />
-      <WavePoint x="523" y="366" />
-      <WavePoint x="630" y="766" />
-      <WavePoint x="884" y="867" />
-      <WavePoint x="1050" y="830" />
+      <WavePoint x="1386" y="150" />
+      <WavePoint x="1183" y="86" />
+      <WavePoint x="1061" y="64" />
+      <WavePoint x="972" y="68" />
+      <WavePoint x="1017" y="488" />
+      <WavePoint x="451" y="94" />
+      <WavePoint x="492" y="744" />
+      <WavePoint x="708" y="916" />
+      <WavePoint x="1295" y="895" />
+      <WavePoint x="1502" y="990" />
+      <WavePoint x="1478" y="21" />
+      <WavePoint x="1218" y="279" />
     </Waypoints>
   </Wave>
-  <Wave startTimeWave="0" sizeWave="5" delayBetweenEnemies="0.5">
+  <Wave startTimeWave="1" health="1" speed="60" shootRatio="3" enemyType="2" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5">
     <Waypoints>
-      <WavePoint x="1264" y="157" />
-      <WavePoint x="1134" y="179" />
-      <WavePoint x="879" y="324" />
-      <WavePoint x="690" y="463" />
-      <WavePoint x="677" y="730" />
+      <WavePoint x="1413" y="328" />
+      <WavePoint x="1183" y="219" />
+      <WavePoint x="916" y="228" />
+      <WavePoint x="723" y="242" />
+      <WavePoint x="646" y="261" />
+      <WavePoint x="570" y="400" />
+      <WavePoint x="637" y="621" />
     </Waypoints>
   </Wave>
 </Level>

@@ -13,7 +13,7 @@ EnemyWave::EnemyWave()
 		Enemy* Enemy1 = new Enemy("Diablo", glm::vec3(0, 0, 0));
 		_enemies.push_back(Enemy1);
 	}
-	_enemy = Mesh::load(config::MGE_MODEL_PATH + "ship.obj");//LAG HERE
+	//_enemy = _world->GetResourceManager()->getMesh(Meshes::Player);//LAG HERE
 }
 //TODO: Set the delay between enemies relative to the speed of the enemies to avoid them colliding between them
 
@@ -43,11 +43,31 @@ const std::vector<Waypoint*>* EnemyWave::getWaypoints() const
 }
 //Loop and draw all the waypoints in screen
 void EnemyWave::DrawWaypoints()
-{
+{//TODO: Recalculate
+	glm::vec2 prevWaypointPos = glm::vec2(0, 0);
 	//cout << "DRAW WAYPOINT" << endl;
-	for (auto &waypoint : _wayPoints)
+	float lengthTraveled =0;
+	//if(_startTimeWave + (_delayBetweenEnemies*_sizeWave)>*_snapTime)
+	//Add getWorldPos to the waypoints
+	lengthTraveled = (*_snapTime*_speed- ((_startTimeWave + (_delayBetweenEnemies*_sizeWave))*_speed));
+	cout << lengthTraveled << endl;
+	float lenghtbetweenWaypoints = 0;
+	//we are going backwards 
+	/*
+	for (int i = _wayPoints.size()-1;i>=0;i--)
 	{
-		waypoint->Draw();
+		glm::vec2 delta = glm::vec2(_wayPoints.at(i)->getPosition().x, _wayPoints.at(i)->getPosition().y) - prevWaypointPos;
+		prevWaypointPos += glm::vec2(_wayPoints.at(i)->getPosition().x, _wayPoints.at(i)->getPosition().y);
+		if((glm::length(delta)) >lengthTraveled)
+			_wayPoints.at(i)->Draw();
+	}
+	*/
+	for (auto& waypoint : _wayPoints)
+	{
+		glm::vec2 delta = glm::vec2(waypoint->getWorldPos().x, waypoint->getWorldPos().y) - prevWaypointPos;
+		lenghtbetweenWaypoints += (glm::length(delta));
+		if (lenghtbetweenWaypoints>lengthTraveled)
+			waypoint->Draw();
 	}
 }
 void EnemyWave::setAsMainWave()
@@ -85,29 +105,38 @@ void EnemyWave::SpawnEnemy(World * pWorld)//TODO:change to Level scope
 		//AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "potato.png"));
 
 		//Enemy* Enemy1 = new Enemy("Enemy", pos);
-		ControlledActor* Enemy1 = new ControlledActor(pWorld, "Enemy", pos, new btSphereShape(1), ActorType::Type_Enemy, 1,  CF::COL_ENEMY, CF::enemyCollidesWith);
+		ControlledActor* Enemy1 = new ControlledActor(pWorld, "Enemy", pos, new btSphereShape(5), ActorType::Type_Enemy, 1,  CF::COL_ENEMY, CF::enemyCollidesWith);
 		
 		cout << "ENEMY CREATED" << endl;
 		AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png"));
 
-		Enemy1->setMesh(_enemy);
-		cout << "Mesh set" << endl;
-		Enemy1->setMaterial(textureMaterial2);
+		Enemy1->setMesh(pWorld->GetResourceManager()->getMesh(Meshes::ID( _enemyType)));
+		Enemy1->setMaterial(pWorld->GetResourceManager()->getMaterial(_enemyType));
 
 		cout << "Material set" << endl;
 		
-		if(!_editorMode)
-			Enemy1->setActorBehaviour(new EnemyBehaviour(&_wayPoints));
+		if (!_editorMode)
+		{
+			EnemyBehaviour* behave = new EnemyBehaviour(&_wayPoints);
+			behave->setSpeed(_speed);
+			behave->setShootRatio(_shootRatio);
+			behave->setEnemyType(_enemyType);
+			Enemy1->SetHealth(_health);
+			Enemy1->setActorBehaviour(behave);
+		}
 		else if(_editorMode)
 		{
 			EnemyBehaviour* behave = new EnemyBehaviour(&_wayPoints, _snapTime);
-			
+			behave->setSpeed(_speed);
+			behave->setShootRatio(_shootRatio);
+			behave->setEnemyType(_enemyType);
+			Enemy1->SetHealth(_health);
 			Enemy1->setActorBehaviour(behave);
 
 			behave->SaveOriginalTransform();
 
 		}
-		//Enemy1->scale(glm::vec3(0.5f, .5f, .5f));
+		Enemy1->scale(glm::vec3(2, 2, 2));
 		cout << "Scale set" << endl;
 		pWorld->add(Enemy1);
 		cout << "World added" << endl;
@@ -169,7 +198,7 @@ const float * EnemyWave::getShootRatio() const
 {
 	return &_shootRatio;
 }
-const int * EnemyWave::getEnemyType() const
+const Materials::ID * EnemyWave::getEnemyType() const
 {
 	return &_enemyType;
 }
@@ -214,7 +243,7 @@ void EnemyWave::setShootRatio(float pRatio)
 	_shootRatio = pRatio;
 }
 
-void EnemyWave::setEnemyType(float pType)
+void EnemyWave::setEnemyType(Materials::ID pType)
 {
 	_enemyType = pType;
 }

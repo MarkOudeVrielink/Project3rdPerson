@@ -31,6 +31,7 @@ public:
 	virtual void OnCollision(Actor* pActor);
 
 	float GetHealth();
+	void SetHealth(float pHealth);
 	void TakeDamage(float pDamage);
 
 private:

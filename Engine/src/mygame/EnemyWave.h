@@ -24,7 +24,7 @@ public:
 	const float* getDelayBetweenEnemies() const;
 	const float* getSpeed() const;
 	const float* getShootRatio() const;
-	const int* getEnemyType() const;
+	const Materials::ID* getEnemyType() const;
 	const int* getEnemyBehaviour() const;
 	const float* getHealth() const;
 	const std::vector<Waypoint*>* getWaypoints() const;
@@ -35,7 +35,7 @@ public:
 	void setDelayBetweenEnemies(float pDelayEnemies);
 	void setSpeed(float pSpeed);
 	void setShootRatio(float pRatio);
-	void setEnemyType(float pType);
+	void setEnemyType(Materials::ID pType);
 	void setEnemyBehaviour(float pBehaviour);
 	void setHealth(float pHealth);
 private:
@@ -53,9 +53,9 @@ private:
 	float* _snapTime = 0;
 	Mesh* _enemy;
 	bool _editorMode = true;
-	float _speed = 20;
-	float _shootRatio = 0;
-	int _enemyType = 0;
+	float _speed = 1;
+	float _shootRatio = 5;
+	Materials::ID _enemyType = Materials::Enemy;
 	int _enemyBehaviour = 0;
 	float _health = 1;
 

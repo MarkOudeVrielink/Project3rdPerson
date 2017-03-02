@@ -36,6 +36,12 @@ namespace Meshes {
 	enum ID {
 		Player,
 		Enemy,
+		Yogurt,
+		Sushi,
+		Sandwich,
+		Potato,
+		Pizza,
+		Muffin,
 		Bullet,
 		BackGround
 	};
@@ -45,6 +51,12 @@ namespace Materials {
 	enum ID {
 		Player,
 		Enemy,
+		Yogurt,
+		Sushi,
+		Sandwich,
+		Potato,
+		Pizza,
+		Muffin,
 		Bullet,
 		BackGround
 	};

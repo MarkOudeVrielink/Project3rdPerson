@@ -16,6 +16,11 @@ void LevelParser::SaveLevel(Level * pLevel,string pfileName = "demo")
 	for (auto const wave : *pLevel->getWaves()) {
 		pugi::xml_node LevelChild = root.append_child("Wave");
 		LevelChild.append_attribute("startTimeWave") = *wave->getStartTime();
+		LevelChild.append_attribute("health") = *wave->getHealth();
+		LevelChild.append_attribute("speed") = *wave->getSpeed();
+		LevelChild.append_attribute("shootRatio") = *wave->getShootRatio();
+		LevelChild.append_attribute("enemyType") = *wave->getEnemyType();
+		LevelChild.append_attribute("enemyBehaviour") = *wave->getEnemyBehaviour();
 		LevelChild.append_attribute("sizeWave") = *wave->getSizeWave();
 		LevelChild.append_attribute("delayBetweenEnemies") = *wave->getDelayBetweenEnemies();
 		pugi::xml_node WaveChild = LevelChild.append_child("Waypoints");
@@ -57,8 +62,20 @@ Level* LevelParser::LoadLevel(string pName ="demo", sf::RenderWindow* pWindow= N
 			float startTime = wave.attribute("startTimeWave").as_float();
 			int sizeWave = wave.attribute("sizeWave").as_int();
 			float delayTime = wave.attribute("delayBetweenEnemies").as_float();
+			float speed = wave.attribute("speed").as_float();
+			float shootRatio = wave.attribute("shootRatio").as_float();
+			int enemyType = wave.attribute("enemyType").as_int();
+			int enemyBehaviour = wave.attribute("enemyBehaviour").as_int();
+			float health = wave.attribute("health").as_float();
 
-			
+			level->getCurrentWave()->setSizeWave(sizeWave);
+			level->getCurrentWave()->setDelayBetweenEnemies(delayTime);
+			level->getCurrentWave()->setSpeed(speed);
+			level->getCurrentWave()->setShootRatio(shootRatio);
+			level->getCurrentWave()->setEnemyType(Materials::ID(enemyType));
+			level->getCurrentWave()->setEnemyBehaviour(enemyBehaviour);
+			level->getCurrentWave()->setHealth(health);
+
 			//Waypoint list Element
 			pugi::xml_node WaveChild = wave.child("Waypoints");
 			cout << startTime << " << delay time of wave loaded" << endl;

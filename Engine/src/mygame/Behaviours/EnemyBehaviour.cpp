@@ -3,6 +3,12 @@
 #include "mygame/Waypoint.h"
 #include "EnemyBehaviour.h"
 #include "mygame/Enemy.h"
+#include "mgengine\Behaviours\PickUpBehaviour.h"
+#include "mgengine\Behaviours\BulletBehaviour.h"
+#include "mge\core\World.hpp"
+
+#include "mgengine\Collision\CollisionFilters.h"
+
 
 #include <list>
 #include <glm.hpp>
@@ -83,10 +89,31 @@ void EnemyBehaviour::UpdateEditorMode(float pStep)
 	}
 
 }
-void EnemyBehaviour::SpawnDrop(int pAmount)
+void EnemyBehaviour::setShootRatio(float pShootPerSec)
 {
-	//TODO: add drops.
+	_shootRatio = pShootPerSec;
 }
+void EnemyBehaviour::setSpeed(float pSpeed)
+{
+	_moveSpeed = pSpeed;
+}
+void EnemyBehaviour::setEnemyType(Materials::ID pType)
+{
+	_enemyType = pType;
+}
+float EnemyBehaviour::getShootRatio()
+{
+	return _shootRatio;
+}
+float EnemyBehaviour::getSpeed()
+{
+	return _moveSpeed;
+}
+Materials::ID EnemyBehaviour::getEnemyType()
+{
+	return _enemyType;
+}
+
 //Pass the frame length and move the enemy the distance it should move in that frame
 // Approx -> 0.01666666 length of frame * 60 = is equal to one sec
 void EnemyBehaviour::AiBasic(float pStep)
@@ -104,14 +131,8 @@ void EnemyBehaviour::AiBasic(float pStep)
 		_tarjet = _wayPoints->at(_index);//index++ maybe
 		_movingBackwards = false;
 	}
-
-
-	glm::vec3 target(160.0f / 1920 * _tarjet->getPosition().x - 80, 0, 80.0f / 1080 * _tarjet->getPosition().y - 40);
+	glm::vec3 target(192.0f / 1920 * _tarjet->getPosition().x - 96, 0, 108.0f / 1080 * _tarjet->getPosition().y - 54);
 	glm::vec3 pos = _owner->getWorldPosition();
-	//glm::vec3 forward = glm::normalize(_owner->getWorldPosition() - tarjet);
-	//glm::vec3 right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), forward));
-	//glm::vec3 up = glm::cross(forward, right);	
-
 	btScalar dX = pos.x - target.x;
 	btScalar dZ = pos.z - target.z;
 	_angle = atan2(dX, dZ);
@@ -132,9 +153,20 @@ void EnemyBehaviour::AiBasic(float pStep)
 	else {
 		if (_wayPoints->size() == _index) //Increment index so we dont keep rotating in order to keep moving and leave the screen
 			_index++;
-		
+		//if we dont have more waypoints, recalculate tarjet to keep moving "forward"
+		if (_wayPoints->size() < _index)
+		{
+			delta = glm::vec2(target.x*1000, target.z*1000) - glm::vec2(pos.x, pos.z);
+		}
 		delta = glm::normalize(delta);	//Get difference between object and target.
-		_ownerBody->translate(btVector3(delta.x * _moveSpeed, 0.0f, delta.y * _moveSpeed));	 //Move toward target with set speed.
+		_ownerBody->translate(btVector3(delta.x * _moveSpeed *pStep, 0.0f, delta.y * _moveSpeed*pStep));	 //Move toward target with set speed.
+	}
+
+	if (_wayPoints->size() >= _index && updateClock.getElapsedTime().asSeconds()- timeSinceLastShoot.asSeconds() > _shootRatio)//shoot
+	{
+		//updateClock.restart();
+		timeSinceLastShoot = updateClock.getElapsedTime();
+		SpawnBullet();
 	}
 }
 //The same AI but going to the previous waypoint
@@ -147,10 +179,9 @@ void EnemyBehaviour::AiBasicBackWards(float pStep)
 		//_tarjet = _wayPoints->at(_index++);//index++ maybe
 	}
 	if (_movingBackwards == false)//Check if is first frame that we move backwards to invert waypoint
-	{
-		
-		if ((float)_index > _wayPoints->size())
-			_index = _wayPoints->size();
+	{		
+		//if ((float)_index > _wayPoints->size())
+			//_index = _wayPoints->size();
 		if ((float)_index > 0 && _wayPoints->size() >= (float)_index) //check if there is a waypoint behind
 		{				
 			//cout << _wayPoints->at(_index--)->getPosition().x << endl;
@@ -160,26 +191,25 @@ void EnemyBehaviour::AiBasicBackWards(float pStep)
 		_movingBackwards = true;
 	}
 	//ROTATION
-	glm::vec3  tarjet = glm::vec3(160.0f / 1920 * _tarjet->getPosition().x - 80, 0, 80.0f / 1080 * _tarjet->getPosition().y - 40);
-	glm::vec3 forward = glm::normalize(-_owner->getWorldPosition() + tarjet);
-	glm::vec3 right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), forward));
-	glm::vec3 up = glm::cross(forward, right);//could be constant since top view... anyways it can be improved
+	glm::vec3 target(192.0f / 1920 * _tarjet->getPosition().x - 96, 0, 108.0f / 1080 * _tarjet->getPosition().y - 54);
+	glm::vec3 pos = _owner->getWorldPosition();
+
+	btScalar dX = pos.x - target.x;
+	btScalar dZ = pos.z - target.z;
+	_angle = atan2(dX, dZ);
+	
 	if (_index>=0) //check if there is a waypoint behind
 	{//If we haven´t reached the last waypoint keep rotating
-		_owner->setTransform(glm::mat4(glm::vec4(right, 0), glm::vec4(up, 0), glm::vec4(forward, 0), glm::vec4(_owner->getWorldPosition(), 1.0f))
-		);
-		
+		_owner->SetRotation(glm::vec3(0, 1, 0), _angle);
 	}
-	
 
-	glm::vec3 pos = _owner->getWorldPosition();
-	glm::vec2 delta = glm::vec2(tarjet.x, tarjet.z) - glm::vec2(pos.x, pos.z);
+	glm::vec2 delta = glm::vec2(target.x, target.z) - glm::vec2(pos.x, pos.z);
 	float length = glm::length(delta);
 
 	if (length< _moveSpeed*pStep && _index >0)
 	{
 		_index--;
-		//cout << _owner->getWorldPosition().x << "<x" << _owner->getWorldPosition().z << "<z" << endl;
+		
 		_tarjet = _wayPoints->at(_index);
 	}
 	else
@@ -187,7 +217,35 @@ void EnemyBehaviour::AiBasicBackWards(float pStep)
 		/*if (0 == _index) //Decrement index so we dont keep rotating in order to keep moving and leave the screen
 			_index--;*/
 		//cout << _index << endl;
-		_owner->translate(glm::vec3(0 * _moveSpeed, 0.0f, 1 * pStep*_moveSpeed));
+		delta = glm::normalize(delta);
+		_ownerBody->translate(btVector3(delta.x * _moveSpeed, 0.0f, delta.y * _moveSpeed));
 	}
 	
+}
+void EnemyBehaviour::SpawnDrop(int pAmount)
+{
+	for (int i = 0; i < pAmount; i++) {
+		glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, -2.5f);
+
+		ObjectActor* pickup = new ObjectActor(_owner->GetWorld(), "pickup", spawnPoint, new btSphereShape(0.7f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith);
+		//bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
+		pickup->setMesh(_dropMesh);
+		pickup->setMaterial(_dropMaterial);
+		pickup->setActorBehaviour(new PickUpBehaviour());
+		_owner->getParent()->add(pickup);
+	}
+	//HACK: make sure we add it to the world, in case of nested objects.
+	//TODO: give drop a random start dir?
+}
+
+void EnemyBehaviour::SpawnBullet()
+{
+	glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, 2.5f);
+
+	ObjectActor* bullet = new ObjectActor(_owner->GetWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_ENEMYBULLET, CF::enemyBulletCollidesWith);
+	bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
+	bullet->setMesh(_owner->GetWorld()->GetResourceManager()->getMesh(Meshes::Player));
+	bullet->setMaterial(_owner->GetWorld()->GetResourceManager()->getMaterial(Materials::Player));
+	bullet->setActorBehaviour(new BulletBehaviour(0.6f, 1.0f, 50.0f, Direction::Down, BulletOwner::Enemy));
+	_owner->getParent()->add(bullet);
 }
