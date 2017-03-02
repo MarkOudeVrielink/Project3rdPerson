@@ -51,6 +51,7 @@ void Actor::setActorBehaviour(AbstractActorBehaviour* pBehaviour)
 	_actorBehaviour = pBehaviour;
 	_actorBehaviour->SetOwner(this);
 	_actorBehaviour->SetOwnerBody(GetRigidBody());
+	_actorBehaviour->setup();
 }
 
 World* Actor::GetWorld()

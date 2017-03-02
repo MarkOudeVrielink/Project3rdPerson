@@ -10,6 +10,7 @@
 #include <SFML\Window\Keyboard.hpp>
 
 #include "mge\materials\ColorMaterial.hpp"
+#include "mgengine\Materials\PlayerMaterial.h"
 #include "mge\core\Mesh.hpp"
 
 #include "mgengine\Collision\CollisionFilters.h"
@@ -37,7 +38,7 @@ PlayerBehaviour::PlayerBehaviour(Mesh* pMesh,AbstractMaterial* pMaterial, float 
 
 	_tiltAngle		= 0.3f;
 
-	_score			= 0;
+	_score			= 0;	
 }
 
 PlayerBehaviour::~PlayerBehaviour() {
@@ -67,7 +68,7 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 
 			ControlledActor* player = (ControlledActor*)_owner;
 			_defaultFlags = _ownerBody->getCollisionFlags();
-			_invulnerable = true; //TODO: Add some kind of visual effect.
+			_invulnerable = true;
 
 			_owner->GetWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Hit);
 			
@@ -86,6 +87,11 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 		_owner->GetWorld()->GetResourceManager()->PlaySound(SoundEffect::Drop_Pick);
 		_ownerBody->setLinearVelocity(btVector3(0, 0, 0));
 	}
+}
+
+void PlayerBehaviour::setup()
+{
+	_playerMaterial = (PlayerMaterial*)_owner->GetWorld()->GetResourceManager()->getMaterial(Materials::Player);
 }
 
 void PlayerBehaviour::SpawnNova()
@@ -164,11 +170,15 @@ void PlayerBehaviour::Move()
 
 void PlayerBehaviour::IsInvulnerable(float pTime)
 {
+	
 	_invulnerabilityTimer += pTime;
 	if (_invulnerabilityTimer < _invulnerabilityTime) {
 		_ownerBody->setCollisionFlags(_ownerBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+		_playerMaterial->setInvulnerable(true);
 	} else {
 		_ownerBody->setCollisionFlags(_defaultFlags);		
+		_playerMaterial->setInvulnerable(false);
+		
 		_invulnerable = false;
 		_invulnerabilityTimer = 0;
 	}
