@@ -3,8 +3,6 @@
 #include <iostream>
 #include <iterator>
 
-
-
 CollisionManager::CollisionManager()
 {
 	_collisionConfig	= new btDefaultCollisionConfiguration();
@@ -59,8 +57,8 @@ void CollisionManager::CheckCollisions()
 {	
 	/* Browse all collision pairs */
 	int numManifolds = _physicsWorld->getDispatcher()->getNumManifolds();
-	for (int i = 0; i < numManifolds; i++)//HACK: FIX THIS!!!
-	{	
+	for (int i = 0; i < numManifolds; i++)
+	{			
 		btPersistentManifold* contactManifold = _physicsWorld->getDispatcher()->getManifoldByIndexInternal(i);
 		const btCollisionObject* obA = contactManifold->getBody0();
 		const btCollisionObject* obB = contactManifold->getBody1();
@@ -74,10 +72,10 @@ void CollisionManager::CheckCollisions()
 				if (pt.getDistance()<0.f)
 				{				
 					((physicsObject*)obA->getUserPointer())->actor->OnCollision(((physicsObject*)obB->getUserPointer())->actor);
-					((physicsObject*)obB->getUserPointer())->actor->OnCollision(((physicsObject*)obA->getUserPointer())->actor);
+					((physicsObject*)obB->getUserPointer())->actor->OnCollision(((physicsObject*)obA->getUserPointer())->actor);					
 				}
 			}
-		}		
+		}
 	}
 }
 

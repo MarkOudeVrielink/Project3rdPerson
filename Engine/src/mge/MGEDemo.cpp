@@ -146,7 +146,7 @@ void MGEDemo::_initializeScene()
 	AbstractMaterial* colorMaterialGreen = new ColorMaterial(glm::vec3(0.0f, 1, 0.0f));
     AbstractMaterial* textureMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"engin1.png"));
   		
-	ControlledActor* player = new ControlledActor(_world, "Player", glm::vec3(0, 0, 3), new btSphereShape(1), ActorType::Type_Player, 1, CF::COL_PLAYER, CF::playerCollidesWith);	
+	ControlledActor* player = new ControlledActor(_world, "Player", glm::vec3(0, 0, 3), new btSphereShape(1), ActorType::Type_Player, 1, CF::COL_PLAYER, CF::playerCollidesWith, 3);	
 	player->scale(glm::vec3(0.8f, 0.8f, 0.8f));
 	player->setMesh(_world->GetResourceManager()->getMesh(Meshes::Player));
 	player->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Player));
@@ -159,29 +159,49 @@ void MGEDemo::_initializeScene()
 	enemy0->setActorBehaviour(new ActorEnemyBehaviour(teapotMeshS, colorMaterialGreen));
 	_world->add(enemy0);	
 
-	//_world->GetResourceManager()->PlayMusic(Music::MenuTheme);
+
+	ControlledActor* enemy1 = new ControlledActor(_world, "ENEMY1", glm::vec3(40, 0, 55), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
+	enemy1->setMesh(teapotMeshS);
+	enemy1->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Enemy));
+	enemy1->setActorBehaviour(new ActorEnemyBehaviour(teapotMeshS, colorMaterialGreen));
+	_world->add(enemy1);
+
+	ControlledActor* enemy2 = new ControlledActor(_world, "ENEMY2", glm::vec3(-40, 0, -55), new btSphereShape(1), ActorType::Type_Enemy, 15, CF::COL_ENEMY, CF::enemyCollidesWith, 3);
+	enemy2->setMesh(teapotMeshS);
+	enemy2->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Enemy));
+	enemy2->setActorBehaviour(new ActorEnemyBehaviour(teapotMeshS, colorMaterialGreen));
+	_world->add(enemy2);
+
+	/*ObjectActor* enemy1 = new ObjectActor(_world, "ENEMY0", glm::vec3(-20, 0, 0), new btSphereShape(2), ActorType::Type_PickUp,CF::COL_PICKUP, CF::pickupCollidesWith, 3);
+	enemy1->setMesh(teapotMeshS);
+	enemy1->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Enemy));
+	enemy1->setActorBehaviour(new PickUpBehaviour());
+	_world->add(enemy1);*/
+
+	_world->GetResourceManager()->PlayMusic(Music::MenuTheme);
+	_world->GetResourceManager()->SetVolume(30.0f);
 	
 #pragma region PlayfieldBoundaries
-	Actor* top = new Actor(_world, "top", glm::vec3(0,0,-55), new btBoxShape(btVector3(50, 0.5f, 0.5f)), ActorType::Type_StaticObject, CF::COL_BOUNDARY, CF::boundaryCollidesWith, 0);
-	//top->scale(glm::vec3(40, 1, 1));
-	//top->setMesh(cube);
-	//top->setMaterial(colorMaterialGreen);
+	Actor* top = new Actor(_world, "top", glm::vec3(0,0,-55), new btBoxShape(btVector3(50, 1, 1)), ActorType::Type_StaticObject, CF::COL_BOUNDARY, CF::boundaryCollidesWith, 0);
+	/*top->scale(glm::vec3(40, 2, 2));
+	top->setMesh(cube);
+	top->setMaterial(colorMaterialGreen);*/
 	_world->add(top);
 
-	Actor* bottom = new Actor(_world, "bottom", glm::vec3(0, 0, 55), new btBoxShape(btVector3(50, 0.5f, 0.5f)), ActorType::Type_StaticObject, CF::COL_BOUNDARY, CF::boundaryCollidesWith, 0);
-	//bottom->scale(glm::vec3(40, 1, 1));
+	Actor* bottom = new Actor(_world, "bottom", glm::vec3(0, 0, 55), new btBoxShape(btVector3(50, 1, 1)), ActorType::Type_StaticObject, CF::COL_BOUNDARY, CF::boundaryCollidesWith, 0);
+	//bottom->scale(glm::vec3(40, 2, 2));
 	//bottom->setMesh(cube);
 	//bottom->setMaterial(colorMaterialGreen);
 	_world->add(bottom);
 
-	Actor* left = new Actor(_world, "left", glm::vec3(-45, 0, 0), new btBoxShape(btVector3(0.5f, 0.5f, 80.0f)), ActorType::Type_StaticObject, CF::COL_BOUNDARY, CF::boundaryCollidesWith, 0);
-	//left->scale(glm::vec3(1, 1, 80));
+	Actor* left = new Actor(_world, "left", glm::vec3(-45, 0, 0), new btBoxShape(btVector3(1, 1, 80.0f)), ActorType::Type_StaticObject, CF::COL_BOUNDARY, CF::boundaryCollidesWith, 0);
+	//left->scale(glm::vec3(2, 2, 80));
 	//left->setMesh(cube);
 	//left->setMaterial(colorMaterialGreen);
 	_world->add(left);
 
-	Actor* right = new Actor(_world, "right", glm::vec3(45, 0, 0), new btBoxShape(btVector3(0.5f, 0.5f, 80.0f)), ActorType::Type_StaticObject, CF::COL_BOUNDARY, CF::boundaryCollidesWith, 0);
-	//right->scale(glm::vec3(1, 1, 80));
+	Actor* right = new Actor(_world, "right", glm::vec3(45, 0, 0), new btBoxShape(btVector3(1, 1 , 80.0f)), ActorType::Type_StaticObject, CF::COL_BOUNDARY, CF::boundaryCollidesWith, 0);
+	//right->scale(glm::vec3(2, 2, 80));
 	//right->setMesh(cube);
 	//right->setMaterial(colorMaterialGreen);
 	_world->add(right);

@@ -20,6 +20,9 @@ namespace Music {
 namespace SoundEffect {
 	enum ID {
 		Button,
+		ButtonSelect,
+		Ambient,
+		Player_Ship,
 		Player_Shoot,
 		Player_Hit,
 		Player_Nova,
