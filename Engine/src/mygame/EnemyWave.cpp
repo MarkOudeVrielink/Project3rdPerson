@@ -150,10 +150,11 @@ bool EnemyWave::CheckSpawnTimeNextEnemy(float* pSec)
 	if (*pSec - _timeAtLastEnemySpawned - _startTimeWave >= _delayBetweenEnemies)
 	{
 		cout << _startTimeWave << "<<delayed by" << endl;
+		_startTimeWave = 0;
 		_timeAtLastEnemySpawned = *pSec;
 		return true;
 	}
-	else
+	else 
 		return false;
 }
 //Maybe Not used, _snapTime saved in CheckSpawnTimeNextEnemy()

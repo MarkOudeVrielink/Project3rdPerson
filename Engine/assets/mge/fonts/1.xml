@@ -1,30 +1,192 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 <Level>
-  <Wave startTimeWave="3" health="2" speed="40" shootRatio="3" enemyType="5" enemyBehaviour="0" sizeWave="10" delayBetweenEnemies="0.5">
+  <Wave startTimeWave="1.33333337" health="1" speed="50" shootRatio="0.5" enemyType="2" enemyBehaviour="0" sizeWave="3" delayBetweenEnemies="0.300000012">
     <Waypoints>
-      <WavePoint x="1386" y="150" />
-      <WavePoint x="1183" y="86" />
-      <WavePoint x="1061" y="64" />
-      <WavePoint x="972" y="68" />
-      <WavePoint x="1017" y="488" />
-      <WavePoint x="451" y="94" />
-      <WavePoint x="492" y="744" />
-      <WavePoint x="708" y="916" />
-      <WavePoint x="1295" y="895" />
-      <WavePoint x="1502" y="990" />
-      <WavePoint x="1478" y="21" />
-      <WavePoint x="1218" y="279" />
+      <WavePoint x="1503" y="120" />
+      <WavePoint x="1203" y="127" />
+      <WavePoint x="1014" y="137" />
+      <WavePoint x="781" y="142" />
+      <WavePoint x="600" y="141" />
+      <WavePoint x="476" y="133" />
+      <WavePoint x="404" y="110" />
     </Waypoints>
   </Wave>
-  <Wave startTimeWave="1" health="3" speed="60" shootRatio="3" enemyType="2" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5">
+  <Wave startTimeWave="5.80000019" health="1" speed="60" shootRatio="0.600000024" enemyType="3" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.300000012">
     <Waypoints>
-      <WavePoint x="1413" y="328" />
-      <WavePoint x="1183" y="219" />
-      <WavePoint x="916" y="228" />
-      <WavePoint x="723" y="242" />
-      <WavePoint x="646" y="261" />
-      <WavePoint x="570" y="400" />
-      <WavePoint x="637" y="621" />
+      <WavePoint x="402" y="222" />
+      <WavePoint x="777" y="466" />
+      <WavePoint x="1261" y="284" />
+      <WavePoint x="1507" y="41" />
+    </Waypoints>
+  </Wave>
+  <Wave startTimeWave="20.9333324" health="2" speed="50" shootRatio="0.699999988" enemyType="4" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.300000012">
+    <Waypoints>
+      <WavePoint x="1484" y="955" />
+      <WavePoint x="1400" y="757" />
+      <WavePoint x="1266" y="524" />
+      <WavePoint x="1109" y="314" />
+      <WavePoint x="959" y="246" />
+      <WavePoint x="820" y="216" />
+      <WavePoint x="707" y="203" />
+      <WavePoint x="595" y="189" />
+      <WavePoint x="441" y="191" />
+      <WavePoint x="399" y="207" />
+    </Waypoints>
+  </Wave>
+  <Wave startTimeWave="20.9333324" health="2" speed="60" shootRatio="0.400000006" enemyType="4" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.300000012">
+    <Waypoints>
+      <WavePoint x="409" y="985" />
+      <WavePoint x="438" y="816" />
+      <WavePoint x="455" y="675" />
+      <WavePoint x="523" y="546" />
+      <WavePoint x="715" y="432" />
+      <WavePoint x="957" y="360" />
+      <WavePoint x="1189" y="285" />
+      <WavePoint x="1364" y="229" />
+      <WavePoint x="1500" y="181" />
+    </Waypoints>
+  </Wave>
+  <Wave startTimeWave="37.4666672" health="1" speed="70" shootRatio="1" enemyType="5" enemyBehaviour="0" sizeWave="8" delayBetweenEnemies="0.400000006">
+    <Waypoints>
+      <WavePoint x="1485" y="42" />
+      <WavePoint x="413" y="983" />
+      <WavePoint x="414" y="12" />
+    </Waypoints>
+  </Wave>
+  <Wave startTimeWave="39.5333328" health="1" speed="70" shootRatio="0.600000024" enemyType="5" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.400000006">
+    <Waypoints>
+      <WavePoint x="432" y="18" />
+      <WavePoint x="1501" y="990" />
+    </Waypoints>
+  </Wave>
+  <Wave startTimeWave="56.5999985" health="1" speed="60" shootRatio="3" enemyType="6" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.400000006">
+    <Waypoints>
+      <WavePoint x="608" y="9" />
+      <WavePoint x="826" y="261" />
+      <WavePoint x="1207" y="569" />
+      <WavePoint x="563" y="961" />
+    </Waypoints>
+  </Wave>
+  <Wave startTimeWave="56.5999985" health="1" speed="60" shootRatio="2" enemyType="6" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.300000012">
+    <Waypoints>
+      <WavePoint x="1251" y="13" />
+      <WavePoint x="643" y="522" />
+      <WavePoint x="1285" y="979" />
+    </Waypoints>
+  </Wave>
+  <Wave startTimeWave="84.7333298" health="3" speed="40" shootRatio="0.5" enemyType="7" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.600000024">
+    <Waypoints>
+      <WavePoint x="1329" y="993" />
+      <WavePoint x="1312" y="612" />
+      <WavePoint x="1187" y="328" />
+      <WavePoint x="924" y="165" />
+      <WavePoint x="618" y="313" />
+      <WavePoint x="584" y="682" />
+      <WavePoint x="781" y="781" />
+      <WavePoint x="1053" y="672" />
+      <WavePoint x="1271" y="460" />
+      <WavePoint x="1445" y="271" />
+      <WavePoint x="1487" y="229" />
+    </Waypoints>
+  </Wave>
+  <Wave startTimeWave="2.0666666" health="3" speed="60" shootRatio="0.600000024" enemyType="5" enemyBehaviour="0" sizeWave="15" delayBetweenEnemies="0.200000003">
+    <Waypoints>
+      <WavePoint x="421" y="25" />
+      <WavePoint x="675" y="73" />
+      <WavePoint x="902" y="91" />
+      <WavePoint x="1048" y="142" />
+      <WavePoint x="1211" y="174" />
+      <WavePoint x="1329" y="220" />
+      <WavePoint x="1372" y="290" />
+      <WavePoint x="1301" y="348" />
+      <WavePoint x="1181" y="414" />
+      <WavePoint x="1147" y="423" />
+      <WavePoint x="1066" y="434" />
+      <WavePoint x="932" y="479" />
+      <WavePoint x="823" y="506" />
+      <WavePoint x="727" y="527" />
+      <WavePoint x="624" y="532" />
+      <WavePoint x="551" y="556" />
+      <WavePoint x="531" y="631" />
+      <WavePoint x="563" y="678" />
+      <WavePoint x="651" y="741" />
+      <WavePoint x="732" y="786" />
+      <WavePoint x="784" y="815" />
+      <WavePoint x="837" y="852" />
+      <WavePoint x="917" y="893" />
+      <WavePoint x="992" y="924" />
+      <WavePoint x="1047" y="937" />
+      <WavePoint x="1122" y="941" />
+      <WavePoint x="1203" y="953" />
+      <WavePoint x="1382" y="879" />
+      <WavePoint x="1413" y="841" />
+      <WavePoint x="1449" y="734" />
+      <WavePoint x="1440" y="696" />
+      <WavePoint x="1417" y="662" />
+      <WavePoint x="1395" y="617" />
+      <WavePoint x="1338" y="545" />
+      <WavePoint x="1315" y="523" />
+      <WavePoint x="1274" y="499" />
+      <WavePoint x="1210" y="478" />
+      <WavePoint x="1149" y="464" />
+      <WavePoint x="1055" y="450" />
+      <WavePoint x="957" y="437" />
+      <WavePoint x="842" y="406" />
+      <WavePoint x="716" y="385" />
+      <WavePoint x="667" y="370" />
+      <WavePoint x="591" y="339" />
+      <WavePoint x="566" y="305" />
+      <WavePoint x="577" y="268" />
+      <WavePoint x="655" y="230" />
+      <WavePoint x="743" y="187" />
+      <WavePoint x="906" y="136" />
+      <WavePoint x="1071" y="126" />
+      <WavePoint x="1190" y="124" />
+      <WavePoint x="1302" y="120" />
+      <WavePoint x="1412" y="124" />
+      <WavePoint x="1437" y="82" />
+      <WavePoint x="1391" y="58" />
+      <WavePoint x="1222" y="19" />
+      <WavePoint x="1166" y="17" />
+      <WavePoint x="1058" y="23" />
+      <WavePoint x="1018" y="76" />
+      <WavePoint x="1022" y="120" />
+      <WavePoint x="1038" y="199" />
+      <WavePoint x="1037" y="280" />
+      <WavePoint x="1040" y="344" />
+      <WavePoint x="1039" y="406" />
+      <WavePoint x="1038" y="531" />
+      <WavePoint x="1028" y="608" />
+      <WavePoint x="1031" y="673" />
+      <WavePoint x="996" y="760" />
+      <WavePoint x="1003" y="795" />
+      <WavePoint x="937" y="959" />
+      <WavePoint x="893" y="902" />
+      <WavePoint x="836" y="831" />
+      <WavePoint x="782" y="751" />
+      <WavePoint x="746" y="676" />
+      <WavePoint x="698" y="581" />
+      <WavePoint x="654" y="503" />
+      <WavePoint x="587" y="437" />
+      <WavePoint x="567" y="375" />
+      <WavePoint x="594" y="337" />
+      <WavePoint x="796" y="339" />
+      <WavePoint x="962" y="337" />
+      <WavePoint x="1246" y="345" />
+      <WavePoint x="1399" y="363" />
+      <WavePoint x="1381" y="430" />
+      <WavePoint x="1225" y="508" />
+      <WavePoint x="977" y="529" />
+      <WavePoint x="816" y="531" />
+      <WavePoint x="684" y="573" />
+      <WavePoint x="697" y="656" />
+      <WavePoint x="815" y="735" />
+      <WavePoint x="1042" y="770" />
+      <WavePoint x="1215" y="773" />
+      <WavePoint x="1403" y="785" />
+      <WavePoint x="1463" y="846" />
+      <WavePoint x="1471" y="880" />
+      <WavePoint x="1497" y="927" />
     </Waypoints>
   </Wave>
 </Level>

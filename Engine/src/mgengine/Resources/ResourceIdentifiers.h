@@ -46,7 +46,10 @@ namespace Meshes {
 		Pizza,
 		Muffin,
 		Bullet,
-		BackGround
+		BackGround,
+		Planet,
+		Meteor,
+		MeteorTrail
 	};
 }
 
@@ -61,7 +64,10 @@ namespace Materials {
 		Pizza,
 		Muffin,
 		Bullet,
-		BackGround
+		BackGround,
+		Planet,
+		Meteor,
+		MeteorTrail
 	};
 }
 

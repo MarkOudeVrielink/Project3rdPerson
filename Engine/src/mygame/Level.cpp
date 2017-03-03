@@ -35,7 +35,7 @@ int Level::getIndexWave()
 	return _indexWave;
 }
 
-//Return true when all the level waves have been completed
+//Return true when all the level waves have been completed <-ADD
 bool Level::RunLevel(sf::Time* pTime)
 {
 	_currentGameTime = pTime;

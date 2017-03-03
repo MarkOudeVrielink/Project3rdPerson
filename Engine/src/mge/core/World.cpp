@@ -32,9 +32,16 @@ CollisionManager * World::GetCollisionManager()
 /*Destroy all the actors that were set to dirty.*/
 void World::DestroyActors()
 {
+	
 	while (!_dirtyActors.empty()) {
-		delete _dirtyActors.back();
-		_dirtyActors.pop_back();
+		try {
+			delete _dirtyActors.back();
+			_dirtyActors.pop_back();
+		}
+		catch (int e)
+		{
+
+		}
 	}
 }
 

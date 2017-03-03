@@ -2,6 +2,7 @@
 #include "mgengine\Parser\LevelParser.h"
 #include <SFML\Graphics.hpp>
 #include <SFML\Graphics\RenderWindow.hpp>
+#include "mygame\Behaviours\AsteroidBehaviour.h"
 //TODO:
 //Here do all the logic of the level, spawning waves, manages score, levels, etc
 //Or do Level Manager Class where you just input the level and it runs all the info
@@ -32,8 +33,14 @@ int LevelManager::getIndexLevel()
 
 void LevelManager::update(float pStep)
 {
-	if(_startGame)
-	_currentLevel->RunLevel(&_time.getElapsedTime());
+	if (_startGame) {
+		_currentLevel->RunLevel(&_time.getElapsedTime());
+		_backgroundPlane->translate(glm::vec3(0, 0, pStep/4));
+
+		asteroidParent->translate(glm::vec3(0, 0, pStep*10 ));
+			cout << "working" << endl;
+		
+	}
 }
 
 void LevelManager::StartGameFromMenu()
@@ -46,5 +53,50 @@ void LevelManager::StartGameFromMenu()
 	_startGame = true;
 	//_currentWave = _currentLevel->getIndexWave();
 	cout << "Done Reading XML..." << endl;
+	InitializeBackground();
 
+}
+void LevelManager::InitializeBackground()
+{
+	_backgroundPlane = new GameObject("b",glm::vec3(0,-500,-750));
+	_backgroundPlane->scale(glm::vec3(40, 40, 40));
+	_backgroundPlane->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
+	_backgroundPlane->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround));
+	_world->add(_backgroundPlane);
+	_planet = new GameObject("t");
+	_planet->scale(glm::vec3(10, 10, 10));
+	_planet->setMesh(_world->GetResourceManager()->getMesh(Meshes::Planet));
+	_planet->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Planet));
+	_planet->setBehaviour(new AsteroidBehaviour());
+	//_world->add(_planet);
+	InitializeAsteroids();
+}
+void LevelManager::UpdateBAckground()
+{
+
+}
+void LevelManager::InitializeAsteroids()
+{
+	asteroidParent = new GameObject("asteroidParent", glm::vec3(0, 0, 0));
+	for (int y = 1; y < 6;y++)
+	{
+		for (int x = 0; x < 40;x++)
+		{
+			for (int z = 0; z < 100;z++)
+			{
+				if (std::rand() % 60 == 0)
+				{
+					GameObject * asteroid = new GameObject("asteroid", glm::vec3(x * 10 - 130, -40*y,50 -z * 10));//Magic numbers in order to have asteroids in all the screen well distributed
+					asteroid->setMesh(_world->GetResourceManager()->getMesh(Meshes::Meteor));
+					asteroid->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Meteor));
+					asteroid->setBehaviour(new AsteroidBehaviour());
+
+					asteroidParent->add(asteroid);
+					_asteroids.push_back(asteroid);
+				}
+			}
+
+		}
+	}
+	_world->add(asteroidParent);
 }
