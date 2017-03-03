@@ -102,6 +102,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\TGUI-0.7\include;..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\TGUI-0.7\include;..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -227,7 +228,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\mgengine\Behaviours\VanishBehaviour.cpp" />
     <ClCompile Include="..\src\mgengine\LevelEditor\LevelEditor.cpp" />
+<<<<<<< HEAD
+=======
+    <ClCompile Include="..\src\mgengine\Materials\EnemyMaterial.cpp" />
+>>>>>>> origin/master
     <ClCompile Include="..\src\mgengine\Materials\PlayerMaterial.cpp" />
     <ClCompile Include="..\src\mgengine\Parser\LevelParser.cpp" />
     <ClCompile Include="..\src\mgengine\Parser\pugixml.cpp" />

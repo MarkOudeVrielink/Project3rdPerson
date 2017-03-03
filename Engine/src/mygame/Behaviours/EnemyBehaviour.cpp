@@ -1,14 +1,17 @@
 #include "mgengine\Core\ObjectActor.h"
+#include "mgengine\Core\ControlledActor.h"
+#include "EnemyBehaviour.h"
 #include "mgengine\Core\Actor.h"
 #include "mygame/Waypoint.h"
-#include "EnemyBehaviour.h"
 #include "mygame/Enemy.h"
 #include "mgengine\Behaviours\PickUpBehaviour.h"
 #include "mgengine\Behaviours\BulletBehaviour.h"
+#include "mgengine\Behaviours\VanishBehaviour.h"
+
+#include "mgengine\Materials\EnemyMaterial.h"
 #include "mge\core\World.hpp"
 
 #include "mgengine\Collision\CollisionFilters.h"
-
 
 #include <list>
 #include <glm.hpp>
@@ -64,7 +67,31 @@ void EnemyBehaviour::update(float pStep)
 
 void EnemyBehaviour::OnCollision(Actor * pOther)
 {
-	
+	ActorType type = pOther->getType();
+
+	if (type == ActorType::Type_Bullet || type == ActorType::Type_Nova) {
+		BulletBehaviour* bullet = (BulletBehaviour*)pOther->getActorBehaviour();
+		if (bullet->getOwner() == BulletOwner::Player) {
+			ControlledActor* owner = (ControlledActor*)_owner;
+			owner->TakeDamage(bullet->getPower());
+			
+			//_enemyMaterial->setDamaged(true);
+			_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Enemy_Hit);
+
+			if (owner->GetHealth() <= 0) {
+				SpawnExplosion();
+				SpawnDrop();
+
+				owner->Destroy();
+			}
+
+		}
+	}
+}
+
+void EnemyBehaviour::setup()
+{
+	_enemyMaterial = (EnemyMaterial*)_owner->getMaterial();
 }
 
 //FRAMERATE ISSUE COULD BE FIX IF WE SAVED LAST TIME WE CHANGE WAYPOINT AND ONLY ROTATE WHEN WE CHANGE NODE
@@ -89,6 +116,7 @@ void EnemyBehaviour::UpdateEditorMode(float pStep)
 	}
 
 }
+
 void EnemyBehaviour::setShootRatio(float pShootPerSec)
 {
 	_shootRatio = pShootPerSec;
@@ -222,30 +250,43 @@ void EnemyBehaviour::AiBasicBackWards(float pStep)
 	}
 	
 }
+
 void EnemyBehaviour::SpawnDrop(int pAmount)
 {
 	for (int i = 0; i < pAmount; i++) {
 		glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, -2.5f);
 
-		ObjectActor* pickup = new ObjectActor(_owner->GetWorld(), "pickup", spawnPoint, new btSphereShape(0.7f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith);
-		//bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
-//		pickup->setMesh(_dropMesh);
-//		pickup->setMaterial(_dropMaterial);
-		pickup->setActorBehaviour(new PickUpBehaviour());
-		_owner->getParent()->add(pickup);
+		ObjectActor* pickup = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith);
+		pickup->scale(glm::vec3(5.f, 5.f, 5.f));
+		pickup->SetRotation(glm::vec3(1, 0, 0), 90);
+		pickup->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::PickUp));
+		pickup->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::PickUp));
+		pickup->setActorBehaviour(new PickUpBehaviour(1, 10, 10));
+		_owner->getWorld()->add(pickup);
 	}
-	//HACK: make sure we add it to the world, in case of nested objects.
-	//TODO: give drop a random start dir?
+
+	//TODO: give drop a random start dir? differnt kind of drops?
 }
 
 void EnemyBehaviour::SpawnBullet()
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, 2.5f);
 
-	ObjectActor* bullet = new ObjectActor(_owner->GetWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_ENEMYBULLET, CF::enemyBulletCollidesWith);
+	ObjectActor* bullet = new ObjectActor(_owner->getWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_ENEMYBULLET, CF::enemyBulletCollidesWith);
 	bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
-	bullet->setMesh(_owner->GetWorld()->GetResourceManager()->getMesh(Meshes::Player));
-	bullet->setMaterial(_owner->GetWorld()->GetResourceManager()->getMaterial(Materials::Player));
+	bullet->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Player));
+	bullet->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Player));
 	bullet->setActorBehaviour(new BulletBehaviour(0.6f, 1.0f, 50.0f, Direction::Down, BulletOwner::Enemy));
 	_owner->getParent()->add(bullet);
+}
+
+void EnemyBehaviour::SpawnExplosion()
+{
+	glm::vec3 spawnPoint = _owner->getWorldPosition();
+
+	ObjectActor* explosion = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_StaticObject, CF::COL_NOTHING, CF::pickupCollidesWith);	
+	explosion->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Explosion));
+	explosion->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Explosion));
+	explosion->setActorBehaviour(new VanishBehaviour(2.0f));
+	_owner->getWorld()->add(explosion);
 }

@@ -54,12 +54,12 @@ void Actor::setActorBehaviour(AbstractActorBehaviour* pBehaviour)
 	_actorBehaviour->setup();
 }
 
-World* Actor::GetWorld()
+World* Actor::getWorld()
 {
 	return _world;
 }
 
-ActorType Actor::GetType()
+ActorType Actor::getType()
 {
 	return _type;
 }

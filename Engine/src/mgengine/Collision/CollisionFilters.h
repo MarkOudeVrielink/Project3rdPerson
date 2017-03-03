@@ -21,7 +21,7 @@ namespace CF{
 	const short enemyBulletCollidesWith		= COL_PLAYER;
 	const short playerNovaCollidesWith		= COL_ENEMY;
 	const short pickupCollidesWith			= COL_PLAYER;
-	const short boundaryCollidesWith		= COL_PLAYER;
+	const short boundaryCollidesWith		= COL_PLAYER;	
 }
 
 #endif // !COLLISIONCONFIG_H

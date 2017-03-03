@@ -1,21 +1,20 @@
-#ifndef PLAYERMATERIAL_H
-#define PLAYERMATERIAL_H
+#ifndef ENEMYMATERIAL_H
+#define ENEMYMATERIAL_H
 
 #include "mge/core/ShaderProgram.hpp"
 #include "mge/core/Texture.hpp"
 #include "mge/materials/AbstractMaterial.hpp"
 
-class PlayerMaterial : public AbstractMaterial
+class EnemyMaterial : public AbstractMaterial
 {
 public:
-	PlayerMaterial(Texture* pDiffuseTexture, float pBlinkRate = 80.0f);
-	virtual ~PlayerMaterial();
+	EnemyMaterial(Texture* pDiffuseTexture, float pBlinkRate = 80.0f);
+	virtual ~EnemyMaterial();
 
 	virtual void render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
 
 	void setDiffuseTexture(Texture* pDiffuseTexture);
-	void setInvulnerable(bool pValue);
-	void setCharged(bool pValue);
+	void setDamaged(bool pValue);
 
 private:
 	static ShaderProgram* _shader;
@@ -25,8 +24,7 @@ private:
 
 	static GLint _uMVPMatrix;
 	static GLint _uTime;
-	static GLint _uInvulnerable;
-	static GLint _uCharged;
+	static GLint _uDamaged;
 
 	static GLint _aVertex;
 	static GLint _aNormal;
@@ -35,13 +33,11 @@ private:
 	float _time = 0;
 	float _blinkRate;
 
-	bool _isInvulnerable;
-	bool _isCharged;
+	bool _isDamaged;
 
-	PlayerMaterial(const PlayerMaterial&);
-	PlayerMaterial& operator=(const PlayerMaterial&);
+	EnemyMaterial(const EnemyMaterial&);
+	EnemyMaterial& operator=(const EnemyMaterial&);
 
 };
 
-#endif // PLAYERMATERIAL_H
-
+#endif // ENEMYMATERIAL_H

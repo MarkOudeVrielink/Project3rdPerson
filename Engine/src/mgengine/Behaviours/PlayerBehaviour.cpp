@@ -34,8 +34,8 @@ PlayerBehaviour::PlayerBehaviour(Mesh* pMesh,AbstractMaterial* pMaterial, float 
 	_timeToOverheat	= 6;
 	_coolDownRate	= 3;
 	
-	_charge			= 100;
-	_maxCharge		= 100;	
+	_charge				= 100;
+	_chargeThreshold	= 50;	
 
 	_tiltAngle		= 0.3f;
 
@@ -53,8 +53,8 @@ void PlayerBehaviour::update(float pStep) {
 	if (_invulnerable)
 		IsInvulnerable(pStep);	
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && _charge >= _maxCharge) {
-		_owner->GetWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Nova);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && _charge >= _chargeThreshold) {
+		_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Nova);
 		SpawnNova();
 		_charge = 0;
 	}
@@ -62,16 +62,15 @@ void PlayerBehaviour::update(float pStep) {
 
 void PlayerBehaviour::OnCollision(Actor * pOther)
 {
-	ActorType type = pOther->GetType();
+	ActorType type = pOther->getType();
 
 	if(type == ActorType::Type_Enemy){		
-		if (!_invulnerable) {			
-
+		if (!_invulnerable) {
 			ControlledActor* player = (ControlledActor*)_owner;
 			_defaultFlags = _ownerBody->getCollisionFlags();
 			_invulnerable = true;
 
-			_owner->GetWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Hit);
+			_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Hit);
 			
 			player->TakeDamage(1);			
 			if (player->GetHealth() <= 0) {
@@ -85,25 +84,34 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 		_score	+= pickup->GetPoints();
 		std::cout << "score: " << _score << " | charge " << _charge << std::endl;
 
-		_owner->GetWorld()->GetResourceManager()->PlaySound(SoundEffect::Drop_Pick);
+		if (_charge >= _chargeThreshold)
+			_playerMaterial->setCharged(true);
+
+		_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Drop_Pick);
 		_ownerBody->setLinearVelocity(btVector3(0, 0, 0));
 	}
 }
 
 void PlayerBehaviour::setup()
 {
-	_playerMaterial = (PlayerMaterial*)_owner->GetWorld()->GetResourceManager()->getMaterial(Materials::Player);
+	_playerMaterial = (PlayerMaterial*)_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Player);
+
+	//TODO: remove
+	if (_charge >= _chargeThreshold)
+		_playerMaterial->setCharged(true);
 }
 
 void PlayerBehaviour::SpawnNova()
 {	
 	glm::vec3 spawnPoint = glm::vec3(0, 0, 0);
 	
-	ObjectActor* nova = new ObjectActor(_owner->GetWorld(), "Nova", spawnPoint, new btBoxShape(btVector3(50,1,80)), ActorType::Type_Nova, CF::COL_PLAYERNOVA, CF::playerNovaCollidesWith, 1);
+	ObjectActor* nova = new ObjectActor(_owner->getWorld(), "Nova", spawnPoint, new btBoxShape(btVector3(50,1,80)), ActorType::Type_Nova, CF::COL_PLAYERNOVA, CF::playerNovaCollidesWith, 1);
 	nova->setActorBehaviour(new BulletBehaviour(0, 10, 0.5f));
-	nova->setMesh(_mesh);//TODO: remove before release, or alternetivly add sort of explosion thingy.
-	nova->setMaterial(_material);
-	_owner->GetWorld()->add(nova);	
+	//nova->setMesh(_mesh);//TODO: remove before release, or alternetivly add sort of explosion thingy.
+	//nova->setMaterial(_material);
+	_owner->getWorld()->add(nova);	
+
+	_playerMaterial->setCharged(false);
 }
 
 void PlayerBehaviour::FireWeapon(float pTime)
@@ -116,10 +124,10 @@ void PlayerBehaviour::FireWeapon(float pTime)
 			_fired = true;
 			_heat += pTime * 85;//TODO: change value to something sensible.
 
-			_owner->GetWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Shoot, 30.0f);
+			_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Shoot, 30.0f);
 			if (_heat >= _timeToOverheat) {
 				_overheat = true;
-				_owner->GetWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Overheat, 40.0f);
+				_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Overheat, 40.0f);
 			}
 		}
 	}
@@ -170,8 +178,7 @@ void PlayerBehaviour::Move()
 }
 
 void PlayerBehaviour::IsInvulnerable(float pTime)
-{
-	
+{	
 	_invulnerabilityTimer += pTime;
 	if (_invulnerabilityTimer < _invulnerabilityTime) {
 		_ownerBody->setCollisionFlags(_ownerBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
@@ -189,11 +196,11 @@ void PlayerBehaviour::SpawnBullet(float pBulletPower)
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition() + _spawnOffset;
 
-	ObjectActor* bullet = new ObjectActor(_owner->GetWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_PLAYERBULLET, CF::playerBulletCollidesWith, 1);
-	bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
-	bullet->setMesh(_mesh);
-	bullet->setMaterial(_material);//TODO: change to resourcemanager get.
-	bullet->setActorBehaviour(new BulletBehaviour(0.6f, pBulletPower, 1));
-	_owner->GetWorld()->add(bullet);	
+	ObjectActor* bullet = new ObjectActor(_owner->getWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_PLAYERBULLET, CF::playerBulletCollidesWith, 1);
+	bullet->scale(glm::vec3(10, 10, 10));
+	bullet->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Bullet));
+	bullet->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Bullet));
+	bullet->setActorBehaviour(new BulletBehaviour(0.8f, pBulletPower, 1));
+	_owner->getWorld()->add(bullet);	
 }
 

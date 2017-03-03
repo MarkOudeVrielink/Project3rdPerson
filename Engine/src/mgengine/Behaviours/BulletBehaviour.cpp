@@ -38,32 +38,27 @@ void BulletBehaviour::update(float pStep)
 However, the actors in the scene should be set-up correct in any case.*/
 void BulletBehaviour::OnCollision(Actor * pOther)
 {		
-	ActorType type = pOther->GetType();
-
-	if (type == ActorType::Type_Enemy && _bulletOwner == BulletOwner::Player) {			
-		ControlledActor* enemy = (ControlledActor*)pOther;
+	ActorType type = pOther->getType();
 		
-		_owner->GetWorld()->GetResourceManager()->PlaySound(SoundEffect::Enemy_Hit);
-		enemy->TakeDamage(_power);
-
-		if (_owner->GetType() != ActorType::Type_Nova) {
-			_owner->Destroy();
-		}
-	}
-	else if (type == ActorType::Type_Player && _bulletOwner == BulletOwner::Enemy) {
-		_owner->GetWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Hit);
+	if (type == ActorType::Type_Player && _bulletOwner == BulletOwner::Enemy) {//TODO:: move this to the player.
+		_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Hit);
 		
 		ControlledActor* player = (ControlledActor*)pOther;
 		player->TakeDamage(_power);
 		_owner->Destroy();
 	}	
-	else if(type != ActorType::Type_Bullet && _owner->GetType() != ActorType::Type_Nova){
-		_owner->Destroy();
+	else if(type != ActorType::Type_Bullet && _owner->getType() != ActorType::Type_Nova){
+		_owner->Destroy();		
 	}
 	
 }
 
-BulletOwner BulletBehaviour::GetOwner()
+BulletOwner BulletBehaviour::getOwner()
 {
 	return _bulletOwner;
+}
+
+float BulletBehaviour::getPower()
+{
+	return _power;
 }

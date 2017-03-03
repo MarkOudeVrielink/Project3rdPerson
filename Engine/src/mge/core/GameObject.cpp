@@ -198,3 +198,8 @@ GameObject* GameObject::getChildAt(int pIndex) {
     return _children[pIndex];
 }
 
+glm::vec3 GameObject::getScale()
+{
+	return _scale;
+}
+

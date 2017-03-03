@@ -67,17 +67,19 @@ class GameObject
         int getChildCount();
         GameObject* getChildAt (int pIndex);
 
+		glm::vec3 getScale();
+
 	protected:
-		std::string _name;
-		glm::mat4 _transform;
-		glm::vec3 _scale;
+		std::string		_name;
+		glm::mat4		_transform;
+		glm::vec3		_scale;
 
         GameObject* _parent;
 		std::vector<GameObject*> _children;
 
-        Mesh* _mesh;
-		AbstractBehaviour* _behaviour;
-		AbstractMaterial* _material;
+        Mesh*				_mesh;
+		AbstractBehaviour*	_behaviour;
+		AbstractMaterial*	_material;
 
         //update children list administration
         void _innerAdd (GameObject* pChild);
