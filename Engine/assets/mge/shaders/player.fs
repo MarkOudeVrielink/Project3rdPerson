@@ -4,6 +4,7 @@
 uniform sampler2D 	textureDiffuse;
 uniform float 		time;
 uniform bool 		invulnerable;
+uniform bool		charged;
 
 in vec2 			texCoord;
 
@@ -16,6 +17,11 @@ void main( void ) {
 	if(invulnerable){
 		pixelColor.a *= (1 + sin(time));
 	}	
+	
+	if(charged){
+		pixelColor.bg *= (1+ sin(time/2));
+		clamp(pixelColor.bg, 0.3f, 1.0f);
+	}
 	
 	fragment_color = pixelColor;
 }

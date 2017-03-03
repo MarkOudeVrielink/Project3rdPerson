@@ -15,6 +15,8 @@ using namespace std;
 
 #include "mge/materials/ColorMaterial.hpp"
 #include "mge/materials/TextureMaterial.hpp"
+#include "mgengine/Materials/PlayerMaterial.h"
+#include "mgengine/Materials/EnemyMaterial.h"
 
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/behaviours/KeysBehaviour.hpp"
@@ -87,27 +89,34 @@ void MGEDemo::_initializeScene()
 
 	menuScreen->InitializeMenu(&_gui);
 	//MESHES
-	_world->GetResourceManager()->loadMesh(Meshes::Player, config::MGE_MODEL_PATH + "ship.obj");
-	_world->GetResourceManager()->loadMesh(Meshes::Yogurt, config::MGE_MODEL_PATH + "Yogurt_90.obj");
-	_world->GetResourceManager()->loadMesh(Meshes::Sushi, config::MGE_MODEL_PATH + "Sushi_90.obj");
-	_world->GetResourceManager()->loadMesh(Meshes::Sandwich, config::MGE_MODEL_PATH + "Sandwich_90.obj");
-	_world->GetResourceManager()->loadMesh(Meshes::Potato, config::MGE_MODEL_PATH + "Potato_90.obj");
-	_world->GetResourceManager()->loadMesh(Meshes::Pizza, config::MGE_MODEL_PATH + "Pizza_90.obj");
-	_world->GetResourceManager()->loadMesh(Meshes::Muffin, config::MGE_MODEL_PATH + "Muffin_90.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Player,		config::MGE_MODEL_PATH + "ship.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Yogurt,		config::MGE_MODEL_PATH + "Yogurt_90.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Sushi,		config::MGE_MODEL_PATH + "Sushi_90.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Sandwich,	config::MGE_MODEL_PATH + "Sandwich_90.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Potato,		config::MGE_MODEL_PATH + "Potato_90.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Pizza,		config::MGE_MODEL_PATH + "Pizza_90.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Muffin,		config::MGE_MODEL_PATH + "Muffin_90.obj");
 
-	_world->GetResourceManager()->loadMesh(Meshes::Bullet, config::MGE_MODEL_PATH + "ship.obj");//change mesh file
-	_world->GetResourceManager()->loadMaterial(Materials::Bullet, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png")));
+	_world->GetResourceManager()->loadMesh(Meshes::PickUp,		config::MGE_MODEL_PATH + "PickUp(AirFreshner).obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Explosion,	config::MGE_MODEL_PATH + "Explosion.obj");
+
+	_world->GetResourceManager()->loadMesh(Meshes::Bullet,		config::MGE_MODEL_PATH + "lazer.obj");//change mesh file
+	_world->GetResourceManager()->loadMaterial(Materials::Bullet, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "laser.png")));
+
 	
     //MATERIALS
-	_world->GetResourceManager()->loadMaterial(Materials::Player, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Yogurt, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Yogurt_Texture.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Sushi, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sushi_texture.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Sandwich, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sandwich_texture.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Potato, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Potato_texture.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Pizza, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Pizza_texture.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Muffin, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Muffin_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Player,		new PlayerMaterial	(Texture::load(config::MGE_TEXTURE_PATH + "ship.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Yogurt,		new EnemyMaterial	(Texture::load(config::MGE_TEXTURE_PATH + "Yogurt_Texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Sushi,		new TextureMaterial	(Texture::load(config::MGE_TEXTURE_PATH + "Sushi_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Sandwich,		new TextureMaterial	(Texture::load(config::MGE_TEXTURE_PATH + "Sandwich_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Potato,		new TextureMaterial	(Texture::load(config::MGE_TEXTURE_PATH + "Potato_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Pizza,		new TextureMaterial	(Texture::load(config::MGE_TEXTURE_PATH + "Pizza_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Muffin,		new TextureMaterial	(Texture::load(config::MGE_TEXTURE_PATH + "Muffin_texture.png")));
 
-	_world->GetResourceManager()->loadMaterial(Materials::Enemy, new ColorMaterial (glm::vec3(0.2f,0,0.5f)));
+	_world->GetResourceManager()->loadMaterial(Materials::PickUp,		new TextureMaterial	(Texture::load(config::MGE_TEXTURE_PATH + "PickUp_airfreshner_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Explosion,	new TextureMaterial (Texture::load(config::MGE_TEXTURE_PATH + "Explosion_Texture.png")));
+
+	_world->GetResourceManager()->loadMaterial(Materials::Enemy,		new ColorMaterial (glm::vec3(0.2f,0,0.5f)));
 
 
 	_world->GetResourceManager()->PlayMusic(Music::MenuTheme);

@@ -52,7 +52,7 @@ void Menu::ToLevelEditor()
 	_world->add(LevelEditor);
 	_levelEditor->setActive(true);
 
-	ControlledActor* player = new ControlledActor(_world, "Player", glm::vec3(0, 0, 3), new btSphereShape(1), ActorType::Type_Player, 1, CF::COL_PLAYER, CF::playerCollidesWith);
+	ControlledActor* player = new ControlledActor(_world, "Player", glm::vec3(0, 0, 3), new btSphereShape(1), ActorType::Type_Player, 1, CF::COL_PLAYER, CF::playerCollidesWith, 3);
 	player->scale(glm::vec3(0.8f, 0.8f, 0.8f));
 	player->setMesh(_world->GetResourceManager()->getMesh(Meshes::Player));
 	player->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Player));
@@ -65,13 +65,12 @@ void Menu::ToLevelEditor()
 void Menu::StartGame()
 {
 	HideMenu();
-	ControlledActor* player = new ControlledActor(_world, "Player", glm::vec3(0, 0, 3), new btSphereShape(1), ActorType::Type_Player, 1, CF::COL_PLAYER, CF::playerCollidesWith);
+	ControlledActor* player = new ControlledActor(_world, "Player", glm::vec3(0, 0, 3), new btSphereShape(1), ActorType::Type_Player, 1, CF::COL_PLAYER, CF::playerCollidesWith, 3);
 	player->scale(glm::vec3(0.8f, 0.8f, 0.8f));
 	player->setMesh(_world->GetResourceManager()->getMesh(Meshes::Player));
 	player->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Player));
 	player->setActorBehaviour(new PlayerBehaviour(_world->GetResourceManager()->getMesh(Meshes::Player), _world->GetResourceManager()->getMaterial(Materials::Player), 20));
 	_world->add(player);
-
 
 	GameObject *ObjManager = new GameObject("Manager");
 	LevelManager * manager = new LevelManager(_world);

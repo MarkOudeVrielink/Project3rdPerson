@@ -15,7 +15,8 @@ public:
 	virtual void update(float pStep);
 	virtual void OnCollision(Actor* pOther);
 
-	BulletOwner GetOwner();
+	BulletOwner getOwner();
+	float		getPower();
 	
 	/*To make sure it alligns properly on the heap when dynamically allocating it. Otherwise the compiler cannot guarantee correct memory usage.*/
 	void*	operator new(size_t i)

@@ -41,8 +41,8 @@ public:
 	AbstractActorBehaviour* getActorBehaviour() const;
 	void setActorBehaviour(AbstractActorBehaviour* pBehaviour);
 
-	World* GetWorld();
-	ActorType GetType();
+	World*		getWorld();
+	ActorType	getType();
 
 	void SetRotation(glm::vec3 pAxis, btScalar pAngle);	
 	void Destroy();

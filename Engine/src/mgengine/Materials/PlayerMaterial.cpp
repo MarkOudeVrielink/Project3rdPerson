@@ -8,15 +8,16 @@
 
 ShaderProgram* PlayerMaterial::_shader = NULL;
 
-GLint PlayerMaterial::_uMVPMatrix = 0;
-GLint PlayerMaterial::_uTime = 0;
-GLint PlayerMaterial::_uInvulnerable = 0;
+GLint PlayerMaterial::_uMVPMatrix		= 0;
+GLint PlayerMaterial::_uTime			= 0;
+GLint PlayerMaterial::_uInvulnerable	= 0;
+GLint PlayerMaterial::_uCharged			= 0;
 
 GLint PlayerMaterial::_aVertex = 0;
 GLint PlayerMaterial::_aNormal = 0;
 GLint PlayerMaterial::_aUV = 0;
 
-PlayerMaterial::PlayerMaterial(Texture * pDiffuseTexture, float pBlinkRate) :_diffuseTexture(pDiffuseTexture), _blinkRate(pBlinkRate), _isInvulnerable(false)
+PlayerMaterial::PlayerMaterial(Texture * pDiffuseTexture, float pBlinkRate) :_diffuseTexture(pDiffuseTexture), _blinkRate(pBlinkRate), _isInvulnerable(false), _isCharged(false)
 {
 	_lazyInitializeShader();
 }
@@ -33,6 +34,7 @@ void PlayerMaterial::_lazyInitializeShader() {
 		_uMVPMatrix		= _shader->getUniformLocation("mvpMatrix");
 		_uTime			= _shader->getUniformLocation("time");
 		_uInvulnerable	= _shader->getUniformLocation("invulnerable");
+		_uCharged		= _shader->getUniformLocation("charged");
 
 		_aVertex		= _shader->getAttribLocation("vertex");
 		_aNormal		= _shader->getAttribLocation("normal");
@@ -50,6 +52,11 @@ void PlayerMaterial::setInvulnerable(bool pValue)
 	_isInvulnerable = pValue;
 }
 
+void PlayerMaterial::setCharged(bool pValue)
+{
+	_isCharged = pValue;
+}
+
 void PlayerMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
 	if (!_diffuseTexture) return;
 
@@ -65,8 +72,9 @@ void PlayerMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const gl
 
 	_time = (float) clock() / _blinkRate;
 	
-	glUniform1f(_uTime, _time);
-	glUniform1i(_uInvulnerable, _isInvulnerable);
+	glUniform1f(_uTime,				_time);
+	glUniform1i(_uInvulnerable,		_isInvulnerable);
+	glUniform1i(_uCharged,			_isCharged);
 
 	pMesh->streamToOpenGL(_aVertex, _aNormal, _aUV);	
 }

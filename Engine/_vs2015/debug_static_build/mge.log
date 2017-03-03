@@ -1,5 +1,8 @@
 ﻿  EnemyBehaviour.cpp
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mygame\behaviours\enemybehaviour.cpp(157): warning C4018: '<': signed/unsigned mismatch
-c:\users\rodrigo\documents\saxion\second_year\quartier_7\engine\engine\src\mygame\behaviours\enemybehaviour.cpp(165): warning C4018: '>=': signed/unsigned mismatch
-  mge.vcxproj -> C:\Users\Rodrigo\Documents\Saxion\Second_Year\Quartier_7\Engine\Engine\_vs2015\debug_static_exe/mge.exe
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\src\mygame\behaviours\enemybehaviour.cpp(185): warning C4018: '<': signed/unsigned mismatch
+e:\docs\desktopfolders\school\2nd year\_project 3rd person\project\engine\src\mygame\behaviours\enemybehaviour.cpp(193): warning C4018: '>=': signed/unsigned mismatch
+  PlayerMaterial.cpp
+  PlayerBehaviour.cpp
+  Generating Code...
+  mge.vcxproj -> E:\Docs\DesktopFolders\School\2nd Year\_Project 3rd person\Project\Engine\_vs2015\debug_static_exe/mge.exe
   mge.vcxproj -> debug_static_exe/mge.pdb (Full PDB)

@@ -38,7 +38,7 @@ void ActorEnemyBehaviour::SpawnDrop(int pAmount)
 	for (int i = 0; i < pAmount; i++) {
 		glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, -2.5f);
 
-		ObjectActor* pickup = new ObjectActor(_owner->GetWorld(), "pickup", spawnPoint, new btSphereShape(0.7f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith);
+		ObjectActor* pickup = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(0.7f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith);
 		//bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
 		pickup->setMesh(_dropMesh);
 		pickup->setMaterial(_dropMaterial);
@@ -53,7 +53,7 @@ void ActorEnemyBehaviour::SpawnBullet()
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, 2.5f);
 
-	ObjectActor* bullet = new ObjectActor(_owner->GetWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_ENEMYBULLET, CF::enemyBulletCollidesWith);
+	ObjectActor* bullet = new ObjectActor(_owner->getWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_ENEMYBULLET, CF::enemyBulletCollidesWith);
 	bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
 	bullet->setMesh(_dropMesh);
 	bullet->setMaterial(_dropMaterial);

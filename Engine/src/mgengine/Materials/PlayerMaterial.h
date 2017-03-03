@@ -15,6 +15,7 @@ public:
 
 	void setDiffuseTexture(Texture* pDiffuseTexture);
 	void setInvulnerable(bool pValue);
+	void setCharged(bool pValue);
 
 private:
 	static ShaderProgram* _shader;
@@ -25,6 +26,7 @@ private:
 	static GLint _uMVPMatrix;
 	static GLint _uTime;
 	static GLint _uInvulnerable;
+	static GLint _uCharged;
 
 	static GLint _aVertex;
 	static GLint _aNormal;
@@ -34,6 +36,7 @@ private:
 	float _blinkRate;
 
 	bool _isInvulnerable;
+	bool _isCharged;
 
 	PlayerMaterial(const PlayerMaterial&);
 	PlayerMaterial& operator=(const PlayerMaterial&);

@@ -46,7 +46,9 @@ namespace Meshes {
 		Pizza,
 		Muffin,
 		Bullet,
-		BackGround
+		BackGround,
+		PickUp,
+		Explosion
 	};
 }
 
@@ -61,7 +63,9 @@ namespace Materials {
 		Pizza,
 		Muffin,
 		Bullet,
-		BackGround
+		BackGround,
+		PickUp,
+		Explosion
 	};
 }
 

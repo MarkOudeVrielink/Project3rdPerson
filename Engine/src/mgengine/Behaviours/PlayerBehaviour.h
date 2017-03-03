@@ -45,7 +45,7 @@ private:
 	float	_coolDownRate;
 
 	float	_charge;
-	float	_maxCharge;
+	float	_chargeThreshold;
 	
 	float	_score;
 

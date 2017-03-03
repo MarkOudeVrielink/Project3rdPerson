@@ -1,6 +1,7 @@
 #include "mge/core/World.hpp"
 #include "mgengine/Core/Actor.h"
 #include <iterator>
+#include <algorithm>
 
 using namespace std;
 
@@ -40,5 +41,8 @@ void World::DestroyActors()
 
 void World::SetDirtyActor(Actor* pActor)
 {
-	_dirtyActors.push_back(pActor);
+	bool contains = (std::find(_dirtyActors.begin(), _dirtyActors.end(), pActor) != _dirtyActors.end());
+	if (!contains) {
+		_dirtyActors.push_back(pActor);
+	}
 }
