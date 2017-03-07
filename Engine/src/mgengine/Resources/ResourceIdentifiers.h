@@ -49,7 +49,9 @@ namespace Meshes {
 		BackGround,
 		Planet,
 		Meteor,
-		MeteorTrail
+		MeteorTrail,
+		PickUp,
+		Explosion
 	};
 }
 
@@ -67,7 +69,9 @@ namespace Materials {
 		BackGround,
 		Planet,
 		Meteor,
-		MeteorTrail
+		MeteorTrail,
+		PickUp,
+		Explosion
 	};
 }
 

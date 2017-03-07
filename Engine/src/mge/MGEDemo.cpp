@@ -15,7 +15,12 @@ using namespace std;
 
 #include "mge/materials/ColorMaterial.hpp"
 #include "mge/materials/TextureMaterial.hpp"
+
 #include "mgengine\Materials\PlayerMaterial.h"
+
+#include "mgengine/Materials/PlayerMaterial.h"
+#include "mgengine/Materials/EnemyMaterial.h"
+
 
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/behaviours/KeysBehaviour.hpp"
@@ -49,7 +54,6 @@ using namespace std;
 #include "mgengine\Resources\ResourceHolder.h"
 #include "mgengine\Resources\ResourceIdentifiers.h"
 
-#include "mygame\Menu.h"
 
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
 MGEDemo::MGEDemo():AbstractGame (),_hud(0)
@@ -73,20 +77,18 @@ void MGEDemo::_initializeScene()
     //add camera first (it will be updated last)
     Camera* camera = new Camera ("camera", glm::vec3(0,100,0));
     camera->rotate(glm::radians(-90.0f), glm::vec3(1,0,0));
+	_world->setMainCamera(camera);
     _world->add(camera);
-    _world->setMainCamera(camera);
-	
-	_levelEditor = new LevelEditorBehaviour(_window, _world);
-	_levelEditor->InitializeHud(&_gui);
-	_levelEditor->setActive(false);
 	
 	
-	Menu *menuScreen = new Menu(_world, _levelEditor);
+	
+	
+	_menuScreen = new Menu(_world,_window);
 	GameObject *MenuObject = new GameObject("Menu", glm::vec3(0, 0, 0));
-	MenuObject->setBehaviour(menuScreen);
+	MenuObject->setBehaviour(_menuScreen);
 	_world->add(MenuObject);
+	_menuScreen->InitializeMenu(&_gui);
 
-	menuScreen->InitializeMenu(&_gui);
 	//MESHES
 	_world->GetResourceManager()->loadMesh(Meshes::Player, config::MGE_MODEL_PATH + "ship.obj");
 	_world->GetResourceManager()->loadMesh(Meshes::Yogurt, config::MGE_MODEL_PATH + "Yogurt_90.obj");
@@ -96,19 +98,23 @@ void MGEDemo::_initializeScene()
 	_world->GetResourceManager()->loadMesh(Meshes::Pizza, config::MGE_MODEL_PATH + "Pizza_90.obj");
 	_world->GetResourceManager()->loadMesh(Meshes::Muffin, config::MGE_MODEL_PATH + "Muffin_90.obj");
 
-	_world->GetResourceManager()->loadMesh(Meshes::BackGround, config::MGE_MODEL_PATH + "Background.obj");
+
+	_world->GetResourceManager()->loadMesh(Meshes::PickUp, config::MGE_MODEL_PATH + "PickUp(AirFreshner).obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Explosion, config::MGE_MODEL_PATH + "Explosion.obj");
+
+
+	_world->GetResourceManager()->loadMesh(Meshes::BackGround, config::MGE_MODEL_PATH + "Backgroundsingle.obj");
 	_world->GetResourceManager()->loadMesh(Meshes::Planet, config::MGE_MODEL_PATH + "Planet.obj");
 	_world->GetResourceManager()->loadMesh(Meshes::Meteor, config::MGE_MODEL_PATH + "meteor.obj");
 	_world->GetResourceManager()->loadMesh(Meshes::MeteorTrail, config::MGE_MODEL_PATH + "meteor_with_trail.obj");
 
 
 
-	_world->GetResourceManager()->loadMesh(Meshes::Bullet, config::MGE_MODEL_PATH + "Muffin_90.obj");//change mesh file
-	_world->GetResourceManager()->loadMaterial(Materials::Bullet, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png")));
-	
+	_world->GetResourceManager()->loadMesh(Meshes::Bullet, config::MGE_MODEL_PATH + "lazer.obj");//change mesh file
+	_world->GetResourceManager()->loadMaterial(Materials::Bullet, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "laser.png")));
     //MATERIALS
 
-	//_world->GetResourceManager()->loadMaterial(Materials::Player, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png")));
+	//_world->GetResourceManager()->loadMaterial(Materials::Player, new PlayerMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Yogurt, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Yogurt_Texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Sushi, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sushi_texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Sandwich, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sandwich_texture.png")));
@@ -116,12 +122,19 @@ void MGEDemo::_initializeScene()
 	_world->GetResourceManager()->loadMaterial(Materials::Pizza, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Pizza_texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Muffin, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Muffin_texture.png")));
 
-	_world->GetResourceManager()->loadMaterial(Materials::BackGround, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Background_Texture.png")));
+
+	_world->GetResourceManager()->loadMaterial(Materials::PickUp, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "PickUp_airfreshner_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Explosion, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Explosion_Texture.png")));
+
+
+	_world->GetResourceManager()->loadMaterial(Materials::BackGround, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "FB2.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Planet, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Planet_texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Meteor, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Meteor_texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::MeteorTrail, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Meteor_with_trail_texture.png")));
 
 	_world->GetResourceManager()->loadMaterial(Materials::Enemy, new ColorMaterial (glm::vec3(0.2f,0,0.5f)));
+
+
 
 
 	_world->GetResourceManager()->loadMaterial(Materials::Player, new PlayerMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png")));
@@ -205,8 +218,7 @@ void MGEDemo::_updateHud() {
 
     _hud->setDebugInfo(debugInfo);
     _hud->draw();
-	if(_levelEditor->getActive())
-	_levelEditor->DrawUI();
+	_menuScreen->UpdateHUD();
 }
 
 MGEDemo::~MGEDemo()

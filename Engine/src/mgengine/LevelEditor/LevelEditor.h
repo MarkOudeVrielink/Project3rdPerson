@@ -43,8 +43,9 @@ public:
 	bool getActive();
 private:
 	sf::RenderWindow *_window;
-	std::list<RawImage*> _images;
+	//std::list<RawImage*> _images;
 	sf::Clock _time;
+	sf::Clock _levelEditorTime;
 	sf::Font _font;
 	sf::Text _currentSnapTimeText;
 	vector<sf::Text> _textReference;
@@ -53,7 +54,7 @@ private:
 	float _scrollBar = 0;
 	float _scrollLastSecond = 0;
 	float _currentSnapTime = 0;
-	int _scrollSpeed = 4;
+	int _scrollSpeed = 1;
 	int _currentWave = 0;
 	bool _mousePressed = false;
 	bool _gameStarted = false;
@@ -63,8 +64,10 @@ private:
 	float _secReferenceScrollBar = 0;
 
 	void CreateWaypoint(sf::Vector2i pWayPos);
-	void StartGame();
+	void setReferenceWorld();
 	void UpdateScrolling();
+	glm::vec3 getScreenToWorldPos(sf::Vector2f pScreenPos);
+	void UpdateScrolling(float pstep);
 	void UpdateWaypointCreation();
 	void UpdateStartLevelPreview();
 	void UpdateWaveSelection();
@@ -86,5 +89,6 @@ private:
 	tgui::ComboBox::Ptr behaviourBox;
 	tgui::EditBox::Ptr healthBox;
 	bool _active = true;
+	bool referenceToWorldCheck = false;
 };
 

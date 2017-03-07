@@ -3,7 +3,7 @@
 #include "mgengine\Core\Actor.h"
 #include "mgengine\Core\ControlledActor.h"
 #include "mgengine\Behaviours\PlayerBehaviour.h"
-
+#include "glm.hpp"
 #include <iostream>
 
 BulletBehaviour::BulletBehaviour(float pSpeed, float pPower, float pLiveTime, Direction pDirection, BulletOwner pOwner) 
@@ -21,8 +21,12 @@ void BulletBehaviour::update(float pStep)
 	if (_direction == Direction::Up) {
 		_force = btVector3(0,0,-_speed);
 	}
-	else {
+	else if(_direction == Direction::Down){
 		_force = btVector3(0, 0, _speed);
+	}
+	else
+	{		
+		_force = btVector3(_bulletDirection.x, _bulletDirection.y, _bulletDirection.z)*_speed;
 	}
 	
 	_ownerBody->translate(_force);	
@@ -62,3 +66,14 @@ float BulletBehaviour::getPower()
 {
 	return _power;
 }
+
+void BulletBehaviour::setBulletDirection(glm::vec3 pDirection)
+{
+	_bulletDirection = pDirection;
+}
+
+glm::vec3 BulletBehaviour::getBulletDirection()
+{
+	return _bulletDirection;
+}
+

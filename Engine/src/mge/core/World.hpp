@@ -18,6 +18,10 @@ class World : public GameObject
 
 		void setMainCamera (Camera* pCamera);
 		Camera* getMainCamera();
+
+		void setMainPlayer(GameObject * pPlayer);
+
+		GameObject * getMainPlayer();
 		
 		ResourceManager* GetResourceManager();
 		CollisionManager* GetCollisionManager();
@@ -29,6 +33,7 @@ class World : public GameObject
 		
 		CollisionManager*	_physicsManager;
 		ResourceManager*	_resourceManager;
+		GameObject* _player;
 
 		std::list<Actor*>	_dirtyActors;
 

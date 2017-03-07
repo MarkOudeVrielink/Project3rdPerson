@@ -4,6 +4,7 @@
 #include "mge/config.hpp"
 #include "mygame\Behaviours\EnemyBehaviour.h"
 #include "mgengine\Core\ControlledActor.h"
+#include "mygame\Behaviours\BossBehaviour.h"
 #include "mgengine\Collision\CollisionFilters.h"
 
 EnemyWave::EnemyWave()
@@ -36,6 +37,14 @@ void EnemyWave::addWaypoint(Waypoint * pWaypoint, float pSec)
 		cout << "NOT EMPTY HUEUHUE" << endl;
 	_wayPoints.push_back(pWaypoint);
 }
+void EnemyWave::addMainWaypointDirection(Waypoint * pWaypoint, float pSec)
+{
+	_mainWaypointDirection = pWaypoint;
+}
+Waypoint* EnemyWave::GetMainWaypointDirection()
+{
+	return _mainWaypointDirection;
+}
 //Return reference of the list of all the waypoints
 const std::vector<Waypoint*>* EnemyWave::getWaypoints() const
 {
@@ -50,7 +59,7 @@ void EnemyWave::DrawWaypoints()
 	//if(_startTimeWave + (_delayBetweenEnemies*_sizeWave)>*_snapTime)
 	//Add getWorldPos to the waypoints
 	lengthTraveled = (*_snapTime*_speed- ((_startTimeWave + (_delayBetweenEnemies*_sizeWave))*_speed));
-	cout << lengthTraveled << endl;
+	//cout << lengthTraveled << endl;
 	float lenghtbetweenWaypoints = 0;
 	//we are going backwards 
 	/*
@@ -62,21 +71,32 @@ void EnemyWave::DrawWaypoints()
 			_wayPoints.at(i)->Draw();
 	}
 	*/
+	if(_mainWave)
+		for (auto& waypoint : _wayPoints)
+		{
+			waypoint->Draw();
+		}
+	if(false)
 	for (auto& waypoint : _wayPoints)
 	{
 		glm::vec2 delta = glm::vec2(waypoint->getWorldPos().x, waypoint->getWorldPos().y) - prevWaypointPos;
 		lenghtbetweenWaypoints += (glm::length(delta));
-		if (lenghtbetweenWaypoints>lengthTraveled)
+		//check if we already are on time to draw this 
+		if (_startTimeWave<*_snapTime && lenghtbetweenWaypoints>lengthTraveled)
 			waypoint->Draw();
 	}
+	if (_mainWaypointDirection != NULL)
+		_mainWaypointDirection->Draw();
 }
 void EnemyWave::setAsMainWave()
 {
 	//cout << "DRAW WAYPOINT" << endl;
 	for (auto &waypoint : _wayPoints)
 	{
+		
 		waypoint->MainWaypoint();
 	}
+	_mainWave = true;
 }
 void EnemyWave::setAsSecondaryWave()
 {
@@ -85,9 +105,10 @@ void EnemyWave::setAsSecondaryWave()
 	{
 		waypoint->SecondaryWaypoint();
 	}
+	_mainWave = false;
 }
 //Spawn one enemy at the first waypoint of the list
-void EnemyWave::SpawnEnemy(World * pWorld)//TODO:change to Level scope
+void EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
 {	//Check if we finished spawning all the enmies of this wave
 	if (_quantitySpawnedEnemies < _sizeWave)
 	{
@@ -95,12 +116,33 @@ void EnemyWave::SpawnEnemy(World * pWorld)//TODO:change to Level scope
 			cout << "No Waypoints... Abort..." << endl;
 			return;
 		}
+		Waypoint * SpawnWaypoint = _wayPoints.at(0);
+		glm::vec3 posplayerglmvec3 = pWorld->getMainPlayer()->getWorldPosition();
+		Waypoint * playerPos= new Waypoint (glm::vec3(posplayerglmvec3.x, posplayerglmvec3.y, posplayerglmvec3.z), sf::Vector2f(500, 500), 1, 580, SpawnWaypoint->getRenderWindow());
+
+		switch (_enemyBehaviour) {
+		case 0: //Default, Basic AI
+			break;
+		case 1: //Kamikase AI
+
+			_wayPoints.clear();
+			_wayPoints.push_back(SpawnWaypoint);
+			_wayPoints.push_back(playerPos);
+			break;
+		case 2: // Boss AI
+			cout << "add Boss behaviour" << endl;
+			
+			break;
+		}
 		//Max points in Camera screen/Pixels*position of waypoint in screen-half the Max points in camera screen
-		glm::vec3 pos = glm::vec3(160.0f / 1920 * _wayPoints.at(0)->getPosition().x - 80,
-			0,
-			80.0f / 1080 * _wayPoints.at(0)->getPosition().y - 40);
-
-
+		glm::vec3 pos = _wayPoints.at(0)->getWorldPos();
+		glm::vec3 stepMovingMain = glm::vec3(0, 0, 0);
+		if (_mainWaypointDirection != NULL) {
+			float lengthMovingWaypoint = glm::length(_mainWaypointDirection->getWorldPos() - pos);
+			stepMovingMain = glm::normalize(_mainWaypointDirection->getWorldPos() - pos)*(lengthMovingWaypoint / _sizeWave) * _quantitySpawnedEnemies;
+			pos = pos +stepMovingMain;
+		}
+		pos.y = 0;
 		//Enemy* Enemy1 = new Enemy("Enemy", pos);
 		//AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "potato.png"));
 
@@ -112,34 +154,48 @@ void EnemyWave::SpawnEnemy(World * pWorld)//TODO:change to Level scope
 
 		Enemy1->setMesh(pWorld->GetResourceManager()->getMesh(Meshes::ID( _enemyType)));
 		Enemy1->setMaterial(pWorld->GetResourceManager()->getMaterial(_enemyType));
-
-		cout << "Material set" << endl;
 		
-		if (!_editorMode)
-		{
-			EnemyBehaviour* behave = new EnemyBehaviour(&_wayPoints);
-			behave->setSpeed(_speed);
-			behave->setShootRatio(_shootRatio);
-			behave->setEnemyType(_enemyType);
-			Enemy1->SetHealth(_health);
-			Enemy1->setActorBehaviour(behave);
-		}
-		else if(_editorMode)
-		{
-			EnemyBehaviour* behave = new EnemyBehaviour(&_wayPoints, _snapTime);
-			behave->setSpeed(_speed);
-			behave->setShootRatio(_shootRatio);
-			behave->setEnemyType(_enemyType);
-			Enemy1->SetHealth(_health);
-			Enemy1->setActorBehaviour(behave);
+		cout << "Material set" << endl;
+		if (_enemyBehaviour != 2) {
+			if (!_editorMode)
+			{
+				EnemyBehaviour* behave = new EnemyBehaviour(&_wayPoints, stepMovingMain);
+				behave->setSpeed(_speed);
+				behave->setShootRatio(_shootRatio);
+				behave->setEnemyType(_enemyType);
+				Enemy1->SetHealth(_health);
+				Enemy1->setActorBehaviour(behave);
+			}
+			else if (_editorMode)
+			{
+				EnemyBehaviour* behave = new EnemyBehaviour(&_wayPoints, _snapTime, stepMovingMain);
+				behave->setSpeed(_speed);
+				behave->setShootRatio(_shootRatio);
 
-			behave->SaveOriginalTransform();
+				behave->setEnemyType(_enemyType);
+				Enemy1->SetHealth(_health);
+				Enemy1->setActorBehaviour(behave);
 
+				behave->SaveOriginalTransform();
+
+			}
 		}
-		Enemy1->scale(glm::vec3(2, 2, 2));
+		else
+		{
+			BossBehaviour * Boss = new BossBehaviour(&_wayPoints, stepMovingMain,pWorld);
+			Boss->setSpeed(_speed);
+			Boss->setShootRatio(_shootRatio);
+
+			Boss->setEnemyType(_enemyType);
+			Enemy1->SetHealth(_health);
+			Enemy1->setActorBehaviour(Boss);
+
+		//	Boss->SaveOriginalTransform()
+		}
+		//Enemy1->scale(glm::vec3(2, 2, 2));
 		cout << "Scale set" << endl;
-		pWorld->add(Enemy1);
-		cout << "World added" << endl;
+		pWaveParent->add(Enemy1);
+		cout << "Parent added" << endl;
 		_quantitySpawnedEnemies++;
 	}
 }
@@ -149,7 +205,7 @@ bool EnemyWave::CheckSpawnTimeNextEnemy(float* pSec)
 	_snapTime = pSec;
 	if (*pSec - _timeAtLastEnemySpawned - _startTimeWave >= _delayBetweenEnemies)
 	{
-		cout << _startTimeWave << "<<delayed by" << endl;
+		//cout << _startTimeWave << "<<delayed by" << endl;
 		_startTimeWave = 0;
 		_timeAtLastEnemySpawned = *pSec;
 		return true;

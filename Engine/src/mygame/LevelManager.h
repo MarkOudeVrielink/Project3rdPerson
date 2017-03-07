@@ -42,7 +42,7 @@ private:
 	sf::Clock _time;
 	bool _startGame = false;
 	GameObject * _backgroundPlane;
-	GameObject * asteroidParent;
+	GameObject * asteroidParent = NULL;
 	GameObject * _planet;
 	vector<GameObject*> _asteroids;
 

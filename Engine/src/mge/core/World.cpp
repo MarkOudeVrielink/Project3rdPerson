@@ -10,6 +10,8 @@ World::World():GameObject("root"), _mainCamera(0), _dirtyActors()
 	//ctor
 	_resourceManager = new ResourceManager();
 	_physicsManager = new CollisionManager();
+	GameObject *PlayerDefault = new GameObject("player_default");
+	setMainPlayer(PlayerDefault);
 }
 
 void World::setMainCamera (Camera* pCamera) {
@@ -19,7 +21,12 @@ void World::setMainCamera (Camera* pCamera) {
 Camera* World::getMainCamera () {
     return _mainCamera;
 }
-
+void World::setMainPlayer(GameObject* pPlayer) {
+	if (pPlayer != NULL) _player = pPlayer;
+}
+GameObject* World::getMainPlayer() {
+	return _player;
+}
 ResourceManager * World::GetResourceManager()
 {
 	return _resourceManager;

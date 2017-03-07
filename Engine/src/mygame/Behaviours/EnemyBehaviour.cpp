@@ -16,14 +16,17 @@
 #include <list>
 #include <glm.hpp>
 
-EnemyBehaviour::EnemyBehaviour(std::vector<Waypoint*> *pWayPoints)
+EnemyBehaviour::EnemyBehaviour(std::vector<Waypoint*> *pWayPoints, glm::vec3  pMovingStep )
 {
+	_movingStep = pMovingStep;
 	_wayPoints = pWayPoints;
 	_moveSpeed = 0.5f;
+	_levelEditorMode = false;
 }
 
-EnemyBehaviour::EnemyBehaviour(std::vector<Waypoint*>* pWayPoints, float * ptime)
+EnemyBehaviour::EnemyBehaviour(std::vector<Waypoint*>* pWayPoints, float * ptime, glm::vec3  pMovingStep)
 {
+	_movingStep = pMovingStep;
 	_wayPoints = pWayPoints;
 	_moveSpeed = 0.5f;
 	_levelEditorMode = true;//MoveAccording to the time, so no constant movement
@@ -31,7 +34,20 @@ EnemyBehaviour::EnemyBehaviour(std::vector<Waypoint*>* pWayPoints, float * ptime
 	_spawnedTime = *ptime;
 
 }
-
+//Constructor for kamikase
+/*
+EnemyBehaviour::EnemyBehaviour(GameObject * pPlayer,bool pLevelEditor = false, float * ptime = NULL)
+{
+	_player = pPlayer;
+	_moveSpeed = 0.5f;
+	_kamikase = true;
+	_levelEditorMode = pLevelEditor;//MoveAccording to the time, so no constant movement
+	if (ptime != NULL) {
+		_referenceToArtificialLevelTime = ptime;
+		_spawnedTime = *ptime;
+	}
+}
+*/
 EnemyBehaviour::~EnemyBehaviour()
 {
 }
@@ -44,9 +60,11 @@ void EnemyBehaviour::SaveOriginalTransform()
 void EnemyBehaviour::update(float pStep)
 {
 	
-	if (!_levelEditorMode) {
+	if (!_levelEditorMode && !_kamikase) {
 		AiBasic(pStep);
 	}
+	else if (!_levelEditorMode && _kamikase)
+		AiKamikase(pStep);
 	else
 		UpdateEditorMode(pStep);
 
@@ -94,7 +112,6 @@ void EnemyBehaviour::setup()
 	_enemyMaterial = (EnemyMaterial*)_owner->getMaterial();
 }
 
-//FRAMERATE ISSUE COULD BE FIX IF WE SAVED LAST TIME WE CHANGE WAYPOINT AND ONLY ROTATE WHEN WE CHANGE NODE
 void EnemyBehaviour::UpdateEditorMode(float pStep)
 {
 	if (*_referenceToArtificialLevelTime >= 0) {
@@ -107,7 +124,7 @@ void EnemyBehaviour::UpdateEditorMode(float pStep)
 		}
 
 		//If we havent move to the second we should be then calculate that position
-		while (_secondsAlreadyRendered - *_referenceToArtificialLevelTime + _spawnedTime > 0.017f)//BACKWARDS when the difference is 1 sec
+		while (_secondsAlreadyRendered - *_referenceToArtificialLevelTime + _spawnedTime > 0.034f)//BACKWARDS when the difference is 1 sec
 		{
 
 			AiBasicBackWards(pStep);
@@ -116,7 +133,7 @@ void EnemyBehaviour::UpdateEditorMode(float pStep)
 	}
 
 }
-
+#pragma region Getters and Setters
 void EnemyBehaviour::setShootRatio(float pShootPerSec)
 {
 	_shootRatio = pShootPerSec;
@@ -141,7 +158,7 @@ Materials::ID EnemyBehaviour::getEnemyType()
 {
 	return _enemyType;
 }
-
+#pragma endregion
 //Pass the frame length and move the enemy the distance it should move in that frame
 // Approx -> 0.01666666 length of frame * 60 = is equal to one sec
 void EnemyBehaviour::AiBasic(float pStep)
@@ -154,13 +171,33 @@ void EnemyBehaviour::AiBasic(float pStep)
 		
 		if ((float)_index >= _wayPoints->size())
 			_index = _wayPoints->size() - 1;
-		cout << _wayPoints->size() << endl;
+		//cout << _wayPoints->size() << endl;
 		//ERROR, somehow size of waypoints is equal 0
 		_tarjet = _wayPoints->at(_index);//index++ maybe
 		_movingBackwards = false;
 	}
-	glm::vec3 target(192.0f / 1920 * _tarjet->getPosition().x - 96, 0, 108.0f / 1080 * _tarjet->getPosition().y - 54);
+	
+	glm::vec3 target(_tarjet->getWorldPos().x, 0, _tarjet->getWorldPos().z) ;
+
+	target += _movingStep;
+	
 	glm::vec3 pos = _owner->getWorldPosition();
+	if (_kamikase && !_kamikaseTargetSet)
+	{
+		_kamikaseTargetPos = _player->getWorldPosition();
+		target = _kamikaseTargetPos+ _movingStep;
+		_kamikaseTargetSet = true;
+	}
+	else if(_kamikase && _kamikaseTargetSet)
+		target = _kamikaseTargetPos;
+	if (_wayPoints->size() <= _index)
+	{
+		float x = -pos.x*1000.0f;
+		float z = -pos.z*1000.0f;
+		pos.x = x;
+		pos.z = z;
+
+	}
 	btScalar dX = pos.x - target.x;
 	btScalar dZ = pos.z - target.z;
 	_angle = atan2(dX, dZ);
@@ -169,30 +206,24 @@ void EnemyBehaviour::AiBasic(float pStep)
 		_owner->SetRotation(glm::vec3(0,1,0), _angle);
 	}
 
-	//_owner->setTransform(glm::transpose(glm::lookAt(_owner->getWorldPosition(), glm::vec3(tarjet) , glm::vec3(0, 1, 0))));
 	glm::vec2 delta = glm::vec2(target.x, target.z) - glm::vec2(pos.x, pos.z);
+	
 	float length = glm::length(delta);
-	if (length < _moveSpeed  && _wayPoints->size() > (float)_index) {
-		cout << _owner->getWorldPosition().x << "<x" << _owner->getWorldPosition().z << "<z" << endl;
+	if (length < _moveSpeed*pStep  && _wayPoints->size() > (float)_index) {
 		_tarjet = _wayPoints->at(_index++);
-
-		std::cout << _index;	
+		
 	}
 	else {
-		if (_wayPoints->size() == _index) //Increment index so we dont keep rotating in order to keep moving and leave the screen
+		if (_wayPoints->size() == _index &&length < _moveSpeed*pStep) //Increment index so we dont keep rotating in order to keep moving and leave the screen
 			_index++;
 		//if we dont have more waypoints, recalculate tarjet to keep moving "forward"
-		if (_wayPoints->size() < _index)
-		{
-			delta = glm::vec2(target.x*1000, target.z*1000) - glm::vec2(pos.x, pos.z);
-		}
+		
 		delta = glm::normalize(delta);	//Get difference between object and target.
 		_ownerBody->translate(btVector3(delta.x * _moveSpeed *pStep, 0.0f, delta.y * _moveSpeed*pStep));	 //Move toward target with set speed.
 	}
 
 	if (_wayPoints->size() >= _index && updateClock.getElapsedTime().asSeconds()- timeSinceLastShoot.asSeconds() > _shootRatio)//shoot
 	{
-		//updateClock.restart();
 		timeSinceLastShoot = updateClock.getElapsedTime();
 		SpawnBullet();
 	}
@@ -210,16 +241,19 @@ void EnemyBehaviour::AiBasicBackWards(float pStep)
 	{		
 		//if ((float)_index > _wayPoints->size())
 			//_index = _wayPoints->size();
-		if ((float)_index > 0 && _wayPoints->size() >= (float)_index) //check if there is a waypoint behind
+		if (_index > 0 ) //check if there is a waypoint behind
 		{				
 			//cout << _wayPoints->at(_index--)->getPosition().x << endl;
 			 _index--;
+			 if (_index >= _wayPoints->size())
+				 _index = _wayPoints->size() - 1;
 			_tarjet = _wayPoints->at(_index);
 		}
 		_movingBackwards = true;
 	}
 	//ROTATION
-	glm::vec3 target(192.0f / 1920 * _tarjet->getPosition().x - 96, 0, 108.0f / 1080 * _tarjet->getPosition().y - 54);
+	glm::vec3 target(_tarjet->getWorldPos().x, 0, _tarjet->getWorldPos().z);
+	target += _movingStep;
 	glm::vec3 pos = _owner->getWorldPosition();
 
 	btScalar dX = pos.x - target.x;
@@ -232,21 +266,19 @@ void EnemyBehaviour::AiBasicBackWards(float pStep)
 	}
 
 	glm::vec2 delta = glm::vec2(target.x, target.z) - glm::vec2(pos.x, pos.z);
-	float length = glm::length(delta);
+	float length = glm::abs(glm::length(delta));
 
 	if (length< _moveSpeed*pStep && _index >0)
 	{
 		_index--;
 		
 		_tarjet = _wayPoints->at(_index);
+		cout << "Backwards" << endl;
 	}
 	else
 	{
-		/*if (0 == _index) //Decrement index so we dont keep rotating in order to keep moving and leave the screen
-			_index--;*/
-		//cout << _index << endl;
 		delta = glm::normalize(delta);
-		_ownerBody->translate(btVector3(delta.x * _moveSpeed, 0.0f, delta.y * _moveSpeed));
+		_ownerBody->translate(btVector3(delta.x * _moveSpeed*pStep, 0.0f, delta.y * _moveSpeed*pStep));
 	}
 	
 }
@@ -276,7 +308,7 @@ void EnemyBehaviour::SpawnBullet()
 	bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
 	bullet->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Player));
 	bullet->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Player));
-	bullet->setActorBehaviour(new BulletBehaviour(0.6f, 1.0f, 50.0f, Direction::Down, BulletOwner::Enemy));
+	bullet->setActorBehaviour(new BulletBehaviour(0.6f, 1.0f, 3.0f, Direction::Down, BulletOwner::Enemy));
 	_owner->getParent()->add(bullet);
 }
 
@@ -289,4 +321,9 @@ void EnemyBehaviour::SpawnExplosion()
 	explosion->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Explosion));
 	explosion->setActorBehaviour(new VanishBehaviour(2.0f));
 	_owner->getWorld()->add(explosion);
+}
+
+void EnemyBehaviour::AiKamikase(float pStep)
+{
+
 }
