@@ -86,6 +86,7 @@ class GameObject
 		void _innerRemove (GameObject* pChild);
 
     private:
+
         GameObject(const GameObject&);
         GameObject& operator=(const GameObject&);
 };

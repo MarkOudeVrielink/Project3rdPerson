@@ -12,6 +12,7 @@
 #include "mge\core\World.hpp"
 
 #include "mgengine\Collision\CollisionFilters.h"
+#include "mge\config.hpp"
 
 #include <list>
 #include <glm.hpp>
@@ -154,7 +155,7 @@ void EnemyBehaviour::AiBasic(float pStep)
 		
 		if ((float)_index >= _wayPoints->size())
 			_index = _wayPoints->size() - 1;
-		cout << _wayPoints->size() << endl;
+		//cout << _wayPoints->size() << endl;
 		//ERROR, somehow size of waypoints is equal 0
 		_tarjet = _wayPoints->at(_index);//index++ maybe
 		_movingBackwards = false;
@@ -173,10 +174,10 @@ void EnemyBehaviour::AiBasic(float pStep)
 	glm::vec2 delta = glm::vec2(target.x, target.z) - glm::vec2(pos.x, pos.z);
 	float length = glm::length(delta);
 	if (length < _moveSpeed  && _wayPoints->size() > (float)_index) {
-		cout << _owner->getWorldPosition().x << "<x" << _owner->getWorldPosition().z << "<z" << endl;
+		//cout << _owner->getWorldPosition().x << "<x" << _owner->getWorldPosition().z << "<z" << endl;
 		_tarjet = _wayPoints->at(_index++);
 
-		std::cout << _index;	
+		//std::cout << _index;	
 	}
 	else {
 		if (_wayPoints->size() == _index) //Increment index so we dont keep rotating in order to keep moving and leave the screen
@@ -202,7 +203,7 @@ void EnemyBehaviour::AiBasicBackWards(float pStep)
 {
 	if (_tarjet == nullptr)
 	{
-		cout << "haven´t started yet... returning" << endl;
+		//cout << "haven´t started yet... returning" << endl;
 		return;
 		//_tarjet = _wayPoints->at(_index++);//index++ maybe
 	}
@@ -284,9 +285,7 @@ void EnemyBehaviour::SpawnExplosion()
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition();
 
-	ObjectActor* explosion = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_StaticObject, CF::COL_NOTHING, CF::pickupCollidesWith);	
-	explosion->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Explosion));
-	explosion->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Explosion));
-	explosion->setActorBehaviour(new VanishBehaviour(2.0f));
+	ObjectActor* explosion = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_StaticObject, CF::COL_NOTHING, CF::pickupCollidesWith);		
+	explosion->setActorBehaviour(new VanishBehaviour(config::MGE_TEXTURE_PATH + "mini_explosion.png"));
 	_owner->getWorld()->add(explosion);
 }

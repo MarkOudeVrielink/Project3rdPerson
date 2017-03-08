@@ -7,9 +7,11 @@
 
 #include <string>
 #include <list>
+#include <SFML/Graphics.hpp>
 
 class Camera;
 class Actor;
+
 
 class World : public GameObject
 {
@@ -19,8 +21,11 @@ class World : public GameObject
 		void setMainCamera (Camera* pCamera);
 		Camera* getMainCamera();
 		
-		ResourceManager* GetResourceManager();
-		CollisionManager* GetCollisionManager();
+		ResourceManager*	GetResourceManager();
+		CollisionManager*	GetCollisionManager();
+		
+		void				setRenderWindow(sf::RenderWindow* pWindow);
+		sf::RenderWindow*	getRenderWindow();
 
 		void DestroyActors();
 		void SetDirtyActor(Actor* pActor);
@@ -31,6 +36,8 @@ class World : public GameObject
 		ResourceManager*	_resourceManager;
 
 		std::list<Actor*>	_dirtyActors;
+
+		sf::RenderWindow*	_window;
 
         World(const World&);
         World& operator=(const World&);

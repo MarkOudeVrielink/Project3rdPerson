@@ -11,7 +11,7 @@ class PlayerMaterial;
 
 class PlayerBehaviour : public AbstractActorBehaviour {
 public:
-	PlayerBehaviour(Mesh* pMesh, AbstractMaterial* pMatrial, float pSpeed = 4.0f);
+	PlayerBehaviour(float pSpeed = 1.0f);
 	virtual ~PlayerBehaviour();	
 	
 	virtual void update(float pStep);
@@ -24,7 +24,7 @@ private:
 	void SpawnNova();
 	
 	void FireWeapon(float pTime);
-	void Move();
+	void Move(float pDeltaTime);
 	void IsInvulnerable(float pTime);
 
 	glm::vec3 _spawnOffset;
@@ -49,11 +49,27 @@ private:
 	
 	float	_score;
 
-	float				_tiltAngle;
-	float				_moveSpeed;	
-	Mesh*				_mesh;
-	AbstractMaterial*	_material;
-	PlayerMaterial*		_playerMaterial;
+
+	bool	_leftPressed;
+	bool	_rightPressed;
+	float	_tapClock;
+	int		_tapCount;
+	float	_doubleTapTime;
+
+	float		_tiltAngle;
+	float		_maxSpeed;
+	float		_dashPower;
+	float		_horizontalInput;
+	float		_verticalInput;
+	float		_acceleration;
+	float		_decceleration;
+	glm::vec3	_force;	
+
+	void		_checkInput(bool& h, bool& v);
+	void		_deccelerate(bool h, bool v);
+	void		_checkDoubleTap();
+	
+	PlayerMaterial*		_playerMaterial;	
 };
 
 #endif // !ACTORMOVEMENT_H

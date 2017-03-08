@@ -56,7 +56,7 @@ void Menu::ToLevelEditor()
 	player->scale(glm::vec3(0.8f, 0.8f, 0.8f));
 	player->setMesh(_world->GetResourceManager()->getMesh(Meshes::Player));
 	player->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Player));
-	player->setActorBehaviour(new PlayerBehaviour(_world->GetResourceManager()->getMesh(Meshes::Player), _world->GetResourceManager()->getMaterial(Materials::Player), 20));
+	player->setActorBehaviour(new PlayerBehaviour(1.0f));
 	_world->add(player);
 
 
@@ -69,7 +69,7 @@ void Menu::StartGame()
 	player->scale(glm::vec3(0.8f, 0.8f, 0.8f));
 	player->setMesh(_world->GetResourceManager()->getMesh(Meshes::Player));
 	player->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Player));
-	player->setActorBehaviour(new PlayerBehaviour(_world->GetResourceManager()->getMesh(Meshes::Player), _world->GetResourceManager()->getMaterial(Materials::Player), 20));
+	player->setActorBehaviour(new PlayerBehaviour(1.0f));
 	_world->add(player);
 
 	GameObject *ObjManager = new GameObject("Manager");

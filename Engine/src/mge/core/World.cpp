@@ -20,14 +20,24 @@ Camera* World::getMainCamera () {
     return _mainCamera;
 }
 
-ResourceManager * World::GetResourceManager()
+ResourceManager* World::GetResourceManager()
 {
 	return _resourceManager;
 }
 
-CollisionManager * World::GetCollisionManager()
+CollisionManager* World::GetCollisionManager()
 {
 	return _physicsManager;
+}
+
+void World::setRenderWindow(sf::RenderWindow * pWindow)
+{
+	_window = pWindow;
+}
+
+sf::RenderWindow* World::getRenderWindow()
+{
+	return _window;
 }
 
 /*Destroy all the actors that were set to dirty.*/

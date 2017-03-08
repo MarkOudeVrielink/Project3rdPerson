@@ -38,7 +38,7 @@ void LevelParser::SaveLevel(Level * pLevel,string pfileName = "demo")
 	}
 
 	doc.save_file((config::MGE_FONT_PATH +"/"+ pfileName+".xml").c_str(), PUGIXML_TEXT("  "));
-	cout << "saved... "<< pfileName << endl;
+	//cout << "saved... "<< pfileName << endl;
 }
 
 Level* LevelParser::LoadLevel(string pName ="demo", sf::RenderWindow* pWindow= NULL)
@@ -47,8 +47,8 @@ Level* LevelParser::LoadLevel(string pName ="demo", sf::RenderWindow* pWindow= N
 	pugi::xml_parse_result result = doc.load_file((config::MGE_FONT_PATH + "/"+ pName+".xml").c_str());
 	if (!result)
 	{
-		std::cout << "Parse error: " << result.description()
-			<< ", character pos= " << result.offset<<endl;
+		//std::cout << "Parse error: " << result.description()
+			//<< ", character pos= " << result.offset<<endl;
 		return NULL;
 	}
 	// A valid XML document must have a single root node
@@ -78,26 +78,26 @@ Level* LevelParser::LoadLevel(string pName ="demo", sf::RenderWindow* pWindow= N
 
 			//Waypoint list Element
 			pugi::xml_node WaveChild = wave.child("Waypoints");
-			cout << startTime << " << delay time of wave loaded" << endl;
+			//cout << startTime << " << delay time of wave loaded" << endl;
 			//vector<Waypoint*> waypointList;
 			//Go throught all the waypoints in the list and store them in a vector<Waypoint>
 			
 			for (pugi::xml_node waypoint = WaveChild.child("WavePoint"); waypoint; waypoint = waypoint.next_sibling("WavePoint"))
 			{
 				//cout<<WaveChild.
-				std::cout << "Parse error: " << result.description()
-					<< ", character pos= " << result.offset << endl;
-				cout <<"Hey Im a wavepoint" << endl;
+			//	std::cout << "Parse error: " << result.description()
+				//	<< ", character pos= " << result.offset << endl;
+				//cout <<"Hey Im a wavepoint" << endl;
 				sf::Vector2f pos;
 				pos.x = waypoint.attribute("x").as_float();
 				pos.y = waypoint.attribute("y").as_float();
 			
 				level->CreateWaypoint(pos, startTime);
-				cout << pos.x << " << x Of waypoint loaded" << endl;
+				//cout << pos.x << " << x Of waypoint loaded" << endl;
 			}
-			cout << "Hey Wave done" << endl;
+			//cout << "Hey Wave done" << endl;
 		}
-		cout << "Hey Im DONE" << endl;
+		//cout << "Hey Im DONE" << endl;
 		
 	return level;
 }

@@ -21,7 +21,7 @@ PlayerMaterial::PlayerMaterial(Texture * pDiffuseTexture, float pBlinkRate) :_di
 {
 	_lazyInitializeShader();
 }
-
+//hrllo
 PlayerMaterial::~PlayerMaterial() {}
 
 void PlayerMaterial::_lazyInitializeShader() {
@@ -46,7 +46,7 @@ void PlayerMaterial::_lazyInitializeShader() {
 void PlayerMaterial::setDiffuseTexture(Texture* pDiffuseTexture) {
 	_diffuseTexture = pDiffuseTexture;
 }
-
+//how is life
 void PlayerMaterial::setInvulnerable(bool pValue)
 {
 	_isInvulnerable = pValue;

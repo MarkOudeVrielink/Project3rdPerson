@@ -44,8 +44,10 @@ public:
 	World*		getWorld();
 	ActorType	getType();
 
-	void SetRotation(glm::vec3 pAxis, btScalar pAngle);	
-	void Destroy();
+	btQuaternion	getRotation();
+	void			SetRotation(glm::vec3 pAxis, btScalar pAngle);	
+	//void			SetRotation(btQuaternion pRotation, glm::vec3 pAxis, btScalar pAngle);
+	void			Destroy();
 
 protected:
 	void _initRigidBody(btCollisionShape* pCollider);
@@ -62,7 +64,9 @@ protected:
 	ActorType				_type;
 	btRigidBody*			_rigidBody;	
 
-	float					_mass;	
+	float					_mass;
+
+	btQuaternion			_rotation;
 };
 
 #endif // !ACTOR_H

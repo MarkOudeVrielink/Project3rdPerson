@@ -23,7 +23,16 @@ class MGEDemo: public AbstractGame
 	    virtual void _render();
 
 	private:
-		DebugHud* _hud;//hud display		
+		DebugHud* _hud;//hud display	
+
+		sf::Thread _meshLoadingThread;
+		sf::Thread _materialLoadingThread;
+
+		sf::Mutex _meshLock;
+		sf::Mutex _materialLock;
+
+		void LoadMeshes();
+		void LoadMaterials();
 
         void _updateHud();
 

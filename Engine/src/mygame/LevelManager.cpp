@@ -38,13 +38,13 @@ void LevelManager::update(float pStep)
 
 void LevelManager::StartGameFromMenu()
 {
-	cout << "Reading XML..." << endl;
+	//cout << "Reading XML..." << endl;
 	Level* level = LevelParser::LoadLevel(std::to_string(1),NULL);
 	_currentLevel = level;
 	_currentLevel->ReferenceWorld(_world);
 	_currentLevel->RunLevel(&_time.getElapsedTime());
 	_startGame = true;
 	//_currentWave = _currentLevel->getIndexWave();
-	cout << "Done Reading XML..." << endl;
+	//cout << "Done Reading XML..." << endl;
 
 }

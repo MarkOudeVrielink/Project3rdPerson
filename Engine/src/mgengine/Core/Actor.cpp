@@ -64,10 +64,15 @@ ActorType Actor::getType()
 	return _type;
 }
 
+btQuaternion Actor::getRotation()
+{
+	return _rotation;
+}
+
 void Actor::SetRotation(glm::vec3 pAxis, btScalar pAngle)
 {
 	//Create a quaternion with that's rotated towards the right angle.
-	btQuaternion newRotation;
+	btQuaternion newRotation = _rigidBody->getWorldTransform().getRotation();
 	newRotation.setRotation(btVector3(pAxis.x, pAxis.y, pAxis.z), pAngle);
 
 	//Get the objects current transform.
@@ -78,6 +83,19 @@ void Actor::SetRotation(glm::vec3 pAxis, btScalar pAngle)
 	trans.setRotation(newRotation);
 	_rigidBody->setWorldTransform(trans);
 }
+
+//void Actor::SetRotation(btQuaternion pRotation, glm::vec3 pAxis, btScalar pAngle)
+//{
+//	pRotation.setRotation(btVector3(pAxis.x, pAxis.y, pAxis.z), pAngle);
+//
+//	//Get the objects current transform.
+//	btTransform trans;
+//	trans.setFromOpenGLMatrix(glm::value_ptr(getWorldTransform()));
+//
+//	//Set the new rotation.
+//	trans.setRotation(pRotation);
+//	_rigidBody->setWorldTransform(trans);
+//}
 
 /*Destroys this actor after the given amount of time.*/
 void Actor::Destroy()
@@ -124,6 +142,7 @@ void Actor::_initRigidBody(btCollisionShape * pCollider)
 	_rigidBody->setActivationState(DISABLE_DEACTIVATION); //We disable this so it won't go to sleep as soon as the rigidbody stops moving.
 
 	_world->GetCollisionManager()->AddCollisionActor(_rigidBody, this);
+	_rotation = btT.getRotation();
 }
 
 void Actor::_initRigidBody(btCollisionShape* pCollider, short pGroup, short pMask) {
@@ -138,6 +157,7 @@ void Actor::_initRigidBody(btCollisionShape* pCollider, short pGroup, short pMas
 	_rigidBody->setActivationState(DISABLE_DEACTIVATION);
 
 	_world->GetCollisionManager()->AddCollisionActor(_rigidBody, this, pGroup, pMask);
+	_rotation = btT.getRotation();
 }
 
 /*@param takes a 16-element float array an converts it to a glm::Mat4.*/

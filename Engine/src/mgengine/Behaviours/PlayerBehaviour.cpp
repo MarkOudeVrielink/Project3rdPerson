@@ -1,4 +1,4 @@
-#include "PlayerBehaviour.h"
+ #include "PlayerBehaviour.h"
 #include "mge\core\World.hpp"
 #include "AbstractActorBehaviour.h"
 #include "mgengine\Behaviours\BulletBehaviour.h"
@@ -15,39 +15,55 @@
 
 #include "mgengine\Collision\CollisionFilters.h"
 
-PlayerBehaviour::PlayerBehaviour(Mesh* pMesh,AbstractMaterial* pMaterial, float pSpeed) : AbstractActorBehaviour(), _moveSpeed(pSpeed), _mesh(pMesh), _material(pMaterial) 
+
+#include "mge\config.hpp"
+
+
+
+PlayerBehaviour::PlayerBehaviour(float pSpeed) : AbstractActorBehaviour(), _maxSpeed(pSpeed)
 {
 	_spawnOffset			= glm::vec3(0, 0, -3.0f);
+	_force					= glm::vec3(0,0,0);
+	_dashPower				= 2.0f;
+	_doubleTapTime			= 0.75f;
+	_horizontalInput		= 0.0f;
+	_verticalInput			= 0.0f;
+	_acceleration			= 0.06f;
+	_decceleration			= 0.03f;
+
+	_tapCount				= 0;
+	_leftPressed			= false;
+	_rightPressed			= false;
 
 	_invulnerable			= false;
 	_invulnerabilityTime	= 2;
 	_invulnerabilityTimer	= 0;	
 
-	_weaponTimer	= 0;
-	_fireRate		= 0.3f;
-	_fired			= false;
+	_weaponTimer			= 0;
+	_fireRate				= 0.3f;
+	_fired					= false;
 
-	_coolDownTime	= 3;
-	_overheat		= false;
-	_heat			= 0;
-	_timeToOverheat	= 6;
-	_coolDownRate	= 3;
+	_coolDownTime			= 3;
+	_overheat				= false;
+	_heat					= 0;
+	_timeToOverheat			= 6;
+	_coolDownRate			= 3;
 	
-	_charge				= 100;
-	_chargeThreshold	= 50;	
+	_charge					= 100;
+	_chargeThreshold		= 50;	
 
-	_tiltAngle		= 0.3f;
+	_tiltAngle				= 0.3f;
 
-	_score			= 0;	
+	_score					= 0;
+		
 }
 
-PlayerBehaviour::~PlayerBehaviour() {
-
+PlayerBehaviour::~PlayerBehaviour() {	
 }
  
 void PlayerBehaviour::update(float pStep) {	
-	Move();
-	FireWeapon(pStep);	
+	Move(pStep);
+	FireWeapon(pStep);		
 	
 	if (_invulnerable)
 		IsInvulnerable(pStep);	
@@ -94,7 +110,7 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 void PlayerBehaviour::setup()
 {
 	_playerMaterial = (PlayerMaterial*)_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Player);
-
+		
 	//TODO: remove
 	if (_charge >= _chargeThreshold)
 		_playerMaterial->setCharged(true);
@@ -148,39 +164,120 @@ void PlayerBehaviour::FireWeapon(float pTime)
 	}
 }
 
-void PlayerBehaviour::Move()
-{
-	float moveSpeed = 0.0f;
-	btVector3 force = btVector3(0, 0, 0);
+#pragma region Movement
 
+void PlayerBehaviour::Move(float pDeltaTime)
+{
+	bool horizontalPressed	= false;
+	bool verticalPressed	= false;
+	
+	_checkInput(horizontalPressed, verticalPressed);
+	_checkDoubleTap();
+	_deccelerate(horizontalPressed, verticalPressed);
+	
+	_force = glm::vec3(_horizontalInput, 0, _verticalInput);//TODO: why does it not normalize?
+	_force *= _maxSpeed;
+	
+	_ownerBody->translate(btVector3(_force.x, _force.y, _force.z));
+}
+
+void PlayerBehaviour::_checkInput(bool& h, bool& v)
+{
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		moveSpeed = -_moveSpeed;
-		force += btVector3(0, 0, moveSpeed);	
+		_verticalInput <= -1 ? -1 : _verticalInput -= _acceleration;
+
+		_owner->SetRotation(glm::vec3(1, 0, 0), -_tiltAngle);
+		v = true;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		moveSpeed = _moveSpeed;
-		force += btVector3(0, 0, moveSpeed);			
+		_verticalInput >= 1 ? 1 : _verticalInput += _acceleration;
+
+		_owner->SetRotation(glm::vec3(1, 0, 0), _tiltAngle);
+		v = true;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		moveSpeed = _moveSpeed;
-		force += btVector3(moveSpeed, 0, 0);
-		
-		_owner->SetRotation(glm::vec3(0, 0, 1), -_tiltAngle);	
+		_horizontalInput >= 1 ? 1 : _horizontalInput += _acceleration;
+
+		_owner->SetRotation(glm::vec3(0, 0, 1), -_tiltAngle);
+		_rightPressed = true;
+		h = true;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		moveSpeed = -_moveSpeed;
-		force += btVector3(moveSpeed, 0, 0);
-		
-		_owner->SetRotation(glm::vec3(0, 0, 1), _tiltAngle);		
-	}	
-	_ownerBody->translate(force / 25);
+		_horizontalInput <= -1 ? -1 : _horizontalInput -= _acceleration;
+
+		_owner->SetRotation(glm::vec3(0, 0, 1), _tiltAngle);
+		_leftPressed = true;
+		h = true;
+	}
 }
+
+void PlayerBehaviour::_deccelerate(bool h, bool v)
+{
+	/*If either the horizontal or vertical input is not being pressed we start deccelerating.*/
+	if (!h) {
+		_horizontalInput > 0 ? _horizontalInput -= _decceleration : 0;
+		_horizontalInput < 0 ? _horizontalInput += _decceleration : 0;
+	}
+	if (!v) {
+		_verticalInput > 0 ? _verticalInput -= _decceleration : 0;
+		_verticalInput < 0 ? _verticalInput += _decceleration : 0;
+	}
+}
+
+void PlayerBehaviour::_checkDoubleTap()
+{
+	int tapDirection = 0;
+
+	/*Check for key releases.*/
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && _rightPressed) {
+		_rightPressed = false;
+		tapDirection = 1;
+
+		_tapClock = 0;
+		_tapCount += 1;
+	}
+
+	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && _leftPressed) {
+		_leftPressed = false;
+		tapDirection = -1;
+
+		_tapClock = 0;
+		_tapCount += 1;
+	}
+
+	/*Start a counter at one tap.*/
+	if (_tapCount >= 1) {
+		_tapClock += 0.05f;
+		
+		/*Check if we tapped a second time within the timeframe.*/
+		if (_tapClock <= _doubleTapTime && _tapCount >= 2) {
+			_tapClock = 0;
+			_tapCount = 0;
+			
+			/*Check tap direction and set movement according to it.*/
+			if (tapDirection == 1) {
+				_horizontalInput = _dashPower;
+			}
+			else if (tapDirection == -1) {
+				_horizontalInput = -_dashPower;
+			}
+			//TODO: barrel roll
+		}
+
+		if (_tapClock > _doubleTapTime) {
+			_tapClock = 0;
+			_tapCount = 0;
+		}
+	}	
+}
+
+#pragma endregion
 
 void PlayerBehaviour::IsInvulnerable(float pTime)
 {	
 	_invulnerabilityTimer += pTime;
 	if (_invulnerabilityTimer < _invulnerabilityTime) {
-		_ownerBody->setCollisionFlags(_ownerBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+		_ownerBody->setCollisionFlags(_ownerBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);//TODO:: change
 		_playerMaterial->setInvulnerable(true);
 	} else {
 		_ownerBody->setCollisionFlags(_defaultFlags);		
@@ -199,7 +296,7 @@ void PlayerBehaviour::SpawnBullet(float pBulletPower)
 	bullet->scale(glm::vec3(10, 10, 10));
 	bullet->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Bullet));
 	bullet->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Bullet));
-	bullet->setActorBehaviour(new BulletBehaviour(0.8f, pBulletPower, 1));
+	bullet->setActorBehaviour(new BulletBehaviour(1.4f, pBulletPower, 1));
 	_owner->getWorld()->add(bullet);	
 }
 
