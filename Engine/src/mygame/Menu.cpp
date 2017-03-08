@@ -110,6 +110,7 @@ void Menu::ToMenu()
 	{
 		delete _objManager;
 		_objManager = NULL;
+		if(player)
 		delete player;
 		player = NULL;
 	}

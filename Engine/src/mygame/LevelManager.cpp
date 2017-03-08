@@ -89,7 +89,7 @@ void LevelManager::StartGameFromMenu()
 }
 void LevelManager::InitializeBackground()
 {
-	_backgroundPlane = new GameObject("background plane", glm::vec3(0, 0, 0));
+	_backgroundPlane = new GameObject("background plane", glm::vec3(0, -500, 0));
 	//_backgroundPlane->scale(glm::vec3(40, 40, 40));
 	_backgroundPlane->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
 	_backgroundPlane->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround));

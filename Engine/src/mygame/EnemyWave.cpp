@@ -135,7 +135,10 @@ void EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
 			break;
 		}
 		//Max points in Camera screen/Pixels*position of waypoint in screen-half the Max points in camera screen
-		glm::vec3 pos = _wayPoints.at(0)->getWorldPos();
+		glm::vec3 pos;
+		if(_wayPoints.at(0) != NULL)
+		 pos = _wayPoints.at(0)->getWorldPos();
+		else 	pos = glm::vec3(0, 0, 0);
 		glm::vec3 stepMovingMain = glm::vec3(0, 0, 0);
 		if (_mainWaypointDirection != NULL) {
 			float lengthMovingWaypoint = glm::length(_mainWaypointDirection->getWorldPos() - pos);
@@ -189,10 +192,11 @@ void EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
 			Boss->setEnemyType(_enemyType);
 			Enemy1->SetHealth(_health);
 			Enemy1->setActorBehaviour(Boss);
+			Boss->setup();
 
 		//	Boss->SaveOriginalTransform()
 		}
-		//Enemy1->scale(glm::vec3(2, 2, 2));
+		Enemy1->scale(glm::vec3(1.5, 1.5, 1.5));
 		cout << "Scale set" << endl;
 		pWaveParent->add(Enemy1);
 		cout << "Parent added" << endl;

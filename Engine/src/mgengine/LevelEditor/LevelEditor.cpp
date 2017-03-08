@@ -241,6 +241,7 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 			enemyTypeBox->addItem("Potato");
 			enemyTypeBox->addItem("Pizza");
 			enemyTypeBox->addItem("Muffin");
+			enemyTypeBox->addItem("Boss");
 			enemyTypeBox->setSelectedItem("Sandwich");
 			layout6->add(enemyTypeBox);
 		#pragma endregion end of 6

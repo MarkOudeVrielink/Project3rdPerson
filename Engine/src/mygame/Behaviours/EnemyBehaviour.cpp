@@ -110,6 +110,7 @@ void EnemyBehaviour::OnCollision(Actor * pOther)
 void EnemyBehaviour::setup()
 {
 	_enemyMaterial = (EnemyMaterial*)_owner->getMaterial();
+	_ownerBody->setCollisionFlags(_ownerBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
 }
 
 void EnemyBehaviour::UpdateEditorMode(float pStep)
@@ -202,9 +203,9 @@ void EnemyBehaviour::AiBasic(float pStep)
 	btScalar dZ = pos.z - target.z;
 	_angle = atan2(dX, dZ);
 
-	if (_wayPoints->size() >= (float)_index) {
+	//if (_wayPoints->size() >= (float)_index) {
 		_owner->SetRotation(glm::vec3(0,1,0), _angle);
-	}
+	//}
 
 	glm::vec2 delta = glm::vec2(target.x, target.z) - glm::vec2(pos.x, pos.z);
 	
