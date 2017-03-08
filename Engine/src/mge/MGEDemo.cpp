@@ -15,8 +15,12 @@ using namespace std;
 
 #include "mge/materials/ColorMaterial.hpp"
 #include "mge/materials/TextureMaterial.hpp"
+
+#include "mgengine\Materials\PlayerMaterial.h"
+
 #include "mgengine/Materials/PlayerMaterial.h"
 #include "mgengine/Materials/EnemyMaterial.h"
+
 
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/behaviours/KeysBehaviour.hpp"
@@ -50,7 +54,6 @@ using namespace std;
 #include "mgengine\Resources\ResourceHolder.h"
 #include "mgengine\Resources\ResourceIdentifiers.h"
 
-#include "mygame\Menu.h"
 
 sf::Clock timer;
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
@@ -84,19 +87,23 @@ void MGEDemo::_initializeScene()
 	_levelEditor->InitializeHud(&_gui);
 	_levelEditor->setActive(false);
 
-	Menu *menuScreen = new Menu(_world, _levelEditor);
+	//Menu *menuScreen = new Menu(_world, _levelEditor);
+	
+	_menuScreen = new Menu(_world,_window);
+
 	GameObject *MenuObject = new GameObject("Menu", glm::vec3(0, 0, 0));
-	MenuObject->setBehaviour(menuScreen);
+	MenuObject->setBehaviour(_menuScreen);
 	_world->add(MenuObject);
-
-	menuScreen->InitializeMenu(&_gui);
-
+	_menuScreen->InitializeMenu(&_gui);
+	
+	//menuScreen->InitializeMenu(&_gui);
+	   
 	//_meshLoadingThread.launch();
 	//_materialLoadingThread.launch();
-
+	
 	LoadMeshes();
 	LoadMaterials();
-	
+		
 	_world->GetResourceManager()->PlayMusic(Music::MenuTheme);
 	_world->GetResourceManager()->SetVolume(30.0f);
 	
@@ -155,6 +162,11 @@ void MGEDemo::LoadMeshes()
 	_world->GetResourceManager()->loadMesh(Meshes::PickUp, config::MGE_MODEL_PATH + "PickUp(AirFreshner).obj");
 	_world->GetResourceManager()->loadMesh(Meshes::Explosion, config::MGE_MODEL_PATH + "Explosion.obj");
 	_world->GetResourceManager()->loadMesh(Meshes::Bullet, config::MGE_MODEL_PATH + "lazer.obj");
+	
+	_world->GetResourceManager()->loadMesh(Meshes::BackGround, config::MGE_MODEL_PATH + "Backgroundsingle.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Planet, config::MGE_MODEL_PATH + "Planet.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Meteor, config::MGE_MODEL_PATH + "meteor.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::MeteorTrail, config::MGE_MODEL_PATH + "meteor_with_trail.obj");
 
 	//_meshLock.unlock();
 	std::cout << "<==================================>" << std::endl;
@@ -184,6 +196,11 @@ void MGEDemo::LoadMaterials()
 	_world->GetResourceManager()->loadMaterial(Materials::Explosion, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Explosion_Texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Bullet, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "laser.png")));
 
+	_world->GetResourceManager()->loadMaterial(Materials::BackGround, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "FB2.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Planet, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Planet_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Meteor, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Meteor_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::MeteorTrail, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Meteor_with_trail_texture.png")));
+
 	_world->GetResourceManager()->loadMaterial(Materials::Enemy, new ColorMaterial(glm::vec3(0.2f, 0, 0.5f)));
 
 	//_materialLock.unlock();
@@ -196,11 +213,16 @@ void MGEDemo::LoadMaterials()
 void MGEDemo::_updateHud() {
 	string debugInfo = "";
 	debugInfo += string("FPS:") + std::to_string((int)_fps) + "\n";
-
+	
 	_hud->setDebugInfo(debugInfo);
 	_hud->draw();
 	if (_levelEditor->getActive())
 		_levelEditor->DrawUI();
+
+    _hud->setDebugInfo(debugInfo);
+    _hud->draw();
+	_menuScreen->UpdateHUD();
+
 }
 
 MGEDemo::~MGEDemo()

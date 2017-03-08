@@ -6,11 +6,14 @@
 #include <GL/glew.h>
 #include <cassert>
 #include <string> 
+
 using namespace std;
-Waypoint::Waypoint(sf::Vector2f pWayPos, int pOrderInList, int pWaveIndex, sf::RenderWindow* pWindow):_waypointPosition(pWayPos),_orderInList(pOrderInList), _waveIndex(pWaveIndex)
+Waypoint::Waypoint(glm::vec3 pWorldWayPos, sf::Vector2f pScreenWayPos, int pOrderInList, int pWaveIndex, sf::RenderWindow* pWindow)
+	:_worldWaypointPosition(pWorldWayPos),_screenWaypointPosition(pScreenWayPos),_orderInList(pOrderInList), _waveIndex(pWaveIndex)
 {
 	_window = pWindow;
 	_createDebugInfo();
+	cout << pWorldWayPos.x << endl;
 }
 
 Waypoint::~Waypoint()
@@ -42,15 +45,37 @@ void Waypoint::SecondaryWaypoint()
 	else shape.setFillColor(sf::Color(30, 144, 255));//Light Blue
 	shape.setRadius(5);
 }
-
-sf::Vector2f Waypoint::getPosition()
+sf::RenderWindow * Waypoint::getRenderWindow()
 {
-	return (sf::Vector2f)_waypointPosition;
+	return _window;
 }
-sf::Vector2f Waypoint::getWorldPos()
+sf::Vector2f Waypoint::getScreenPosition()
 {
+	return (sf::Vector2f)_screenWaypointPosition;
+}
+//Expensive(?)
+glm::vec3 Waypoint::getWorldPos()
+{
+	/*
+	sf::Vector2u windowSize = _window->getSize();
+	glm::vec2 mousePosRelativeToScreenCenter = glm::vec2(
+		(float)_screenWaypointPosition.x - (windowSize.x / 2),
+		(float)-_screenWaypointPosition.y + (windowSize.y / 2)
+	);
+	float nearPlane = 0.1f;     //taken from Camera.hpp
+	float verticalFOV = 45.0f;  //taken from Camera.hpp
+	float nearPlaneHeight = 2 * nearPlane * tan(glm::radians(verticalFOV / 2.0f));
+	float ratio = nearPlaneHeight / windowSize.y;
 
-	return sf::Vector2f (192.0f / 1920 * _waypointPosition.x - 96,  108.0f / 1080 * _waypointPosition.y - 54);
+	glm::vec4 rayNearPlane = glm::vec4(
+		mousePosRelativeToScreenCenter.x * ratio,
+		mousePosRelativeToScreenCenter.y * ratio,
+		-nearPlane,
+		0
+	);
+	glm::vec3 rayWorld = glm::normalize(glm::vec3(_camera->getWorldTransform() * rayNearPlane));
+	*/
+	return _worldWaypointPosition;
 }
 
 void Waypoint::_createDebugInfo()
@@ -60,7 +85,7 @@ void Waypoint::_createDebugInfo()
 		
 	}
 
-	shape.setPosition((sf::Vector2f)_waypointPosition);
+	shape.setPosition((sf::Vector2f)_screenWaypointPosition);
 	_debugText = sf::Text();
 	shape.setRadius(5);
 
@@ -75,5 +100,5 @@ void Waypoint::_createDebugInfo()
 	_debugInfo = std::to_string(_orderInList )+ "\n W: "+ std::to_string(_waveIndex);
 	_debugText.setString(_debugInfo);
 
-	_debugText.setPosition((sf::Vector2f)_waypointPosition);
+	_debugText.setPosition((sf::Vector2f)_screenWaypointPosition);
 }

@@ -53,13 +53,34 @@ LevelEditorBehaviour::LevelEditorBehaviour(sf::RenderWindow *pWindow, World *pWo
 		}
 
 	}
-	StartGame();
-
+	setReferenceWorld();
+	
 	//LoadLevelInitialize();
 
 }
 LevelEditorBehaviour::~LevelEditorBehaviour()
 {
+	/*if (_currentLevel) {
+		delete _currentLevel;
+		_currentLevel = NULL;
+	}
+	*/
+	_currentLevel = NULL;
+	for (auto level : _levels)
+	{
+		if(level!= NULL)
+		delete level;
+		level = NULL;
+	}
+
+	if (_window)
+		_window = nullptr;
+	
+
+	if (_world) {
+		// _world;
+		_world = NULL;
+	}
 }
 
 
@@ -237,6 +258,8 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 
 			behaviourBox = tgui::ComboBox::create();
 			behaviourBox->addItem("Default");
+			behaviourBox->addItem("Kamikase");
+			behaviourBox->addItem("Boss");
 			behaviourBox->setSelectedItem("Default");
 			layout7->add(behaviourBox);
 		#pragma endregion end of 7
@@ -380,7 +403,7 @@ void LevelEditorBehaviour::UpdateGUIData()
 		_currentLevel->getCurrentWave()->setEnemyType(Materials::ID((int)checkComboBox(enemyTypeBox)));//TODO: Add enemies types in waves
 	}
 	if (checkComboBox(behaviourBox) != -1) {
-		//_currentLevel->getCurrentWave()->setShootRatio(checkComboBox(behaviourBox));//TODO: Add enemies behaviour in waves
+		_currentLevel->getCurrentWave()->setEnemyBehaviour(checkComboBox(behaviourBox));//TODO: Add enemies behaviour in waves
 	}
 	if (checkTextInBox(healthBox) != -1) {
 		_currentLevel->getCurrentWave()->setHealth(checkTextInBox(healthBox));//TODO: Add enemies health in waves
@@ -392,13 +415,14 @@ void LevelEditorBehaviour::UpdateGUIDataAtWaveChange()
 	setBoxDefault(timeStartBox, *_currentLevel->getCurrentWave()->getStartTime());
 	setBoxDefault(speedBox, *_currentLevel->getCurrentWave()->getSpeed());
 	setBoxDefault(shootRBox2, *_currentLevel->getCurrentWave()->getShootRatio());
-	cout << *_currentLevel->getCurrentWave()->getShootRatio() << endl;
-	cout << *_currentLevel->getCurrentWave()->getShootRatio() << endl;
-	cout << *_currentLevel->getCurrentWave()->getShootRatio() << endl;
-	cout << *_currentLevel->getCurrentWave()->getShootRatio() << endl;
+	//cout << *_currentLevel->getCurrentWave()->getShootRatio() << endl;
+	//cout << *_currentLevel->getCurrentWave()->getShootRatio() << endl;
+	//cout << *_currentLevel->getCurrentWave()->getShootRatio() << endl;
+	//cout << *_currentLevel->getCurrentWave()->getShootRatio() << endl;
 	setBoxDefault(healthBox, *_currentLevel->getCurrentWave()->getHealth());
 	setBoxDefault(delayBetweenEBox, *_currentLevel->getCurrentWave()->getDelayBetweenEnemies());
 	setComboBoxDefault(enemyTypeBox, *_currentLevel->getCurrentWave()->getEnemyType());
+	setComboBoxDefault(behaviourBox, *_currentLevel->getCurrentWave()->getEnemyBehaviour());
 	//setBoxDefault(timeStartBox, *_currentLevel->getCurrentWave()->getStartTime());
 	//TODO:: ADD End Time per wave
 	//DONE: Add speed in waves
@@ -442,7 +466,7 @@ void LevelEditorBehaviour::NextWave()
 {
 	_currentLevel->NextEnemyWave();
 	_currentWave = _currentLevel->getIndexWave();
-	cout << _currentWave << endl;
+	//cout << _currentWave << endl;
 	UpdateGUIDataAtWaveChange();
 }
 void LevelEditorBehaviour::PrevWave()
@@ -503,7 +527,7 @@ void LevelEditorBehaviour::NewLevel()
 	_levels.push_back(new Level(_window));
 	_indexLevel++;
 	_currentLevel = _levels.at(_indexLevel);
-	_currentLevel->ReferenceWorld(_world);
+	_currentLevel->ReferenceWorld(_world, _owner);
 	_currentWave = _currentLevel->getIndexWave();
 	cout << _levels.size() << "<waves size " << endl;
 
@@ -511,12 +535,13 @@ void LevelEditorBehaviour::NewLevel()
 }
 #pragma endregion
 #pragma endregion
-void LevelEditorBehaviour::StartGame()
+void LevelEditorBehaviour::setReferenceWorld()
 {
-	_currentLevel->ReferenceWorld(_world);
+	_currentLevel->ReferenceWorld(_world, _owner);
 }
 void LevelEditorBehaviour::update(float pStep)
 {
+	//Keyboard shortcut for saving and loading levels
 	CheckSaveLevel();
 	CheckLoadLevel();
 
@@ -528,11 +553,11 @@ void LevelEditorBehaviour::update(float pStep)
 	}
 	else
 	{
-		_secReferenceScrollBar = _scrollBar / 60.0f;
+		_secReferenceScrollBar = _scrollBar;
 		_currentLevel->RunLevel(&_secReferenceScrollBar);
 	}
 	_currentSnapTime = _secReferenceScrollBar;//Todo improve
-	UpdateScrolling();
+	UpdateScrolling(pStep);
 	UpdateWaveSelection();
 	UpdateWaypointCreation();
 	UpdateStartLevelPreview();
@@ -552,31 +577,32 @@ void LevelEditorBehaviour::DrawUI()
 //Draw Blue rectangles at the sides
 void LevelEditorBehaviour::DrawGrid()
 {
-	sf::Vertex line[] =
-	{
-		sf::Vertex(sf::Vector2f(400, -10000)),
-		sf::Vertex(sf::Vector2f(400, 1080)),
-		sf::Vertex(sf::Vector2f(1520,-10000)),
-		sf::Vertex(sf::Vector2f(1520, 1080))
-	};
-	_window->pushGLStates();
-	_window->draw(line, 4, sf::Lines);
-	_window->popGLStates();
+	if (_window != NULL) {
+		sf::Vertex line[] =
+		{
+			sf::Vertex(sf::Vector2f(400, -10000)),
+			sf::Vertex(sf::Vector2f(400, 1080)),
+			sf::Vertex(sf::Vector2f(1520,-10000)),
+			sf::Vertex(sf::Vector2f(1520, 1080))
+		};
+		_window->pushGLStates();
+		_window->draw(line, 4, sf::Lines);
+		_window->popGLStates();
 
-	sf::RectangleShape rectangle;
-	rectangle.setSize(sf::Vector2f(400, 10000));
-	rectangle.setFillColor(sf::Color(0, 141, 250, 100));
-	rectangle.setOutlineThickness(1);
-	rectangle.setPosition(0, 0);
-	draw(rectangle);
+		sf::RectangleShape rectangle;
+		rectangle.setSize(sf::Vector2f(400, 10000));
+		rectangle.setFillColor(sf::Color(0, 141, 250, 100));
+		rectangle.setOutlineThickness(1);
+		rectangle.setPosition(0, 0);
+		draw(rectangle);
 
-	sf::RectangleShape rectangle2;
-	rectangle2.setSize(sf::Vector2f(400, 10000));
-	rectangle2.setFillColor(sf::Color(0, 141, 250, 100));
-	rectangle2.setOutlineThickness(1);
-	rectangle2.setPosition(1520, 0);
-	draw(rectangle2);
-
+		sf::RectangleShape rectangle2;
+		rectangle2.setSize(sf::Vector2f(400, 10000));
+		rectangle2.setFillColor(sf::Color(0, 141, 250, 100));
+		rectangle2.setOutlineThickness(1);
+		rectangle2.setPosition(1520, 0);
+		draw(rectangle2);
+	}
 }
 //Draw the current SnapTime of the level
 void LevelEditorBehaviour::DrawReferenceGrid()
@@ -605,21 +631,51 @@ void LevelEditorBehaviour::DrawReferenceGrid()
 #pragma endregion
 #pragma region Update Specific Methods
 //Scrolling method of the preview of the level editor game
-void LevelEditorBehaviour::UpdateScrolling()
+glm::vec3 LevelEditorBehaviour::getScreenToWorldPos(sf::Vector2f pScreenPos)
 {
+	sf::Vector2u windowSize = _window->getSize();
+	glm::vec2 mousePosRelativeToScreenCenter = glm::vec2(
+		(float)pScreenPos.x - (windowSize.x / 2),
+		(float)-pScreenPos.y + (windowSize.y / 2)
+	);
+	float nearPlane = 0.1f;     //taken from Camera.hpp
+	float verticalFOV = 60.0f;  //taken from Camera.hpp
+	float nearPlaneHeight = 2 * nearPlane * tan(glm::radians(verticalFOV / 2.0f));
+	float ratio = nearPlaneHeight / windowSize.y;
+
+	glm::vec4 rayNearPlane = glm::vec4(
+		mousePosRelativeToScreenCenter.x * ratio,
+		mousePosRelativeToScreenCenter.y * ratio,
+		-nearPlane,
+		0
+	);
+
+	glm::vec3 rayWorld = glm::normalize(glm::vec3(_world->getMainCamera()->getWorldTransform() * rayNearPlane))*100;
+	cout << rayWorld.x << "x RAYCAST" << endl;
+	return rayWorld;
+}
+void LevelEditorBehaviour::UpdateScrolling(float pstep)
+{
+	
 	if (_autoScroll)
 	{
-		_scrollBar += _scrollSpeed;
+		_scrollBar += _levelEditorTime.restart().asSeconds();
 
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 	{
-		_scrollBar += _scrollSpeed;
+		_scrollBar += _levelEditorTime.restart().asSeconds();
+		if (!referenceToWorldCheck) {
+			setReferenceWorld();
+			referenceToWorldCheck = true;
+		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 	{
-		_scrollBar -= _scrollSpeed;
+		_scrollBar -= _levelEditorTime.restart().asSeconds();
 	}
+	else
+		_levelEditorTime.restart();
 
 	if (!_autoScroll && sf::Keyboard::isKeyPressed(sf::Keyboard::P) && !_scrollKeyPressed)
 	{
@@ -641,14 +697,29 @@ void LevelEditorBehaviour::UpdateWaypointCreation()
 {
 	if (sf::Mouse::getPosition().x > 400 && sf::Mouse::getPosition().x < 1520 && _window->isOpen())//check if we are in screen and just if window is open
 	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))//Check if click
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::U))//Check if click
 		{
 			if (!_mousePressed) {//If we weren´t clicking before then add waypoint
 				sf::RenderWindow &window = *_window;
+				sf::Vector2f pixelPos =(sf::Vector2f) sf::Mouse::getPosition(window);			
+				sf::Vector2f screenPos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
-				sf::Vector2i pixelPos = sf::Mouse::getPosition(window);
-				sf::Vector2f worldPos = window.mapPixelToCoords(pixelPos);
-				_currentLevel->CreateWaypoint(worldPos, _currentSnapTime);
+				glm::vec3 worldPos = getScreenToWorldPos(screenPos);
+				_currentLevel->CreateWaypoint(worldPos, screenPos, _currentSnapTime);
+				//cout << "Mouse x: " << sf::Mouse::getPosition(window).x << "Mouse y: " << sf::Mouse::getPosition(window).y << endl;
+			}
+			_mousePressed = true; //save that we just pressed the mouse
+		}
+		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::U)){
+			if (!_mousePressed) {//If we weren´t clicking before then add waypoint
+				sf::RenderWindow &window = *_window;
+
+				sf::Vector2f pixelPos = (sf::Vector2f) sf::Mouse::getPosition(window);
+
+				sf::Vector2f screenPos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+
+				glm::vec3 worldPos = getScreenToWorldPos(screenPos);
+				_currentLevel->CreateMainWaypointMoveDirection(worldPos, screenPos, _currentSnapTime);
 				//cout << "Mouse x: " << sf::Mouse::getPosition(window).x << "Mouse y: " << sf::Mouse::getPosition(window).y << endl;
 			}
 			_mousePressed = true; //save that we just pressed the mouse
@@ -661,7 +732,7 @@ void LevelEditorBehaviour::UpdateStartLevelPreview()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) && !_gameStarted)
 	{
-		StartGame();
+		setReferenceWorld();
 		_gameStarted = true;
 	}
 	
@@ -729,7 +800,7 @@ void LevelEditorBehaviour::LoadLevel()
 	cout << "Reading XML..." << endl;
 	Level* level = LevelParser::LoadLevel(std::to_string(_indexLevel), _window);
 	_currentLevel = level;
-	_currentLevel->ReferenceWorld(_world);
+	_currentLevel->ReferenceWorld(_world, _owner);
 	_currentWave = _currentLevel->getIndexWave();
 	cout << "Done Reading XML..." << endl;
 
@@ -750,7 +821,7 @@ void LevelEditorBehaviour::LoadLevelInitialize()
 		_levels.push_back(level);
 		_indexLevel = _levels.size() - 1;
 		_currentLevel = _levels.at(_indexLevel);
-		_currentLevel->ReferenceWorld(_world);
+		_currentLevel->ReferenceWorld(_world, _owner);
 		_currentWave = _currentLevel->getIndexWave();
 		cout << "Done Reading XML..."<<_indexLevel << endl;
 		

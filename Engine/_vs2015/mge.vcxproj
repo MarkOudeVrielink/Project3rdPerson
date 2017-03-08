@@ -101,7 +101,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\TGUI-0.7\include;..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(StlIncludeDirectories);..\src\mgengine\Behaviours;..\src\mgengine\LevelEditor;..\src\mgengine\Materials;..\src\mgengine\Parser;..\src\mgengine\Resources;..\src\mgengine\UI;..\src\mgengine\Collision;..\src\mgengine\core;..\src\mgengine\Core;..\src\mge\behaviours;..\src\mge;..\src\mge\core;..\src\mge\materials;..\src\mge\util;..\src\mygame\Behaviours;..\src\mygame;..\_vs2015;..\TGUI-0.7\include;..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -117,7 +117,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;SFML_STATIC;GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\TGUI-0.7\include;..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(StlIncludeDirectories);..\src\mgengine\Behaviours;..\src\mgengine\LevelEditor;..\src\mgengine\Materials;..\src\mgengine\Parser;..\src\mgengine\Resources;..\src\mgengine\UI;..\src\mgengine\Collision;..\src\mgengine\core;..\src\mgengine\Core;..\src\mge\behaviours;..\src\mge;..\src\mge\core;..\src\mge\materials;..\src\mge\util;..\src\mygame\Behaviours;..\src\mygame;..\_vs2015;..\TGUI-0.7\include;..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,7 +135,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\TGUI-0.7\include;..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(StlIncludeDirectories);..\src\mgengine\Behaviours;..\src\mgengine\LevelEditor;..\src\mgengine\Materials;..\src\mgengine\Parser;..\src\mgengine\Resources;..\src\mgengine\UI;..\src\mgengine\Collision;..\src\mgengine\core;..\src\mgengine\Core;..\src\mge\behaviours;..\src\mge;..\src\mge\core;..\src\mge\materials;..\src\mge\util;..\src\mygame\Behaviours;..\src\mygame;..\_vs2015;..\TGUI-0.7\include;..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,7 +155,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;SFML_STATIC;GLEW_STATIC;WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\TGUI-0.7\include;..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(StlIncludeDirectories);..\src\mgengine\Behaviours;..\src\mgengine\LevelEditor;..\src\mgengine\Materials;..\src\mgengine\Parser;..\src\mgengine\Resources;..\src\mgengine\UI;..\src\mgengine\Collision;..\src\mgengine\core;..\src\mgengine\Core;..\src\mge\behaviours;..\src\mge;..\src\mge\core;..\src\mge\materials;..\src\mge\util;..\src\mygame\Behaviours;..\src\mygame;..\_vs2015;..\TGUI-0.7\include;..\bullet_physics\bullet3-2.83.7\src;..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -172,6 +172,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
     <ClInclude Include="..\src\mgengine\Behaviours\VanishBehaviour.h" />
+    <ClInclude Include="..\src\mgengine\Core\Animation.h" />
     <ClInclude Include="..\src\mgengine\LevelEditor\LevelEditor.h" />
     <ClInclude Include="..\src\mgengine\Materials\EnemyMaterial.h" />
     <ClInclude Include="..\src\mgengine\Materials\PlayerMaterial.h" />
@@ -214,8 +215,11 @@
     <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp" />
     <ClInclude Include="..\src\mge\MGEDemo.hpp" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
+    <ClInclude Include="..\src\mygame\Behaviours\AsteroidBehaviour.h" />
+    <ClInclude Include="..\src\mygame\Behaviours\BossBehaviour.h" />
     <ClInclude Include="..\src\mygame\Behaviours\CameraBehaviour.h" />
     <ClInclude Include="..\src\mygame\Behaviours\EnemyBehaviour.h" />
+    <ClInclude Include="..\src\mygame\Behaviours\ParalaxBehaviour.h" />
     <ClInclude Include="..\src\mygame\Behaviours\SpaceShipBehaviour.h" />
     <ClInclude Include="..\src\mygame\Enemy.h" />
     <ClInclude Include="..\src\mygame\EnemyWave.h" />
@@ -228,6 +232,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\mgengine\Behaviours\VanishBehaviour.cpp" />
+    <ClCompile Include="..\src\mgengine\Core\Animation.cpp" />
     <ClCompile Include="..\src\mgengine\LevelEditor\LevelEditor.cpp" />
     <ClCompile Include="..\src\mgengine\Materials\EnemyMaterial.cpp" />
     <ClCompile Include="..\src\mgengine\Materials\PlayerMaterial.cpp" />
@@ -264,8 +269,11 @@
     <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\MGEDemo.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
+    <ClCompile Include="..\src\mygame\Behaviours\AsteroidBehaviour.cpp" />
+    <ClCompile Include="..\src\mygame\Behaviours\BossBehaviour.cpp" />
     <ClCompile Include="..\src\mygame\Behaviours\CameraBehaviour.cpp" />
     <ClCompile Include="..\src\mygame\Behaviours\EnemyBehaviour.cpp" />
+    <ClCompile Include="..\src\mygame\Behaviours\ParalaxBehaviour.cpp" />
     <ClCompile Include="..\src\mygame\Behaviours\SpaceShipBehaviour.cpp" />
     <ClCompile Include="..\src\mygame\Enemy.cpp" />
     <ClCompile Include="..\src\mygame\EnemyWave.cpp" />

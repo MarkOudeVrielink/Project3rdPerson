@@ -11,8 +11,13 @@ public:
 	Level();
 	Level(sf::RenderWindow *pWindow);
 	~Level();
-	void CreateWaypoint(sf::Vector2f pWayPos, float pSec);
-	void ReferenceWorld(World *pWorld);
+	//void CreateWaypoint(sf::Vector2f pWayPos, float pSec);
+	//void CreateWaypoint(sf::Vector3f pWolrdWaypointPos, sf::Vector2f pScreenWayPos, float pSec);
+	void CreateWaypoint(glm::vec3 pWolrdWaypointPos, sf::Vector2f pScreenWayPos, float pSec);
+	void CreateMainWaypointMoveDirection(glm::vec3 pWolrdWaypointPos, sf::Vector2f pScreenWayPos, float pSec);
+	//void ReferenceWorld(World *pWorld);
+	void ReferenceWorld(World * pWorld, GameObject * pParent);
+	void ReferenceToParent(GameObject * pParent);
 	int getIndexWave();
 	bool RunLevel(sf::Time* pTime);
 	bool RunLevel(float* pSec);
@@ -31,6 +36,7 @@ private:
 	EnemyWave* _currentEnemyWave;//Reference to the current wave 
 	sf::RenderWindow* _window;
 	World* _world;
+	GameObject* _gameObjectsParent;
 	std::vector<EnemyWave*> _waves;
 	std::string _LevelName = "Level...";
 	int _indexWave = 0;

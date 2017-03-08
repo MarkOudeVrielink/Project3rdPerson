@@ -10,10 +10,15 @@ public:
 	~EnemyWave();
 	void addWaypoint(Waypoint * pWaypoint, float pSec);
 
+	void addMainWaypointDirection(Waypoint * pWaypoint, float pSec);
+
+	Waypoint * GetMainWaypointDirection();
+
 	void DrawWaypoints();
 	void setAsMainWave();
 	void setAsSecondaryWave();
-	void SpawnEnemy(World * pWorld);
+	void SpawnEnemy(World * pWorld, GameObject * pWaveParent);
+	//void SpawnEnemy(GameObject * pWorld);
 	bool CheckSpawnTimeNextEnemy(float* pSec);
 	void UpdateEditorModePosition(float *pSec);
 	void TestRealTime();
@@ -58,8 +63,9 @@ private:
 	Materials::ID _enemyType = Materials::Enemy;
 	int _enemyBehaviour = 0;
 	float _health = 1;
-
+	Waypoint * _mainWaypointDirection = NULL;
+	bool _mainWave = false;
 	//bool _isMainWave = false;
-
+	
 };
 

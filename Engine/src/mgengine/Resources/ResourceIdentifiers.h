@@ -47,6 +47,9 @@ namespace Meshes {
 		Muffin,
 		Bullet,
 		BackGround,
+		Planet,
+		Meteor,
+		MeteorTrail,
 		PickUp,
 		Explosion
 	};
@@ -64,6 +67,9 @@ namespace Materials {
 		Muffin,
 		Bullet,
 		BackGround,
+		Planet,
+		Meteor,
+		MeteorTrail,
 		PickUp,
 		Explosion
 	};

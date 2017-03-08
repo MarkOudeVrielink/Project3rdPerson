@@ -19,23 +19,36 @@ Level::~Level()
 }
 //TODO:: Add current wave setSize
 //TODO:: Add current wave setDelayBetweenEnemies
-void Level::CreateWaypoint(sf::Vector2f pWayPos, float pSec)
-{
+void Level::CreateWaypoint(glm::vec3 pWolrdWaypointPos, sf::Vector2f pScreenWayPos, float pSec)
+{	
 	//cout << pSec << "Time when adding waypoint" << endl;
-	_waves.at(_indexWave)->addWaypoint(new Waypoint(pWayPos, _currentEnemyWave->getWaypoints()->size(), _indexWave, _window), pSec);
-}
-//Add reference to the world
-void Level::ReferenceWorld(World* pWorld)
-{
-	_world = pWorld;
+	_waves.at(_indexWave)->addWaypoint(new Waypoint(pWolrdWaypointPos,pScreenWayPos, _currentEnemyWave->getWaypoints()->size(), _indexWave, _window), pSec);
 }
 
+void Level::CreateMainWaypointMoveDirection(glm::vec3 pWolrdWaypointPos, sf::Vector2f pScreenWayPos, float pSec)
+{
+	//cout << pSec << "Time when adding waypoint" << endl;
+	_waves.at(_indexWave)->addMainWaypointDirection(new Waypoint(pWolrdWaypointPos, pScreenWayPos,000, _indexWave, _window), pSec);
+
+}
+
+//Add reference to the world
+void Level::ReferenceWorld(World* pWorld, GameObject* pParent)
+{
+	if(this != nullptr)
+	_world = pWorld;
+	_gameObjectsParent = pParent;
+}
+void Level::ReferenceToParent(GameObject* pParent)
+{
+	_gameObjectsParent = pParent;
+}
 int Level::getIndexWave()
 {
 	return _indexWave;
 }
 
-//Return true when all the level waves have been completed
+//Return true when all the level waves have been completed <-ADD
 bool Level::RunLevel(sf::Time* pTime)
 {
 	_currentGameTime = pTime;
@@ -43,7 +56,7 @@ bool Level::RunLevel(sf::Time* pTime)
 	for (auto &enemyWave : _waves)
 	{
 		if (enemyWave->CheckSpawnTimeNextEnemy(&_currentSecInGame))
-			enemyWave->SpawnEnemy(_world);
+			enemyWave->SpawnEnemy(_world,_gameObjectsParent);
 	}
 	return false;
 }
@@ -53,7 +66,7 @@ bool Level::RunLevel(float* pSec)
 	for (auto &enemyWave : _waves)
 	{
 		if (enemyWave->CheckSpawnTimeNextEnemy(pSec))
-			enemyWave->SpawnEnemy(_world);
+			enemyWave->SpawnEnemy(_world, _gameObjectsParent);
 	}
 
 	return false;

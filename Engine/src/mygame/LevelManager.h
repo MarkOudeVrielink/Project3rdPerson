@@ -24,6 +24,12 @@ public:
 
 	void StartGameFromMenu();
 
+	void InitializeBackground();
+
+	void UpdateBAckground();
+
+	void InitializeAsteroids();
+
 	void LoadLevel();
 
 private:
@@ -35,6 +41,11 @@ private:
 	World* _world;
 	sf::Clock _time;
 	bool _startGame = false;
+	GameObject * _backgroundPlane;
+	GameObject * asteroidParent = NULL;
+	GameObject * _planet;
+	vector<GameObject*> _asteroids;
+
 };
 
 

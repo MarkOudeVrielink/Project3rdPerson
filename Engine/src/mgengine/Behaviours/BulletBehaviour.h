@@ -3,8 +3,8 @@
 	
 #include "mgengine\Behaviours\AbstractActorBehaviour.h"
 #include "btBulletDynamicsCommon.h"
-
-enum Direction{Up, Down};
+#include "glm.hpp"
+enum Direction{Up, Down, Custom};
 enum BulletOwner{Player, Enemy};
 
 __declspec(align(16))class BulletBehaviour : public AbstractActorBehaviour {
@@ -18,6 +18,8 @@ public:
 	BulletOwner getOwner();
 	float		getPower();
 	
+	void setBulletDirection(glm::vec3 pDirection);
+	glm::vec3 getBulletDirection();
 	/*To make sure it alligns properly on the heap when dynamically allocating it. Otherwise the compiler cannot guarantee correct memory usage.*/
 	void*	operator new(size_t i)
 	{
@@ -35,6 +37,7 @@ private:
 
 	btVector3 _force;
 
+	glm::vec3 _bulletDirection = glm::vec3(0, 0, 1);
 	Direction _direction;
 	BulletOwner _bulletOwner;	
 };

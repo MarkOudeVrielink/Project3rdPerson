@@ -1,110 +1,399 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\mgengine\LevelEditor\LevelEditor.cpp" />
-    <ClCompile Include="..\src\mgengine\Parser\LevelParser.cpp" />
-    <ClCompile Include="..\src\mgengine\Parser\pugixml.cpp" />
-    <ClCompile Include="..\src\mgengine\Resources\ResourceHolder.cpp" />
-    <ClCompile Include="..\src\mgengine\Resources\ResourceManager.cpp" />
-    <ClCompile Include="..\src\mgengine\Resources\SoundPlayer.cpp" />
-    <ClCompile Include="..\src\mgengine\UI\ImageBehaviour.cpp" />
-    <ClCompile Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.cpp" />
-    <ClCompile Include="..\src\mgengine\Behaviours\ActorEnemyBehaviour.cpp" />
-    <ClCompile Include="..\src\mgengine\Behaviours\PlayerBehaviour.cpp" />
-    <ClCompile Include="..\src\mgengine\Behaviours\BulletBehaviour.cpp" />
-    <ClCompile Include="..\src\mgengine\Behaviours\PickUpBehaviour.cpp" />
-    <ClCompile Include="..\src\mgengine\Collision\CollisionManager.cpp" />
-    <ClCompile Include="..\src\mgengine\core\Actor.cpp" />
-    <ClCompile Include="..\src\mgengine\Core\ControlledActor.cpp" />
-    <ClCompile Include="..\src\mgengine\Core\ObjectActor.cpp" />
-    <ClCompile Include="..\src\mge\behaviours\AbstractBehaviour.cpp" />
-    <ClCompile Include="..\src\mge\behaviours\KeysBehaviour.cpp" />
-    <ClCompile Include="..\src\mge\behaviours\LookAt.cpp" />
-    <ClCompile Include="..\src\mge\behaviours\OrbitBehaviour.cpp" />
-    <ClCompile Include="..\src\mge\behaviours\RotatingBehaviour.cpp" />
-    <ClCompile Include="..\src\mge\core\AbstractGame.cpp" />
-    <ClCompile Include="..\src\mge\core\Camera.cpp" />
-    <ClCompile Include="..\src\mge\core\GameObject.cpp" />
-    <ClCompile Include="..\src\mge\core\Mesh.cpp" />
-    <ClCompile Include="..\src\mge\core\Renderer.cpp" />
-    <ClCompile Include="..\src\mge\core\ShaderProgram.cpp" />
-    <ClCompile Include="..\src\mge\core\Texture.cpp" />
-    <ClCompile Include="..\src\mge\core\World.cpp" />
-    <ClCompile Include="..\src\mge\materials\AbstractMaterial.cpp" />
-    <ClCompile Include="..\src\mge\materials\ColorMaterial.cpp" />
-    <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />
-    <ClCompile Include="..\src\mge\MGEDemo.cpp" />
-    <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
-    <ClCompile Include="..\src\mygame\Behaviours\CameraBehaviour.cpp" />
-    <ClCompile Include="..\src\mygame\Behaviours\EnemyBehaviour.cpp" />
-    <ClCompile Include="..\src\mygame\Behaviours\SpaceShipBehaviour.cpp" />
-    <ClCompile Include="..\src\mygame\Enemy.cpp" />
-    <ClCompile Include="..\src\mygame\EnemyWave.cpp" />
-    <ClCompile Include="..\src\mygame\Level.cpp" />
-    <ClCompile Include="..\src\mygame\LevelManager.cpp" />
-    <ClCompile Include="..\src\mygame\Menu.cpp" />
-    <ClCompile Include="..\src\mygame\Waypoint.cpp" />
-    <ClCompile Include="EMPTY.cpp" />
-    <ClCompile Include="MusicPlayer.cpp" />
-    <ClCompile Include="..\src\mgengine\Materials\PlayerMaterial.cpp" />
-    <ClCompile Include="..\src\mgengine\Behaviours\VanishBehaviour.cpp" />
-    <ClCompile Include="..\src\mgengine\Materials\EnemyMaterial.cpp" />
+    <Filter Include="src">
+      <UniqueIdentifier>{81a04630-4025-4009-bc8e-8e07623380a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mgengine\Behaviours">
+      <UniqueIdentifier>{f5e6a2a8-7cb2-4102-9a11-31dc44ecc0bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mgengine">
+      <UniqueIdentifier>{43ada692-6d11-427f-91a5-eb2cb645ecf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mgengine\LevelEditor">
+      <UniqueIdentifier>{98c91432-0103-45b0-b082-a01441c981d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mgengine\Materials">
+      <UniqueIdentifier>{7431d432-8e7f-4094-baf8-9ef923d9deff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mgengine\Parser">
+      <UniqueIdentifier>{353de051-015d-4b98-8642-d36a06511cbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mgengine\Resources">
+      <UniqueIdentifier>{fad4c408-1510-4f5f-85ae-222b9c6fcbcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mgengine\UI">
+      <UniqueIdentifier>{91a96233-ef83-4a79-a230-4af64f3df6ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mgengine\Collision">
+      <UniqueIdentifier>{17786114-fc84-4ee1-82e8-a22de12c93e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mgengine\core">
+      <UniqueIdentifier>{51c4798b-b3d5-4289-aed0-35aa62c308cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mgengine\Core">
+      <UniqueIdentifier>{02abff83-8575-4616-9e8f-e5afe6f50a4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mge\behaviours">
+      <UniqueIdentifier>{f32c5b38-d00b-444c-9fc4-254d2d1f3d38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mge">
+      <UniqueIdentifier>{04d73e62-d79e-412f-a106-dce852c6481c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mge\core">
+      <UniqueIdentifier>{267f2551-15db-4277-a4c3-8e18a6bf58a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mge\materials">
+      <UniqueIdentifier>{16f4ef70-1df0-4b0a-85a1-d72a0a23fe7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mge\util">
+      <UniqueIdentifier>{1e287831-b096-419a-85c1-7de5a93db906}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mygame\Behaviours">
+      <UniqueIdentifier>{c0878ea9-fa0a-4f0e-846e-246d9183c911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\mygame">
+      <UniqueIdentifier>{04780818-9ebb-4b55-8ad8-4f69e240d827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_vs2015">
+      <UniqueIdentifier>{46969cb8-2290-4677-872c-bee9ed979bde}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\glm.hpp" />
-    <ClInclude Include="..\src\mgengine\LevelEditor\LevelEditor.h" />
-    <ClInclude Include="..\src\mgengine\Parser\LevelParser.h" />
-    <ClInclude Include="..\src\mgengine\Parser\pugiconfig.hpp" />
-    <ClInclude Include="..\src\mgengine\Parser\pugixml.hpp" />
-    <ClInclude Include="..\src\mgengine\Resources\MusicPlayer.h" />
-    <ClInclude Include="..\src\mgengine\Resources\ResourceHolder.h" />
-    <ClInclude Include="..\src\mgengine\Resources\ResourceIdentifiers.h" />
-    <ClInclude Include="..\src\mgengine\Resources\ResourceManager.h" />
-    <ClInclude Include="..\src\mgengine\Resources\SFMLResourceHolder.h" />
-    <ClInclude Include="..\src\mgengine\Resources\SoundPlayer.h" />
-    <ClInclude Include="..\src\mgengine\UI\ImageBehaviour.h" />
-    <ClInclude Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.h" />
-    <ClInclude Include="..\src\mgengine\Behaviours\ActorEnemyBehaviour.h" />
-    <ClInclude Include="..\src\mgengine\Behaviours\PlayerBehaviour.h" />
-    <ClInclude Include="..\src\mgengine\Behaviours\BulletBehaviour.h" />
-    <ClInclude Include="..\src\mgengine\Behaviours\PickUpBehaviour.h" />
-    <ClInclude Include="..\src\mgengine\Collision\CollisionFilters.h" />
-    <ClInclude Include="..\src\mgengine\Collision\CollisionManager.h" />
-    <ClInclude Include="..\src\mgengine\core\Actor.h" />
-    <ClInclude Include="..\src\mgengine\Core\ControlledActor.h" />
-    <ClInclude Include="..\src\mgengine\Core\ObjectActor.h" />
-    <ClInclude Include="..\src\mge\behaviours\AbstractBehaviour.hpp" />
-    <ClInclude Include="..\src\mge\behaviours\KeysBehaviour.hpp" />
-    <ClInclude Include="..\src\mge\behaviours\LookAt.hpp" />
-    <ClInclude Include="..\src\mge\behaviours\OrbitBehaviour.h" />
-    <ClInclude Include="..\src\mge\behaviours\RotatingBehaviour.hpp" />
-    <ClInclude Include="..\src\mge\config.hpp" />
-    <ClInclude Include="..\src\mge\core\AbstractGame.hpp" />
-    <ClInclude Include="..\src\mge\core\Camera.hpp" />
-    <ClInclude Include="..\src\mge\core\GameObject.hpp" />
-    <ClInclude Include="..\src\mge\core\Mesh.hpp" />
-    <ClInclude Include="..\src\mge\core\Renderer.hpp" />
-    <ClInclude Include="..\src\mge\core\ShaderProgram.hpp" />
-    <ClInclude Include="..\src\mge\core\Texture.hpp" />
-    <ClInclude Include="..\src\mge\core\World.hpp" />
-    <ClInclude Include="..\src\mge\materials\AbstractMaterial.hpp" />
-    <ClInclude Include="..\src\mge\materials\ColorMaterial.hpp" />
-    <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp" />
-    <ClInclude Include="..\src\mge\MGEDemo.hpp" />
-    <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
-    <ClInclude Include="..\src\mygame\Behaviours\CameraBehaviour.h" />
-    <ClInclude Include="..\src\mygame\Behaviours\EnemyBehaviour.h" />
-    <ClInclude Include="..\src\mygame\Behaviours\SpaceShipBehaviour.h" />
-    <ClInclude Include="..\src\mygame\Enemy.h" />
-    <ClInclude Include="..\src\mygame\EnemyWave.h" />
-    <ClInclude Include="..\src\mygame\Level.h" />
-    <ClInclude Include="..\src\mygame\LevelManager.h" />
-    <ClInclude Include="..\src\mygame\Menu.h" />
-    <ClInclude Include="..\src\mygame\Waypoint.h" />
-    <ClInclude Include="EMPTY.h" />
-    <ClInclude Include="..\src\mgengine\Materials\PlayerMaterial.h" />
-    <ClInclude Include="..\src\mgengine\Behaviours\VanishBehaviour.h" />
-    <ClInclude Include="..\src\mgengine\Materials\EnemyMaterial.h" />
+    <ClCompile Include="..\src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\VanishBehaviour.cpp">
+      <Filter>src\mgengine\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\LevelEditor\LevelEditor.cpp">
+      <Filter>src\mgengine\LevelEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Materials\EnemyMaterial.cpp">
+      <Filter>src\mgengine\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Materials\PlayerMaterial.cpp">
+      <Filter>src\mgengine\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Parser\LevelParser.cpp">
+      <Filter>src\mgengine\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Parser\pugixml.cpp">
+      <Filter>src\mgengine\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Resources\ResourceHolder.cpp">
+      <Filter>src\mgengine\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Resources\ResourceManager.cpp">
+      <Filter>src\mgengine\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Resources\SoundPlayer.cpp">
+      <Filter>src\mgengine\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\UI\ImageBehaviour.cpp">
+      <Filter>src\mgengine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.cpp">
+      <Filter>src\mgengine\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\ActorEnemyBehaviour.cpp">
+      <Filter>src\mgengine\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\PlayerBehaviour.cpp">
+      <Filter>src\mgengine\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\BulletBehaviour.cpp">
+      <Filter>src\mgengine\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Behaviours\PickUpBehaviour.cpp">
+      <Filter>src\mgengine\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Collision\CollisionManager.cpp">
+      <Filter>src\mgengine\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\core\Actor.cpp">
+      <Filter>src\mgengine\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Core\ControlledActor.cpp">
+      <Filter>src\mgengine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Core\ObjectActor.cpp">
+      <Filter>src\mgengine\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\AbstractBehaviour.cpp">
+      <Filter>src\mge\behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\KeysBehaviour.cpp">
+      <Filter>src\mge\behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\LookAt.cpp">
+      <Filter>src\mge\behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\OrbitBehaviour.cpp">
+      <Filter>src\mge\behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\RotatingBehaviour.cpp">
+      <Filter>src\mge\behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\AbstractGame.cpp">
+      <Filter>src\mge\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Camera.cpp">
+      <Filter>src\mge\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\GameObject.cpp">
+      <Filter>src\mge\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Mesh.cpp">
+      <Filter>src\mge\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Renderer.cpp">
+      <Filter>src\mge\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\ShaderProgram.cpp">
+      <Filter>src\mge\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Texture.cpp">
+      <Filter>src\mge\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\World.cpp">
+      <Filter>src\mge\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\AbstractMaterial.cpp">
+      <Filter>src\mge\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\ColorMaterial.cpp">
+      <Filter>src\mge\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp">
+      <Filter>src\mge\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\MGEDemo.cpp">
+      <Filter>src\mge</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\util\DebugHud.cpp">
+      <Filter>src\mge\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Behaviours\AsteroidBehaviour.cpp">
+      <Filter>src\mygame\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Behaviours\CameraBehaviour.cpp">
+      <Filter>src\mygame\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Behaviours\EnemyBehaviour.cpp">
+      <Filter>src\mygame\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Behaviours\ParalaxBehaviour.cpp">
+      <Filter>src\mygame\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Behaviours\SpaceShipBehaviour.cpp">
+      <Filter>src\mygame\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Enemy.cpp">
+      <Filter>src\mygame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\EnemyWave.cpp">
+      <Filter>src\mygame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Level.cpp">
+      <Filter>src\mygame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\LevelManager.cpp">
+      <Filter>src\mygame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Menu.cpp">
+      <Filter>src\mygame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Waypoint.cpp">
+      <Filter>src\mygame</Filter>
+    </ClCompile>
+    <ClCompile Include="EMPTY.cpp">
+      <Filter>_vs2015</Filter>
+    </ClCompile>
+    <ClCompile Include="MusicPlayer.cpp">
+      <Filter>_vs2015</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mygame\Behaviours\BossBehaviour.cpp">
+      <Filter>src\mygame\Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Core\Animation.cpp">
+      <Filter>src\mgengine\core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\glm.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\VanishBehaviour.h">
+      <Filter>src\mgengine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\LevelEditor\LevelEditor.h">
+      <Filter>src\mgengine\LevelEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Materials\EnemyMaterial.h">
+      <Filter>src\mgengine\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Materials\PlayerMaterial.h">
+      <Filter>src\mgengine\Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Parser\LevelParser.h">
+      <Filter>src\mgengine\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Parser\pugiconfig.hpp">
+      <Filter>src\mgengine\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Parser\pugixml.hpp">
+      <Filter>src\mgengine\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Resources\MusicPlayer.h">
+      <Filter>src\mgengine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Resources\ResourceHolder.h">
+      <Filter>src\mgengine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Resources\ResourceIdentifiers.h">
+      <Filter>src\mgengine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Resources\ResourceManager.h">
+      <Filter>src\mgengine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Resources\SFMLResourceHolder.h">
+      <Filter>src\mgengine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Resources\SoundPlayer.h">
+      <Filter>src\mgengine\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\UI\ImageBehaviour.h">
+      <Filter>src\mgengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\AbstractActorBehaviour.h">
+      <Filter>src\mgengine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\ActorEnemyBehaviour.h">
+      <Filter>src\mgengine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\PlayerBehaviour.h">
+      <Filter>src\mgengine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\BulletBehaviour.h">
+      <Filter>src\mgengine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Behaviours\PickUpBehaviour.h">
+      <Filter>src\mgengine\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Collision\CollisionFilters.h">
+      <Filter>src\mgengine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Collision\CollisionManager.h">
+      <Filter>src\mgengine\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\core\Actor.h">
+      <Filter>src\mgengine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Core\ControlledActor.h">
+      <Filter>src\mgengine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Core\ObjectActor.h">
+      <Filter>src\mgengine\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\AbstractBehaviour.hpp">
+      <Filter>src\mge\behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\KeysBehaviour.hpp">
+      <Filter>src\mge\behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\LookAt.hpp">
+      <Filter>src\mge\behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\OrbitBehaviour.h">
+      <Filter>src\mge\behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\RotatingBehaviour.hpp">
+      <Filter>src\mge\behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\config.hpp">
+      <Filter>src\mge</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\AbstractGame.hpp">
+      <Filter>src\mge\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Camera.hpp">
+      <Filter>src\mge\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\GameObject.hpp">
+      <Filter>src\mge\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Mesh.hpp">
+      <Filter>src\mge\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Renderer.hpp">
+      <Filter>src\mge\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\ShaderProgram.hpp">
+      <Filter>src\mge\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Texture.hpp">
+      <Filter>src\mge\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\World.hpp">
+      <Filter>src\mge\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\AbstractMaterial.hpp">
+      <Filter>src\mge\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\ColorMaterial.hpp">
+      <Filter>src\mge\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp">
+      <Filter>src\mge\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\MGEDemo.hpp">
+      <Filter>src\mge</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\util\DebugHud.hpp">
+      <Filter>src\mge\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\Behaviours\AsteroidBehaviour.h">
+      <Filter>src\mygame\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\Behaviours\CameraBehaviour.h">
+      <Filter>src\mygame\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\Behaviours\EnemyBehaviour.h">
+      <Filter>src\mygame\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\Behaviours\ParalaxBehaviour.h">
+      <Filter>src\mygame\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\Behaviours\SpaceShipBehaviour.h">
+      <Filter>src\mygame\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\Enemy.h">
+      <Filter>src\mygame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\EnemyWave.h">
+      <Filter>src\mygame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\Level.h">
+      <Filter>src\mygame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\LevelManager.h">
+      <Filter>src\mygame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\Menu.h">
+      <Filter>src\mygame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\Waypoint.h">
+      <Filter>src\mygame</Filter>
+    </ClInclude>
+    <ClInclude Include="EMPTY.h">
+      <Filter>_vs2015</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mygame\Behaviours\BossBehaviour.h">
+      <Filter>src\mygame\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Core\Animation.h">
+      <Filter>src\mgengine\core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

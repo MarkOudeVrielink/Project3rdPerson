@@ -3,7 +3,7 @@
 
 #include <mge/core/AbstractGame.hpp>
 #include "mgengine/LevelEditor/LevelEditor.h"
-
+#include "mygame\Menu.h"
 class DebugHud;
 
 class MGEDemo: public AbstractGame
@@ -39,7 +39,7 @@ class MGEDemo: public AbstractGame
         MGEDemo(const MGEDemo&);
         MGEDemo& operator=(const MGEDemo&);
 		LevelEditorBehaviour * _levelEditor;
-
+		Menu * _menuScreen;
 };
 
 #endif // MGEDEMO_H

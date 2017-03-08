@@ -15,8 +15,9 @@ class EnemyBehaviour : public AbstractActorBehaviour
 {
 public:
 
-	EnemyBehaviour(std::vector<Waypoint*> *pWayPoints);
-	EnemyBehaviour(std::vector<Waypoint*> *pWayPoints, float * ptime);
+	EnemyBehaviour(std::vector<Waypoint*>* pWayPoints, glm::vec3 pMovingStep);
+	EnemyBehaviour(std::vector<Waypoint*>* pWayPoints, float * ptime, glm::vec3 pMovingStep);
+	EnemyBehaviour(GameObject * pPlayer, bool pLevelEditor = false, float * ptime = NULL);
 	virtual ~EnemyBehaviour();
 
 	void			SaveOriginalTransform();
@@ -35,6 +36,7 @@ public:
 	void SpawnDrop(int pAmount = 1);
 	void SpawnBullet();
 	void SpawnExplosion();
+	void AiKamikase(float pStep);
 private:
 	std::vector<Waypoint*>* _wayPoints;
 	Waypoint *_tarjet = nullptr;
@@ -63,6 +65,7 @@ private:
 	float	_secondsAlreadyRendered = 0;
 	float	_spawnedTime = 0;
 	bool	_movingBackwards = false;
+	glm::vec3 _movingStep;
 
 	sf::Clock updateClock;
 	sf::Time timeSinceLastShoot = sf::Time::Zero;
@@ -74,5 +77,10 @@ private:
 
 	//Mesh*				_dropMesh;
 	//AbstractMaterial*	_dropMaterial;
+
+	bool _kamikase = false;
+	bool _kamikaseTargetSet = false;
+	glm::vec3 _kamikaseTargetPos;
+	GameObject * _player;
 };
 
