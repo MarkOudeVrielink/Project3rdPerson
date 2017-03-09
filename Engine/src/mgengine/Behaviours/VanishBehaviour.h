@@ -17,6 +17,8 @@ public:
 	
 private:
 
+	sf::Vector2f _ScreenSpaceCoord();
+
 	sf::Texture	 _texture;
 	Animation*	 _animation;		
 };

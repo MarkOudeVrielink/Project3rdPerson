@@ -1,4 +1,5 @@
 #include "mgengine\Core\Animation.h"
+#include "mge\core\World.hpp"
 
 #include <SFML/Graphics/Texture.hpp>
 #include <iostream>
@@ -13,6 +14,7 @@ void Animation::update(float dt)
 	_updateFrames(dt);
 	_draw();
 }
+
 
 void Animation::_draw()
 {
@@ -112,8 +114,6 @@ bool Animation::isRepeating() const
 
 void Animation::setPosition(sf::Vector2f pPosition)
 {
-	sf::Vector2u screen = _window->getSize();
-
 	_sprite.setPosition(pPosition.x , pPosition.y );
 }
 

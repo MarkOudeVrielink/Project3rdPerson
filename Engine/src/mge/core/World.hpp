@@ -34,15 +34,17 @@ class World : public GameObject
 
 		void DestroyActors();
 		void SetDirtyActor(Actor* pActor);
+
+		
 	private:
 	    Camera* _mainCamera;	
-		HUD*		_hud;
+		HUD*	_hud;
 		
 		CollisionManager*	_physicsManager;
 		ResourceManager*	_resourceManager;
 		GameObject* _player;
 
-		std::list<Actor*>	_dirtyActors;
+		std::list<Actor*>	_dirtyActors;		
 
 		sf::RenderWindow*	_window;
 

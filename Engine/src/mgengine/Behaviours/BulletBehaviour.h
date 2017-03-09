@@ -3,17 +3,21 @@
 	
 #include "mgengine\Behaviours\AbstractActorBehaviour.h"
 #include "btBulletDynamicsCommon.h"
+#include "mgengine\Core\Animation.h"
+#include "mgengine\Core\Actor.h"
 #include "glm.hpp"
+
 enum Direction{Up, Down, Custom};
 enum BulletOwner{Player, Enemy};
 
 __declspec(align(16))class BulletBehaviour : public AbstractActorBehaviour {
 public:
-	BulletBehaviour(float pSpeed, float pPower = 1.0f, float pLiveTime = 1.0f , Direction pDirection = Direction::Up, BulletOwner pOwner = BulletOwner::Player);
+	BulletBehaviour(float pSpeed, float pPower = 1.0f, float pLiveTime = 1.0f , Direction pDirection = Direction::Up, BulletOwner pOwner = BulletOwner::Player);	
 	virtual ~BulletBehaviour();
 
 	virtual void update(float pStep);
 	virtual void OnCollision(Actor* pOther);
+	void		 setup();
 
 	BulletOwner getOwner();
 	float		getPower();
@@ -40,6 +44,10 @@ private:
 	glm::vec3 _bulletDirection = glm::vec3(0, 0, 1);
 	Direction _direction;
 	BulletOwner _bulletOwner;	
+
+	ActorType		_ownerType;
+	sf::Texture	_nova;
+	Animation*		_animation;
 };
 
 #endif // !BULLETBEHAVIOUR_H

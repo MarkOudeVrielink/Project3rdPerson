@@ -22,11 +22,11 @@ PlayerBehaviour::PlayerBehaviour(float pSpeed) : AbstractActorBehaviour(), _maxS
 {
 	_spawnOffset			= glm::vec3(0, 0, -3.0f);
 	_force					= glm::vec3(0,0,0);
-	_dashPower				= 2.0f;
-	_doubleTapTime			= 0.75f;
+	_dashPower				= 1.7f;
+	_doubleTapTime			= 1.0f;
 	_horizontalInput		= 0.0f;
 	_verticalInput			= 0.0f;
-	_acceleration			= 0.06f;
+	_acceleration			= 0.09f;
 	_decceleration			= 0.03f;
 
 	_tapCount				= 0;
@@ -50,10 +50,9 @@ PlayerBehaviour::PlayerBehaviour(float pSpeed) : AbstractActorBehaviour(), _maxS
 	_charge					= 100;
 	_chargeThreshold		= 100;	
 
-	_tiltAngle				= 1.0f;
+	_tiltAngle				= 0.8f;
 
-	_score					= 0;
-
+	_score					= 0;	
 }
 
 PlayerBehaviour::~PlayerBehaviour() {	
@@ -145,8 +144,7 @@ void PlayerBehaviour::SpawnNova()
 	nova->setActorBehaviour(new BulletBehaviour(0, 10, 0.5f));
 	nova->scale(glm::vec3(70, 0, 70));
 
-	//nova->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Explosion));
-	//nova->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Explosion));
+
 	_owner->getWorld()->add(nova);	
 
 	_charge = 0;

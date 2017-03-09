@@ -33,25 +33,28 @@ void VanishBehaviour::OnCollision()
 void VanishBehaviour::setup()
 {
 	_animation = new Animation(_owner->getWorld()->getRenderWindow(), _texture, sf::Vector2i(149, 158), 7.0f, 0.3f);
-	//_animation = new Animation(_owner->getWorld()->getRenderWindow(), _texture, sf::Vector2i(661, 377), 15.0f, 0.5f);
-	//_animation->setScale(sf::Vector2f(3.0f, 3.0f));
-	_animation->setRepeating(false);
+	_animation->setRepeating(false);	
+	
+	sf::Vector2f spritePosition = sf::Vector2f(_ScreenSpaceCoord());
+	_animation->setPosition(spritePosition);	
+}
 
+/*Get the screen coördinate of the owner.*/
+sf::Vector2f VanishBehaviour::_ScreenSpaceCoord()
+{
 	Camera* camera = _owner->getWorld()->getMainCamera();
-	glm::mat4 projectionView = camera->getProjection() * glm::inverse(camera->getWorldTransform());
 
-	glm::vec4 position = glm::vec4(_owner->getWorldPosition(), 1) * projectionView;
-	//glm::vec3 position =_owner->getWorldPosition();
-	//sf::Vector2i window= sf::Vector2i(_owner->getWorld()->getRenderWindow()->getSize());
+	//Calculate the ViewProjection matrix.
+	glm::mat4 projectionView = camera->getProjection() * glm::inverse(camera->getWorldTransform()); 
 
-	printf("pos x: %f | pos y: %f | pos z: %f\n", position.x, position.y, position.z);
-	int winX = (int)round(((position.x + 1) / 2.0) * 1920 );
-	int winY = (int)round(((1 - position.z) / 2.0) * 1080);
+	//Move the position to normalized device space.
+	glm::vec4 position = glm::normalize(projectionView * glm::vec4(_owner->getWorldPosition(), 1));	
+	sf::Vector2u window = sf::Vector2u(_owner->getWorld()->getRenderWindow()->getSize());
+	
+	//Get our position between [0 , 1] and multiply it with the total screen size to get the screen coördinates.
+	float winX = (float)round(((position.x + 1) / 2.0) * window.x);
+	float winY = (float)round(((1 - position.y) / 2.0) * window.y);
 
-	printf("x: %d | z: %d\n", winX, winY);
-	//glm::vec3 position =_owner->getWorldPosition();
-	sf::Vector2f spritePosition = sf::Vector2f((float)winX, (float)winY);
-	_animation->setPosition(spritePosition);
-	//_animation->setScale(sf::Vector2f(0.1f, 0.1f));
+	return sf::Vector2f(winX, winY);
 }
 

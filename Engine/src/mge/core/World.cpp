@@ -1,10 +1,12 @@
 #include "mge/core/World.hpp"
 #include "mgengine/Core/Actor.h"
 #include "mgengine/UI/HUD.h"
+
 #include "mge/config.hpp"
 
 #include <iterator>
 #include <algorithm>
+
 
 using namespace std;
 
@@ -16,7 +18,6 @@ World::World():GameObject("root"), _mainCamera(0), _dirtyActors()
 	GameObject *PlayerDefault = new GameObject("player_default");
 	setMainPlayer(PlayerDefault);	
 }
-
 
 #pragma region get/set
 
@@ -66,13 +67,11 @@ HUD * World::getHud()
 }
 #pragma endregion
 
-
 #pragma region Actor Gargbage collection
 
 /*Destroy all the actors that were set to dirty.*/
 void World::DestroyActors()
 {
-
 	while (!_dirtyActors.empty()) {
 		delete _dirtyActors.back();
 		_dirtyActors.pop_back();
@@ -86,6 +85,5 @@ void World::SetDirtyActor(Actor* pActor)
 		_dirtyActors.push_back(pActor);
 	}
 }
-
 #pragma endregion
 

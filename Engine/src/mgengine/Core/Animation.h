@@ -31,7 +31,7 @@ public:
 
 	sf::FloatRect 			getLocalBounds() const;	
 		
-	void					update(float dt);
+	void					update(float dt);	
 private:
 
 	void			_draw();

@@ -73,9 +73,9 @@ void LevelManager::update(float pStep)
 	if (_startGame) {
 		_currentLevel->RunLevel(&_time.getElapsedTime());
 
+		asteroidParent->translate(glm::vec3(0, 0, pStep * 10));		
 		_updateBackground(pStep);
 
-		asteroidParent->translate(glm::vec3(0, 0, pStep * 10));
 	//	cout << "working" << endl;
 	}
 }
@@ -102,72 +102,73 @@ void LevelManager::InitializeBackground()
 #pragma region background planes
 
 	//_backgroundPlane_0 = new GameObject("background plane", glm::vec3(0, -550, 0));
-	//_backgroundPlane_0->scale(glm::vec3(15, 1, 10));
+	//_backgroundPlane_0->scale(glm::vec3(15, 15, 15));
 	//_backgroundPlane_0->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
 	//_backgroundPlane_0->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_0));
 	//_world->add(_backgroundPlane_0);
 
-	//_backgroundPlane_1 = new GameObject("background plane", glm::vec3(0, -540, 0));
-	//_backgroundPlane_1->scale(glm::vec3(15, 1, 10));
-	//_backgroundPlane_1->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
-	//_backgroundPlane_1->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_1));
-	//_world->add(_backgroundPlane_1);
+	_backgroundPlane_1 = new GameObject("background plane", glm::vec3(0, -540, 0));
+	_backgroundPlane_1->scale(glm::vec3(15, 15, 15));
+	_backgroundPlane_1->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
+	_backgroundPlane_1->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_1));
+	_world->add(_backgroundPlane_1);
 
-	//_backgroundPlane_2 = new GameObject("background plane", glm::vec3(0, -530, 150));
-	//_backgroundPlane_2->scale(glm::vec3(15, 1, 10));
-	//_backgroundPlane_2->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
-	//_backgroundPlane_2->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_2));
-	//_world->add(_backgroundPlane_2);
+	_backgroundPlane_2 = new GameObject("background plane", glm::vec3(0, -530, 230));
+	_backgroundPlane_2->scale(glm::vec3(15, 15, 15));
+	_backgroundPlane_2->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
+	_backgroundPlane_2->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_2));
+	_world->add(_backgroundPlane_2);
 
-	//_backgroundPlane_3 = new GameObject("background plane", glm::vec3(0, -520, 0));
-	//_backgroundPlane_3->scale(glm::vec3(15, 1, 10));
-	//_backgroundPlane_3->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
-	//_backgroundPlane_3->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_3));
-	//_world->add(_backgroundPlane_3);
-	 
+	_backgroundPlane_3 = new GameObject("background plane", glm::vec3(0, -520, 0));
+	_backgroundPlane_3->scale(glm::vec3(15, 15, 15));
+	_backgroundPlane_3->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
+	_backgroundPlane_3->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_3));
+	_world->add(_backgroundPlane_3);
+	
 #pragma endregion
 
+	InitializeAsteroids();
 	/*_planet = new GameObject("Planet Object");
 	_planet->scale(glm::vec3(10, 10, 10));
 	_planet->setMesh(_world->GetResourceManager()->getMesh(Meshes::Planet));
 	_planet->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Planet));
 	_planet->setBehaviour(new AsteroidBehaviour());*/
 	//_world->add(_planet);
-	InitializeAsteroids();
 }
 
 void LevelManager::_updateBackground(float pStep)
 {
-	//TODO: stop when border is reached.
+	////TODO: stop when border is reached.
 	//if (_time.getElapsedTime().asSeconds() < 500) {
-	//	_backgroundPlane_0->translate(glm::vec3(0, 0, pStep / 16));
-	//	_backgroundPlane_1->translate(glm::vec3(0, 0, pStep / 12));
-	//	_backgroundPlane_2->translate(glm::vec3(0, 0, pStep / 8));
-	//	_backgroundPlane_3->translate(glm::vec3(0, 0, pStep / 6));
+		//_backgroundPlane_0->translate(glm::vec3(0, 0, pStep / 16));
+		_backgroundPlane_1->translate(glm::vec3(0, 0, pStep / 12));
+		_backgroundPlane_2->translate(glm::vec3(0, 0, pStep / 8));
+		_backgroundPlane_3->translate(glm::vec3(0, 0, pStep / 6));
 	//}
 }
 
 void LevelManager::InitializeAsteroids()
 {
-	asteroidParent = new GameObject("asteroidParent", glm::vec3(0, 0, 0));
-	//for (int y = 1; y < 6;y++)
-	//{
-	//	for (int x = 0; x < 5;x++)
-	//	{
-	//		for (int z = 0; z < 3;z++)
-	//		{
-	//			if (std::rand() % 60 == 0)
-	//			{
-	//				GameObject * asteroid = new GameObject("asteroid", glm::vec3(x * 10 - 130, -20 * y, 50 - z * 10));//Magic numbers in order to have asteroids in all the screen well distributed
-	//				asteroid->setMesh(_world->GetResourceManager()->getMesh(Meshes::Meteor));
-	//				asteroid->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Meteor));
-	//				asteroid->setBehaviour(new AsteroidBehaviour());
+	asteroidParent = new GameObject("asteroidParent", glm::vec3(0, 0, 0));	
+	for (int y = 1; y < 12;y++)
+	{		
+		for (int x = 0; x < 10;x++)
+		{			
+			for (int z = 0; z < 30;z++)
+			{				
+				if (std::rand() % 30 == 0)
+				{
+					printf("asteriod made");
+					GameObject* asteroid = new GameObject("asteroid", glm::vec3(x * 40 - 130, -10 * y, 50 - z * 40));//Magic numbers in order to have asteroids in all the screen well distributed
+					asteroid->setMesh(_world->GetResourceManager()->getMesh(Meshes::Meteor));
+					asteroid->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Meteor));
+					asteroid->setBehaviour(new AsteroidBehaviour());
 
-	//				asteroidParent->add(asteroid);
-	//				_asteroids.push_back(asteroid);
-	//			}
-	//		}
-	//	}
-	//}
+					asteroidParent->add(asteroid);
+					_asteroids.push_back(asteroid);
+				}
+			}
+		}
+	}
 	_world->add(asteroidParent);
 }
