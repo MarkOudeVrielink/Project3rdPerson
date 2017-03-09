@@ -24,11 +24,13 @@ void BulletBehaviour::update(float pStep)
 	else if(_direction == Direction::Down){
 		_force = btVector3(0, 0, _speed);
 	}
+
 	else
 	{		
 		_force = btVector3(_bulletDirection.x, _bulletDirection.y, _bulletDirection.z)*_speed;
 	}
-	
+	//_force = btVector3(glm::sin(pStep) *glm::cos(pStep)*glm::log(abs(pStep)), 0,
+//	(glm::pow(glm::pow((pStep), 2), (3 / 20))* glm::sqrt(glm::cos(pStep))));
 	_ownerBody->translate(_force);	
 	_timer += pStep;	
 
@@ -70,6 +72,10 @@ float BulletBehaviour::getPower()
 void BulletBehaviour::setBulletDirection(glm::vec3 pDirection)
 {
 	_bulletDirection = pDirection;
+}
+void BulletBehaviour::setBulletRotation(glm::vec3 pAxis, float pAngle)
+{
+	_owner->SetRotation(pAxis,pAngle);
 }
 
 glm::vec3 BulletBehaviour::getBulletDirection()

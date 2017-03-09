@@ -7,6 +7,7 @@
 #include "mgengine\Behaviours\PickUpBehaviour.h"
 #include "mgengine\Behaviours\BulletBehaviour.h"
 #include "mgengine\Behaviours\VanishBehaviour.h"
+#include "mgengine\Behaviours\PlayerBehaviour.h"
 
 #include "mgengine\Materials\EnemyMaterial.h"
 #include "mge\core\World.hpp"
@@ -99,7 +100,10 @@ void EnemyBehaviour::OnCollision(Actor * pOther)
 			if (owner->GetHealth() <= 0) {
 				SpawnExplosion();
 				SpawnDrop();
-
+				Actor * Player =dynamic_cast<Actor*> (_owner->getWorld()->getMainPlayer());				
+				PlayerBehaviour * playerBehaviour= dynamic_cast<PlayerBehaviour*>( Player->getActorBehaviour());
+				playerBehaviour->addScore(10.0f);
+				cout << "Enemy Destroyed, Score Added: "<< playerBehaviour->getScore() << endl;
 				owner->Destroy();
 			}
 

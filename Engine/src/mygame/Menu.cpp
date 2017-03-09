@@ -14,7 +14,26 @@ Menu::Menu(World* pWolrd, sf::RenderWindow *pWindow)
 
 
 }
-
+Menu::~Menu()
+{
+	if (_levelEditorObject != NULL &&_levelEditor->getActive())
+	{
+		_levelEditor->setActive(false);
+		delete _levelEditorObject;
+		_levelEditorObject = NULL;
+	}
+	if (_objManager != NULL)
+	{
+		delete _objManager;
+		_objManager = NULL;
+		if (player)
+			delete player;
+		player = NULL;
+		_scoreLabel->hide();
+		_multiplierLabel->hide();
+		_nextLevel->hide();
+	}
+}
 void Menu::InitializeMenu(tgui::Gui* pGuiRef)
 {
 	_guiRef = pGuiRef;
@@ -41,6 +60,7 @@ void Menu::InitializeMenu(tgui::Gui* pGuiRef)
 
 	startGameButton->connect("pressed", &Menu::StartGame, this);
 	LevelEditorButton->connect("pressed", &Menu::ToLevelEditor, this);
+
 }
 
 void Menu::update(float pStep)
@@ -48,6 +68,22 @@ void Menu::update(float pStep)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
 	{
 		ToMenu();
+	}
+	if (_objManager != NULL)
+	{
+		PlayerBehaviour * playerBehaviour = dynamic_cast<PlayerBehaviour*> (player->getActorBehaviour());
+		_scoreLabel->setText("Score: " + std::to_string((int)playerBehaviour->getScore()));
+		_multiplierLabel->setText("Multiplier X " + std::to_string(playerBehaviour->getMultiplier()));
+
+		int score = playerBehaviour->getScore();
+		if (score < 500)
+			_nextLevel->setText(" Score To Next Level: 500");
+		else if (score < 1000)
+			_nextLevel->setText(" Score To Next Level: 1000");
+		else if (score >= 1000)
+			_nextLevel->setText(" MAX LEVEL");
+
+		
 	}
 }
 
@@ -74,7 +110,30 @@ void Menu::ToLevelEditor()
 
 
 }
+void Menu::SetScoreHUD()
+{
 
+	auto theme = tgui::Theme::create("TGUI-0.7/widgets/TransparentGrey.txt");
+	_scoreLabel = theme->load("label");
+	PlayerBehaviour * playerBehaviour = dynamic_cast<PlayerBehaviour*> (player->getActorBehaviour());
+	_scoreLabel->setText("Score: " + std::to_string((int)playerBehaviour->getScore()));
+	_scoreLabel->setPosition(350, 100);
+	_scoreLabel->setTextSize(28);
+	_guiRef->add(_scoreLabel);	
+
+
+	_multiplierLabel = theme->load("label");
+	_multiplierLabel->setText("Multiplier X " + std::to_string(playerBehaviour->getMultiplier()));
+	_multiplierLabel->setPosition(350, 150);
+	_multiplierLabel->setTextSize(28);
+	_guiRef->add(_multiplierLabel);
+
+	_nextLevel = theme->load("label");
+	_nextLevel->setText(" Score To Next Level: 500" );
+	_nextLevel->setPosition(350, 50);
+	_nextLevel->setTextSize(28);
+	_guiRef->add(_nextLevel);
+}
 void Menu::StartGame()
 {
 	HideMenu();
@@ -91,6 +150,7 @@ void Menu::StartGame()
 	manager->StartGameFromMenu();
 	
 	_world->add(_objManager);
+	SetScoreHUD();
 }
 
 void Menu::HideMenu()
@@ -113,6 +173,9 @@ void Menu::ToMenu()
 		if(player)
 		delete player;
 		player = NULL;
+		_scoreLabel->hide();
+		_nextLevel->hide();
+		_multiplierLabel->hide();
 	}
 	setActive(true);
 	

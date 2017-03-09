@@ -15,11 +15,13 @@ class Menu :public AbstractBehaviour
 {
 public:
 	Menu(World * pWolrd, sf::RenderWindow * pWindow);
+	~Menu();
 	void InitializeMenu(tgui::Gui * pGuiRef);
 	virtual void update(float pStep);
 	void UpdateHUD();
 private:
 	void ToLevelEditor();
+	void SetScoreHUD();
 	void StartGame();
 	void HideMenu();
 	void ToMenu();	
@@ -29,6 +31,9 @@ private:
 	bool _active;
 	World* _world;
 	tgui::Panel::Ptr _panel;
+	tgui::Label::Ptr _scoreLabel;
+	tgui::Label::Ptr _nextLevel;
+	tgui::Label::Ptr _multiplierLabel;
 	GameObject *_levelEditorObject = NULL;
 	LevelEditorBehaviour * _levelEditor;
 	sf::RenderWindow* _window;

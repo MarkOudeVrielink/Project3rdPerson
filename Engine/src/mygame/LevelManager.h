@@ -28,6 +28,8 @@ public:
 
 	void UpdateBAckground();
 
+	void SetScoreHUD();
+
 	void InitializeAsteroids();
 
 	void LoadLevel();

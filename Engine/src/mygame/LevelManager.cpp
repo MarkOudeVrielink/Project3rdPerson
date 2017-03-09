@@ -101,11 +101,14 @@ void LevelManager::InitializeBackground()
 	_planet->setBehaviour(new AsteroidBehaviour());
 	//_world->add(_planet);
 	InitializeAsteroids();
+
+
 }
 void LevelManager::UpdateBAckground()
 {
 
 }
+
 void LevelManager::InitializeAsteroids()
 {
 	asteroidParent = new GameObject("asteroidParent", glm::vec3(0, 0, 0));
