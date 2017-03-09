@@ -47,10 +47,10 @@ PlayerBehaviour::PlayerBehaviour(float pSpeed) : AbstractActorBehaviour(), _maxS
 	_timeToOverheat			= 6;
 	_coolDownRate			= 3;
 	
-	_charge					= 0;
+	_charge					= 100;
 	_chargeThreshold		= 100;	
 
-	_tiltAngle				= 0.3f;
+	_tiltAngle				= 1.0f;
 
 	_score					= 0;
 
@@ -71,6 +71,8 @@ void PlayerBehaviour::update(float pStep) {
 	}
 }
 
+/*Using a down cast to get the right behaviour and actor. This won't work if the actor is not configured correctly.
+However, the actors in the scene should be set-up correct in any case.*/
 void PlayerBehaviour::OnCollision(Actor * pOther)
 {
 	ActorType type = pOther->getType();
@@ -85,11 +87,11 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 			
 			player->TakeDamage(1);
 			_owner->getWorld()->getHud()->updateHealth(player->GetHealth());
+			_ownerBody->setLinearVelocity(btVector3(0, 0, 0));
 
 			if (player->GetHealth() <= 0) {
 				_owner->Destroy();
 			}
-			_ownerBody->setLinearVelocity(btVector3(0, 0, 0));
 		}
 	}
 	else if (type == ActorType::Type_Bullet) {
@@ -104,11 +106,11 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 
 				player->TakeDamage(1);
 				_owner->getWorld()->getHud()->updateHealth(player->GetHealth());
+				_ownerBody->setLinearVelocity(btVector3(0, 0, 0));
 
 				if (player->GetHealth() <= 0) {
 					player->Destroy();
 				}
-				_ownerBody->setLinearVelocity(btVector3(0, 0, 0));
 			}
 		}
 	}
@@ -143,8 +145,8 @@ void PlayerBehaviour::SpawnNova()
 	nova->setActorBehaviour(new BulletBehaviour(0, 10, 0.5f));
 	nova->scale(glm::vec3(70, 0, 70));
 
-	nova->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Explosion));
-	nova->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Explosion));
+	//nova->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Explosion));
+	//nova->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Explosion));
 	_owner->getWorld()->add(nova);	
 
 	_charge = 0;

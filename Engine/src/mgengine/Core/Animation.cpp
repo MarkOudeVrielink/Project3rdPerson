@@ -114,7 +114,7 @@ void Animation::setPosition(sf::Vector2f pPosition)
 {
 	sf::Vector2u screen = _window->getSize();
 
-	_sprite.setPosition(pPosition.x + screen.x/2, pPosition.y + screen.y/2);
+	_sprite.setPosition(pPosition.x , pPosition.y );
 }
 
 void Animation::setScale(sf::Vector2f pScale)
