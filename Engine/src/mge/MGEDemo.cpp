@@ -35,29 +35,30 @@ using namespace std;
 #include "mgengine/UI/ImageBehaviour.h"
 
 #include "mge/util/DebugHud.hpp"
+#include "mgengine/UI/HUD.h"
 
 #include "mge/config.hpp"
-#include "mgengine\Collision\CollisionFilters.h"
+#include "mgengine/Collision/CollisionFilters.h"
 #include "mge/MGEDemo.hpp"
 
 #include "btBulletDynamicsCommon.h"
 
-#include "mgengine\Collision\CollisionManager.h"
-#include "mgengine\Core\ControlledActor.h"
-#include "mgengine\Core\ObjectActor.h"
+#include "mgengine/Collision/CollisionManager.h"
+#include "mgengine/Core/ControlledActor.h"
+#include "mgengine/Core/ObjectActor.h"
 
 #include "mygame/Enemy.h"
 #include "mgengine/LevelEditor/LevelEditor.h"
-#include "mygame\Behaviours\SpaceShipBehaviour.h"
-#include "mygame\Behaviours\CameraBehaviour.h"
+#include "mygame/Behaviours/SpaceShipBehaviour.h"
+#include "mygame/Behaviours/CameraBehaviour.h"
 
-#include "mgengine\Resources\ResourceHolder.h"
-#include "mgengine\Resources\ResourceIdentifiers.h"
+#include "mgengine/Resources/ResourceHolder.h"
+#include "mgengine/Resources/ResourceIdentifiers.h"
 
 
 sf::Clock timer;
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
-MGEDemo::MGEDemo() :AbstractGame(), _hud(0), _meshLoadingThread(&MGEDemo::LoadMeshes, this), _materialLoadingThread(&MGEDemo::LoadMaterials, this)
+MGEDemo::MGEDemo() :AbstractGame(), _debugHud(0), _meshLoadingThread(&MGEDemo::LoadMeshes, this), _materialLoadingThread(&MGEDemo::LoadMaterials, this)
 {
 	timer.restart().asSeconds();
 }
@@ -68,8 +69,9 @@ void MGEDemo::initialize() {
 
 	//setup the custom part
 	cout << "Initializing HUD" << endl;
-	_hud = new DebugHud(_window);
+	_debugHud = new DebugHud(_window);
 	cout << "HUD initialized." << endl << endl;
+		
 }
 
 //build the game _world
@@ -103,9 +105,6 @@ void MGEDemo::_initializeScene()
 	
 	LoadMeshes();
 	LoadMaterials();
-		
-	_world->GetResourceManager()->PlayMusic(Music::MenuTheme);
-	_world->GetResourceManager()->SetVolume(30.0f);
 	
 #pragma region PlayfieldBoundaries
 	Actor* top = new Actor(_world, "top", glm::vec3(0, 0, -55), new btBoxShape(btVector3(50, 5, 1)), ActorType::Type_StaticObject, CF::COL_BOUNDARY, CF::boundaryCollidesWith, 0);
@@ -160,7 +159,7 @@ void MGEDemo::LoadMeshes()
 	_world->GetResourceManager()->loadMesh(Meshes::Muffin, config::MGE_MODEL_PATH + "Muffin_90.obj");
 
 	_world->GetResourceManager()->loadMesh(Meshes::PickUp, config::MGE_MODEL_PATH + "PickUp(AirFreshner).obj");
-	_world->GetResourceManager()->loadMesh(Meshes::Explosion, config::MGE_MODEL_PATH + "Explosion.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Explosion, config::MGE_MODEL_PATH + "plane.obj");
 	_world->GetResourceManager()->loadMesh(Meshes::Bullet, config::MGE_MODEL_PATH + "lazer.obj");
 	
 	_world->GetResourceManager()->loadMesh(Meshes::BackGround, config::MGE_MODEL_PATH + "Backgroundsingle.obj");
@@ -193,10 +192,14 @@ void MGEDemo::LoadMaterials()
 	_world->GetResourceManager()->loadMaterial(Materials::Muffin, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Muffin_texture.png")));
 
 	_world->GetResourceManager()->loadMaterial(Materials::PickUp, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "PickUp_airfreshner_texture.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Explosion, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Explosion_Texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Explosion, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Supermove.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Bullet, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "laser.png")));
 
-	_world->GetResourceManager()->loadMaterial(Materials::BackGround, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "FB2.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::BackGround_0, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "FB.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::BackGround_1, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "FB1.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::BackGround_2, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "FB2.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::BackGround_3, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "FB3.png")));
+
 	_world->GetResourceManager()->loadMaterial(Materials::Planet, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Planet_texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Meteor, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Meteor_texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::MeteorTrail, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Meteor_with_trail_texture.png")));
@@ -214,14 +217,18 @@ void MGEDemo::_updateHud() {
 	string debugInfo = "";
 	debugInfo += string("FPS:") + std::to_string((int)_fps) + "\n";
 	
-	_hud->setDebugInfo(debugInfo);
-	_hud->draw();
+	_debugHud->setDebugInfo(debugInfo);
+	_debugHud->draw();
+
 	if (_levelEditor->getActive())
 		_levelEditor->DrawUI();
 
-    _hud->setDebugInfo(debugInfo);
-    _hud->draw();
+    _debugHud->setDebugInfo(debugInfo);
+    _debugHud->draw();
+	
 	_menuScreen->UpdateHUD();
+	
+	_world->getHud()->draw();
 
 }
 

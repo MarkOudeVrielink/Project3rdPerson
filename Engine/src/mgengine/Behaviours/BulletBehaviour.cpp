@@ -44,14 +44,7 @@ void BulletBehaviour::OnCollision(Actor * pOther)
 {		
 	ActorType type = pOther->getType();
 		
-	if (type == ActorType::Type_Player && _bulletOwner == BulletOwner::Enemy) {//TODO:: move this to the player.
-		_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Hit);
-		
-		ControlledActor* player = (ControlledActor*)pOther;
-		player->TakeDamage(_power);
-		_owner->Destroy();
-	}	
-	else if(type != ActorType::Type_Bullet && _owner->getType() != ActorType::Type_Nova){
+	if(type != ActorType::Type_Bullet && _owner->getType() != ActorType::Type_Nova){
 		_owner->Destroy();		
 	}
 	

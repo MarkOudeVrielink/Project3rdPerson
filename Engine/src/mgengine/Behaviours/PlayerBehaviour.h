@@ -48,8 +48,7 @@ private:
 	float	_chargeThreshold;
 	
 	float	_score;
-
-
+	
 	bool	_leftPressed;
 	bool	_rightPressed;
 	float	_tapClock;

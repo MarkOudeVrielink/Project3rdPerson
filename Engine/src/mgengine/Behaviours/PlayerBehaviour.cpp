@@ -15,11 +15,8 @@
 #include "mge\core\Mesh.hpp"
 
 #include "mgengine\Collision\CollisionFilters.h"
-
-
 #include "mge\config.hpp"
-
-
+#include "mgengine\UI\HUD.h"
 
 PlayerBehaviour::PlayerBehaviour(float pSpeed) : AbstractActorBehaviour(), _maxSpeed(pSpeed)
 {
@@ -50,13 +47,13 @@ PlayerBehaviour::PlayerBehaviour(float pSpeed) : AbstractActorBehaviour(), _maxS
 	_timeToOverheat			= 6;
 	_coolDownRate			= 3;
 	
-	_charge					= 100;
-	_chargeThreshold		= 50;	
+	_charge					= 0;
+	_chargeThreshold		= 100;	
 
 	_tiltAngle				= 0.3f;
 
 	_score					= 0;
-		
+
 }
 
 PlayerBehaviour::~PlayerBehaviour() {	
@@ -70,9 +67,7 @@ void PlayerBehaviour::update(float pStep) {
 		IsInvulnerable(pStep);	
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && _charge >= _chargeThreshold) {
-		_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Nova);
-		SpawnNova();
-		_charge = 0;
+		SpawnNova();		
 	}
 }
 
@@ -88,9 +83,32 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 
 			_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Hit);
 			
-			player->TakeDamage(1);			
+			player->TakeDamage(1);
+			_owner->getWorld()->getHud()->updateHealth(player->GetHealth());
+
 			if (player->GetHealth() <= 0) {
 				_owner->Destroy();
+			}
+			_ownerBody->setLinearVelocity(btVector3(0, 0, 0));
+		}
+	}
+	else if (type == ActorType::Type_Bullet) {
+		BulletBehaviour* bullet = (BulletBehaviour*)pOther->getActorBehaviour();
+		if (bullet->getOwner() == BulletOwner::Enemy) {
+			if (!_invulnerable) {
+				ControlledActor* player = (ControlledActor*)_owner;
+				_defaultFlags = _ownerBody->getCollisionFlags();
+				_invulnerable = true;
+
+				player->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Hit);
+
+				player->TakeDamage(1);
+				_owner->getWorld()->getHud()->updateHealth(player->GetHealth());
+
+				if (player->GetHealth() <= 0) {
+					player->Destroy();
+				}
+				_ownerBody->setLinearVelocity(btVector3(0, 0, 0));
 			}
 		}
 	}
@@ -103,6 +121,7 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 		if (_charge >= _chargeThreshold)
 			_playerMaterial->setCharged(true);
 
+		_owner->getWorld()->getHud()->updateCharge(_charge);
 		_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Drop_Pick);
 		_ownerBody->setLinearVelocity(btVector3(0, 0, 0));
 	}
@@ -111,21 +130,26 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 void PlayerBehaviour::setup()
 {
 	_playerMaterial = (PlayerMaterial*)_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Player);
-		
-	//TODO: remove
-	if (_charge >= _chargeThreshold)
-		_playerMaterial->setCharged(true);
+	
+	_owner->getWorld()->getHud()->updateCharge(_charge);
 }
 
 void PlayerBehaviour::SpawnNova()
 {	
+
 	glm::vec3 spawnPoint = glm::vec3(0, 0, 0);
 	
 	ObjectActor* nova = new ObjectActor(_owner->getWorld(), "Nova", spawnPoint, new btBoxShape(btVector3(50,1,80)), ActorType::Type_Nova, CF::COL_PLAYERNOVA, CF::playerNovaCollidesWith, 1);
 	nova->setActorBehaviour(new BulletBehaviour(0, 10, 0.5f));
-	//nova->setMesh(_mesh);//TODO: remove before release, or alternetivly add sort of explosion thingy.
-	//nova->setMaterial(_material);
+	nova->scale(glm::vec3(70, 0, 70));
+
+	nova->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Explosion));
+	nova->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Explosion));
 	_owner->getWorld()->add(nova);	
+
+	_charge = 0;
+	_owner->getWorld()->getHud()->updateCharge(_charge);
+	_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Nova);
 
 	_playerMaterial->setCharged(false);
 }
@@ -278,7 +302,7 @@ void PlayerBehaviour::IsInvulnerable(float pTime)
 {	
 	_invulnerabilityTimer += pTime;
 	if (_invulnerabilityTimer < _invulnerabilityTime) {
-		_ownerBody->setCollisionFlags(_ownerBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);//TODO:: change
+		_ownerBody->setCollisionFlags(_ownerBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);//TODO:: change		
 		_playerMaterial->setInvulnerable(true);
 	} else {
 		_ownerBody->setCollisionFlags(_defaultFlags);		

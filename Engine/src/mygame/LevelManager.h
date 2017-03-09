@@ -26,24 +26,30 @@ public:
 
 	void InitializeBackground();
 
-	void UpdateBAckground();
 
 	void InitializeAsteroids();
 
 	void LoadLevel();
 
 private:
-	Level *_currentLevel;//change to private and create get method
-	std::vector<Level> _levels;
-	std::string _levelName;
-	sf::RenderWindow *_window;
-	int _indexLevel = 0;
-	World* _world;
-	sf::Clock _time;
-	bool _startGame = false;
-	GameObject * _backgroundPlane;
-	GameObject * asteroidParent = NULL;
-	GameObject * _planet;
+	void	_updateBackground(float pStep);
+	Level*	_currentLevel;//change to private and create get method
+	
+	std::vector<Level>	_levels;
+	std::string			_levelName;
+	sf::RenderWindow*	_window;
+	int					_indexLevel = 0;
+	World*				_world;
+	sf::Clock			_time;
+	bool				_startGame = false;
+
+	GameObject * _backgroundPlane_0;
+	GameObject * _backgroundPlane_1;
+	GameObject * _backgroundPlane_2;
+	GameObject * _backgroundPlane_3;
+
+	GameObject *		asteroidParent = NULL;
+	GameObject *		_planet;
 	vector<GameObject*> _asteroids;
 
 };

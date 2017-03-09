@@ -11,7 +11,7 @@
 
 class Camera;
 class Actor;
-
+class HUD;
 
 class World : public GameObject
 {
@@ -30,10 +30,13 @@ class World : public GameObject
 		void				setRenderWindow(sf::RenderWindow* pWindow);
 		sf::RenderWindow*	getRenderWindow();
 
+		HUD*				getHud();
+
 		void DestroyActors();
 		void SetDirtyActor(Actor* pActor);
 	private:
 	    Camera* _mainCamera;	
+		HUD*		_hud;
 		
 		CollisionManager*	_physicsManager;
 		ResourceManager*	_resourceManager;
