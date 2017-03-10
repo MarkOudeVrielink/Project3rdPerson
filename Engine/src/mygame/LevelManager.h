@@ -27,6 +27,8 @@ public:
 	void InitializeBackground();
 
 
+	void SetScoreHUD();
+
 	void InitializeAsteroids();
 
 	void LoadLevel();

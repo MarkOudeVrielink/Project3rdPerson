@@ -7,6 +7,7 @@
 #include "mgengine\Behaviours\PickUpBehaviour.h"
 #include "mgengine\Behaviours\BulletBehaviour.h"
 #include "mgengine\Behaviours\VanishBehaviour.h"
+#include "mgengine\Behaviours\PlayerBehaviour.h"
 
 #include "mgengine\Materials\EnemyMaterial.h"
 #include "mge\core\World.hpp"
@@ -100,7 +101,10 @@ void EnemyBehaviour::OnCollision(Actor * pOther)
 			if (owner->GetHealth() <= 0) {
 				SpawnExplosion();
 				SpawnDrop();
-
+				Actor * Player =dynamic_cast<Actor*> (_owner->getWorld()->getMainPlayer());				
+				PlayerBehaviour * playerBehaviour= dynamic_cast<PlayerBehaviour*>( Player->getActorBehaviour());
+				playerBehaviour->addScore(10.0f);
+				cout << "Enemy Destroyed, Score Added: "<< playerBehaviour->getScore() << endl;
 				owner->Destroy();
 			}
 
@@ -111,6 +115,7 @@ void EnemyBehaviour::OnCollision(Actor * pOther)
 void EnemyBehaviour::setup()
 {
 	_enemyMaterial = (EnemyMaterial*)_owner->getMaterial();
+	_ownerBody->setCollisionFlags(_ownerBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
 }
 
 void EnemyBehaviour::UpdateEditorMode(float pStep)
@@ -134,6 +139,7 @@ void EnemyBehaviour::UpdateEditorMode(float pStep)
 	}
 
 }
+
 #pragma region Getters and Setters
 void EnemyBehaviour::setShootRatio(float pShootPerSec)
 {
@@ -160,6 +166,7 @@ Materials::ID EnemyBehaviour::getEnemyType()
 	return _enemyType;
 }
 #pragma endregion
+
 //Pass the frame length and move the enemy the distance it should move in that frame
 // Approx -> 0.01666666 length of frame * 60 = is equal to one sec
 void EnemyBehaviour::AiBasic(float pStep)
@@ -203,9 +210,9 @@ void EnemyBehaviour::AiBasic(float pStep)
 	btScalar dZ = pos.z - target.z;
 	_angle = atan2(dX, dZ);
 
-	if (_wayPoints->size() >= (float)_index) {
+	//if (_wayPoints->size() >= (float)_index) {
 		_owner->SetRotation(glm::vec3(0,1,0), _angle);
-	}
+	//}
 
 	glm::vec2 delta = glm::vec2(target.x, target.z) - glm::vec2(pos.x, pos.z);
 	

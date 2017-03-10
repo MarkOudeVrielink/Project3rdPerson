@@ -26,11 +26,12 @@ BossBehaviour::BossBehaviour(std::vector<Waypoint*>* pWayPoints, glm::vec3 pMovi
 	_wayPoints = pWayPoints;
 	_moveSpeed = 0.5f;
 	_world = pWorld;
+
 }
 
 void BossBehaviour::update(float pStep)
 {
-	_bossState = BossState::RotateShoot;
+	//_bossState = BossState::RotateShoot;
 	//RotateAndshoot(pStep);
 	/*
 	Idle 3 sec
@@ -41,15 +42,15 @@ void BossBehaviour::update(float pStep)
 	shoot 6 sec
 	Idle 1
 	Bounce 1 lap
-	charge 
+	charge
 
-	-20% Health: 
+	-20% Health:
 	Bounce 2 laps
 	Speed *= 1.5
 	shootRate  *= 1.5;
 	*/
 	int delay = 3;
-	BossState nextBehaviour =BossState::RotateShoot;
+
 	/*if (behaviourClock.getElapsedTime().asSeconds() - timeSinceLastBehaviourChange.asSeconds() > delay)//shoot
 	{
 		timeSinceLastBehaviourChange = behaviourClock.getElapsedTime();
@@ -57,21 +58,59 @@ void BossBehaviour::update(float pStep)
 	}*/
 	switch (_bossState) {
 	case 0: //Idle
+		delay = 2;
+		if (behaviourClock.getElapsedTime().asSeconds() - timeSinceLastBehaviourChange.asSeconds() > delay)
+		{
+			timeSinceLastBehaviourChange = behaviourClock.getElapsedTime();
+			int random = rand() %( 5 - 1) + 1;
+			cout << "random Number generated" << random << endl;
+			_bossState = BossState(random);
+			//_bossState = BossState::Angry;
 
+		}
 		break;
 	case 1: //Rotate and shoot
+		delay = 6;
+		if (behaviourClock.getElapsedTime().asSeconds() - timeSinceLastBehaviourChange.asSeconds() > delay)
+		{
+			timeSinceLastBehaviourChange = behaviourClock.getElapsedTime();
+			_bossState = BossState::Idle;
+		}
 		RotateAndshoot(pStep);
 		break;
 	case 2:	//Spawn kamikase
+		delay = 5;
+		if (behaviourClock.getElapsedTime().asSeconds() - timeSinceLastBehaviourChange.asSeconds() > delay)
+		{
+			timeSinceLastBehaviourChange = behaviourClock.getElapsedTime();
+			_bossState = BossState::Idle;
+		}
 		SpawnEnemiesKamikase(pStep);
 		break;
 	case 3: //Charge to player
+		if (!chargedAgainstPlayer)
+			ChargePlayer(pStep);
+		else if (chargedAgainstPlayer &&GoToSpawnPosition(pStep))
+		{
+			_moveSpeed = 60;
+			_bossState = BossState::Idle;
+			chargedAgainstPlayer = false;
+		}
 		break;
 	case 4:	 //20% health Bounce through screen while rotating and shooting, maybe also spawning enemies 
+		delay = 6;
+		if(!AiBasicDone)
+		AiBasicDone = AiBasic(pStep);
+		else if (AiBasicDone && GoToSpawnPosition(pStep))
+		{
+			_moveSpeed = 60;
+			_bossState = BossState::Idle;
+			AiBasicDone = false;
+		}
 		break;
 	}
-	
-	
+
+
 }
 void BossBehaviour::RotateAndshoot(float pStep)
 {
@@ -87,8 +126,9 @@ void BossBehaviour::RotateAndshoot(float pStep)
 //Hardcoded properties
 void BossBehaviour::SpawnEnemiesKamikase(float pStep)
 {
-	if (shootClock.getElapsedTime().asSeconds() - timeSinceLastShoot.asSeconds() > 1)//shoot
+	if (shootClock.getElapsedTime().asSeconds() - timeSinceLastShoot.asSeconds() > 1)//spawn
 	{
+		_wayPointsKamikase = *_wayPoints;
 		timeSinceLastShoot = shootClock.getElapsedTime();
 
 		glm::vec3 spawnPoint = _owner->getWorldPosition();// +directions.at(i)*.25f;//radius(?)
@@ -99,12 +139,12 @@ void BossBehaviour::SpawnEnemiesKamikase(float pStep)
 
 		cout << "ENEMY Kamikase CREATED" << endl;
 		AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png"));
-		_wayPoints->clear();
-		_wayPoints->push_back(SpawnWaypoint);
-		_wayPoints->push_back(playerPos);
+		_wayPointsKamikase.clear();
+		_wayPointsKamikase.push_back(SpawnWaypoint);
+		_wayPointsKamikase.push_back(playerPos);
 		Enemy1->setMesh(_world->GetResourceManager()->getMesh(Meshes::Pizza));
 		Enemy1->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Pizza));
-		EnemyBehaviour* behave = new EnemyBehaviour(_wayPoints, _movingStep);
+		EnemyBehaviour* behave = new EnemyBehaviour(&_wayPointsKamikase, _movingStep);
 		behave->setSpeed(50);
 		behave->setShootRatio(1);
 		behave->setEnemyType(_enemyType);
@@ -115,9 +155,78 @@ void BossBehaviour::SpawnEnemiesKamikase(float pStep)
 	}
 
 }
-void BossBehaviour::ChargePlayer(float pStep)
+bool BossBehaviour::ChargePlayer(float pStep)
 {
-	_owner->getParent()->getParent();
+	int delay = 2;
+	//Rotate for 2 seconds while spawning enemies and then charge to player
+	if (behaviourClock.getElapsedTime().asSeconds() - timeSinceLastBehaviourChange.asSeconds() > delay)
+	{
+		//save player and boss original posisions including the direction
+		if (!_playerDirectionSaved) {
+			_directionToPlayer = _world->getMainPlayer()->getWorldPosition();			
+			_playerDirectionSaved = true;
+			_owner->SetRotation(glm::vec3(0, 1, 0), 0);
+			_moveSpeed = 250;
+			glm::vec3 pos = _owner->getWorldPosition();
+			float dX = pos.x - _directionToPlayer.x;
+			float dZ = pos.z - _directionToPlayer.z;
+			_angle = atan2(dX, dZ);
+			_owner->SetRotation(glm::vec3(0, 1, 0), _angle);
+
+			pos = _owner->getWorldPosition();
+			delta.x = _directionToPlayer.x - pos.x;
+			delta.y = _directionToPlayer.z - pos.z;
+		}
+		glm::vec3 pos = _owner->getWorldPosition();
+		glm::vec2 delta2;
+		delta2.x = _directionToPlayer.x - pos.x;
+		delta2.y = _directionToPlayer.z - pos.z;
+		float length = glm::length(delta2); //length from boss to player
+
+		if (length < _moveSpeed*pStep)//we reached our destiny but we want to keep moving 
+			reachedPlayer = true;
+		//if we reached our destiny keep moving for 2 seconds
+		if ((reachedPlayer) && (shootClock.getElapsedTime().asSeconds() - timeSinceLastShoot.asSeconds() > 2)) {//borrow shooting timers			
+			timeSinceLastShoot = shootClock.getElapsedTime();
+			_playerDirectionSaved = false;
+			timeSinceLastBehaviourChange = behaviourClock.getElapsedTime();
+			chargedAgainstPlayer = true;
+			reachedPlayer = false;
+			return true;
+		}
+		else {///move
+			delta = glm::normalize(delta);
+			_ownerBody->translate(btVector3(delta.x * _moveSpeed *pStep, 0.0f, delta.y * _moveSpeed*pStep));	 //Move toward target with set speed.
+
+		}
+		return false;
+	}
+	else
+	{
+		SpawnEnemiesKamikase(pStep);
+		_angle2 -= pStep * 30;
+		_owner->SetRotation(glm::vec3(0, 1, 0), _angle2);
+	}
+	return false;
+}
+bool BossBehaviour::GoToSpawnPosition(float pStep)
+{
+
+	_moveSpeed = 2.5f;
+	glm::vec3 pos = _owner->getWorldPosition();
+	float dX = pos.x - _originalSpawn.x;
+	float dZ = pos.z - _originalSpawn.z;
+	_angle = atan2(dX, dZ);
+	_owner->SetRotation(glm::vec3(0, 1, 0), _angle);
+	glm::vec2 delta = glm::vec2(_originalSpawn.x, _originalSpawn.z) - glm::vec2(pos.x, pos.z);
+	_ownerBody->translate(btVector3(delta.x * _moveSpeed *pStep, 0.0f, delta.y * _moveSpeed*pStep));	 //Move toward target with set speed.
+	float length = glm::length(delta);
+	if (length < _moveSpeed*pStep) {
+
+		return true;
+	}
+	return false;
+
 }
 void BossBehaviour::BounceInScreen(float pStep)
 {
@@ -137,8 +246,6 @@ void BossBehaviour::OnCollision(Actor * pOther)
 
 			if (owner->GetHealth() <= 0) {
 				SpawnExplosion();
-				
-
 				owner->Destroy();
 			}
 
@@ -149,10 +256,13 @@ void BossBehaviour::OnCollision(Actor * pOther)
 void BossBehaviour::setup()
 {
 	_enemyMaterial = (EnemyMaterial*)_owner->getMaterial();
+	_ownerBody->setCollisionFlags(_ownerBody->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
+	_originalSpawn = _owner->getWorldPosition();
 }
 
 void BossBehaviour::SpawnBullet()
 {
+
 	vector<glm::vec3> directions = { glm::vec3(0, 0, 1) ,glm::vec3(0, 0, -1) ,glm::vec3(-1, 0, 0) ,glm::vec3(1, 0, 0) };
 	for (int i = 0; i < 4;i++)
 	{
@@ -163,16 +273,17 @@ void BossBehaviour::SpawnBullet()
 		bullet->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Player));
 		bullet->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Player));
 		bullet->setActorBehaviour(bulletBehave0);
-		bulletBehave0->setBulletDirection(glm::rotate(directions.at(i), _angle2,glm::vec3(0,1,0)));//Down
+		bulletBehave0->setBulletDirection(glm::rotate(directions.at(i), _angle2, glm::vec3(0, 1, 0)));//Down
 		_owner->getParent()->add(bullet);
 	}
+
 }
 
 void BossBehaviour::SpawnExplosion()
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition();
 
-	ObjectActor* explosion = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_StaticObject, CF::COL_NOTHING, CF::pickupCollidesWith);
+	ObjectActor* explosion = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_StaticObject, CF::COL_NOTHING, CF::pickupCollidesWith);	
 	explosion->setActorBehaviour(new VanishBehaviour(config::MGE_TEXTURE_PATH + "mini_explosion.png"));
 	_owner->getWorld()->add(explosion);
 }
@@ -207,9 +318,10 @@ Materials::ID BossBehaviour::getEnemyType()
 	return _enemyType;
 }
 
-void BossBehaviour::AiBasic(float pStep)
+bool BossBehaviour::AiBasic(float pStep)
 {
-	if (_tarjet == nullptr ) {
+	_moveSpeed = 50;
+	if (_tarjet == nullptr) {
 
 		if ((float)_index <= 0)
 			_index = 1;
@@ -222,14 +334,14 @@ void BossBehaviour::AiBasic(float pStep)
 
 	glm::vec3 target(_tarjet->getWorldPos().x, 0, _tarjet->getWorldPos().z);
 	target += _movingStep;
-	glm::vec3 pos = _owner->getWorldPosition();	
+	glm::vec3 pos = _owner->getWorldPosition();
 	btScalar dX = pos.x - target.x;
 	btScalar dZ = pos.z - target.z;
 	//_angle2 = atan2(dX, dZ);
 
-	if (_wayPoints->size() >= (float)_index) {
-	//	_owner->SetRotation(glm::vec3(0, 1, 0), _angle2);
-	}
+	
+	_owner->SetRotation(glm::vec3(0, 1, 0), _angle2);
+	
 
 	glm::vec2 delta = glm::vec2(target.x, target.z) - glm::vec2(pos.x, pos.z);
 	float length = glm::length(delta);
@@ -238,21 +350,23 @@ void BossBehaviour::AiBasic(float pStep)
 		_tarjet = _wayPoints->at(_index++);
 	}
 	else {
-		if (_wayPoints->size() == _index &&length < _moveSpeed*pStep) //Increment index so we dont keep rotating in order to keep moving and leave the screen
-			_index++;
-		//if we dont have more waypoints, recalculate tarjet to keep moving "forward"
-		if (_wayPoints->size() < _index)
-		{
-			target *= 100;
-			delta = glm::vec2(target.x, target.z) - glm::vec2(pos.x, pos.z);
+		if (_wayPoints->size() == _index &&length < _moveSpeed*pStep) { //Increment index so we dont keep rotating in order to keep moving and leave the screen
+			_index = 0;
+			return true;
 		}
+		//if we dont have more waypoints, recalculate tarjet to keep moving "forward"
+		
 		delta = glm::normalize(delta);	//Get difference between object and target.
+
 		_ownerBody->translate(btVector3(delta.x * _moveSpeed *pStep, 0.0f, delta.y * _moveSpeed*pStep));	 //Move toward target with set speed.
 	}
+//	RotateAndshoot(pStep);
 
+	
 	if (_wayPoints->size() >= _index && shootClock.getElapsedTime().asSeconds() - timeSinceLastShoot.asSeconds() > _shootRatio)//shoot
 	{
 		timeSinceLastShoot = shootClock.getElapsedTime();
 		SpawnBullet();
 	}
+	return false;
 }

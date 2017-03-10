@@ -56,25 +56,6 @@ sf::Vector2f Waypoint::getScreenPosition()
 //Expensive(?)
 glm::vec3 Waypoint::getWorldPos()
 {
-	/*
-	sf::Vector2u windowSize = _window->getSize();
-	glm::vec2 mousePosRelativeToScreenCenter = glm::vec2(
-		(float)_screenWaypointPosition.x - (windowSize.x / 2),
-		(float)-_screenWaypointPosition.y + (windowSize.y / 2)
-	);
-	float nearPlane = 0.1f;     //taken from Camera.hpp
-	float verticalFOV = 45.0f;  //taken from Camera.hpp
-	float nearPlaneHeight = 2 * nearPlane * tan(glm::radians(verticalFOV / 2.0f));
-	float ratio = nearPlaneHeight / windowSize.y;
-
-	glm::vec4 rayNearPlane = glm::vec4(
-		mousePosRelativeToScreenCenter.x * ratio,
-		mousePosRelativeToScreenCenter.y * ratio,
-		-nearPlane,
-		0
-	);
-	glm::vec3 rayWorld = glm::normalize(glm::vec3(_camera->getWorldTransform() * rayNearPlane));
-	*/
 	return _worldWaypointPosition;
 }
 

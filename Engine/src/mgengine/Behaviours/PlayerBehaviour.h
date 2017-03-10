@@ -2,6 +2,7 @@
 #define ACTORMOVEMENT_H
 
 #include "mgengine\Behaviours\AbstractActorBehaviour.h"
+#include "SFML\System\Clock.hpp"
 
 #include <glm.hpp>
 
@@ -11,20 +12,33 @@ class PlayerMaterial;
 
 class PlayerBehaviour : public AbstractActorBehaviour {
 public:
-	PlayerBehaviour(float pSpeed = 1.0f);
+			PlayerBehaviour(float pSpeed = 1.0f);
 	virtual ~PlayerBehaviour();	
 	
 	virtual void update(float pStep);
 	virtual void OnCollision(Actor* pOther);
+			void setup();
 
-	void setup();
+	void	addScore(float pScore);
+	float	getScore();
+
+	int		getMultiplier();
 	
 private:
 	void SpawnBullet(float pBulletPower);
+	void SpawnBullet(float pBulletPower, glm::vec3 pDirection);
+	void SpawnBullet(float pBulletPower, glm::vec3 pDirection, float pAngle);
 	void SpawnNova();
 	
+	void Move();
+	void _checkInput(bool& h, bool& v);
+	void _deccelerate(bool h, bool v);
+	void _checkDoubleTap();
+
 	void FireWeapon(float pTime);
-	void Move(float pDeltaTime);
+	void FireWeapon2(float pTime);
+	void FireWeapon3(float pTime);	
+
 	void IsInvulnerable(float pTime);
 
 	glm::vec3 _spawnOffset;
@@ -56,6 +70,7 @@ private:
 	float	_doubleTapTime;
 
 	float		_tiltAngle;
+	float		_moveSpeed;
 	float		_maxSpeed;
 	float		_dashPower;
 	float		_horizontalInput;
@@ -63,12 +78,16 @@ private:
 	float		_acceleration;
 	float		_decceleration;
 	glm::vec3	_force;	
-
-	void		_checkInput(bool& h, bool& v);
-	void		_deccelerate(bool h, bool v);
-	void		_checkDoubleTap();
-	
+		
 	PlayerMaterial*		_playerMaterial;	
+
+	
+
+	int _comboMultiplier = 1;
+
+	sf::Clock ScoreClock;
+	sf::Time  timeSinceLastDeadEnemy = sf::Time::Zero;
+
 };
 
 #endif // !ACTORMOVEMENT_H

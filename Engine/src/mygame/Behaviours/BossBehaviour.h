@@ -19,7 +19,8 @@ public:
 	virtual void update(float pStep);
 	void RotateAndshoot(float pStep);
 	void SpawnEnemiesKamikase(float pStep);
-	void ChargePlayer(float pStep);
+	bool ChargePlayer(float pStep);
+	bool GoToSpawnPosition(float pStep);
 	void BounceInScreen(float pStep);
 	virtual void	OnCollision(Actor* pOther);
 	virtual void	setup();
@@ -36,6 +37,7 @@ private:
 	enum BossState{Idle,RotateShoot,SpawnEnemies,Charge,Angry};
 	BossState _bossState = Idle;
 	std::vector<Waypoint*>* _wayPoints;
+	std::vector<Waypoint*> _wayPointsKamikase;
 	Waypoint *_tarjet = nullptr;
 
 	glm::vec3 _movingStep;
@@ -46,7 +48,7 @@ private:
 	int				_index = 0;
 	bool			_levelEditorMode = true;
 
-	void AiBasic(float pStep);
+	bool AiBasic(float pStep);
 	void AiBasicBackWards(float pStep);
 
 	float				_angle2 =0;
@@ -58,6 +60,17 @@ private:
 	sf::Clock shootClock;
 	sf::Time timeSinceLastShoot = sf::Time::Zero;
 
+	BossState _nextBehaviour = BossState::RotateShoot;
+
 	sf::Clock behaviourClock;
 	sf::Time timeSinceLastBehaviourChange = sf::Time::Zero;
+
+	bool _playerDirectionSaved = false;
+	bool chargedAgainstPlayer = false;
+	float _angle;
+	bool reachedPlayer = false;
+	bool AiBasicDone = false;
+	glm::vec2 delta;
+	glm::vec3 _directionToPlayer;
+	glm::vec3 _originalSpawn;
 };

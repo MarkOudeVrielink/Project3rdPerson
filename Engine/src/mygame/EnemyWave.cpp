@@ -13,13 +13,15 @@ EnemyWave::EnemyWave()
 	{
 		Enemy* Enemy1 = new Enemy("Diablo", glm::vec3(0, 0, 0));
 		_enemies.push_back(Enemy1);
-	}	
+	}
+	//_enemy = _world->GetResourceManager()->getMesh(Meshes::Player);//LAG HERE
 }
 //TODO: Set the delay between enemies relative to the speed of the enemies to avoid them colliding between them
 
 EnemyWave::~EnemyWave()
 {
-	
+	cout << "Destroying Enemy Wave...." << endl;
+	cout << "WTF should not being destoyed" << endl;
 }
 //Add waypoint to the list of waypoints in this wave
 void EnemyWave::addWaypoint(Waypoint * pWaypoint, float pSec)
@@ -28,11 +30,11 @@ void EnemyWave::addWaypoint(Waypoint * pWaypoint, float pSec)
 	if (_wayPoints.empty())
 	{
 		_startTimeWave = pSec;
-		//cout << "Waypoints Empty.... Adding waypoint" << _startTimeWave << endl;
+		cout << "Waypoints Empty.... Adding waypoint" << _startTimeWave << endl;
 
 	}
-	//else
-		//cout << "NOT EMPTY HUEUHUE" << endl;
+	else
+		cout << "NOT EMPTY HUEUHUE" << endl;
 	_wayPoints.push_back(pWaypoint);
 }
 void EnemyWave::addMainWaypointDirection(Waypoint * pWaypoint, float pSec)
@@ -111,7 +113,7 @@ void EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
 	if (_quantitySpawnedEnemies < _sizeWave)
 	{
 		if (_wayPoints.size() == 0) { //If not waypoints return
-			//cout << "No Waypoints... Abort..." << endl;
+			cout << "No Waypoints... Abort..." << endl;
 			return;
 		}
 		Waypoint * SpawnWaypoint = _wayPoints.at(0);
@@ -133,7 +135,10 @@ void EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
 			break;
 		}
 		//Max points in Camera screen/Pixels*position of waypoint in screen-half the Max points in camera screen
-		glm::vec3 pos = _wayPoints.at(0)->getWorldPos();
+		glm::vec3 pos;
+		if(_wayPoints.at(0) != NULL)
+		 pos = _wayPoints.at(0)->getWorldPos();
+		else 	pos = glm::vec3(0, 0, 0);
 		glm::vec3 stepMovingMain = glm::vec3(0, 0, 0);
 		if (_mainWaypointDirection != NULL) {
 			float lengthMovingWaypoint = glm::length(_mainWaypointDirection->getWorldPos() - pos);
@@ -147,7 +152,7 @@ void EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
 		//Enemy* Enemy1 = new Enemy("Enemy", pos);
 		ControlledActor* Enemy1 = new ControlledActor(pWorld, "Enemy", pos, new btSphereShape(5), ActorType::Type_Enemy, 1,  CF::COL_ENEMY, CF::enemyCollidesWith);
 		
-		//cout << "ENEMY CREATED" << endl;
+		cout << "ENEMY CREATED" << endl;
 		AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png"));
 
 		Enemy1->setMesh(pWorld->GetResourceManager()->getMesh(Meshes::ID( _enemyType)));
@@ -187,15 +192,14 @@ void EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
 			Boss->setEnemyType(_enemyType);
 			Enemy1->SetHealth(_health);
 			Enemy1->setActorBehaviour(Boss);
+			Boss->setup();
 
 		//	Boss->SaveOriginalTransform()
 		}
-
-		//Enemy1->scale(glm::vec3(2, 2, 2));
-		//cout << "Scale set" << endl;
+		Enemy1->scale(glm::vec3(1.5, 1.5, 1.5));
+		cout << "Scale set" << endl;
 		pWaveParent->add(Enemy1);
-		//cout << "Parent added" << endl;
-
+		cout << "Parent added" << endl;
 		_quantitySpawnedEnemies++;
 	}
 }
@@ -205,8 +209,8 @@ bool EnemyWave::CheckSpawnTimeNextEnemy(float* pSec)
 	_snapTime = pSec;
 	if (*pSec - _timeAtLastEnemySpawned - _startTimeWave >= _delayBetweenEnemies)
 	{
+		//cout << _startTimeWave << "<<delayed by" << endl;
 		_startTimeWave = 0;
-
 		_timeAtLastEnemySpawned = *pSec;
 		return true;
 	}
@@ -232,7 +236,7 @@ void EnemyWave::TestEditorMode()
 #pragma region getters
 const float * EnemyWave::getStartTime() const
 {
-	//cout << "START TIME !!!!!!!" << _startTimeWave << endl;
+	cout << "START TIME !!!!!!!" << _startTimeWave << endl;
 	return &_startTimeWave;
 }
 
@@ -307,7 +311,7 @@ void EnemyWave::setEnemyType(Materials::ID pType)
 
 void EnemyWave::setEnemyBehaviour(float pBehaviour)
 {
-	_enemyBehaviour = (int)pBehaviour;
+	_enemyBehaviour = pBehaviour;
 }
 
 void EnemyWave::setHealth(float pHealth)

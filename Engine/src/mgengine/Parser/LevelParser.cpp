@@ -28,10 +28,13 @@ void LevelParser::SaveLevel(Level * pLevel,string pfileName = "demo")
 		LevelChild.append_attribute("waypointDirection_y") = wave->GetMainWaypointDirection()->getWorldPos().y;
 		LevelChild.append_attribute("waypointDirection_z") = wave->GetMainWaypointDirection()->getWorldPos().z;
 
-		int xPos = wave->GetMainWaypointDirection()->getScreenPosition().x;
-		int yPos = wave->GetMainWaypointDirection()->getScreenPosition().y;
-		LevelChild.append_attribute("Screen_x") = xPos;
-		LevelChild.append_attribute("Screen_y") = yPos;
+		if (wave->GetMainWaypointDirection() != NULL) {
+			int xPos = wave->GetMainWaypointDirection()->getScreenPosition().x;
+			int yPos = wave->GetMainWaypointDirection()->getScreenPosition().y;
+
+			LevelChild.append_attribute("Screen_x") = xPos;
+			LevelChild.append_attribute("Screen_y") = yPos;
+		}
 		pugi::xml_node WaveChild = LevelChild.append_child("Waypoints");
 	
 
