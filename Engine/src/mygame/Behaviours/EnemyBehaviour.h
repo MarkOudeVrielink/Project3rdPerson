@@ -35,6 +35,8 @@ public:
 
 	void SpawnDrop(int pAmount = 1);
 	void SpawnBullet();
+	int getBulletTypeBasedOnEnemy(int pIndex);
+	float getScale(int pIndex);
 	void SpawnExplosion();
 	void AiKamikase(float pStep);
 private:

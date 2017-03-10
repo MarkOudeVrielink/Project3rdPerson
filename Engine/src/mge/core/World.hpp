@@ -26,11 +26,26 @@ class World : public GameObject
 		ResourceManager* GetResourceManager();
 		CollisionManager* GetCollisionManager();
 
+		void setPlayerDead(bool pState);
+
+		bool getPlayerDead();
+
+		void setDialogue(bool pBool, int pIndex);
+
+		bool getDialogue(int pIndex);
+
+		bool getDialogueEnded(int pIndex);
+
+		void setDialogueEnded(bool pBool, int pIndex);
+
 		void DestroyActors();
+		void setBossDeath(bool pState);
+		bool getBossDeath();
 		void SetDirtyActor(Actor* pActor);
 	private:
 	    Camera* _mainCamera;	
-		
+		bool _playerDead = false;
+		bool _bossDeath = false;
 		CollisionManager*	_physicsManager;
 		ResourceManager*	_resourceManager;
 		GameObject* _player;
@@ -39,6 +54,15 @@ class World : public GameObject
 
         World(const World&);
         World& operator=(const World&);
+
+		bool _dialoguePreGame = false;
+		bool _dialoguePreBos = false;
+		bool _dialoguePosWin = false;
+
+
+		bool _dialoguePreGameEnded = false;
+		bool _dialoguePreBosEnded = false;
+		bool _dialoguePosWinEnded = false;
 };
 
 #endif // WORLD_H

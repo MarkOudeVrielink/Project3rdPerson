@@ -25,6 +25,7 @@ public:
 	virtual void	OnCollision(Actor* pOther);
 	virtual void	setup();
 	void SpawnBullet();
+	void SpawnBullet(float pBulletPower, glm::vec3 pDirection, float pAngle);
 	void SpawnExplosion();
 
 	void			setShootRatio(float pShootPerSec);

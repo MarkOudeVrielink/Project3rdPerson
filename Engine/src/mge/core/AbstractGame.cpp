@@ -109,10 +109,10 @@ void AbstractGame::run()
 				_world->GetCollisionManager()->SimulatePhysics(timePerFrame.asSeconds());
 				_world->GetCollisionManager()->CheckCollisions();
 
+				
 				/*Destroy all the actors in the world that were set to 'dirty'*/
 				_world->DestroyActors();
-
-                _update(timePerFrame.asSeconds());
+				_update(timePerFrame.asSeconds());
 		    }
 			
             _render();

@@ -11,13 +11,13 @@
 
 #include "mgengine\Materials\EnemyMaterial.h"
 #include "mge\core\World.hpp"
-
+#include <random>
 #include "mgengine\Collision\CollisionFilters.h"
 
 #include <list>
 #include <glm.hpp>
 
-EnemyBehaviour::EnemyBehaviour(std::vector<Waypoint*> *pWayPoints, glm::vec3  pMovingStep )
+EnemyBehaviour::EnemyBehaviour(std::vector<Waypoint*> *pWayPoints, glm::vec3  pMovingStep)
 {
 	_movingStep = pMovingStep;
 	_wayPoints = pWayPoints;
@@ -60,7 +60,7 @@ void EnemyBehaviour::SaveOriginalTransform()
 
 void EnemyBehaviour::update(float pStep)
 {
-	
+
 	if (!_levelEditorMode && !_kamikase) {
 		AiBasic(pStep);
 	}
@@ -93,17 +93,19 @@ void EnemyBehaviour::OnCollision(Actor * pOther)
 		if (bullet->getOwner() == BulletOwner::Player) {
 			ControlledActor* owner = (ControlledActor*)_owner;
 			owner->TakeDamage(bullet->getPower());
-			
+
 			//_enemyMaterial->setDamaged(true);
 			_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Enemy_Hit);
 
 			if (owner->GetHealth() <= 0) {
 				SpawnExplosion();
 				SpawnDrop();
-				Actor * Player =dynamic_cast<Actor*> (_owner->getWorld()->getMainPlayer());				
-				PlayerBehaviour * playerBehaviour= dynamic_cast<PlayerBehaviour*>( Player->getActorBehaviour());
-				playerBehaviour->addScore(10.0f);
-				cout << "Enemy Destroyed, Score Added: "<< playerBehaviour->getScore() << endl;
+				if (!_owner->getWorld()->getPlayerDead()) {
+					Actor * Player = dynamic_cast<Actor*> (_owner->getWorld()->getMainPlayer());
+					PlayerBehaviour * playerBehaviour = dynamic_cast<PlayerBehaviour*>(Player->getActorBehaviour());
+					playerBehaviour->addScore(10.0f);
+					cout << "Enemy Destroyed, Score Added: " << playerBehaviour->getScore() << endl;
+				}
 				owner->Destroy();
 			}
 
@@ -169,11 +171,11 @@ Materials::ID EnemyBehaviour::getEnemyType()
 void EnemyBehaviour::AiBasic(float pStep)
 {
 	if (_tarjet == nullptr || _movingBackwards == true) {
-		
+
 		if ((float)_index <= 0)
 			_index = 1;
 		else _index++;
-		
+
 		if ((float)_index >= _wayPoints->size())
 			_index = _wayPoints->size() - 1;
 		//cout << _wayPoints->size() << endl;
@@ -181,19 +183,19 @@ void EnemyBehaviour::AiBasic(float pStep)
 		_tarjet = _wayPoints->at(_index);//index++ maybe
 		_movingBackwards = false;
 	}
-	
-	glm::vec3 target(_tarjet->getWorldPos().x, 0, _tarjet->getWorldPos().z) ;
+
+	glm::vec3 target(_tarjet->getWorldPos().x, 0, _tarjet->getWorldPos().z);
 
 	target += _movingStep;
-	
+
 	glm::vec3 pos = _owner->getWorldPosition();
 	if (_kamikase && !_kamikaseTargetSet)
 	{
 		_kamikaseTargetPos = _player->getWorldPosition();
-		target = _kamikaseTargetPos+ _movingStep;
+		target = _kamikaseTargetPos + _movingStep;
 		_kamikaseTargetSet = true;
 	}
-	else if(_kamikase && _kamikaseTargetSet)
+	else if (_kamikase && _kamikaseTargetSet)
 		target = _kamikaseTargetPos;
 	if (_wayPoints->size() <= _index)
 	{
@@ -208,26 +210,26 @@ void EnemyBehaviour::AiBasic(float pStep)
 	_angle = atan2(dX, dZ);
 
 	//if (_wayPoints->size() >= (float)_index) {
-		_owner->SetRotation(glm::vec3(0,1,0), _angle);
+	_owner->SetRotation(glm::vec3(0, 1, 0), _angle);
 	//}
 
 	glm::vec2 delta = glm::vec2(target.x, target.z) - glm::vec2(pos.x, pos.z);
-	
+
 	float length = glm::length(delta);
-	if (length < _moveSpeed*pStep  && _wayPoints->size() > (float)_index) {
+	if (length < _moveSpeed*pStep  && _wayPoints->size() >(float)_index) {
 		_tarjet = _wayPoints->at(_index++);
-		
+
 	}
 	else {
 		if (_wayPoints->size() == _index &&length < _moveSpeed*pStep) //Increment index so we dont keep rotating in order to keep moving and leave the screen
 			_index++;
 		//if we dont have more waypoints, recalculate tarjet to keep moving "forward"
-		
+
 		delta = glm::normalize(delta);	//Get difference between object and target.
 		_ownerBody->translate(btVector3(delta.x * _moveSpeed *pStep, 0.0f, delta.y * _moveSpeed*pStep));	 //Move toward target with set speed.
 	}
 
-	if (_wayPoints->size() >= _index && updateClock.getElapsedTime().asSeconds()- timeSinceLastShoot.asSeconds() > _shootRatio)//shoot
+	if (_wayPoints->size() >= _index && updateClock.getElapsedTime().asSeconds() - timeSinceLastShoot.asSeconds() > _shootRatio)//shoot
 	{
 		timeSinceLastShoot = updateClock.getElapsedTime();
 		SpawnBullet();
@@ -243,15 +245,15 @@ void EnemyBehaviour::AiBasicBackWards(float pStep)
 		//_tarjet = _wayPoints->at(_index++);//index++ maybe
 	}
 	if (_movingBackwards == false)//Check if is first frame that we move backwards to invert waypoint
-	{		
+	{
 		//if ((float)_index > _wayPoints->size())
 			//_index = _wayPoints->size();
-		if (_index > 0 ) //check if there is a waypoint behind
-		{				
+		if (_index > 0) //check if there is a waypoint behind
+		{
 			//cout << _wayPoints->at(_index--)->getPosition().x << endl;
-			 _index--;
-			 if (_index >= _wayPoints->size())
-				 _index = _wayPoints->size() - 1;
+			_index--;
+			if (_index >= _wayPoints->size())
+				_index = _wayPoints->size() - 1;
 			_tarjet = _wayPoints->at(_index);
 		}
 		_movingBackwards = true;
@@ -264,8 +266,8 @@ void EnemyBehaviour::AiBasicBackWards(float pStep)
 	btScalar dX = pos.x - target.x;
 	btScalar dZ = pos.z - target.z;
 	_angle = atan2(dX, dZ);
-	
-	if (_index>=0) //check if there is a waypoint behind
+
+	if (_index >= 0) //check if there is a waypoint behind
 	{//If we haven´t reached the last waypoint keep rotating
 		_owner->SetRotation(glm::vec3(0, 1, 0), _angle);
 	}
@@ -273,10 +275,10 @@ void EnemyBehaviour::AiBasicBackWards(float pStep)
 	glm::vec2 delta = glm::vec2(target.x, target.z) - glm::vec2(pos.x, pos.z);
 	float length = glm::abs(glm::length(delta));
 
-	if (length< _moveSpeed*pStep && _index >0)
+	if (length < _moveSpeed*pStep && _index >0)
 	{
 		_index--;
-		
+
 		_tarjet = _wayPoints->at(_index);
 		cout << "Backwards" << endl;
 	}
@@ -285,21 +287,32 @@ void EnemyBehaviour::AiBasicBackWards(float pStep)
 		delta = glm::normalize(delta);
 		_ownerBody->translate(btVector3(delta.x * _moveSpeed*pStep, 0.0f, delta.y * _moveSpeed*pStep));
 	}
-	
+
 }
 
 void EnemyBehaviour::SpawnDrop(int pAmount)
 {
-	for (int i = 0; i < pAmount; i++) {
-		glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, -2.5f);
+	int random = rand() % (10 - 1) + 1;
+	//if (random ==2 || random ==5)
+		if (true) {
+		for (int i = 0; i < pAmount; i++) {
+			glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, -2.5f);
 
-		ObjectActor* pickup = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith);
-		pickup->scale(glm::vec3(5.f, 5.f, 5.f));
-		pickup->SetRotation(glm::vec3(1, 0, 0), 90);
-		pickup->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::PickUp));
-		pickup->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::PickUp));
-		pickup->setActorBehaviour(new PickUpBehaviour(1, 10, 10));
-		_owner->getWorld()->add(pickup);
+			std::random_device rd;     // only used once to initialise (seed) engine
+			std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
+			std::uniform_int_distribution<int> uni(1, 7); // guaranteed unbiased
+
+			auto random_integer = uni(rng);
+			int randomType = rand() % (10 - 1) + 1;
+			ObjectActor* pickup = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith);
+			
+			pickup->SetRotation(glm::vec3(1, 0, 0), 90);
+			pickup->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::ID(20+ random_integer)));
+			pickup->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::ID(20 + random_integer)));
+			pickup->scale(glm::vec3(1, 1, 1)*getScale(20 + random_integer));
+			pickup->setActorBehaviour(new PickUpBehaviour(1, 10, 10));
+			_owner->getWorld()->add(pickup);
+		}
 	}
 
 	//TODO: give drop a random start dir? differnt kind of drops?
@@ -310,18 +323,94 @@ void EnemyBehaviour::SpawnBullet()
 	glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, 2.5f);
 
 	ObjectActor* bullet = new ObjectActor(_owner->getWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_ENEMYBULLET, CF::enemyBulletCollidesWith);
-	bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
-	bullet->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Player));
-	bullet->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Player));
+	//bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
+	bullet->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::ID(getBulletTypeBasedOnEnemy(_enemyType))));
+	bullet->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::ID(getBulletTypeBasedOnEnemy(_enemyType))));
 	bullet->setActorBehaviour(new BulletBehaviour(0.6f, 1.0f, 3.0f, Direction::Down, BulletOwner::Enemy));
+	glm::vec3 scaleBullet(1, 1, 1);
+	scaleBullet *= getScale(_enemyType);
+	bullet->scale(scaleBullet);
 	_owner->getParent()->add(bullet);
 }
 
+int EnemyBehaviour::getBulletTypeBasedOnEnemy(int pIndex)
+{
+	return  pIndex + 7;/*
+	switch (pIndex)
+	{
+	case 2://Yogurt
+
+		break;
+	case 3://Sushi
+		break;
+	case 4://Sandwich
+		break;
+	case 5://Potato
+		break;
+	case 6://Pizza
+		break;
+	case 7://Muffin
+		break;
+	case 8://Boss
+		break;
+
+	}*/
+}
+
+float EnemyBehaviour::getScale(int pIndex)
+{
+	
+	switch (pIndex)
+	{
+	case 2://Yogurt
+		return 10;
+		break;
+	case 3://Sushi
+		return 1;
+		break;
+	case 4://Sandwich
+		return 1;
+		break;
+	case 5://Potato
+		return 10;
+		break;
+	case 6://Pizza
+		return 2;
+		break;
+	case 7://Muffin
+		return 5;
+		break;
+	case 8://Boss
+		return 1;
+		break;
+	case 21:
+		return 5;
+		break;
+	case 22:
+		return 1;
+		break;
+	case 23:
+		return 1;
+		break;
+	case 24:
+		return 1;
+		break;
+	case 25:
+		return 1;
+		break;
+	case 26:
+		return 1;
+		break;
+	case 27:
+		return 1;
+		break;
+	}
+}
 void EnemyBehaviour::SpawnExplosion()
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition();
 
-	ObjectActor* explosion = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_StaticObject, CF::COL_NOTHING, CF::pickupCollidesWith);	
+	ObjectActor* explosion = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_StaticObject, CF::COL_NOTHING, CF::pickupCollidesWith);
 	explosion->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Explosion));
 	explosion->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Explosion));
 	explosion->setActorBehaviour(new VanishBehaviour(2.0f));

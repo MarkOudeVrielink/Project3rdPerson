@@ -108,14 +108,15 @@ void EnemyWave::setAsSecondaryWave()
 	_mainWave = false;
 }
 //Spawn one enemy at the first waypoint of the list
-void EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
+bool EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
 {	//Check if we finished spawning all the enmies of this wave
 	if (_quantitySpawnedEnemies < _sizeWave)
 	{
 		if (_wayPoints.size() == 0) { //If not waypoints return
 			cout << "No Waypoints... Abort..." << endl;
-			return;
+			return false;
 		}
+
 		Waypoint * SpawnWaypoint = _wayPoints.at(0);
 		glm::vec3 posplayerglmvec3 = pWorld->getMainPlayer()->getWorldPosition();
 		Waypoint * playerPos= new Waypoint (glm::vec3(posplayerglmvec3.x, posplayerglmvec3.y, posplayerglmvec3.z), sf::Vector2f(500, 500), 1, 580, SpawnWaypoint->getRenderWindow());
@@ -202,6 +203,7 @@ void EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
 		cout << "Parent added" << endl;
 		_quantitySpawnedEnemies++;
 	}
+	return false;
 }
 
 bool EnemyWave::CheckSpawnTimeNextEnemy(float* pSec)

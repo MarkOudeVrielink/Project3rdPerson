@@ -99,7 +99,24 @@ void MGEDemo::_initializeScene()
 	_world->GetResourceManager()->loadMesh(Meshes::Muffin, config::MGE_MODEL_PATH + "cupcake.obj");
 	_world->GetResourceManager()->loadMesh(Meshes::Boss, config::MGE_MODEL_PATH + "boss.obj");
 
+
+	_world->GetResourceManager()->loadMesh(Meshes::BulletYogurt, config::MGE_MODEL_PATH + "Projectile(Yogurt).obj");
+	_world->GetResourceManager()->loadMesh(Meshes::BulletSushi, config::MGE_MODEL_PATH + "Projectile(Sushi).obj");
+	_world->GetResourceManager()->loadMesh(Meshes::BulletSandwich, config::MGE_MODEL_PATH + "Projectile(Tomato).obj");
+	_world->GetResourceManager()->loadMesh(Meshes::BulletPotato, config::MGE_MODEL_PATH + "lazer.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::BulletPizza, config::MGE_MODEL_PATH + "Projectile(Mushroom).obj");
+	_world->GetResourceManager()->loadMesh(Meshes::BulletMuffin, config::MGE_MODEL_PATH + "Projectile(Crumb).obj");
+	_world->GetResourceManager()->loadMesh(Meshes::BulletBoss, config::MGE_MODEL_PATH + "lazer.obj");
+
 	_world->GetResourceManager()->loadMesh(Meshes::PickUp, config::MGE_MODEL_PATH + "PickUp(AirFreshner).obj");
+	_world->GetResourceManager()->loadMesh(Meshes::AirFreshener, config::MGE_MODEL_PATH + "AirfreshnerSpray.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Apple, config::MGE_MODEL_PATH + "apple_leftover.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Fish, config::MGE_MODEL_PATH + "fish_skeleton.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Drink, config::MGE_MODEL_PATH + "fastfood_drink.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Tv, config::MGE_MODEL_PATH + "tv.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Banana, config::MGE_MODEL_PATH + "banana_skin.obj");
+
+
 	_world->GetResourceManager()->loadMesh(Meshes::Explosion, config::MGE_MODEL_PATH + "Explosion.obj");
 
 
@@ -123,8 +140,22 @@ void MGEDemo::_initializeScene()
 	_world->GetResourceManager()->loadMaterial(Materials::Muffin, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Muffin_texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Boss, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Boss_texture.png")));
 
+	_world->GetResourceManager()->loadMaterial(Materials::BulletYogurt, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Projectile_yoghurt_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::BulletSushi, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Projectile_Sushi_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::BulletSandwich, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Projectile_tomato_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::BulletPotato, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "laser.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::BulletPizza, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Projectile_Mushroom_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::BulletMuffin, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Projectile_Crumb_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::BulletBoss, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "LaserBOSS.png")));
 
 	_world->GetResourceManager()->loadMaterial(Materials::PickUp, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "PickUp_airfreshner_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::AirFreshener, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "AirFreshner_Texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Apple, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Apple_leftover_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Fish, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "FishSkeletonTexture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Drink, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Fastfood_drink_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Tv, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "TV_Texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Banana, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Banana_texture.png")));
+
 	_world->GetResourceManager()->loadMaterial(Materials::Explosion, new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Explosion_Texture.png")));
 
 

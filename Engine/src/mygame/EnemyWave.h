@@ -17,7 +17,7 @@ public:
 	void DrawWaypoints();
 	void setAsMainWave();
 	void setAsSecondaryWave();
-	void SpawnEnemy(World * pWorld, GameObject * pWaveParent);
+	bool SpawnEnemy(World * pWorld, GameObject * pWaveParent);
 	//void SpawnEnemy(GameObject * pWorld);
 	bool CheckSpawnTimeNextEnemy(float* pSec);
 	void UpdateEditorModePosition(float *pSec);

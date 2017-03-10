@@ -43,7 +43,7 @@ PlayerBehaviour::PlayerBehaviour(Mesh* pMesh,AbstractMaterial* pMaterial, float 
 }
 
 PlayerBehaviour::~PlayerBehaviour() {
-
+	_owner->getWorld()->setPlayerDead(true);
 }
  
 void PlayerBehaviour::update(float pStep) {	

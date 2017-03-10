@@ -36,7 +36,73 @@ CollisionManager * World::GetCollisionManager()
 {
 	return _physicsManager;
 }
-
+void World::setPlayerDead(bool pState)
+{
+	_playerDead = pState;
+}
+bool World::getPlayerDead()
+{
+	return _playerDead;
+}
+//1: pregame
+//2: preboss
+//3: pos game
+void World::setDialogue(bool pBool, int pIndex)
+{
+	switch (pIndex) {
+	case 1:
+		_dialoguePreGame = pBool;
+		break;
+	case 2:
+		_dialoguePreBos = pBool;
+		break;
+	case 3:
+		_dialoguePosWin = pBool;
+		break;
+	}
+}
+bool World::getDialogue(int pIndex)
+{
+	switch (pIndex) {
+	case 1:
+		return _dialoguePreGame;
+		break;
+	case 2:
+		return _dialoguePreBos;
+		break;
+	case 3:
+		return _dialoguePosWin;
+		break;
+	}
+}
+bool World::getDialogueEnded(int pIndex)
+{
+	switch (pIndex) {
+	case 1:
+		return _dialoguePreGameEnded;
+		break;
+	case 2:
+		return _dialoguePreBosEnded;
+		break;
+	case 3:
+		return _dialoguePosWinEnded;
+		break;
+	}
+}
+void World::setDialogueEnded(bool pBool, int pIndex)
+{
+	switch (pIndex) {
+	case 1:
+		_dialoguePreGameEnded = pBool;
+		break;
+	case 2:
+		_dialoguePreBosEnded = pBool;
+		break;
+	case 3:
+		_dialoguePosWinEnded = pBool;
+		break;
+	}
+}
 /*Destroy all the actors that were set to dirty.*/
 void World::DestroyActors()
 {
@@ -52,7 +118,14 @@ void World::DestroyActors()
 		}
 	}
 }
-
+void World::setBossDeath(bool pState)
+{
+	_bossDeath = pState;
+}
+bool World::getBossDeath()
+{
+	return _bossDeath;
+}
 void World::SetDirtyActor(Actor* pActor)
 {
 	bool contains = (std::find(_dirtyActors.begin(), _dirtyActors.end(), pActor) != _dirtyActors.end());

@@ -158,8 +158,12 @@ glm::vec3 GameObject::getWorldPosition() const
 //costly operation, use with care
 glm::mat4 GameObject::getWorldTransform() const
 {
-    if (_parent == NULL) return _transform;
-    else return _parent->getWorldTransform() * _transform;
+	if (_parent == NULL)
+	{
+		return _transform;
+
+	}
+	else return _parent->getWorldTransform() * _transform;
 }
 
 ////////////

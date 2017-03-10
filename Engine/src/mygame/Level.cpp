@@ -48,12 +48,28 @@ int Level::getIndexWave()
 //Return true when all the level waves have been completed <-ADD
 bool Level::RunLevel(sf::Time* pTime)
 {
-	_currentGameTime = pTime;
-	_currentSecInGame = _currentGameTime->asSeconds();
-	for (auto &enemyWave : _waves)
+	if (!_world->getDialogue(1))
 	{
-		if (enemyWave->CheckSpawnTimeNextEnemy(&_currentSecInGame))
-			enemyWave->SpawnEnemy(_world,_gameObjectsParent);
+		_world->setDialogue(true, 1);
+	}
+	else if(_world->getDialogueEnded(1)){
+		_currentGameTime = pTime;
+		_currentSecInGame = _currentGameTime->asSeconds();
+		for (auto &enemyWave : _waves)
+		{
+			if (enemyWave->CheckSpawnTimeNextEnemy(&_currentSecInGame))
+			{
+				if (*enemyWave->getEnemyBehaviour() == 2 && !_world->getDialogue(2))
+				{
+					_world->setDialogue(true, 2);
+					_dialoguePreBos = true;
+				}
+				else if (_dialoguePreBos == true && _world->getDialogueEnded(2))
+					enemyWave->SpawnEnemy(_world, _gameObjectsParent);
+				else if (*enemyWave->getEnemyBehaviour() != 2)
+					enemyWave->SpawnEnemy(_world, _gameObjectsParent);
+			}
+		}
 	}
 	return false;
 }

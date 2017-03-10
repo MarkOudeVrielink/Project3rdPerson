@@ -43,6 +43,9 @@ private:
 	float _currentSnapTime = 5;
 	sf::Time * _currentGameTime;
 	float  _currentSecInGame = 0;
+	bool _dialoguePreGame = false;
+	bool _dialoguePreBos = false;
+	bool _dialoguePosWin = false;
 
 };
 

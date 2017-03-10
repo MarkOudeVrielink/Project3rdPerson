@@ -18,6 +18,7 @@ public:
 	~Menu();
 	void InitializeMenu(tgui::Gui * pGuiRef);
 	virtual void update(float pStep);
+	void checkDialogue();
 	void UpdateHUD();
 private:
 	void ToLevelEditor();
@@ -34,6 +35,16 @@ private:
 	tgui::Label::Ptr _scoreLabel;
 	tgui::Label::Ptr _nextLevel;
 	tgui::Label::Ptr _multiplierLabel;
+
+	tgui::Picture::Ptr _winScreen;
+	tgui::Picture::Ptr _loseScreen;
+
+
+	tgui::Picture::Ptr _preGameDialogue;
+	tgui::Picture::Ptr _preBossDialogue;
+	tgui::Picture::Ptr _posBossDialogue;
+
+
 	GameObject *_levelEditorObject = NULL;
 	LevelEditorBehaviour * _levelEditor;
 	sf::RenderWindow* _window;
