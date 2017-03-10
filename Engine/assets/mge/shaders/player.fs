@@ -18,10 +18,10 @@ void main( void ) {
 		pixelColor.a *= (1 + sin(time));
 	}	
 	
-	if(charged){
-		pixelColor.rg *= (1+ sin(time/2));
-		clamp(pixelColor.rg, 0.3f, 1.0f);		
-	}
+	//if(charged){
+		//pixelColor.rg *= (1+ sin(time/2));
+		//clamp(pixelColor.rg, 0.3f, 1.0f);		
+	//}
 	
 	fragment_color = pixelColor;
 }
