@@ -76,9 +76,9 @@ void MGEDemo::initialize() {
 
 //build the game _world
 void MGEDemo::_initializeScene()
-{
-	
+{	
 	_renderer->setClearColor(0, 0, 0);
+
 	//add camera first (it will be updated last)
 	Camera* camera = new Camera("camera", glm::vec3(0, 100, 0));
 	camera->rotate(glm::radians(-90.0f), glm::vec3(1, 0, 0));
@@ -88,21 +88,14 @@ void MGEDemo::_initializeScene()
 	_levelEditor = new LevelEditorBehaviour(_window, _world);
 	_levelEditor->InitializeHud(&_gui);
 	_levelEditor->setActive(false);
-
-	//Menu *menuScreen = new Menu(_world, _levelEditor);
-	
+		
 	_menuScreen = new Menu(_world,_window);
 
 	GameObject *MenuObject = new GameObject("Menu", glm::vec3(0, 0, 0));
 	MenuObject->setBehaviour(_menuScreen);
 	_world->add(MenuObject);
 	_menuScreen->InitializeMenu(&_gui);
-	
-	//menuScreen->InitializeMenu(&_gui);
-	   
-	//_meshLoadingThread.launch();
-	//_materialLoadingThread.launch();
-	
+		
 	LoadMeshes();
 	LoadMaterials();
 	

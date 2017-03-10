@@ -51,16 +51,19 @@ CollisionManager* World::GetCollisionManager()
 void World::setRenderWindow(sf::RenderWindow * pWindow)
 {
 	_window = pWindow;
-	_hud = new HUD(_window,
-		config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/Hud.png",
-		config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/Health.png",
-		config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/Charge.png");
+	_initializeHud();
 }
 
 sf::RenderWindow* World::getRenderWindow()
 {
 	return _window;
 }
+
+void World::_initializeHud()
+{
+	_hud = new HUD(_window);
+}
+
 HUD * World::getHud()
 {
 	return _hud;
@@ -85,5 +88,6 @@ void World::SetDirtyActor(Actor* pActor)
 		_dirtyActors.push_back(pActor);
 	}
 }
+
 #pragma endregion
 

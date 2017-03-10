@@ -39,6 +39,7 @@ class World : public GameObject
 	private:
 	    Camera* _mainCamera;	
 		HUD*	_hud;
+		void	_initializeHud();
 		
 		CollisionManager*	_physicsManager;
 		ResourceManager*	_resourceManager;

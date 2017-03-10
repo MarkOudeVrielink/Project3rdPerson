@@ -14,7 +14,7 @@ enum ActorType {
 	Type_Player, Type_Enemy, Type_PickUp, Type_Bullet, Type_Nova, Type_StaticObject
 };
 
-class Actor : public GameObject {
+__declspec(align(16))class Actor : public GameObject {
 public:
 	Actor(	World* pWorld, 
 			std::string pName, 
@@ -49,6 +49,15 @@ public:
 	//void			SetRotation(btQuaternion pRotation, glm::vec3 pAxis, btScalar pAngle);
 	void			Destroy();
 
+	/*To make sure it alligns properly on the heap when dynamically allocating it. Otherwise the compiler cannot guarantee correct memory usage.*/
+	void*	operator new(size_t i)
+	{
+		return _mm_malloc(i, 16);
+	}
+	void	operator delete(void* p)
+	{
+		_mm_free(p);
+	}
 protected:
 	void _initRigidBody(btCollisionShape* pCollider);
 	void _initRigidBody(btCollisionShape* pCollider, short pGroup, short pMask);	

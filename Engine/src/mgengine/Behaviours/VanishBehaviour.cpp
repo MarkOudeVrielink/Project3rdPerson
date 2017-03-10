@@ -8,7 +8,7 @@
 VanishBehaviour::VanishBehaviour(std::string pFileName)
 {
 	if (!_texture.loadFromFile(pFileName)) {
-		printf("COULD NOT LOAD SPRITE %s", pFileName);
+		return;
 	}
 }
 
@@ -32,7 +32,7 @@ void VanishBehaviour::OnCollision()
 
 void VanishBehaviour::setup()
 {
-	_animation = new Animation(_owner->getWorld()->getRenderWindow(), _texture, sf::Vector2i(149, 158), 7.0f, 0.3f);
+	_animation = new Animation(_owner->getWorld()->getRenderWindow(), _texture, sf::Vector2i(149, 158), (std::size_t)7.0, 0.3f);
 	_animation->setRepeating(false);	
 	
 	sf::Vector2f spritePosition = sf::Vector2f(_ScreenSpaceCoord());

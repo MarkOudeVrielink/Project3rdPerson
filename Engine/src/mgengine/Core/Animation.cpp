@@ -6,7 +6,7 @@
 Animation::Animation(sf::RenderWindow* pWindow, const sf::Texture & pTexture, sf::Vector2i pFramesSize, std::size_t pNumFrames, float pDuration) :
 	_window(pWindow), _sprite(pTexture), _frameSize(pFramesSize), _numFrames(pNumFrames), _duration(pDuration), _currentFrame(0), _elapsedTime(0), _repeat(true)
 {
-	_sprite.setOrigin(_frameSize.x/2, _frameSize.y/2);
+	_sprite.setOrigin((float)_frameSize.x/2, (float)_frameSize.y/2);
 }
 
 void Animation::update(float dt)

@@ -131,12 +131,13 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 		PickUpBehaviour* pickup = (PickUpBehaviour*)pOther->getActorBehaviour();
 		_charge += pickup->GetCharge();
 		_score	+= pickup->GetPoints();//TODO: does this need to be gone?
-		std::cout << "score: " << _score << " | charge " << _charge << std::endl;
-
+	
 		if (_charge >= _chargeThreshold)
 			_playerMaterial->setCharged(true);
 
 		_owner->getWorld()->getHud()->updateCharge(_charge);
+		_owner->getWorld()->getHud()->updateScore((int)_score);
+
 		_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Drop_Pick);
 		_ownerBody->setLinearVelocity(btVector3(0, 0, 0));
 	}
@@ -144,12 +145,17 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 
 void PlayerBehaviour::addScore(float pScore)
 {
-		timeSinceLastDeadEnemy = ScoreClock.getElapsedTime();
-		_comboMultiplier++;
+	timeSinceLastDeadEnemy = ScoreClock.getElapsedTime();
+	_comboMultiplier++;
 
-	if (_comboMultiplier > 5)_comboMultiplier = 5;
-	_score += pScore*_comboMultiplier;
-	
+	if (_comboMultiplier > 5)
+		_comboMultiplier = 5;
+
+	_score += pScore * _comboMultiplier;
+
+	_owner->getWorld()->getHud()->updateScore((int)_score);
+	_owner->getWorld()->getHud()->updateMultiplier(_comboMultiplier);
+	_owner->getWorld()->getHud()->updateWeaponProgress(_score);
 }
 
 int PlayerBehaviour::getMultiplier()
@@ -167,6 +173,7 @@ void PlayerBehaviour::setup()
 	_playerMaterial = (PlayerMaterial*)_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Player);
 	
 	_owner->getWorld()->getHud()->updateCharge(_charge);
+	_owner->getWorld()->getHud()->updateWeaponProgress(_score);
 }
 
 void PlayerBehaviour::SpawnNova()

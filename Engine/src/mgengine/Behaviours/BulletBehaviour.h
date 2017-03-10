@@ -26,6 +26,7 @@ public:
 	void setBulletRotation(glm::vec3 pAxis, float pAngle);
 	//void setBulletRotation(float pRotation);
 	glm::vec3 getBulletDirection();
+
 	/*To make sure it alligns properly on the heap when dynamically allocating it. Otherwise the compiler cannot guarantee correct memory usage.*/
 	void*	operator new(size_t i)
 	{
