@@ -59,9 +59,22 @@ void Menu::InitializeMenu(tgui::Gui* pGuiRef)
 	backGround->setPosition(0, 0);
 	_panel->add(backGround);
 
+	/*Instructions*/
+	auto instructions = tgui::Button::create();
+	instructions->setSize(300, 250);
+	instructions->getRenderer()->setBorderColor(tgui::Color(0, 0, 0, 0));
+	instructions->setOpacity(0.5f);
+
+	sf::Texture tex;
+	tex.loadFromFile(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/Instructions.png");
+
+	instructions->getRenderer()->setNormalTexture(tex);
+	instructions->setPosition(50, 750);
+	_panel->add(instructions);
+
 	/*Title*/
 	_titleBanner = tgui::Button::create();
-	_titleBanner->setSize(650, 500);
+	_titleBanner->setSize(650,500);
 	_titleBanner->getRenderer()->setBorderColor(tgui::Color(0, 0, 0, 0));
 	
 	sf::Texture title;
