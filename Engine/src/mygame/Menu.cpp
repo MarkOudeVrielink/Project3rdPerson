@@ -31,6 +31,7 @@ Menu::~Menu()
 		_nextLevel->hide();
 	}
 }
+
 void Menu::InitializeMenu(tgui::Gui* pGuiRef)
 {
 	_world->GetResourceManager()->PlayMusic(Music::MenuTheme);
@@ -59,16 +60,28 @@ void Menu::InitializeMenu(tgui::Gui* pGuiRef)
 	_panel->add(backGround);
 
 	/*Title*/
-	auto titleBanner = tgui::Button::create();
-	titleBanner->setSize(650, 500);
-	titleBanner->getRenderer()->setBorderColor(tgui::Color(0, 0, 0, 0));
+	_titleBanner = tgui::Button::create();
+	_titleBanner->setSize(650, 500);
+	_titleBanner->getRenderer()->setBorderColor(tgui::Color(0, 0, 0, 0));
 	
 	sf::Texture title;
 	title.loadFromFile(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/Logo.png");
 	
-	titleBanner->getRenderer()->setNormalTexture(title);
-	titleBanner->setPosition(windowWidth * 0.5f - 370, 0);
-	_panel->add(titleBanner);
+	_titleBanner->getRenderer()->setNormalTexture(title);
+	_titleBanner->setPosition(windowWidth * 0.5f - 370, 0);
+	_panel->add(_titleBanner);
+
+	/*Title dark*/
+	/*_titleBanner2 = tgui::Button::create();
+	_titleBanner2->setSize(650, 500);
+	_titleBanner2->getRenderer()->setBorderColor(tgui::Color(0, 0, 0, 0));
+
+	sf::Texture title2;
+	title2.loadFromFile(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/LightOff.png");
+
+	_titleBanner2->getRenderer()->setNormalTexture(title2);
+	_titleBanner2->setPosition(windowWidth * 0.5f - 370, 0);
+	_panel->add(_titleBanner2);*/
 
 #pragma endregion
 
@@ -163,11 +176,14 @@ void Menu::InitializeMenu(tgui::Gui* pGuiRef)
 
 void Menu::update(float pStep)
 {
+	_flickerLight();
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
 	{
 		ToMenu();
-	}
-	if (_objManager != NULL)
+	}	
+
+	/*if (_objManager != NULL)
 	{
 		PlayerBehaviour * playerBehaviour = dynamic_cast<PlayerBehaviour*> (player->getActorBehaviour());
 		_scoreLabel->setText("Score: " + std::to_string((int)playerBehaviour->getScore()));
@@ -180,7 +196,7 @@ void Menu::update(float pStep)
 			_nextLevel->setText(" Score To Next Level: 1000");
 		else if (score >= 1000)
 			_nextLevel->setText(" MAX LEVEL");		
-	}
+	}*/
 }
 
 void Menu::ToLevelEditor()
@@ -232,6 +248,7 @@ void Menu::SetScoreHUD()
 	_nextLevel->setTextSize(28);
 	_guiRef->add(_nextLevel);
 }
+
 void Menu::StartGame()
 {
 	_world->GetResourceManager()->PlayMusic(Music::MissionTheme_1);
@@ -308,5 +325,18 @@ void Menu::setActive(bool pActive)
 bool Menu::getActive()
 {
 	return _active;
+}
+
+void Menu::_flickerLight()
+{
+	if (_flicker % 40 == 0 && _titleBanner->getOpacity() > 0) {
+		_titleBanner->setOpacity(0);
+
+		_flicker > 1000 ? 0 : _flicker;
+	}
+	else {
+		_titleBanner->setOpacity(1);
+		_flicker++;
+	}
 }
 
