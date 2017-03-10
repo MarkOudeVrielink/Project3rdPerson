@@ -59,7 +59,7 @@ void LevelParser::SaveLevel(Level * pLevel,string pfileName = "demo")
 	}
 
 	doc.save_file((config::MGE_FONT_PATH +"/"+ pfileName+".xml").c_str(), PUGIXML_TEXT("  "));
-	cout << "saved... "<< pfileName << endl;
+	//cout << "saved... "<< pfileName << endl;
 }
 
 Level* LevelParser::LoadLevel(string pName ="demo", sf::RenderWindow* pWindow= NULL)
@@ -68,8 +68,8 @@ Level* LevelParser::LoadLevel(string pName ="demo", sf::RenderWindow* pWindow= N
 	pugi::xml_parse_result result = doc.load_file((config::MGE_FONT_PATH + "/"+ pName+".xml").c_str());
 	if (!result)
 	{
-		std::cout << "Parse error: " << result.description()
-			<< ", character pos= " << result.offset<<endl;
+		//std::cout << "Parse error: " << result.description()
+			//<< ", character pos= " << result.offset<<endl;
 		return NULL;
 	}
 	// A valid XML document must have a single root node
@@ -108,7 +108,7 @@ Level* LevelParser::LoadLevel(string pName ="demo", sf::RenderWindow* pWindow= N
 
 			//Waypoint list Element
 			pugi::xml_node WaveChild = wave.child("Waypoints");
-			cout << startTime << " << delay time of wave loaded" << endl;
+			//cout << startTime << " << delay time of wave loaded" << endl;
 			//vector<Waypoint*> waypointList;
 			//Go throught all the waypoints in the list and store them in a vector<Waypoint>
 			
@@ -116,20 +116,29 @@ Level* LevelParser::LoadLevel(string pName ="demo", sf::RenderWindow* pWindow= N
 			{
 				//cout<<WaveChild.
 			//	std::cout << "Parse error: " << result.description()
+
+				//	<< ", character pos= " << result.offset << endl;
+				//cout <<"Hey Im a wavepoint" << endl;
+
 			//		<< ", character pos= " << result.offset << endl;
 			//	cout <<"Hey Im a wavepoint" << endl;
+
 				sf::Vector2f pos;
 				pos.x = waypoint.attribute("Screen_x").as_float();
 				pos.y = waypoint.attribute("Screen_y").as_float();
 			
+
+				//level->CreateWaypoint(pos, startTime);
+
 				glm::vec3 worldPos;
 				worldPos.x = waypoint.attribute("World_x").as_float();
 				worldPos.y = waypoint.attribute("World_y").as_float();
 				worldPos.z = waypoint.attribute("World_z").as_float();
 				level->CreateWaypoint(worldPos,pos, startTime);
+
 				//cout << pos.x << " << x Of waypoint loaded" << endl;
 			}
-			cout << "Hey Wave done" << endl;
+			//cout << "Hey Wave done" << endl;
 		}
 		//cout << "Hey Im DONE" << endl;
 		

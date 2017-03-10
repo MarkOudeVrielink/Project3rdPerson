@@ -1,7 +1,12 @@
 #include "mge/core/World.hpp"
 #include "mgengine/Core/Actor.h"
+#include "mgengine/UI/HUD.h"
+
+#include "mge/config.hpp"
+
 #include <iterator>
 #include <algorithm>
+
 
 using namespace std;
 
@@ -11,31 +16,38 @@ World::World():GameObject("root"), _mainCamera(0), _dirtyActors()
 	_resourceManager = new ResourceManager();
 	_physicsManager = new CollisionManager();
 	GameObject *PlayerDefault = new GameObject("player_default");
-	setMainPlayer(PlayerDefault);
+	setMainPlayer(PlayerDefault);	
 }
 
-void World::setMainCamera (Camera* pCamera) {
-    if (pCamera != NULL) _mainCamera = pCamera;
+#pragma region get/set
+
+void World::setMainCamera(Camera* pCamera) {
+	if (pCamera != NULL) _mainCamera = pCamera;
 }
 
-Camera* World::getMainCamera () {
-    return _mainCamera;
+Camera* World::getMainCamera() {
+	return _mainCamera;
 }
+
+
 void World::setMainPlayer(GameObject* pPlayer) {
 	if (pPlayer != NULL) _player = pPlayer;
 }
+
 GameObject* World::getMainPlayer() {
 	return _player;
 }
+
 ResourceManager * World::GetResourceManager()
 {
 	return _resourceManager;
 }
 
-CollisionManager * World::GetCollisionManager()
+CollisionManager* World::GetCollisionManager()
 {
 	return _physicsManager;
 }
+<<<<<<< HEAD
 void World::setPlayerDead(bool pState)
 {
 	_playerDead = pState;
@@ -103,19 +115,39 @@ void World::setDialogueEnded(bool pBool, int pIndex)
 		break;
 	}
 }
+=======
+
+void World::setRenderWindow(sf::RenderWindow * pWindow)
+{
+	_window = pWindow;
+	_initializeHud();
+}
+
+sf::RenderWindow* World::getRenderWindow()
+{
+	return _window;
+}
+
+void World::_initializeHud()
+{
+	_hud = new HUD(_window);
+}
+
+HUD * World::getHud()
+{
+	return _hud;
+}
+#pragma endregion
+
+#pragma region Actor Gargbage collection
+
+>>>>>>> origin/master
 /*Destroy all the actors that were set to dirty.*/
 void World::DestroyActors()
 {
-	
 	while (!_dirtyActors.empty()) {
-		try {
-			delete _dirtyActors.back();
-			_dirtyActors.pop_back();
-		}
-		catch (int e)
-		{
-
-		}
+		delete _dirtyActors.back();
+		_dirtyActors.pop_back();
 	}
 }
 void World::setBossDeath(bool pState)
@@ -133,3 +165,6 @@ void World::SetDirtyActor(Actor* pActor)
 		_dirtyActors.push_back(pActor);
 	}
 }
+
+#pragma endregion
+

@@ -37,7 +37,8 @@ void AbstractGame::initialize() {
 void AbstractGame::_initializeWindow() {
 	cout << "Initializing window..." << endl;
 
-	_window = new sf::RenderWindow( sf::VideoMode(1920,1080), "My Game!", sf::Style::Default, sf::ContextSettings(24,8,0,3,3));
+	_window = new sf::RenderWindow( sf::VideoMode(1920,1080), "~ Astro Trash ~", sf::Style::Default, sf::ContextSettings(24,8,0,3,3));
+	//_window = new sf::RenderWindow(sf::VideoMode(980, 1080), "My Game!", sf::Style::Default, sf::ContextSettings(24, 8, 0, 3, 3));
 	_gui.setWindow(*_window);
 	//_window->setVerticalSyncEnabled(true);
     cout << "Window initialized." << endl << endl;
@@ -83,6 +84,7 @@ void AbstractGame::_initializeWorld() {
     //setup the world
 	cout << "Initializing world..." << endl;
 	_world = new World();
+	_world->setRenderWindow(_window);
     cout << "World initialized." << endl << endl;
 }
 

@@ -20,15 +20,18 @@ Level::~Level()
 //TODO:: Add current wave setSize
 //TODO:: Add current wave setDelayBetweenEnemies
 void Level::CreateWaypoint(glm::vec3 pWolrdWaypointPos, sf::Vector2f pScreenWayPos, float pSec)
-{
-	cout << pSec << "Time when adding waypoint" << endl;
+{	
+	//cout << pSec << "Time when adding waypoint" << endl;
 	_waves.at(_indexWave)->addWaypoint(new Waypoint(pWolrdWaypointPos,pScreenWayPos, _currentEnemyWave->getWaypoints()->size(), _indexWave, _window), pSec);
 }
+
 void Level::CreateMainWaypointMoveDirection(glm::vec3 pWolrdWaypointPos, sf::Vector2f pScreenWayPos, float pSec)
 {
-	cout << pSec << "Time when adding waypoint" << endl;
+	//cout << pSec << "Time when adding waypoint" << endl;
 	_waves.at(_indexWave)->addMainWaypointDirection(new Waypoint(pWolrdWaypointPos, pScreenWayPos,000, _indexWave, _window), pSec);
+
 }
+
 //Add reference to the world
 void Level::ReferenceWorld(World* pWorld, GameObject* pParent)
 {
@@ -95,13 +98,13 @@ EnemyWave * Level::NextEnemyWave()
 	if (_indexWave < _waves.size()-1)
 	{
 		_indexWave++;
-		cout << _indexWave << "<NEXT index " << endl;
+		//cout << _indexWave << "<NEXT index " << endl;
 		_currentEnemyWave = _waves.at(_indexWave);
-		cout << _waves.size() << "<waves size " << endl;
+		//cout << _waves.size() << "<waves size " << endl;
 		return _currentEnemyWave;
 	}
 	else {
-		cout << "We should not keep going up in the wave" << endl;
+		//cout << "We should not keep going up in the wave" << endl;
 		return 0;
 	}
 }
@@ -111,14 +114,14 @@ EnemyWave * Level::PreviousWave()
 	if (_indexWave > 0)
 	{
 		_indexWave--;
-		cout << _indexWave << "<PREVIOUS index " << endl;
+		//cout << _indexWave << "<PREVIOUS index " << endl;
 		_currentEnemyWave = _waves.at(_indexWave);
-		cout << _waves.size() << "<waves size " << endl;
+		//cout << _waves.size() << "<waves size " << endl;
 		return _currentEnemyWave;
 	}
 	else 
 	{
-		cout << "We should not keep going low in the wave" << endl;
+		//cout << "We should not keep going low in the wave" << endl;
 		return 0;
 	}
 }
@@ -127,9 +130,9 @@ EnemyWave * Level::NewWave()
 {
 	_waves.push_back(new EnemyWave());
 	_indexWave++;
-	cout << _indexWave << "<NEW index " << endl;
+	//cout << _indexWave << "<NEW index " << endl;
 	_currentEnemyWave = _waves.at(_indexWave);
-	cout << _waves.size() << "<waves size " << endl;
+	//cout << _waves.size() << "<waves size " << endl;
 	return _currentEnemyWave;
 }
 
@@ -147,7 +150,7 @@ EnemyWave * Level::DeleteWave()
 		return _currentEnemyWave;
 	}
 	else {
-		cout << "Can´t Erase only wave" << endl;
+		//cout << "Can´t Erase only wave" << endl;
 		return nullptr;
 	}
 }

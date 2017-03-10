@@ -331,10 +331,8 @@ void BossBehaviour::SpawnExplosion()
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition();
 
-	ObjectActor* explosion = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_StaticObject, CF::COL_NOTHING, CF::pickupCollidesWith);
-	explosion->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Explosion));
-	explosion->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Explosion));
-	explosion->setActorBehaviour(new VanishBehaviour(2.0f));
+	ObjectActor* explosion = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_StaticObject, CF::COL_NOTHING, CF::pickupCollidesWith);	
+	explosion->setActorBehaviour(new VanishBehaviour(config::MGE_TEXTURE_PATH + "mini_explosion.png"));
 	_owner->getWorld()->add(explosion);
 }
 

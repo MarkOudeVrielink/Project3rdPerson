@@ -52,4 +52,10 @@ private:
 	LevelManager * manager;
 	tgui::Gui* _guiRef;
 	ControlledActor* player;
+	
+	tgui::Button::Ptr _titleBanner;
+	tgui::Button::Ptr _titleBanner2;
+
+	void _flickerLight();
+	int _flicker = 0;
 };

@@ -17,8 +17,8 @@ namespace CF{
 
 	const short playerCollidesWith			= COL_ENEMYBULLET | COL_ENEMY | COL_PICKUP | COL_BOUNDARY;
 	const short enemyCollidesWith			= COL_PLAYERBULLET | COL_PLAYER | COL_PLAYERNOVA;
-	const short playerBulletCollidesWith	= COL_ENEMY;
-	const short enemyBulletCollidesWith		= COL_PLAYER;
+	const short playerBulletCollidesWith	= COL_ENEMY | COL_ENEMYBULLET;
+	const short enemyBulletCollidesWith		= COL_PLAYER | COL_PLAYERBULLET;
 	const short playerNovaCollidesWith		= COL_ENEMY;
 	const short pickupCollidesWith			= COL_PLAYER;
 	const short boundaryCollidesWith		= COL_PLAYER;	

@@ -11,7 +11,7 @@ DebugHud::DebugHud( sf::RenderWindow * aWindow ): _window( aWindow ), _debugInfo
 {
 	assert ( _window != NULL );
 
-    if (!_font.loadFromFile(config::MGE_FONT_PATH+ "arial.ttf")) {
+    if (!_font.loadFromFile(config::MGE_FONT_PATH+ "Dream_MMA.ttf")) {
         cout << "Could not load font, exiting..." << endl;
         return;
     }
@@ -33,7 +33,7 @@ void DebugHud::_createDebugHud() {
 
 void DebugHud::setDebugInfo(std::string pInfo) {
     _debugText.setString(pInfo);
-	_debugText.setPosition(10, 10);
+	_debugText.setPosition(1000, 10);
 }
 
 void DebugHud::draw()

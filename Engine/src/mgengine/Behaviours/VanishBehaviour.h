@@ -2,19 +2,25 @@
 #define VANISHBEHAVIOUR_H
 
 #include "mgengine\Behaviours\AbstractActorBehaviour.h"
+#include "mgengine\Core\Animation.h"
+
+#include <string>
 
 class VanishBehaviour : public AbstractActorBehaviour {
 public:
-	VanishBehaviour(float pLifeTime = 1.0f);
+	VanishBehaviour(std::string pFileName);
 	~VanishBehaviour();
 
 	void update(float pStep);
 	void OnCollision();
+	void setup();
 	
 private:
 
-	float _lifeTime;
-	float _timeLived;
+	sf::Vector2f _ScreenSpaceCoord();
+
+	sf::Texture	 _texture;
+	Animation*	 _animation;		
 };
 #endif // !VANISHBEHAVIOUR_H
 

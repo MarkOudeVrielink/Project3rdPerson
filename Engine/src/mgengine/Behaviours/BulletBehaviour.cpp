@@ -1,6 +1,5 @@
 #include "BulletBehaviour.h"
 #include "mge\core\World.hpp"
-#include "mgengine\Core\Actor.h"
 #include "mgengine\Core\ControlledActor.h"
 #include "mgengine\Behaviours\PlayerBehaviour.h"
 #include "glm.hpp"
@@ -37,6 +36,10 @@ void BulletBehaviour::update(float pStep)
 	if (_timer >= _liveTime) {
 		_owner->Destroy();
 	}
+
+	if (_ownerType == ActorType::Type_Nova) {
+		_animation->update(pStep);
+	}
 		
 }
 
@@ -46,17 +49,28 @@ void BulletBehaviour::OnCollision(Actor * pOther)
 {		
 	ActorType type = pOther->getType();
 		
-	if (type == ActorType::Type_Player && _bulletOwner == BulletOwner::Enemy) {//TODO:: move this to the player.
-		_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Hit);
-		
-		ControlledActor* player = (ControlledActor*)pOther;
-		player->TakeDamage(_power);
-		_owner->Destroy();
-	}	
-	else if(type != ActorType::Type_Bullet && _owner->getType() != ActorType::Type_Nova){
+	if(type != ActorType::Type_Bullet && _owner->getType() != ActorType::Type_Nova){
 		_owner->Destroy();		
 	}
 	
+	if (type == ActorType::Type_Bullet) {
+		_owner->Destroy();
+	}
+}
+
+void BulletBehaviour::setup() {
+	_ownerType = _owner->getType();
+
+	if (_ownerType == ActorType::Type_Nova) {
+		
+		_nova.loadFromFile("mge/textures/ult.png");
+
+		_animation = new Animation(_owner->getWorld()->getRenderWindow(), _nova, sf::Vector2i(661, 377), 15.0f, 0.5f);
+		_animation->setScale(sf::Vector2f(3.0f, 3.0f));
+
+		sf::Vector2u window = sf::Vector2u(_owner->getWorld()->getRenderWindow()->getSize());
+		_animation->setPosition(sf::Vector2f(window.x/2, window.y/2));
+	}
 }
 
 BulletOwner BulletBehaviour::getOwner()

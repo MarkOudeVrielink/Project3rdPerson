@@ -6,7 +6,7 @@ Enemy::Enemy(std::string pName, glm::vec3 pPosition) : GameObject(pName,pPositio
 
 Enemy::~Enemy()
 {
-	cout << "DESTROYED" << endl;
+	//cout << "DESTROYED" << endl;
 }
 
 void Enemy::setEnemyType(int pType = 0)

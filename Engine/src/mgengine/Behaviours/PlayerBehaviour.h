@@ -3,6 +3,7 @@
 
 #include "mgengine\Behaviours\AbstractActorBehaviour.h"
 #include "SFML\System\Clock.hpp"
+
 #include <glm.hpp>
 
 class Mesh;
@@ -11,19 +12,17 @@ class PlayerMaterial;
 
 class PlayerBehaviour : public AbstractActorBehaviour {
 public:
-	PlayerBehaviour(Mesh* pMesh, AbstractMaterial* pMatrial, float pSpeed = 4.0f);
+			PlayerBehaviour(float pSpeed = 1.0f);
 	virtual ~PlayerBehaviour();	
 	
 	virtual void update(float pStep);
 	virtual void OnCollision(Actor* pOther);
+			void setup();
 
-	void addScore(float pScore);
+	void	addScore(float pScore);
+	float	getScore();
 
-	int getMultiplier();
-
-	float getScore();
-
-	void setup();
+	int		getMultiplier();
 	
 private:
 	void SpawnBullet(float pBulletPower);
@@ -31,10 +30,15 @@ private:
 	void SpawnBullet(float pBulletPower, glm::vec3 pDirection, float pAngle);
 	void SpawnNova();
 	
+	void Move();
+	void _checkInput(bool& h, bool& v);
+	void _deccelerate(bool h, bool v);
+	void _checkDoubleTap();
+
 	void FireWeapon(float pTime);
 	void FireWeapon2(float pTime);
-	void FireWeapon3(float pTime);
-	void Move();
+	void FireWeapon3(float pTime);	
+
 	void IsInvulnerable(float pTime);
 
 	glm::vec3 _spawnOffset;
@@ -58,17 +62,31 @@ private:
 	float	_chargeThreshold;
 	
 	float	_score;
+	
+	bool	_leftPressed;
+	bool	_rightPressed;
+	float	_tapClock;
+	int		_tapCount;
+	float	_doubleTapTime;
 
-	float				_tiltAngle;
-	float				_moveSpeed;	
-	Mesh*				_mesh;
-	AbstractMaterial*	_material;
-	PlayerMaterial*		_playerMaterial;
+	float		_tiltAngle;
+	float		_moveSpeed;
+	float		_maxSpeed;
+	float		_dashPower;
+	float		_horizontalInput;
+	float		_verticalInput;
+	float		_acceleration;
+	float		_decceleration;
+	glm::vec3	_force;	
+		
+	PlayerMaterial*		_playerMaterial;	
+
+	
 
 	int _comboMultiplier = 1;
 
 	sf::Clock ScoreClock;
-	sf::Time timeSinceLastDeadEnemy = sf::Time::Zero;
+	sf::Time  timeSinceLastDeadEnemy = sf::Time::Zero;
 
 };
 

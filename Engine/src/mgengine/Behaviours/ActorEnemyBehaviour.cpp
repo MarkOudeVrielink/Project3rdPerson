@@ -24,6 +24,7 @@ ActorEnemyBehaviour::~ActorEnemyBehaviour()
 
 void ActorEnemyBehaviour::update(float pStep)
 {
+	std::cout << "mark you sucks <3" << std::endl;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) {
 		SpawnBullet();
 	}

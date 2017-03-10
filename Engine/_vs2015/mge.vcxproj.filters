@@ -216,6 +216,12 @@
     <ClCompile Include="..\src\mygame\Behaviours\BossBehaviour.cpp">
       <Filter>src\mygame\Behaviours</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mgengine\Core\Animation.cpp">
+      <Filter>src\mgengine\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\UI\HUD.cpp">
+      <Filter>src\mgengine\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp">
@@ -388,6 +394,12 @@
     </ClInclude>
     <ClInclude Include="..\src\mygame\Behaviours\BossBehaviour.h">
       <Filter>src\mygame\Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Core\Animation.h">
+      <Filter>src\mgengine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\UI\HUD.h">
+      <Filter>src\mgengine\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
