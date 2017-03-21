@@ -36,7 +36,8 @@ void Level::CreateMainWaypointMoveDirection(glm::vec3 pWolrdWaypointPos, sf::Vec
 void Level::ReferenceWorld(World* pWorld, GameObject* pParent)
 {
 	if(this != nullptr)
-	_world = pWorld;
+		_world = pWorld;
+
 	_gameObjectsParent = pParent;
 }
 void Level::ReferenceToParent(GameObject* pParent)

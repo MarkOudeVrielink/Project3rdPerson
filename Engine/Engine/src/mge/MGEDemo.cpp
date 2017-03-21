@@ -256,15 +256,15 @@ void MGEDemo::LoadMaterials()
 
 void MGEDemo::_updateHud() {
 	string debugInfo = "";
-	debugInfo += string("FPS:") + std::to_string((int)_fps) + "\n";
+	//debugInfo += string("FPS:") + std::to_string((int)_fps) + "\n";
 	
-	_debugHud->setDebugInfo(debugInfo);
-	_debugHud->draw();
+	//_debugHud->setDebugInfo(debugInfo);
+	//_debugHud->draw();
 
 	if (_levelEditor->getActive())
 		_levelEditor->DrawUI();
 
-    _debugHud->setDebugInfo(debugInfo);
+   // _debugHud->setDebugInfo(debugInfo);
     //_debugHud->draw();
 	
 	_menuScreen->UpdateHUD();

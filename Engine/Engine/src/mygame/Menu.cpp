@@ -86,16 +86,16 @@ void Menu::InitializeMenu(tgui::Gui* pGuiRef)
 	_panel->add(_titleBanner);
 
 	/*Title dark*/
-	/*_titleBanner2 = tgui::Button::create();
+	_titleBanner2 = tgui::Button::create();
 	_titleBanner2->setSize(650, 500);
 	_titleBanner2->getRenderer()->setBorderColor(tgui::Color(0, 0, 0, 0));
 
 	sf::Texture title2;
-	title2.loadFromFile(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/LightOff.png");
+	title2.loadFromFile(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/LogoOff.png");
 
 	_titleBanner2->getRenderer()->setNormalTexture(title2);
 	_titleBanner2->setPosition(windowWidth * 0.5f - 370, 0);
-	_panel->add(_titleBanner2);*/
+	_panel->add(_titleBanner2);
 
 #pragma endregion
 
@@ -190,7 +190,7 @@ void Menu::InitializeMenu(tgui::Gui* pGuiRef)
 
 void Menu::update(float pStep)
 {
-	//_flickerLight();
+	_flickerLight();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
 	{
@@ -237,6 +237,7 @@ void Menu::update(float pStep)
 		}
 	}
 }
+
 void Menu::checkDialogue()
 {
 	if (_world->getDialogue(1) && !_world->getDialogueEnded(1)) {
@@ -280,6 +281,7 @@ void Menu::checkDialogue()
 			_nextLevel->setText(" MAX LEVEL");		
 	}*/
 }
+
 void Menu::ToLevelEditor()
 {
 	HideMenu();
@@ -305,6 +307,7 @@ void Menu::ToLevelEditor()
 	player->setActorBehaviour(new PlayerBehaviour(_world->GetResourceManager()->getMesh(Meshes::Player), _world->GetResourceManager()->getMaterial(Materials::Player), 20));
 	_world->add(player);*/
 }
+
 void Menu::SetScoreHUD()
 {
 
@@ -450,11 +453,14 @@ void Menu::_flickerLight()
 {
 	if (_flicker % 40 == 0 && _titleBanner->getOpacity() > 0) {
 		_titleBanner->setOpacity(0);
+		_titleBanner2->setOpacity(1);
 
 		_flicker > 1000 ? 0 : _flicker;
 	}
 	else {
 		_titleBanner->setOpacity(1);
+		_titleBanner2->setOpacity(0);
+
 		_flicker++;
 	}
 }

@@ -12,6 +12,7 @@ void AbstractActorBehaviour::SetOwner(Actor* pOwner) {
 	_owner = pOwner;
 }
 
+//This is used to setup things that can't be done in the contructor due to the way behaviours and the owner are setup.
 void AbstractActorBehaviour::setup()
 {
 }

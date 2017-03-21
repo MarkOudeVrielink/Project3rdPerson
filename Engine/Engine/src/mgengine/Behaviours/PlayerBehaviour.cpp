@@ -50,7 +50,7 @@ PlayerBehaviour::PlayerBehaviour(float pSpeed) : AbstractActorBehaviour(), _maxS
 	_charge					= 100;
 	_chargeThreshold		= 100;	
 
-	_tiltAngle				= 0.8f;
+	_tiltAngle				= 1.3f;
 
 	_score					= 0;	
 }
@@ -320,6 +320,7 @@ void PlayerBehaviour::Move()
 	_force = glm::vec3(_horizontalInput, 0, _verticalInput);//TODO: why does it not normalize?
 	_force *= _maxSpeed;
 	
+	_owner->SetRotation(glm::vec3(0, 0, 1), 0);
 	_ownerBody->translate(btVector3(_force.x, _force.y, _force.z));
 }
 
@@ -351,6 +352,8 @@ void PlayerBehaviour::_checkInput(bool& h, bool& v)
 		_leftPressed = true;
 		h = true;
 	}
+
+
 }
 
 void PlayerBehaviour::_deccelerate(bool h, bool v)
@@ -360,6 +363,7 @@ void PlayerBehaviour::_deccelerate(bool h, bool v)
 		_horizontalInput > 0 ? _horizontalInput -= _decceleration : 0;
 		_horizontalInput < 0 ? _horizontalInput += _decceleration : 0;
 	}
+
 	if (!v) {
 		_verticalInput > 0 ? _verticalInput -= _decceleration : 0;
 		_verticalInput < 0 ? _verticalInput += _decceleration : 0;
