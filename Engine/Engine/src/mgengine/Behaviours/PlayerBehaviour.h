@@ -3,6 +3,7 @@
 
 #include "mgengine\Behaviours\AbstractActorBehaviour.h"
 #include "SFML\System\Clock.hpp"
+#include "mge\core\GameObject.hpp"
 
 #include <glm.hpp>
 
@@ -80,14 +81,13 @@ private:
 	glm::vec3	_force;	
 		
 	PlayerMaterial*		_playerMaterial;	
-
 	
-
 	int _comboMultiplier = 1;
 
 	sf::Clock ScoreClock;
 	sf::Time  timeSinceLastDeadEnemy = sf::Time::Zero;
 
+	GameObject* plane;
 };
 
 #endif // !ACTORMOVEMENT_H

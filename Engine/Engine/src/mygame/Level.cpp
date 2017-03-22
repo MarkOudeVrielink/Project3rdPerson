@@ -44,6 +44,7 @@ void Level::ReferenceToParent(GameObject* pParent)
 {
 	_gameObjectsParent = pParent;
 }
+
 int Level::getIndexWave()
 {
 	return _indexWave;

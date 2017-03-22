@@ -6,12 +6,15 @@
 #include "mge/core/World.hpp"
 #include "config.hpp"
 
+int flickerRate = 40;
+
 Menu::Menu(World* pWolrd, sf::RenderWindow *pWindow)
 {
 	_window = pWindow;
 	_world = pWolrd;
 	//InitializeMenu();
 }
+
 Menu::~Menu()
 {
 	if (_levelEditorObject != NULL &&_levelEditor->getActive())
@@ -451,7 +454,7 @@ bool Menu::getActive()
 
 void Menu::_flickerLight()
 {
-	if (_flicker % 40 == 0 && _titleBanner->getOpacity() > 0) {
+	if (_flicker % flickerRate == 0 && _titleBanner->getOpacity() > 0) {
 		_titleBanner->setOpacity(0);
 		_titleBanner2->setOpacity(1);
 

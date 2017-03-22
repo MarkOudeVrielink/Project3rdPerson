@@ -65,7 +65,8 @@ namespace Meshes {
 		Drink,
 		Tv,
 		Banana,
-		Explosion
+		Explosion,
+		PlayerTrail
 	};
 }
 

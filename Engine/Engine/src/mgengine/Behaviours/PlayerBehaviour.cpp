@@ -52,7 +52,8 @@ PlayerBehaviour::PlayerBehaviour(float pSpeed) : AbstractActorBehaviour(), _maxS
 
 	_tiltAngle				= 1.3f;
 
-	_score					= 0;	
+	_score					= 0;
+		
 }
 
 
@@ -177,6 +178,11 @@ void PlayerBehaviour::setup()
 	
 	_owner->getWorld()->getHud()->updateCharge(_charge);
 	_owner->getWorld()->getHud()->updateWeaponProgress(_score);
+
+	plane = new GameObject("name", glm::vec3(0, 0, 18));
+	plane->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::PlayerTrail));
+	plane->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Player));
+	_owner->add(plane);
 }
 
 void PlayerBehaviour::SpawnNova()
