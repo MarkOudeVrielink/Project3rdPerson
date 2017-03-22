@@ -11,7 +11,7 @@ public:
 	PlayerMaterial(Texture* pDiffuseTexture, float pBlinkRate = 80.0f);
 	virtual ~PlayerMaterial();
 
-	virtual void render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
+	virtual void render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, std::list<Light*> *pLights) override;
 
 	void setDiffuseTexture(Texture* pDiffuseTexture);
 	void setInvulnerable(bool pValue);

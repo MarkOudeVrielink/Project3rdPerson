@@ -118,7 +118,7 @@ void LevelManager::InitializeBackground()
 	_backgroundPlane_2->scale(glm::vec3(20, 10, 10));
 	_backgroundPlane_2->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
 	_backgroundPlane_2->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_2));
-	_world->add(_backgroundPlane_2);
+	//_world->add(_backgroundPlane_2);
 
 	_backgroundPlane_3 = new GameObject("background plane", glm::vec3(0, -300, 0));
 	_backgroundPlane_3->scale(glm::vec3(15, 10, 10));

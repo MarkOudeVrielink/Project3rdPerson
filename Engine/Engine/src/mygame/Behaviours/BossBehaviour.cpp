@@ -9,7 +9,7 @@
 #include "mgengine\Behaviours\BulletBehaviour.h"
 #include "mgengine\Behaviours\VanishBehaviour.h"
 #include "mge/core/Mesh.hpp"
-#include "mge/materials/TextureMaterial.hpp"
+#include "mge/materials/LightMaterial.hpp"
 #include "mge/config.hpp"
 
 #include "mgengine\Materials\EnemyMaterial.h"

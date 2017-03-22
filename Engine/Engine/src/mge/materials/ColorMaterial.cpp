@@ -4,7 +4,7 @@
 #include "mge/config.hpp"
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Mesh.hpp"
-
+#include "Light.h"
 ShaderProgram* ColorMaterial::_shader = NULL;
 
 GLint ColorMaterial::_uMVPMatrix = 0;
@@ -47,7 +47,7 @@ void ColorMaterial::setDiffuseColor(glm::vec3 pDiffuseColor) {
     _diffuseColor = pDiffuseColor;
 }
 
-void ColorMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
+void ColorMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix,std::list<Light*> *pLights) {
     _shader->use();
 
     //pass in a precalculate mvp matrix (see texture material for the opposite)

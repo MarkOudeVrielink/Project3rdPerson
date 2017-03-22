@@ -57,7 +57,7 @@ class GameObject
         //child management
 
         //shortcut to set the parent of pChild to ourselves
-		void add (GameObject* pChild);
+		virtual void add (GameObject* pChild);
 		//shortcut to set the parent of pChild to NULL
 		void remove (GameObject* pChild);
 

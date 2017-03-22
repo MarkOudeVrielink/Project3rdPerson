@@ -2,6 +2,8 @@
 #define ABSTRACTMATERIAL_H
 
 #include <glm.hpp>
+#include "Light.h"
+#include <list>
 class GameObject;
 class Mesh;
 
@@ -25,7 +27,7 @@ class AbstractMaterial
         /**
          * Render the given mesh.
          */
-        virtual void render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pPerspectiveMatrix) = 0;
+		virtual void render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pPerspectiveMatrix, std::list<Light*> *pLights = NULL) = 0;
 };
 
 #endif // ABSTRACTMATERIAL_H

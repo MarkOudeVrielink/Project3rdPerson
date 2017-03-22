@@ -1,6 +1,6 @@
 #include <glm.hpp>
 
-#include "mge/materials/TextureMaterial.hpp"
+#include "mge/materials/LightMaterial.hpp"
 #include "mgengine/Materials/PlayerMaterial.h"
 #include "mge/core/Mesh.hpp"
 #include "mge/core/GameObject.hpp"
@@ -57,7 +57,7 @@ void PlayerMaterial::setCharged(bool pValue)
 	_isCharged = pValue;
 }
 
-void PlayerMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
+void PlayerMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, std::list<Light*> *pLights) {
 	if (!_diffuseTexture) return;
 
 	_shader->use();

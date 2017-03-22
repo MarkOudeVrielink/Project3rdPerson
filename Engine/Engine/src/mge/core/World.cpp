@@ -17,10 +17,35 @@ World::World():GameObject("root"), _mainCamera(0), _dirtyActors()
 	_physicsManager = new CollisionManager();
 	GameObject *PlayerDefault = new GameObject("player_default");
 	setMainPlayer(PlayerDefault);	
+	_lights = new std::list<Light*>();
 }
 
-#pragma region get/set
 
+
+#pragma region get/set
+std::list<Light*>* World::getLights()
+{
+	return _lights;
+}
+void World::add(GameObject* pChild)
+{
+	//check if is light and is in world 
+	if (this->getName() == "root")
+	{
+		cout << "ROOT DETECTED" << endl;
+	}
+	if (this->getName() == "root" && typeid(*pChild) == typeid (Light))
+	{
+		cout << "LIGHT NOT IN ROOT" << endl;
+		_lights->push_back((Light*)pChild);
+	}
+	else if (typeid(pChild) == typeid (Light))
+	{
+		cout << "LIGHT NOT IN ROOT" << endl;
+		_lights->push_back((Light*)pChild);
+	}
+	GameObject::add(pChild);
+}
 void World::setMainCamera(Camera* pCamera) {
 	if (pCamera != NULL) _mainCamera = pCamera;
 }
@@ -142,7 +167,7 @@ HUD * World::getHud()
 /*Destroy all the actors that were set to dirty.*/
 void World::DestroyActors()
 {
-	while (!_dirtyActors.empty()) {
+	while (!_dirtyActors.empty()) { 
 		delete _dirtyActors.back();
 		_dirtyActors.pop_back();
 	}
@@ -162,6 +187,8 @@ void World::SetDirtyActor(Actor* pActor)
 		_dirtyActors.push_back(pActor);
 	}
 }
+
+
 
 #pragma endregion
 

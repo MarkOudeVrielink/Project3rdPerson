@@ -173,6 +173,8 @@
     <ClInclude Include="..\src\glm.hpp" />
     <ClInclude Include="..\src\mgengine\Behaviours\VanishBehaviour.h" />
     <ClInclude Include="..\src\mgengine\Core\Animation.h" />
+    <ClInclude Include="..\src\mgengine\Core\Light.h" />
+    <ClInclude Include="..\src\mgengine\Core\LightInfo.h" />
     <ClInclude Include="..\src\mgengine\LevelEditor\LevelEditor.h" />
     <ClInclude Include="..\src\mgengine\Materials\EnemyMaterial.h" />
     <ClInclude Include="..\src\mgengine\Materials\PlayerMaterial.h" />
@@ -213,6 +215,7 @@
     <ClInclude Include="..\src\mge\core\World.hpp" />
     <ClInclude Include="..\src\mge\materials\AbstractMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\ColorMaterial.hpp" />
+    <ClInclude Include="..\src\mge\materials\LightMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp" />
     <ClInclude Include="..\src\mge\MGEDemo.hpp" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
@@ -234,6 +237,8 @@
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\mgengine\Behaviours\VanishBehaviour.cpp" />
     <ClCompile Include="..\src\mgengine\Core\Animation.cpp" />
+    <ClCompile Include="..\src\mgengine\Core\Light.cpp" />
+    <ClCompile Include="..\src\mgengine\Core\LightInfo.cpp" />
     <ClCompile Include="..\src\mgengine\LevelEditor\LevelEditor.cpp" />
     <ClCompile Include="..\src\mgengine\Materials\EnemyMaterial.cpp" />
     <ClCompile Include="..\src\mgengine\Materials\PlayerMaterial.cpp" />
@@ -268,6 +273,7 @@
     <ClCompile Include="..\src\mge\core\World.cpp" />
     <ClCompile Include="..\src\mge\materials\AbstractMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\ColorMaterial.cpp" />
+    <ClCompile Include="..\src\mge\materials\LightMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\MGEDemo.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />

@@ -30,6 +30,8 @@ void Renderer::setClearColor(int pR, int pG, int pB) {
 
 void Renderer::render (World* pWorld) {
     Camera* camera = pWorld->getMainCamera();
+	_lights = pWorld->getLights();
+	
     render (pWorld, pWorld->getTransform(), glm::inverse(camera->getWorldTransform()), camera->getProjection(), true);
 }
 
@@ -45,7 +47,7 @@ void Renderer::renderSelf (GameObject* pGameObject, const glm::mat4& pModelMatri
 
 void Renderer::renderMesh (Mesh* pMesh, AbstractMaterial* pMaterial, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
 
-	if (pMesh != NULL && pMaterial!= NULL) pMaterial->render(pMesh, pModelMatrix, pViewMatrix, pProjectionMatrix);
+	if (pMesh != NULL && pMaterial!= NULL) pMaterial->render(pMesh, pModelMatrix, pViewMatrix, pProjectionMatrix, _lights);
 }
 
 void Renderer::renderMeshDebugInfo (Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {

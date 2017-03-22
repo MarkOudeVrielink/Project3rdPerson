@@ -193,7 +193,7 @@ void Menu::InitializeMenu(tgui::Gui* pGuiRef)
 
 void Menu::update(float pStep)
 {
-	_flickerLight();
+	//_flickerLight();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
 	{

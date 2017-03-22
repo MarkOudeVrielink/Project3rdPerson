@@ -3,6 +3,7 @@
 
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/core/ShaderProgram.hpp"
+#include "Light.h"
 
 /**
  * Simple single color material.
@@ -15,7 +16,7 @@ class ColorMaterial : public AbstractMaterial
         ColorMaterial(glm::vec3 pColor = glm::vec3(1,0,0));
         virtual ~ColorMaterial();
 
-        virtual void render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
+		virtual void render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, std::list<Light*> *pLights) override;
 
         //in rgb values
         void setDiffuseColor (glm::vec3 pDiffuseColor);

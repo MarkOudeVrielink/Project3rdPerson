@@ -2,7 +2,8 @@
 #define RENDERER_H
 
 #include <glm.hpp>
-
+#include "Light.h"
+#include <list>
 class World;
 class GameObject;
 class Camera;
@@ -37,7 +38,7 @@ class Renderer
     private:
         //helper method to render a single gameobject.
         void renderSelf (GameObject* pGameObject, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix);
-
+		std::list<Light*> *_lights;
 };
 
 #endif // RENDERER_H
