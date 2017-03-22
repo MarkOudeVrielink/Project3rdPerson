@@ -8,6 +8,7 @@
 #include <string>
 #include <list>
 #include <SFML/Graphics.hpp>
+#include "Light.h"
 
 class Camera;
 class Actor;
@@ -17,7 +18,8 @@ class World : public GameObject
 {
 	public:
         World();	
-
+		std::list<Light*> *getLights();
+		virtual void add(GameObject *pChild) override;
 		void setMainCamera (Camera* pCamera);
 		Camera* getMainCamera();
 
@@ -50,16 +52,19 @@ class World : public GameObject
 		void SetDirtyActor(Actor* pActor);
 
 		
+	protected:
+	std::list<Light*> * _lights;
+
 	private:
 	    Camera* _mainCamera;	
-<<<<<<< HEAD
+
 		bool _playerDead = false;
 		bool _bossDeath = false;
-=======
+
 		HUD*	_hud;
 		void	_initializeHud();
 		
->>>>>>> origin/master
+
 		CollisionManager*	_physicsManager;
 		ResourceManager*	_resourceManager;
 		GameObject* _player;

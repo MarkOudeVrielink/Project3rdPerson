@@ -165,9 +165,6 @@
     <ClCompile Include="..\src\mge\materials\ColorMaterial.cpp">
       <Filter>src\mge\materials</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp">
-      <Filter>src\mge\materials</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\mge\MGEDemo.cpp">
       <Filter>src\mge</Filter>
     </ClCompile>
@@ -221,6 +218,18 @@
     </ClCompile>
     <ClCompile Include="..\src\mgengine\UI\HUD.cpp">
       <Filter>src\mgengine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Core\Light.cpp">
+      <Filter>src\mgengine\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mgengine\Core\LightInfo.cpp">
+      <Filter>src\mgengine\core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\LightMaterial.cpp">
+      <Filter>src\mge\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp">
+      <Filter>src\mge\materials</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -347,9 +356,6 @@
     <ClInclude Include="..\src\mge\materials\ColorMaterial.hpp">
       <Filter>src\mge\materials</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp">
-      <Filter>src\mge\materials</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\mge\MGEDemo.hpp">
       <Filter>src\mge</Filter>
     </ClInclude>
@@ -400,6 +406,18 @@
     </ClInclude>
     <ClInclude Include="..\src\mgengine\UI\HUD.h">
       <Filter>src\mgengine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Core\Light.h">
+      <Filter>src\mgengine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mgengine\Core\LightInfo.h">
+      <Filter>src\mgengine\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\LightMaterial.hpp">
+      <Filter>src\mge\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp">
+      <Filter>src\mge\materials</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

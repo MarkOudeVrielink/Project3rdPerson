@@ -472,14 +472,14 @@ void LevelEditorBehaviour::NextWave()
 }
 void LevelEditorBehaviour::PrevWave()
 {
-	cout << _currentWave << endl;
+	//cout << _currentWave << endl;
 	_currentLevel->PreviousWave();
 	_currentWave = _currentLevel->getIndexWave();
 	UpdateGUIDataAtWaveChange();
 }
 void LevelEditorBehaviour::NewWave()
 {
-	cout << _currentWave << endl;
+	//cout << _currentWave << endl;
 	_currentLevel->NewWave();
 	_currentWave = _currentLevel->getIndexWave();
 	UpdateGUIDataAtWaveChange();

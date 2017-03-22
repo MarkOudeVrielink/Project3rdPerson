@@ -190,12 +190,11 @@ void Menu::InitializeMenu(tgui::Gui* pGuiRef)
 
 void Menu::update(float pStep)
 {
-	_flickerLight();
+	//_flickerLight();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
 	{
 		ToMenu();
-<<<<<<< HEAD
 	}
 	checkDialogue();
 	if (_objManager != NULL)
@@ -203,8 +202,10 @@ void Menu::update(float pStep)
 		if (!_world->getPlayerDead()) {
 			PlayerBehaviour * playerBehaviour = dynamic_cast<PlayerBehaviour*> (player->getActorBehaviour());
 			_scoreLabel->setText("Score: " + std::to_string((int)playerBehaviour->getScore()));
-			_multiplierLabel->setText("Multiplier X " + std::to_string(playerBehaviour->getMultiplier()));
 
+			_scoreLabel->hide();
+			_multiplierLabel->setText("Multiplier X " + std::to_string(playerBehaviour->getMultiplier()));
+			_multiplierLabel->hide();
 			int score = playerBehaviour->getScore();
 			if (score < 500)
 				_nextLevel->setText(" Score To Next Level: 500");
@@ -212,7 +213,7 @@ void Menu::update(float pStep)
 				_nextLevel->setText(" Score To Next Level: 1000");
 			else if (score >= 1000)
 				_nextLevel->setText(" MAX LEVEL");
-
+			_nextLevel->hide();
 			if (_world->getBossDeath())
 			{
 				_winScreen->show();
@@ -262,8 +263,7 @@ void Menu::checkDialogue()
 			_world->setDialogueEnded(true, 3);
 		}
 	}
-=======
-	}	
+		
 
 	/*if (_objManager != NULL)
 	{
@@ -279,7 +279,6 @@ void Menu::checkDialogue()
 		else if (score >= 1000)
 			_nextLevel->setText(" MAX LEVEL");		
 	}*/
->>>>>>> origin/master
 }
 void Menu::ToLevelEditor()
 {
@@ -344,18 +343,13 @@ void Menu::StartGame()
 	player->setActorBehaviour(new PlayerBehaviour(1.0f));
 	_world->add(player);
 	_world->setMainPlayer(player);
-<<<<<<< HEAD
+
 	_world->setPlayerDead(false);
 	_world->setBossDeath(false);
 	_objManager = new GameObject("Manager", glm::vec3(0, 0, 0));
 	manager = new LevelManager(_world);
 	_objManager->setBehaviour(manager);
-=======
 
-	_objManager = new GameObject("Manager",glm::vec3(0,0,0));
-	 manager = new LevelManager(_world);
-	 _objManager->setBehaviour(manager);
->>>>>>> origin/master
 	manager->StartGameFromMenu();
 
 	_world->add(_objManager);
@@ -421,13 +415,9 @@ void Menu::ToMenu()
 		_nextLevel->hide();
 		_multiplierLabel->hide();
 	}
-<<<<<<< HEAD
-	setActive(true);
 
-=======
 
 	setActive(true);	
->>>>>>> origin/master
 }
 
 void Menu::UpdateHUD()

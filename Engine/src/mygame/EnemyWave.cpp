@@ -1,6 +1,6 @@
 #include "EnemyWave.h"
 #include "mge/core/Mesh.hpp"
-#include "mge/materials/TextureMaterial.hpp"
+#include "mge/materials/LightMaterial.hpp"
 #include "mge/config.hpp"
 #include "mygame\Behaviours\EnemyBehaviour.h"
 #include "mgengine\Core\ControlledActor.h"
@@ -30,11 +30,10 @@ void EnemyWave::addWaypoint(Waypoint * pWaypoint, float pSec)
 	if (_wayPoints.empty())
 	{
 		_startTimeWave = pSec;
-		cout << "Waypoints Empty.... Adding waypoint" << _startTimeWave << endl;
+	///	cout << "Waypoints Empty.... Adding waypoint" << _startTimeWave << endl;
 
 	}
-	else
-		cout << "NOT EMPTY HUEUHUE" << endl;
+	
 	_wayPoints.push_back(pWaypoint);
 }
 void EnemyWave::addMainWaypointDirection(Waypoint * pWaypoint, float pSec)
@@ -141,11 +140,7 @@ bool EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
 		 pos = _wayPoints.at(0)->getWorldPos();
 		else 	pos = glm::vec3(0, 0, 0);
 		glm::vec3 stepMovingMain = glm::vec3(0, 0, 0);
-		if (_mainWaypointDirection != NULL) {
-			float lengthMovingWaypoint = glm::length(_mainWaypointDirection->getWorldPos() - pos);
-			stepMovingMain = glm::normalize(_mainWaypointDirection->getWorldPos() - pos)*(lengthMovingWaypoint / _sizeWave) * _quantitySpawnedEnemies;
-			pos = pos +stepMovingMain;
-		}
+		
 		pos.y = 0;
 		//Enemy* Enemy1 = new Enemy("Enemy", pos);
 		//AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "potato.png"));
@@ -153,13 +148,13 @@ bool EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
 		//Enemy* Enemy1 = new Enemy("Enemy", pos);
 		ControlledActor* Enemy1 = new ControlledActor(pWorld, "Enemy", pos, new btSphereShape(5), ActorType::Type_Enemy, 1,  CF::COL_ENEMY, CF::enemyCollidesWith);
 		
-		cout << "ENEMY CREATED" << endl;
-		AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png"));
+		//cout << "ENEMY CREATED" << endl;
+		AbstractMaterial* textureMaterial2 = new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png"));
 
 		Enemy1->setMesh(pWorld->GetResourceManager()->getMesh(Meshes::ID( _enemyType)));
 		Enemy1->setMaterial(pWorld->GetResourceManager()->getMaterial(_enemyType));
 		
-		cout << "Material set" << endl;
+		//cout << "Material set" << endl;
 		if (_enemyBehaviour != 2) {
 			if (!_editorMode)
 			{
@@ -198,9 +193,9 @@ bool EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
 		//	Boss->SaveOriginalTransform()
 		}
 		Enemy1->scale(glm::vec3(1.5, 1.5, 1.5));
-		cout << "Scale set" << endl;
+		//cout << "Scale set" << endl;
 		pWaveParent->add(Enemy1);
-		cout << "Parent added" << endl;
+		//cout << "Parent added" << endl;
 		_quantitySpawnedEnemies++;
 	}
 	return false;
@@ -238,7 +233,7 @@ void EnemyWave::TestEditorMode()
 #pragma region getters
 const float * EnemyWave::getStartTime() const
 {
-	cout << "START TIME !!!!!!!" << _startTimeWave << endl;
+	//cout << "START TIME !!!!!!!" << _startTimeWave << endl;
 	return &_startTimeWave;
 }
 

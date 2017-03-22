@@ -24,9 +24,9 @@ void LevelParser::SaveLevel(Level * pLevel,string pfileName = "demo")
 		LevelChild.append_attribute("enemyBehaviour") = *wave->getEnemyBehaviour();
 		LevelChild.append_attribute("sizeWave") = *wave->getSizeWave();
 		LevelChild.append_attribute("delayBetweenEnemies") = *wave->getDelayBetweenEnemies();
-		LevelChild.append_attribute("waypointDirection_x") = wave->GetMainWaypointDirection()->getWorldPos().x;
-		LevelChild.append_attribute("waypointDirection_y") = wave->GetMainWaypointDirection()->getWorldPos().y;
-		LevelChild.append_attribute("waypointDirection_z") = wave->GetMainWaypointDirection()->getWorldPos().z;
+		//LevelChild.append_attribute("waypointDirection_x") = wave->GetMainWaypointDirection()->getWorldPos().x;
+		//LevelChild.append_attribute("waypointDirection_y") = wave->GetMainWaypointDirection()->getWorldPos().y;
+		//LevelChild.append_attribute("waypointDirection_z") = wave->GetMainWaypointDirection()->getWorldPos().z;
 
 		if (wave->GetMainWaypointDirection() != NULL) {
 			int xPos = wave->GetMainWaypointDirection()->getScreenPosition().x;
@@ -91,12 +91,12 @@ Level* LevelParser::LoadLevel(string pName ="demo", sf::RenderWindow* pWindow= N
 
 			//Can be improved
 			
-			glm::vec3 moveMainWaypoint = glm::vec3(wave.attribute("World_x").as_float(), wave.attribute("World_y").as_float(), wave.attribute("World_z").as_float());
+			//glm::vec3 moveMainWaypoint = glm::vec3(wave.attribute("World_x").as_float(), wave.attribute("World_y").as_float(), wave.attribute("World_z").as_float());
 			//Waypoint* waypointp = new Waypoint(moveMainWaypoint, sf::Vector2f(0, 0), 0, level->getIndexWave(), pWindow);
 			sf::Vector2f posMain;
-			posMain.x = wave.attribute("Screen_x").as_float();
-			posMain.y = wave.attribute("Screen_y").as_float();
-			level->CreateMainWaypointMoveDirection(moveMainWaypoint, posMain,0);
+			//posMain.x = wave.attribute("Screen_x").as_float();
+			//posMain.y = wave.attribute("Screen_y").as_float();
+			//level->CreateMainWaypointMoveDirection(moveMainWaypoint, posMain,0);
 			level->getCurrentWave()->setSizeWave(sizeWave);
 			level->getCurrentWave()->setDelayBetweenEnemies(delayTime);
 			level->getCurrentWave()->setSpeed(speed);

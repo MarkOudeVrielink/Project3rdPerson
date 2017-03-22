@@ -55,12 +55,10 @@ PlayerBehaviour::PlayerBehaviour(float pSpeed) : AbstractActorBehaviour(), _maxS
 	_score					= 0;	
 }
 
-<<<<<<< HEAD
+
 PlayerBehaviour::~PlayerBehaviour() {
 	_owner->getWorld()->setPlayerDead(true);
-=======
-PlayerBehaviour::~PlayerBehaviour() {	
->>>>>>> origin/master
+
 }
  
 void PlayerBehaviour::update(float pStep) {	

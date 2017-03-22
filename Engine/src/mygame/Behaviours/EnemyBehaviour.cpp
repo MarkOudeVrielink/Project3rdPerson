@@ -219,16 +219,11 @@ void EnemyBehaviour::AiBasic(float pStep)
 	glm::vec2 delta = glm::vec2(target.x, target.z) - glm::vec2(pos.x, pos.z);
 
 	float length = glm::length(delta);
-<<<<<<< HEAD
+
 	if (length < _moveSpeed*pStep  && _wayPoints->size() >(float)_index) {
 		_tarjet = _wayPoints->at(_index++);
-
-=======
-
-	if (length < _moveSpeed*pStep  && _wayPoints->size() > (float)_index) {
-		_tarjet = _wayPoints->at(_index++);
->>>>>>> origin/master
 	}
+
 	else {
 		if (_wayPoints->size() == _index &&length < _moveSpeed*pStep) //Increment index so we dont keep rotating in order to keep moving and leave the screen
 			_index++;
@@ -419,15 +414,14 @@ void EnemyBehaviour::SpawnExplosion()
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition();
 
-<<<<<<< HEAD
+
 	ObjectActor* explosion = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_StaticObject, CF::COL_NOTHING, CF::pickupCollidesWith);
 	explosion->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Explosion));
 	explosion->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Explosion));
-	explosion->setActorBehaviour(new VanishBehaviour(2.0f));
-=======
-	ObjectActor* explosion = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_StaticObject, CF::COL_NOTHING, CF::pickupCollidesWith);		
+	//explosion->setActorBehaviour(new VanishBehaviour(2.0f));
+	//ObjectActor* explosion = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_StaticObject, CF::COL_NOTHING, CF::pickupCollidesWith);		
 	explosion->setActorBehaviour(new VanishBehaviour(config::MGE_TEXTURE_PATH + "mini_explosion.png"));
->>>>>>> origin/master
+
 	_owner->getWorld()->add(explosion);
 }
 
