@@ -6,6 +6,7 @@
 #include "mge/core/GameObject.hpp"
 #include "mge/config.hpp"
 
+
 ShaderProgram* TextureMaterial::_shader = NULL;
 
 TextureMaterial::TextureMaterial(Texture * pDiffuseTexture):_diffuseTexture(pDiffuseTexture) {
@@ -27,7 +28,7 @@ void TextureMaterial::setDiffuseTexture (Texture* pDiffuseTexture) {
     _diffuseTexture = pDiffuseTexture;
 }
 
-void TextureMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) {
+void TextureMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, std::list<Light*> *pLights) {
     if (!_diffuseTexture) return;
 
     _shader->use();

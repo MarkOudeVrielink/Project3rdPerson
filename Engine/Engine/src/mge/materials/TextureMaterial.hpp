@@ -4,6 +4,7 @@
 #include "mge/core/ShaderProgram.hpp"
 #include "mge/core/Texture.hpp"
 #include "mge/materials/AbstractMaterial.hpp"
+#include "Light.h"
 
 /**
  * Simple single texture material, this is a sample which doesn't cache anything upfront and
@@ -15,7 +16,7 @@ class TextureMaterial : public AbstractMaterial
         TextureMaterial (Texture* pDiffuseTexture);
         virtual ~TextureMaterial ();
 
-        virtual void render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
+        virtual void render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix, std::list<Light*> *pLights) override;
 
         void setDiffuseTexture (Texture* pDiffuseTexture);
 
