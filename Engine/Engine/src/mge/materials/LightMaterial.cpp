@@ -102,7 +102,7 @@ void LightMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm
 	glUniform1f(_specularShininessIndex, _specularShininess);
 
 
-	for (int i = 0; i < _lights.size() && i < 3; i++) {
+	for (int i = 0; i < _lights.size() && i < 4; i++) {
 		glUniform3fv(_lightInfo->at(i)._lightDirection, 1, glm::value_ptr(_lights.at(i)->GetDirection()));
 		glUniform3fv(_lightInfo->at(i)._lightColor, 1, glm::value_ptr(_lights.at(i)->GetColor()));
 		glUniform3fv(_lightInfo->at(i)._globalAmbient, 1, glm::value_ptr(_lights.at(i)->GetAmbient()));
