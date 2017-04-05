@@ -7,7 +7,7 @@ in vec2 texCoord;
 in vec3 newVec;
 
 //LIGHTNING implementation
-const int NUMBEROFLIGHTS = 3;
+const int NUMBEROFLIGHTS = 4;
 
 struct lightInfo{
     vec3 lightPosition;
@@ -23,7 +23,7 @@ uniform mat4 eyeMatrix;//Inverse View
 //uniform vec3 diffuseColor;//Material Color?
 uniform vec4 specularColor;
 uniform float shininess;
-uniform lightInfo lights[3];
+uniform lightInfo lights[4];
 vec3 eyePosition = vec3(eyeMatrix[3]);
 float diffuseIntensity;
 

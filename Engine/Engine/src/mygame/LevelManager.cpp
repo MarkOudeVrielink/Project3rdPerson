@@ -109,7 +109,7 @@ void LevelManager::InitializeBackground()
 	//_world->add(_backgroundPlane_0);
 
 	_backgroundPlane_1 = new GameObject("background plane", glm::vec3(0, -560, 0));
-	_backgroundPlane_1->scale(glm::vec3(20, 10, 10));
+	_backgroundPlane_1->scale(glm::vec3(15, 10, 10));
 	_backgroundPlane_1->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
 	_backgroundPlane_1->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_1));
 	_world->add(_backgroundPlane_1);
@@ -124,7 +124,7 @@ void LevelManager::InitializeBackground()
 	_backgroundPlane_3->scale(glm::vec3(15, 10, 10));
 	_backgroundPlane_3->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
 	_backgroundPlane_3->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_3));
-	_world->add(_backgroundPlane_3);
+//	_world->add(_backgroundPlane_3);
 	
 #pragma endregion
 

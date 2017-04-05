@@ -54,7 +54,7 @@ using namespace std;
 
 #include "mgengine/Resources/ResourceHolder.h"
 #include "mgengine/Resources/ResourceIdentifiers.h"
-
+#include "mge/materials/TextureMaterial.hpp"
 
 sf::Clock timer;
 //construct the game class into _window, _renderer and hud (other parts are initialized by build)
@@ -78,15 +78,19 @@ void MGEDemo::initialize() {
 void MGEDemo::_initializeScene()
 {
 	_renderer->setClearColor(0, 0, 0);
-	Light* LightWhite = new Light(LightType::DIRECTIONAL, glm::vec3(0, 2, 0), glm::vec3(0, -1, -1), glm::vec3(1, 1, 1),
+	Light* LightBlue = new Light(LightType::DIRECTIONAL, glm::vec3(0, 2, 0), glm::vec3(0,0,-1), glm::vec3(0.3f, .5f, 1)*1.68f,/* .964f),*/
 		/*Ambient light*/glm::vec3(0, 0, 0), glm::vec3(1, 0, 0), glm::vec2(20, 50));
 
-	_world->add(LightWhite);
+	_world->add(LightBlue);
 
-	Light* LightYellow = new Light(LightType::DIRECTIONAL, glm::vec3(0, 2, 0), glm::vec3(0, -1, 1), glm::vec3(1, 1, 1),
+	Light* LightYellow = new Light(LightType::DIRECTIONAL, glm::vec3(0, 2, 0), glm::vec3(0, 0, 1), glm::vec3(1, .85f, .58f)*1.36f,
 		/*Ambient light*/glm::vec3(0, 0, 0), glm::vec3(1, 0, 0), glm::vec2(20, 50));
 
 	_world->add(LightYellow);
+
+	Light* thirdLight = new Light(LightType::DIRECTIONAL, glm::vec3(0, 2, 0), glm::vec3(0, -1, 0), glm::vec3(.7f,.89f,1)*1.04f,
+		/*Ambient light*/glm::vec3(0, 0, 0), glm::vec3(1, 0, 0), glm::vec2(20, 50));
+	_world->add(thirdLight);
 	//add camera first (it will be updated last)
 	Camera* camera = new Camera("camera", glm::vec3(0, 100, 0));
 	camera->rotate(glm::radians(-90.0f), glm::vec3(1, 0, 0));
@@ -216,13 +220,13 @@ void MGEDemo::LoadMaterials()
 	//_materialLock.lock();
 
 	_world->GetResourceManager()->loadMaterial(Materials::Player, new PlayerMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Yogurt, new EnemyMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Yogurt_Texture.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Sushi, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sushi_texture.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Sandwich, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sandwich_texture.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Potato, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Potato_texture.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Pizza, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Pizza_texture.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Muffin, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Muffin_texture.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Boss, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Boss_texture.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Yogurt, new EnemyMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Yogurt_Texture_AO.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Sushi, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sushi_texture_AO.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Sandwich, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sandwich_texture_AO.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Potato, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Potato_texture_AO.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Pizza, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Pizza_texture_AO.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Muffin, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Muffin_texture_AO.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Boss, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Boss_texture_AO.png")));
 
 	_world->GetResourceManager()->loadMaterial(Materials::BulletYogurt, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Projectile_yoghurt_texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::BulletSushi, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Projectile_Sushi_texture.png")));
@@ -247,10 +251,10 @@ void MGEDemo::LoadMaterials()
 
 
 	_world->GetResourceManager()->loadMaterial(Materials::BackGround_0, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "FB.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::BackGround_1, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "FB1.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::BackGround_1, new PlayerMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Background.jpg")));
 	_world->GetResourceManager()->loadMaterial(Materials::BackGround_2, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "FB2.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::BackGround_3, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "FB3.png")));
-
+	
 	_world->GetResourceManager()->loadMaterial(Materials::Planet, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Planet_texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Meteor, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Meteor_texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::MeteorTrail, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Meteor_with_trail_texture.png")));
