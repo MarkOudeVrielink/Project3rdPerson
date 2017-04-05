@@ -6,35 +6,10 @@
 HUD::HUD(sf::RenderWindow * pWindow) : 	_window(pWindow)	
 {
 
-#pragma region Health/Charge
-
-	_containerTexture.loadFromFile	(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/Hud.png");
-	_healthTexture.loadFromFile		(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/Health.png");
-	_chargeTexture.loadFromFile		(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/Charge.png");
-
-	_container.setTexture(_containerTexture);
-	_healthBar.setTexture(_healthTexture);
-	_chargeBar.setTexture(_chargeTexture);
-
-	_container.setScale(sf::Vector2f(0.28f, 0.4f));
-	_healthBar.setScale(sf::Vector2f(0.28f, 0.34f));
-	_chargeBar.setScale(sf::Vector2f(0.28f, 0.42f));
-
-	_healthBarSize = _healthBar.getScale();
-	_chargeBarSize = _chargeBar.getScale();
-
-	_container.setPosition(1545, 900);
-	sf::Vector2f parent = _container.getPosition();
-
-	_chargeBar.setPosition(parent.x + 65, parent.y + 12);
-	_healthBar.setPosition(parent.x + 15, parent.y + 56);	
-
-#pragma endregion
-
 #pragma region ViewBorders
 
-	_rightBorderTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/Right_Border.jpg");
-	_leftBorderTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/Left_Border.jpg");
+	_rightBorderTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/Hud_Right.jpg");
+	_leftBorderTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/Hud_Left.jpg");
 
 	_rightBorder.setTexture(_rightBorderTexture);
 	_leftBorder.setTexture(_leftBorderTexture);
@@ -42,34 +17,44 @@ HUD::HUD(sf::RenderWindow * pWindow) : 	_window(pWindow)
 	_rightBorder.setPosition(1520, 0);
 	_leftBorder.setPosition(0, 0);
 
+	sf::Vector2f rightBorder = _rightBorder.getPosition();
+	sf::Vector2f leftBorder = _leftBorder.getPosition();
+
+#pragma endregion
+
+#pragma region Health/Charge
+		
+	_healthTexture.loadFromFile		(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/Health.png");
+	_chargeTexture.loadFromFile		(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/Charge.png");
+	_overLoadTexture.loadFromFile	(config::MGE_TEXTURE_PATH + "Hud_Menu_screens/overload.png");
+		
+	_healthBar.setTexture(_healthTexture);
+	_chargeBar.setTexture(_chargeTexture);
+	_overLoadIcon.setTexture(_overLoadTexture);
+
+	_healthBar.setOrigin(0, 953);
+	_chargeBar.setOrigin(0, 936);
+		
+	_healthBarSize = _healthBar.getScale();
+	_chargeBarSize = _chargeBar.getScale();
+	
+	_overLoadIcon.setScale(sf::Vector2f(0.4f, 0.4f));
+	_overLoadIcon.setColor(sf::Color::Transparent);
+
+	_healthBar.setPosition(rightBorder.x + 240, rightBorder.y + 1000);
+	_chargeBar.setPosition(rightBorder.x + 150, rightBorder.y + 990);
+	_overLoadIcon.setPosition(rightBorder.x + 30, rightBorder.y + 70);
+
 #pragma endregion
 
 #pragma region ScoreDisplay
-
-	_progressContainerTexture.loadFromFile	(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/ProgressBar.png");
-	_progressFillTexture.loadFromFile		(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/ProgressFill.png");
-	_scoreContainerTexture.loadFromFile		(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/ScoreContainer.png");
-	_multiplierContainerTexture.loadFromFile(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/MultiplierContainer.png");
-
-	_progressContainer.setTexture	(_progressContainerTexture);
-	_progressFill.setTexture		(_progressFillTexture);
-	_scoreContainer.setTexture		(_scoreContainerTexture);
-	_multiplierContainer.setTexture	(_multiplierContainerTexture);
-
-	_progressContainer.setScale		(sf::Vector2f(0.28f,	0.4f));
-	_progressFill.setScale			(sf::Vector2f(0.28f,	0.36f));
-	_scoreContainer.setScale		(sf::Vector2f(0.34f,	0.4f));
-	_multiplierContainer.setScale	(sf::Vector2f(0.38f,	0.34f));
-
-	_progressFillSize = _progressFill.getScale();
-
-	_progressContainer.setPosition(25, 850);
-	sf::Vector2f parent2 = _progressContainer.getPosition();
+		
+	_progressFillTexture.loadFromFile		(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/ProgressFill.png");	
+	_progressFill.setTexture				(_progressFillTexture);	
+	_progressFill.setOrigin					(sf::Vector2f(0, 451));
+	_progressFill.setPosition				(leftBorder.x + 154, leftBorder.y + 1026);
+	_progressFillSize = _progressFill.getScale();	
 	
-	_progressFill.setPosition(parent2.x + 10, parent2.y + 32);
-	_scoreContainer.setPosition(parent2.x, parent2.y + 85);
-	_multiplierContainer.setPosition(parent2.x + 210, parent2.y + 85);
-
 #pragma endregion
 
 #pragma region Font/Text
@@ -82,14 +67,14 @@ HUD::HUD(sf::RenderWindow * pWindow) : 	_window(pWindow)
 	_scoreText.setString("0");
 	_multiplierText.setString("x 1");
 
-	_scoreText.setCharacterSize(20);
-	_multiplierText.setCharacterSize(20);
+	_scoreText.setCharacterSize(30);
+	_multiplierText.setCharacterSize(30);
 
 	_scoreText.setFillColor(sf::Color::Yellow);
 	_multiplierText.setFillColor(sf::Color::Yellow);
 
-	_scoreText.setPosition(parent2.x + 40, parent2.y + 120);
-	_multiplierText.setPosition(parent2.x + 250, parent2.y + 112);
+	_scoreText.setPosition(leftBorder.x + 170, leftBorder.y + 130);
+	_multiplierText.setPosition(leftBorder.x + 170, leftBorder.y + 280);
 	
 #pragma endregion
 
@@ -106,14 +91,11 @@ void HUD::draw()
 	_window->draw(_rightBorder);
 	_window->draw(_leftBorder);
 
-	_window->draw(_container);
 	_window->draw(_chargeBar);
 	_window->draw(_healthBar);
-
-	_window->draw(_progressContainer);
+	_window->draw(_overLoadIcon);
+	
 	_window->draw(_progressFill);
-	_window->draw(_scoreContainer);
-	_window->draw(_multiplierContainer);
 
 	_window->draw(_scoreText);
 	_window->draw(_multiplierText);
@@ -123,7 +105,7 @@ void HUD::draw()
 
 void HUD::updateHealth(int pHealth)
 {
-	_healthBar.setScale(_healthBarSize.x * pHealth /10 * 3, _healthBarSize.y);
+	_healthBar.setScale(_healthBarSize.x, _healthBarSize.y * pHealth / 10 * 3);
 }
 
 void HUD::updateCharge(float pCharge)
@@ -137,8 +119,18 @@ void HUD::updateCharge(float pCharge)
 	if (pCharge < 0.0f) {
 		pCharge = 0.0f;
 	}
-	_chargeBar.setScale(_chargeBarSize.x * pCharge, _chargeBarSize.y);
+	_chargeBar.setScale(_chargeBarSize.x, _chargeBarSize.y * pCharge);
 	
+}
+
+void HUD::updateOverLoad(bool pToggle)
+{
+	if (pToggle) {
+		_overLoadIcon.setColor(sf::Color(255,255,255,255));
+	}
+	else {
+		_overLoadIcon.setColor(sf::Color::Transparent);
+	}
 }
 
 void HUD::updateWeaponProgress(float pScore)
@@ -153,7 +145,7 @@ void HUD::updateWeaponProgress(float pScore)
 		percentage = 1.0f;
 	}
 
-	_progressFill.setScale(_progressFillSize.x * percentage, _progressFillSize.y);
+	_progressFill.setScale(_progressFillSize.x, _progressFillSize.y * percentage);
 }
 
 void HUD::updateScore(int pScore)

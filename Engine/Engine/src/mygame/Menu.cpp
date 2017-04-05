@@ -76,6 +76,18 @@ void Menu::InitializeMenu(tgui::Gui* pGuiRef)
 	instructions->setPosition(50, 750);
 	_panel->add(instructions);
 
+	/*Title dark*/
+	_titleBanner2 = tgui::Button::create();
+	_titleBanner2->setSize(650, 500);
+	_titleBanner2->getRenderer()->setBorderColor(tgui::Color(0, 0, 0, 0));
+
+	sf::Texture title2;
+	title2.loadFromFile(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/LogoOff.png");
+
+	_titleBanner2->getRenderer()->setNormalTexture(title2);
+	_titleBanner2->setPosition(windowWidth * 0.5f - 370, 0);
+	_panel->add(_titleBanner2);
+
 	/*Title*/
 	_titleBanner = tgui::Button::create();
 	_titleBanner->setSize(650,500);
@@ -88,17 +100,7 @@ void Menu::InitializeMenu(tgui::Gui* pGuiRef)
 	_titleBanner->setPosition(windowWidth * 0.5f - 370, 0);
 	_panel->add(_titleBanner);
 
-	/*Title dark*/
-	_titleBanner2 = tgui::Button::create();
-	_titleBanner2->setSize(650, 500);
-	_titleBanner2->getRenderer()->setBorderColor(tgui::Color(0, 0, 0, 0));
 
-	sf::Texture title2;
-	title2.loadFromFile(config::MGE_TEXTURE_PATH + "Hud_Menu_Screens/LogoOff.png");
-
-	_titleBanner2->getRenderer()->setNormalTexture(title2);
-	_titleBanner2->setPosition(windowWidth * 0.5f - 370, 0);
-	_panel->add(_titleBanner2);
 
 #pragma endregion
 
@@ -193,7 +195,7 @@ void Menu::InitializeMenu(tgui::Gui* pGuiRef)
 
 void Menu::update(float pStep)
 {
-	//_flickerLight();
+	_flickerLight();
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
 	{

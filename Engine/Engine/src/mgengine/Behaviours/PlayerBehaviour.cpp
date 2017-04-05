@@ -214,10 +214,11 @@ void PlayerBehaviour::FireWeapon(float pTime)
 			_fired = true;
 			_heat += pTime * 85;//TODO: change value to something sensible.
 
-			_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Shoot, 30.0f);
+			_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Shoot, 30.0f);			// Play shooting sfx.
 			if (_heat >= _timeToOverheat) {
 				_overheat = true;
-				_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Overheat, 40.0f);
+				_owner->getWorld()->getHud()->updateOverLoad(_overheat);									// Update hud to overheat.
+				_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Overheat, 40.0f);	// Play overheating sfx.
 			}
 		}
 	}
@@ -234,6 +235,7 @@ void PlayerBehaviour::FireWeapon(float pTime)
 		_fired = false;
 		if (_weaponTimer >= _fireRate + _coolDownTime) {
 			_overheat = false;
+			_owner->getWorld()->getHud()->updateOverLoad(_overheat);
 			_heat = 0;
 		}
 	}
@@ -252,6 +254,7 @@ void PlayerBehaviour::FireWeapon2(float pTime)
 			_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Shoot, 30.0f);
 			if (_heat >= _timeToOverheat) {
 				_overheat = true;
+				_owner->getWorld()->getHud()->updateOverLoad(_overheat);
 				_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Overheat, 40.0f);
 			}
 		}
@@ -269,6 +272,7 @@ void PlayerBehaviour::FireWeapon2(float pTime)
 		_fired = false;
 		if (_weaponTimer >= _fireRate + _coolDownTime) {
 			_overheat = false;
+			_owner->getWorld()->getHud()->updateOverLoad(_overheat);
 			_heat = 0;
 		}
 	}
@@ -288,6 +292,7 @@ void PlayerBehaviour::FireWeapon3(float pTime)
 			_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Shoot, 30.0f);
 			if (_heat >= _timeToOverheat) {
 				_overheat = true;
+				_owner->getWorld()->getHud()->updateOverLoad(_overheat);
 				_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Overheat, 40.0f);
 			}
 		}
@@ -305,6 +310,7 @@ void PlayerBehaviour::FireWeapon3(float pTime)
 		_fired = false;
 		if (_weaponTimer >= _fireRate + _coolDownTime) {
 			_overheat = false;
+			_owner->getWorld()->getHud()->updateOverLoad(_overheat);
 			_heat = 0;
 		}
 	}
