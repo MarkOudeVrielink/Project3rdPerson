@@ -30,5 +30,6 @@ private:
 	sf::CircleShape shape;
 	int _waveIndex;
 	Camera* _camera;
+	bool _mainWaypoint = true;
 };
 
