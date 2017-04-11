@@ -497,10 +497,10 @@ void LevelEditorBehaviour::NextLevel()
 		if (_indexLevel < _levels.size() - 1)
 		{
 			_indexLevel++;
-			cout << _indexLevel << "<NEXT index " << endl;
+			//cout << _indexLevel << "<NEXT index " << endl;
 			_currentLevel = _levels.at(_indexLevel);
 			_currentWave = _currentLevel->getIndexWave();
-			cout << _levels.size() << "<levels size " << endl;
+			//cout << _levels.size() << "<levels size " << endl;
 			UpdateGUIDataAtWaveChange();
 		}
 		else {
@@ -619,7 +619,6 @@ void LevelEditorBehaviour::DrawReferenceGrid()
 	sf::Vector2f position;
 	//string time = std::to_string(_time.getElapsedTime().asSeconds());;
 	//std::string debug_time = "TIME: " + time;
-	//std::string::size_type sz;
 
 	for (auto &text : _textReference) {
 		position = text.getPosition();
@@ -655,7 +654,7 @@ glm::vec3 LevelEditorBehaviour::getScreenToWorldPos(sf::Vector2f pScreenPos)
 	);
 
 	glm::vec3 rayWorld = glm::normalize(glm::vec3(_world->getMainCamera()->getWorldTransform() * rayNearPlane))*100;
-	cout << rayWorld.x << "x RAYCAST" << endl;
+	//cout << rayWorld.x << "x RAYCAST" << endl;
 	return rayWorld;
 }
 void LevelEditorBehaviour::UpdateScrolling(float pstep)

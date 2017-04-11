@@ -70,7 +70,7 @@ Level* LevelParser::LoadLevel(string pName ="demo", sf::RenderWindow* pWindow= N
 	{
 		std::cout << "Parse error: " << result.description()
 			<< ", character pos= " << result.offset<<endl;
-		std::cout << "FILE NAME: " << (config::MGE_FONT_PATH  + pName + ".xml").c_str() << endl;
+		//std::cout << "FILE NAME: " << (config::MGE_FONT_PATH  + pName + ".xml").c_str() << endl; //don´t delete, may use later
 
 			return NULL;
 		

@@ -13,7 +13,7 @@ Waypoint::Waypoint(glm::vec3 pWorldWayPos, sf::Vector2f pScreenWayPos, int pOrde
 {
 	_window = pWindow;
 	_createDebugInfo();
-	cout << pWorldWayPos.x << endl;
+	//cout << pWorldWayPos.x << endl;
 }
 
 Waypoint::~Waypoint()
