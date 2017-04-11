@@ -376,7 +376,7 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 				newLevelButton->connect("pressed", &LevelEditorBehaviour::NewLevel, this);
 	#pragma endregion  end of LayoutParser Buttons
 #pragma endregion
-				UpdateGUIDataAtWaveChange();
+	UpdateGUIDataAtWaveChange();
 }
 #pragma region TGUI Methods
 void LevelEditorBehaviour::UpdateGUIData()
