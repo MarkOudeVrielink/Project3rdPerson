@@ -16,6 +16,10 @@ Level::Level(sf::RenderWindow *pWindow) : _window(pWindow)
 
 Level::~Level()
 {
+	for (auto wave : _waves)
+	{
+		delete wave;// = NULL;
+	}
 }
 //TODO:: Add current wave setSize
 //TODO:: Add current wave setDelayBetweenEnemies
@@ -35,7 +39,7 @@ void Level::CreateMainWaypointMoveDirection(glm::vec3 pWolrdWaypointPos, sf::Vec
 //Add reference to the world
 void Level::ReferenceWorld(World* pWorld, GameObject* pParent)
 {
-	if(this != nullptr)
+	if(this != NULL)
 		_world = pWorld;
 
 	_gameObjectsParent = pParent;

@@ -65,13 +65,17 @@ void LevelParser::SaveLevel(Level * pLevel,string pfileName = "demo")
 Level* LevelParser::LoadLevel(string pName ="demo", sf::RenderWindow* pWindow= NULL)
 {
 	pugi::xml_document doc;
-	pugi::xml_parse_result result = doc.load_file((config::MGE_FONT_PATH + "/"+ pName+".xml").c_str());
+	pugi::xml_parse_result result = doc.load_file((config::MGE_FONT_PATH + pName+".xml").c_str());
 	if (!result)
 	{
-		//std::cout << "Parse error: " << result.description()
-			//<< ", character pos= " << result.offset<<endl;
-		return NULL;
+		std::cout << "Parse error: " << result.description()
+			<< ", character pos= " << result.offset<<endl;
+		std::cout << "FILE NAME: " << (config::MGE_FONT_PATH  + pName + ".xml").c_str() << endl;
+
+			return NULL;
+		
 	}
+
 	// A valid XML document must have a single root node
 	pugi::xml_node root = doc.document_element();
 	Level* level = new Level();

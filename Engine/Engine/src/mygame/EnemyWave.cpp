@@ -20,6 +20,10 @@ EnemyWave::EnemyWave()
 
 EnemyWave::~EnemyWave()
 {
+	for (auto wavepoint : _wayPoints)
+	{
+		delete wavepoint;
+	}
 	cout << "Destroying Enemy Wave...." << endl;
 	cout << "WTF should not being destoyed" << endl;
 }

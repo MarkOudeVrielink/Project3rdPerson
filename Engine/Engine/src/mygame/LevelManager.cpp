@@ -25,10 +25,10 @@ LevelManager::~LevelManager()
 			//delete asteroidParent; //TODO: find out what is wrong.
 			asteroidParent = NULL;
 		}
-		/*for (auto asteroidPointer : _asteroids)
+		for (auto asteroidPointer : _asteroids)
 		{
-			asteroidPointer = NULL;
-		}*/
+			delete asteroidPointer;// = NULL;
+		}
 
 		if (_planet) {
 			//delete _planet;

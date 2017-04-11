@@ -417,6 +417,7 @@ void Menu::ToMenu()
 	{
 		delete _objManager;
 		_objManager = NULL;
+		
 		if (!_world->getPlayerDead())
 			delete player;
 		player = NULL;

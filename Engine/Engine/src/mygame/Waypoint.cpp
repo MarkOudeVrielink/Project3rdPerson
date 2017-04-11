@@ -18,10 +18,12 @@ Waypoint::Waypoint(glm::vec3 pWorldWayPos, sf::Vector2f pScreenWayPos, int pOrde
 
 Waypoint::~Waypoint()
 {
+	
 }
 
 void Waypoint::CreateWaypoint(sf::Vector2i pWayPos)
 {
+	
 }
 
 void Waypoint::Draw()
@@ -72,7 +74,7 @@ glm::vec3 Waypoint::getWorldPos()
 void Waypoint::_createDebugInfo()
 {
 	if (!_font.loadFromFile(config::MGE_FONT_PATH + "arial.ttf")) {
-		cout << "Could not load font, exiting..." << endl;
+		cout <<_font.getInfo().family<< "Could not load font, exiting..." << endl;
 		
 	}
 
