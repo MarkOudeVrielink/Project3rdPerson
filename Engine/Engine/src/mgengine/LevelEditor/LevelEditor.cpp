@@ -32,6 +32,7 @@ LevelEditorBehaviour::LevelEditorBehaviour(sf::RenderWindow *pWindow, World *pWo
 	int counter = 0;
 	for (int i = 1; i < 20000;i++)
 	{
+		//the text at the left with the time at x position
 		counter++;
 		if (counter == 100)
 		{
@@ -616,14 +617,16 @@ void LevelEditorBehaviour::DrawReferenceGrid()
 	_currentSnapTimeText.setString("Sec: " + std::to_string(_secReferenceScrollBar));
 	_window->draw(_currentSnapTimeText);
 	sf::Vector2f position;
+	//string time = std::to_string(_time.getElapsedTime().asSeconds());;
+	//std::string debug_time = "TIME: " + time;
 	//std::string::size_type sz;
+
 	for (auto &text : _textReference) {
 		position = text.getPosition();
 		position.y = (float)std::stoi((std::string) text.getString()); //String to int		
-		position.y = 1080 - position.y + _scrollBar; //1080 is height of the screen resolution
-		text.setPosition(position);
-		std::string debug_time = "TIME: " + std::to_string(_time.getElapsedTime().asSeconds());
-		text.setString(text.getString());
+		position.y = 1080 - position.y + _scrollBar*100; //1080 is height of the screen resolution
+		text.setPosition(position);	
+		//text.setString(text.getString());
 		_window->draw(text);
 	}
 	////////END DRAWING////////////////////

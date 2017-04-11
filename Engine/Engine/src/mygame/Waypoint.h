@@ -21,13 +21,14 @@ public:
 private:
 	sf::Vector2f _screenWaypointPosition;
 	glm::vec3 _worldWaypointPosition = glm::vec3(0,0,0);
+	sf::Vector3i _color = sf::Vector3i(0, 0, 0);
 	int _orderInList;
 	std::string _debugInfo;
 	sf::Font _font;
 	sf::Text _debugText;
 	void _createDebugInfo();
 	sf::RenderWindow* _window;
-	sf::CircleShape shape;
+	sf::RectangleShape shape;
 	int _waveIndex;
 	Camera* _camera;
 	bool _mainWaypoint = true;

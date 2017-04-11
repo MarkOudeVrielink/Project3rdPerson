@@ -37,24 +37,40 @@ void Waypoint::Draw()
 void Waypoint::MainWaypoint()
 {
 	//Check if SpawnPoint
-	if (_orderInList == 0) shape.setFillColor(sf::Color(255, 215, 0));
-	else shape.setFillColor(sf::Color(0, 128, 0));
+	if (_orderInList == 0 && _color != sf::Vector3i(255, 215, 0))
+	{
+		_color = sf::Vector3i(255, 215, 0);
+		shape.setFillColor(sf::Color(255, 215, 0));//Light Red
+	}
+	else if (_color != sf::Vector3i(0, 128, 0))
+	{
+		_color = sf::Vector3i(0, 128, 0);
+		shape.setFillColor(sf::Color(0, 128, 0));//Light Blue
+	}	
 	if (!_mainWaypoint)
 	{
 		_mainWaypoint = true;
-		shape.setRadius(7);
+		shape.setSize(sf::Vector2f(30,30));
 	}
 
 }
 void Waypoint::SecondaryWaypoint()
 {
 	//Check if spawn point
-	if (_orderInList == 0) shape.setFillColor(sf::Color(205, 92, 92));//Light Red
-	else shape.setFillColor(sf::Color(30, 144, 255));//Light Blue
+	if (_orderInList == 0 && _color != sf::Vector3i(205, 92, 92))
+	{
+		_color = sf::Vector3i(205, 92, 92);
+		shape.setFillColor(sf::Color(205, 92, 92));//Light Red
+	}
+	else if (_color != sf::Vector3i(30, 144, 255))
+	{
+		_color = sf::Vector3i(30, 144, 255);
+		shape.setFillColor(sf::Color(30, 144, 255));//Light Blue
+	}
 	if (_mainWaypoint)
 	{
 		_mainWaypoint = false;
-		shape.setRadius(5);
+		shape.setSize(sf::Vector2f(3.0f, 3.0f));
 	}
 }
 sf::RenderWindow * Waypoint::getRenderWindow()
@@ -80,7 +96,7 @@ void Waypoint::_createDebugInfo()
 
 	shape.setPosition((sf::Vector2f)_screenWaypointPosition);
 	_debugText = sf::Text();
-	shape.setRadius(5);
+	shape.setSize(sf::Vector2f(3.0f, 3.0f));
 
 	if(_orderInList == 0) shape.setFillColor(sf::Color(205, 92, 92));//Light Red
 	else shape.setFillColor(sf::Color(30, 144, 255));//Light Blue
