@@ -22,6 +22,8 @@ public:
 	void setWorldPos(glm::vec3 pWorldPos);
 	sf::Shape * getShape();
 
+	void setIndexInsideWave(int pIndex);
+
 	void setDragging(bool pBool);
 	bool getDragging();
 
@@ -33,7 +35,7 @@ private:
 	sf::Vector2f _screenWaypointPosition;
 	glm::vec3 _worldWaypointPosition = glm::vec3(0,0,0);
 	sf::Vector3i _color = sf::Vector3i(0, 0, 0);
-	int _orderInList;
+	int _positionInWaveList;
 	std::string _debugInfo;
 	sf::Font _font;
 	sf::Text _debugText;

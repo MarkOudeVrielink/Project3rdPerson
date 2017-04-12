@@ -9,7 +9,7 @@
 
 using namespace std;
 Waypoint::Waypoint(glm::vec3 pWorldWayPos, sf::Vector2f pScreenWayPos, int pOrderInList, int pWaveIndex, sf::RenderWindow* pWindow)
-	:_worldWaypointPosition(pWorldWayPos),_screenWaypointPosition(pScreenWayPos),_orderInList(pOrderInList), _waveIndex(pWaveIndex)
+	:_worldWaypointPosition(pWorldWayPos),_screenWaypointPosition(pScreenWayPos),_positionInWaveList(pOrderInList), _waveIndex(pWaveIndex)
 {
 	_window = pWindow;
 	_createDebugInfo();
@@ -28,16 +28,18 @@ void Waypoint::CreateWaypoint(sf::Vector2i pWayPos)
 
 void Waypoint::Draw()
 {	
-	glActiveTexture(GL_TEXTURE0);
-	_window->pushGLStates();
-	_window->draw(_shape);
-	_window->draw(_debugText);
-	_window->popGLStates();	
+	if (this != nullptr) {
+		glActiveTexture(GL_TEXTURE0);
+		_window->pushGLStates();
+		_window->draw(_shape);
+		_window->draw(_debugText);
+		_window->popGLStates();
+	}
 }
 void Waypoint::MainWaypoint()
 {
 	//Check if SpawnPoint
-	if (_orderInList == 0 && _color != sf::Vector3i(255, 215, 0))
+	if (_positionInWaveList == 0 && _color != sf::Vector3i(255, 215, 0))
 	{
 		_color = sf::Vector3i(255, 215, 0);
 		_shape.setFillColor(sf::Color(255, 215, 0));//Light Red
@@ -57,7 +59,7 @@ void Waypoint::MainWaypoint()
 void Waypoint::SecondaryWaypoint()
 {
 	//Check if spawn point
-	if (_orderInList == 0 && _color != sf::Vector3i(205, 92, 92))
+	if (_positionInWaveList == 0 && _color != sf::Vector3i(205, 92, 92))
 	{
 		_color = sf::Vector3i(205, 92, 92);
 		_shape.setFillColor(sf::Color(205, 92, 92));//Light Red
@@ -104,6 +106,13 @@ sf::Shape * Waypoint::getShape()
 	return &_shape;
 }
 
+void Waypoint::setIndexInsideWave(int pIndex)
+{
+	_positionInWaveList = pIndex;
+	_debugInfo = std::to_string(_positionInWaveList) + "\n W: " + std::to_string(_waveIndex);
+	_debugText.setString(_debugInfo);
+}
+
 void Waypoint::setDragging(bool pBool)
 {
 	_dragging = pBool;
@@ -123,7 +132,7 @@ void Waypoint::_createDebugInfo()
 	_debugText = sf::Text();
 	_shape.setSize(sf::Vector2f(3.0f, 3.0f));
 
-	if(_orderInList == 0) _shape.setFillColor(sf::Color(205, 92, 92));//Light Red
+	if(_positionInWaveList == 0) _shape.setFillColor(sf::Color(205, 92, 92));//Light Red
 	else _shape.setFillColor(sf::Color(30, 144, 255));//Light Blue
 
 	_debugText.setFont(_font);
@@ -131,7 +140,7 @@ void Waypoint::_createDebugInfo()
 	_debugText.setFillColor(sf::Color::White);
 
 
-	_debugInfo = std::to_string(_orderInList )+ "\n W: "+ std::to_string(_waveIndex);
+	_debugInfo = std::to_string(_positionInWaveList )+ "\n W: "+ std::to_string(_waveIndex);
 	_debugText.setString(_debugInfo);
 
 	_debugText.setPosition((sf::Vector2f)_screenWaypointPosition);

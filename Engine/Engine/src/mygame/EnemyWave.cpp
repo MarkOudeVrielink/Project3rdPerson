@@ -49,7 +49,7 @@ Waypoint* EnemyWave::GetMainWaypointDirection()
 	return _mainWaypointDirection;
 }
 //Return reference of the list of all the waypoints
-const std::vector<Waypoint*>* EnemyWave::getWaypoints() const
+std::vector<Waypoint*>* EnemyWave::getWaypoints() 
 {
 	return &_wayPoints;
 }

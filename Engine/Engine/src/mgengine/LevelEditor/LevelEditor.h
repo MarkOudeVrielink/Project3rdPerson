@@ -71,6 +71,7 @@ private:
 	void UpdateScrolling(float pstep);
 	void UpdateWaypointCreation();
 	bool checkDragging();
+	void checkEraseWaypoint();
 	void checkReleaseDragging();
 	void UpdateStartLevelPreview();
 	void UpdateWaveSelection();

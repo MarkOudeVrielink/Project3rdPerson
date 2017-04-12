@@ -706,10 +706,13 @@ void LevelEditorBehaviour::UpdateScrolling(float pstep)
 
 }
 
+//Ccreate waypoints and check for dragging
 void LevelEditorBehaviour::UpdateWaypointCreation()
 {
 	if (sf::Mouse::getPosition().x > 400 && sf::Mouse::getPosition().x < 1520 && _window->isOpen())//check if we are in screen and just if window is open
 	{
+		checkEraseWaypoint();
+
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && !sf::Keyboard::isKeyPressed(sf::Keyboard::U))//Check if click
 		{
 			if (!_mousePressed & !checkDragging()) {//If we weren´t clicking before then add waypoint
@@ -762,7 +765,29 @@ bool LevelEditorBehaviour::checkDragging()
 	}
 	return false;
 }
-
+void LevelEditorBehaviour::checkEraseWaypoint()
+{
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && !sf::Mouse::isButtonPressed(sf::Mouse::Left))//Check if click
+	{
+		sf::Vector2f screenPosition = (sf::Vector2f)sf::Mouse::getPosition(*_window);
+		std::vector<Waypoint*> * listWaypoints =_currentLevel->getCurrentWave()->getWaypoints();
+		int listSize = listWaypoints->size();
+		for (int i = listSize - 1; i >= 0;i--) {
+			if (listWaypoints->at(i)->getShape()->getGlobalBounds().contains(screenPosition)) {//if we click over waypoint
+				delete listWaypoints->at(i);
+				if (i != listSize - 1) {
+					//Reorder the objects in the list
+					for (int j = i + 1; j < listSize; j++) {
+						listWaypoints->at(j-1) = listWaypoints->at(j);
+						listWaypoints->at(j - 1)->setIndexInsideWave(j - 1);
+					}
+				}
+				//erase last element of the list and rezize the list
+				listWaypoints->pop_back();				
+			}			
+		}
+	}
+}
 void LevelEditorBehaviour::checkReleaseDragging()
 {	
 	if (_mousePressed && !sf::Mouse::isButtonPressed(sf::Mouse::Left)) {

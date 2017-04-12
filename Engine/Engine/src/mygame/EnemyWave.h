@@ -35,7 +35,7 @@ public:
 	const Materials::ID* getEnemyType() const;
 	const int* getEnemyBehaviour() const;
 	const float* getHealth() const;
-	const std::vector<Waypoint*>* getWaypoints() const;
+	std::vector<Waypoint*>* getWaypoints() ;
 
 	void setWaypoints(std::vector<Waypoint*> pWaypoints);
 	void setStartTime(float pStartTime);
