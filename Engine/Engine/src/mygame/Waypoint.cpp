@@ -30,7 +30,7 @@ void Waypoint::Draw()
 {	
 	glActiveTexture(GL_TEXTURE0);
 	_window->pushGLStates();
-	_window->draw(shape);
+	_window->draw(_shape);
 	_window->draw(_debugText);
 	_window->popGLStates();	
 }
@@ -40,17 +40,17 @@ void Waypoint::MainWaypoint()
 	if (_orderInList == 0 && _color != sf::Vector3i(255, 215, 0))
 	{
 		_color = sf::Vector3i(255, 215, 0);
-		shape.setFillColor(sf::Color(255, 215, 0));//Light Red
+		_shape.setFillColor(sf::Color(255, 215, 0));//Light Red
 	}
 	else if (_color != sf::Vector3i(0, 128, 0))
 	{
 		_color = sf::Vector3i(0, 128, 0);
-		shape.setFillColor(sf::Color(0, 128, 0));//Light Blue
+		_shape.setFillColor(sf::Color(0, 128, 0));//Light Blue
 	}	
 	if (!_mainWaypoint)
 	{
 		_mainWaypoint = true;
-		shape.setSize(sf::Vector2f(30,30));
+		_shape.setSize(sf::Vector2f(30,30));
 	}
 
 }
@@ -60,17 +60,17 @@ void Waypoint::SecondaryWaypoint()
 	if (_orderInList == 0 && _color != sf::Vector3i(205, 92, 92))
 	{
 		_color = sf::Vector3i(205, 92, 92);
-		shape.setFillColor(sf::Color(205, 92, 92));//Light Red
+		_shape.setFillColor(sf::Color(205, 92, 92));//Light Red
 	}
 	else if (_color != sf::Vector3i(30, 144, 255))
 	{
 		_color = sf::Vector3i(30, 144, 255);
-		shape.setFillColor(sf::Color(30, 144, 255));//Light Blue
+		_shape.setFillColor(sf::Color(30, 144, 255));//Light Blue
 	}
 	if (_mainWaypoint)
 	{
 		_mainWaypoint = false;
-		shape.setSize(sf::Vector2f(3.0f, 3.0f));
+		_shape.setSize(sf::Vector2f(3.0f, 3.0f));
 	}
 }
 sf::RenderWindow * Waypoint::getRenderWindow()
@@ -87,6 +87,31 @@ glm::vec3 Waypoint::getWorldPos()
 	return _worldWaypointPosition;
 }
 
+void Waypoint::setScreenPosition(sf::Vector2f pScreenPos)
+{
+	_screenWaypointPosition = pScreenPos;
+	_shape.setPosition(pScreenPos);
+	_debugText.setPosition(pScreenPos);
+}
+
+void Waypoint::setWorldPos(glm::vec3 pWorldPos)
+{
+	_worldWaypointPosition = pWorldPos;
+}
+
+sf::Shape * Waypoint::getShape()
+{
+	return &_shape;
+}
+
+void Waypoint::setDragging(bool pBool)
+{
+	_dragging = pBool;
+}
+bool Waypoint::getDragging()
+{
+	return _dragging;
+}
 void Waypoint::_createDebugInfo()
 {
 	if (!_font.loadFromFile(config::MGE_FONT_PATH + "arial.ttf")) {
@@ -94,12 +119,12 @@ void Waypoint::_createDebugInfo()
 		
 	}
 
-	shape.setPosition((sf::Vector2f)_screenWaypointPosition);
+	_shape.setPosition((sf::Vector2f)_screenWaypointPosition);
 	_debugText = sf::Text();
-	shape.setSize(sf::Vector2f(3.0f, 3.0f));
+	_shape.setSize(sf::Vector2f(3.0f, 3.0f));
 
-	if(_orderInList == 0) shape.setFillColor(sf::Color(205, 92, 92));//Light Red
-	else shape.setFillColor(sf::Color(30, 144, 255));//Light Blue
+	if(_orderInList == 0) _shape.setFillColor(sf::Color(205, 92, 92));//Light Red
+	else _shape.setFillColor(sf::Color(30, 144, 255));//Light Blue
 
 	_debugText.setFont(_font);
 	_debugText.setCharacterSize(16);

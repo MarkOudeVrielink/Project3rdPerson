@@ -24,7 +24,8 @@ public:
 	void TestRealTime();
 	void TestEditorMode();
 	void ClearWaypoints();
-
+	void CheckDragWaypoint();
+	void DeleteWaypoint();
 
 	const float* getStartTime() const;
 	const int* getSizeWave() const;

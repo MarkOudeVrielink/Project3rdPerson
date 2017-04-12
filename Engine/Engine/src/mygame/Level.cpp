@@ -57,6 +57,7 @@ int Level::getIndexWave()
 //Return true when all the level waves have been completed <-ADD
 bool Level::RunLevel(sf::Time* pTime)
 {
+	//First dialogue that is show before the game starts
 	if (!_world->getDialogue(1))
 	{
 		_world->setDialogue(true, 1);

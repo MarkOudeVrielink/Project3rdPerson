@@ -245,6 +245,16 @@ void EnemyWave::ClearWaypoints()
 
 }
 
+void EnemyWave::CheckDragWaypoint()
+{
+	
+}
+
+void EnemyWave::DeleteWaypoint()
+{
+}
+
+
 #pragma region getters
 const float * EnemyWave::getStartTime() const
 {

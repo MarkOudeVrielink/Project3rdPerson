@@ -18,7 +18,18 @@ public:
 	//std::vector<sf::CircleShape> _wayPoints;
 	sf::Vector2f getScreenPosition();
 	glm::vec3 getWorldPos();
+	void setScreenPosition(sf::Vector2f pScreenPos);
+	void setWorldPos(glm::vec3 pWorldPos);
+	sf::Shape * getShape();
+
+	void setDragging(bool pBool);
+	bool getDragging();
+
+
+
+	void setPosition(sf::Vector2f pWcreenWayPos);
 private:
+	bool _dragging = false;
 	sf::Vector2f _screenWaypointPosition;
 	glm::vec3 _worldWaypointPosition = glm::vec3(0,0,0);
 	sf::Vector3i _color = sf::Vector3i(0, 0, 0);
@@ -28,7 +39,7 @@ private:
 	sf::Text _debugText;
 	void _createDebugInfo();
 	sf::RenderWindow* _window;
-	sf::RectangleShape shape;
+	sf::RectangleShape _shape;
 	int _waveIndex;
 	Camera* _camera;
 	bool _mainWaypoint = true;

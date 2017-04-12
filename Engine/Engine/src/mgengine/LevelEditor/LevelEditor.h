@@ -70,6 +70,8 @@ private:
 	glm::vec3 getScreenToWorldPos(sf::Vector2f pScreenPos);
 	void UpdateScrolling(float pstep);
 	void UpdateWaypointCreation();
+	bool checkDragging();
+	void checkReleaseDragging();
 	void UpdateStartLevelPreview();
 	void UpdateWaveSelection();
 
