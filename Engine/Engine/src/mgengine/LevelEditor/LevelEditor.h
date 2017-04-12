@@ -24,6 +24,7 @@ public:
 	void PrevWave();
 	void NewWave();
 	void ClearWave();
+	void DeleteWave();
 	void NextLevel();
 	void PrevLevel();
 	void NewLevel();

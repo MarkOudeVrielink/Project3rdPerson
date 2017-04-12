@@ -234,6 +234,17 @@ void EnemyWave::TestEditorMode()
 	_editorMode = true;
 }
 
+void EnemyWave::ClearWaypoints()
+{
+	for (auto waypoint : _wayPoints)
+	{
+		delete waypoint;
+
+	}
+	_wayPoints.clear();
+
+}
+
 #pragma region getters
 const float * EnemyWave::getStartTime() const
 {

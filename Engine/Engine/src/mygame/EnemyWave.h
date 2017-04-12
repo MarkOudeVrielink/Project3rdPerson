@@ -23,6 +23,8 @@ public:
 	void UpdateEditorModePosition(float *pSec);
 	void TestRealTime();
 	void TestEditorMode();
+	void ClearWaypoints();
+
 
 	const float* getStartTime() const;
 	const int* getSizeWave() const;

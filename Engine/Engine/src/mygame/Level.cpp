@@ -160,7 +160,13 @@ EnemyWave * Level::DeleteWave()
 		return nullptr;
 	}
 }
-
+EnemyWave * Level::ClearWave()
+{
+	_currentEnemyWave->ClearWaypoints();
+		return _waves.at(_indexWave);
+	
+	
+}
 std::vector<EnemyWave*>* Level::getWaves()
 {
 	return &_waves;

@@ -125,6 +125,10 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 			clearWaveButton->setText("Clear");
 			layout0->add(clearWaveButton);
 
+			auto deleteWaveButton = tgui::Button::copy(prevWaveButton);
+			deleteWaveButton->setText("Delete");
+			layout0->add(deleteWaveButton);
+
 			auto nextWaveButton = tgui::Button::copy(prevWaveButton);
 			nextWaveButton->setText("Next");
 			layout0->add(nextWaveButton);
@@ -132,6 +136,7 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 			nextWaveButton->connect("pressed", &LevelEditorBehaviour::NextWave, this);
 			newWaveButton->connect("pressed", &LevelEditorBehaviour::NewWave, this);
 			clearWaveButton->connect("pressed", &LevelEditorBehaviour::ClearWave, this);
+			deleteWaveButton->connect("pressed", &LevelEditorBehaviour::DeleteWave, this);
 
 		#pragma endregion end of 0, wave buttons 
 	#pragma endregion end of TOP of the waves
@@ -487,7 +492,12 @@ void LevelEditorBehaviour::NewWave()
 }
 void LevelEditorBehaviour::ClearWave()
 {
-	 _currentLevel->DeleteWave();
+	 _currentLevel->ClearWave();
+	//NextWave();
+}
+void LevelEditorBehaviour::DeleteWave()
+{
+	_currentLevel->DeleteWave();
 	NextWave();
 }
 #pragma endregion

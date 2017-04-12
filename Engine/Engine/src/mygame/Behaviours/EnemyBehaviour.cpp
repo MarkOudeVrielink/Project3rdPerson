@@ -222,6 +222,8 @@ void EnemyBehaviour::AiBasic(float pStep)
 
 	if (length < _moveSpeed*pStep  && _wayPoints->size() >(float)_index) {
 		_tarjet = _wayPoints->at(_index++);
+		delta = glm::normalize(delta);
+		_ownerBody->translate(btVector3(delta.x * _moveSpeed *pStep, 0.0f, delta.y * _moveSpeed*pStep));	 //Move toward target with set speed
 	}
 
 	else {
