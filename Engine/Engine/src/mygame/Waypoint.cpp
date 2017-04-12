@@ -44,7 +44,7 @@ void Waypoint::MainWaypoint()
 		_color = sf::Vector3i(255, 215, 0);
 		_shape.setFillColor(sf::Color(255, 215, 0));//Light Red
 	}
-	else if (_color != sf::Vector3i(0, 128, 0))
+	else if (_positionInWaveList != 0 &&_color != sf::Vector3i(0, 128, 0))
 	{
 		_color = sf::Vector3i(0, 128, 0);
 		_shape.setFillColor(sf::Color(0, 128, 0));//Light Blue
@@ -52,7 +52,7 @@ void Waypoint::MainWaypoint()
 	if (!_mainWaypoint)
 	{
 		_mainWaypoint = true;
-		_shape.setSize(sf::Vector2f(30,30));
+		_shape.setRadius(7);
 	}
 
 }
@@ -72,7 +72,7 @@ void Waypoint::SecondaryWaypoint()
 	if (_mainWaypoint)
 	{
 		_mainWaypoint = false;
-		_shape.setSize(sf::Vector2f(3.0f, 3.0f));
+		_shape.setRadius(5);
 	}
 }
 sf::RenderWindow * Waypoint::getRenderWindow()
@@ -130,7 +130,7 @@ void Waypoint::_createDebugInfo()
 
 	_shape.setPosition((sf::Vector2f)_screenWaypointPosition);
 	_debugText = sf::Text();
-	_shape.setSize(sf::Vector2f(3.0f, 3.0f));
+	_shape.setRadius(5);
 
 	if(_positionInWaveList == 0) _shape.setFillColor(sf::Color(205, 92, 92));//Light Red
 	else _shape.setFillColor(sf::Color(30, 144, 255));//Light Blue

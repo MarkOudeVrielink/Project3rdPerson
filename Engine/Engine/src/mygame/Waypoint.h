@@ -41,7 +41,7 @@ private:
 	sf::Text _debugText;
 	void _createDebugInfo();
 	sf::RenderWindow* _window;
-	sf::RectangleShape _shape;
+	sf::CircleShape _shape;
 	int _waveIndex;
 	Camera* _camera;
 	bool _mainWaypoint = true;
