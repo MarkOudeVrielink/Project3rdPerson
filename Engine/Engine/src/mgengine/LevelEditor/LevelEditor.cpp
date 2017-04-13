@@ -239,8 +239,8 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 	layout6->add(enemyType);
 
 	enemyTypeBox = tgui::ComboBox::create();
-	enemyTypeBox->addItem("Player");
-	enemyTypeBox->addItem("Enemy");
+	//enemyTypeBox->addItem("Player");
+//	enemyTypeBox->addItem("Enemy");
 	enemyTypeBox->addItem("Yogurt");
 	enemyTypeBox->addItem("Sushi");
 	enemyTypeBox->addItem("Sandwich");
@@ -416,7 +416,9 @@ void LevelEditorBehaviour::UpdateGUIData()
 
 	}
 	if (checkComboBox(enemyTypeBox) != -1) {
-		_currentLevel->getCurrentWave()->setEnemyType(Materials::ID((int)checkComboBox(enemyTypeBox)));//TODO: Add enemies types in waves
+		int enemyTypeID = (int)checkComboBox(enemyTypeBox);
+		enemyTypeID += 2;
+		_currentLevel->getCurrentWave()->setEnemyType(Materials::ID(enemyTypeID));//TODO: Add enemies types in waves
 	}
 	if (checkComboBox(behaviourBox) != -1) {
 		_currentLevel->getCurrentWave()->setEnemyBehaviour(checkComboBox(behaviourBox));//TODO: Add enemies behaviour in waves
@@ -437,7 +439,7 @@ void LevelEditorBehaviour::UpdateGUIDataAtWaveChange()
 	//cout << *_currentLevel->getCurrentWave()->getShootRatio() << endl;
 	setBoxDefault(healthBox, *_currentLevel->getCurrentWave()->getHealth());
 	setBoxDefault(delayBetweenEBox, *_currentLevel->getCurrentWave()->getDelayBetweenEnemies());
-	setComboBoxDefault(enemyTypeBox, *_currentLevel->getCurrentWave()->getEnemyType());
+	setComboBoxDefault(enemyTypeBox, *_currentLevel->getCurrentWave()->getEnemyType()-2);
 	setComboBoxDefault(behaviourBox, *_currentLevel->getCurrentWave()->getEnemyBehaviour());
 	//setBoxDefault(timeStartBox, *_currentLevel->getCurrentWave()->getStartTime());
 	//TODO:: ADD End Time per wave
