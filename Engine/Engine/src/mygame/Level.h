@@ -26,6 +26,7 @@ public:
 	EnemyWave* PreviousWave();
 	EnemyWave* NewWave();
 	EnemyWave* DeleteWave();
+	EnemyWave * ClearWave();
 	std::vector<EnemyWave*>* getWaves();
 	void DrawAllWavesWayPoints();
 	float getCurrentSnapTime();

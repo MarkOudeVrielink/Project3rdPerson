@@ -20,7 +20,6 @@ struct lightInfo{
     int lightType;
 };
 uniform mat4 eyeMatrix;//Inverse View
-//uniform vec3 diffuseColor;//Material Color?
 uniform vec4 specularColor;
 uniform float shininess;
 uniform lightInfo lights[4];
@@ -38,9 +37,7 @@ vec4 CalculateSpot(lightInfo pLight);
 
 
 void main( void ) {
-	//fragment_color = texture(textureDiffuse,texCoord);
 	 fragment_color = CalculateLights()*  texture(textureDiffuse,texCoord);
-//	 fragment_color = vec4(1,1,1,1);
 }
 vec4 CalculateLights() {
     vec4 outColor;

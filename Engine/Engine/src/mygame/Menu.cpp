@@ -5,7 +5,7 @@
 #include "mge\behaviours\AbstractBehaviour.hpp"
 #include "mge/core/World.hpp"
 #include "config.hpp"
-
+#include "HUD.h"
 int flickerRate = 40;
 
 Menu::Menu(World* pWolrd, sf::RenderWindow *pWindow)
@@ -242,7 +242,7 @@ void Menu::update(float pStep)
 		}
 	}
 }
-
+//check if enter is pressed to keep disable next dialogue
 void Menu::checkDialogue()
 {
 	if (_world->getDialogue(1) && !_world->getDialogueEnded(1)) {
@@ -296,7 +296,7 @@ void Menu::ToLevelEditor()
 	_levelEditor->InitializeHud(_guiRef);
 	_world->add(_levelEditorObject);
 	_levelEditor->setActive(true);
-	
+	_world->getHud()->setActive(false);
 	/*
 	ControlledActor* player = new ControlledActor(_world, "Player", glm::vec3(0, 0, 3), new btSphereShape(1), ActorType::Type_Player, 1, CF::COL_PLAYER, CF::playerCollidesWith,3);
 
@@ -396,6 +396,7 @@ void Menu::StartGame()
 	_posBossDialogue->setPosition(400, 800);
 	_posBossDialogue->scale(.5f, .5f);
 	_posBossDialogue->hide();
+	_world->getHud()->setActive(true);
 }
 
 void Menu::HideMenu()
@@ -416,6 +417,7 @@ void Menu::ToMenu()
 	{
 		delete _objManager;
 		_objManager = NULL;
+		
 		if (!_world->getPlayerDead())
 			delete player;
 		player = NULL;

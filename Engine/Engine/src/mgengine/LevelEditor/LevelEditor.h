@@ -24,6 +24,7 @@ public:
 	void PrevWave();
 	void NewWave();
 	void ClearWave();
+	void DeleteWave();
 	void NextLevel();
 	void PrevLevel();
 	void NewLevel();
@@ -69,6 +70,9 @@ private:
 	glm::vec3 getScreenToWorldPos(sf::Vector2f pScreenPos);
 	void UpdateScrolling(float pstep);
 	void UpdateWaypointCreation();
+	bool checkDragging();
+	void checkEraseWaypoint();
+	void checkReleaseDragging();
 	void UpdateStartLevelPreview();
 	void UpdateWaveSelection();
 

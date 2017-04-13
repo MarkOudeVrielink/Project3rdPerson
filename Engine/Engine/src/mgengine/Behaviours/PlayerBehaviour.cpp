@@ -80,7 +80,7 @@ void PlayerBehaviour::update(float pStep) {
 		SpawnNova();		
 	}
 	//score
-	float delay = 1.3;
+	float delay = 1.3f;
 	if (ScoreClock.getElapsedTime().asSeconds() - timeSinceLastDeadEnemy.asSeconds() > delay)
 	{
 		_comboMultiplier = 1;
@@ -101,7 +101,7 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 
 			_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Hit);
 			player->TakeDamage(1);
-			_owner->getWorld()->getHud()->updateHealth(player->GetHealth());
+			_owner->getWorld()->getHud()->updateHealth((int)player->GetHealth());
 						
 			_comboMultiplier = 1;	
 			_ownerBody->setLinearVelocity(btVector3(0, 0, 0));
@@ -122,7 +122,7 @@ void PlayerBehaviour::OnCollision(Actor * pOther)
 				player->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Player_Hit);
 
 				player->TakeDamage(1);
-				_owner->getWorld()->getHud()->updateHealth(player->GetHealth());
+				_owner->getWorld()->getHud()->updateHealth((int)player->GetHealth());
 				_ownerBody->setLinearVelocity(btVector3(0, 0, 0));
 
 				if (player->GetHealth() <= 0) {

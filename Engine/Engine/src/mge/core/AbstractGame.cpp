@@ -95,7 +95,7 @@ void AbstractGame::run()
 	sf::Clock updateClock;
 	sf::Clock renderClock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
-	sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
+	sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);//was 1/60
 	
 	while (_window->isOpen()) {
 		timeSinceLastUpdate += updateClock.restart();
@@ -114,7 +114,7 @@ void AbstractGame::run()
 				
 				/*Destroy all the actors in the world that were set to 'dirty'*/
 				_world->DestroyActors();
-				_update(timePerFrame.asSeconds());
+				_update(timePerFrame.asSeconds() );
 		    }
 			
             _render();
@@ -127,7 +127,10 @@ void AbstractGame::run()
             _window->display();
 
             float timeSinceLastRender = renderClock.restart().asSeconds();
-            if (timeSinceLastRender != 0) _fps = 1.0f/timeSinceLastRender;
+			if (timeSinceLastRender != 0)
+			{
+				_fps = 1.0f / timeSinceLastRender;
+			}
 		}
 
 		_processEvents();

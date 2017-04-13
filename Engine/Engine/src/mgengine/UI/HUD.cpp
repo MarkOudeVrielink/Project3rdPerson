@@ -86,21 +86,23 @@ HUD::~HUD()
 
 void HUD::draw()
 {
-	_window->pushGLStates();
+	if (_active) {
+		_window->pushGLStates();
 
-	_window->draw(_rightBorder);
-	_window->draw(_leftBorder);
+		_window->draw(_rightBorder);
+		_window->draw(_leftBorder);
 
-	_window->draw(_chargeBar);
-	_window->draw(_healthBar);
-	_window->draw(_overLoadIcon);
-	
-	_window->draw(_progressFill);
+		_window->draw(_chargeBar);
+		_window->draw(_healthBar);
+		_window->draw(_overLoadIcon);
 
-	_window->draw(_scoreText);
-	_window->draw(_multiplierText);
+		_window->draw(_progressFill);
 
-	_window->popGLStates();
+		_window->draw(_scoreText);
+		_window->draw(_multiplierText);
+
+		_window->popGLStates();
+	}
 }
 
 void HUD::updateHealth(int pHealth)
@@ -158,5 +160,11 @@ void HUD::updateMultiplier(int pMultiplier)
 {
 	sf::String text = std::to_string(pMultiplier);
 	_multiplierText.setString("x " + text);
+}
+
+void HUD::setActive(bool pActive)
+{
+	_active = pActive;
+	
 }
 

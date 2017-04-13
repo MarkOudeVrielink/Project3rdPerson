@@ -1,7 +1,7 @@
 #pragma once
 #include "mgengine\Parser\pugixml.hpp"
 #include "mygame\Level.h"
-static class LevelParser
+class LevelParser
 {
 public:
 	//static void SaveLevel(Level* pLevel);

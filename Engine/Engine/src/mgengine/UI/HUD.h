@@ -17,9 +17,9 @@ public:
 	void updateWeaponProgress(float pScore);
 	void updateScore(int pScore);
 	void updateMultiplier(int pMultiplier);
-
+	void setActive(bool pActive);
 private:
-
+	bool _active = true;
 #pragma region Health/Charge
 	
 	sf::Sprite _healthBar;

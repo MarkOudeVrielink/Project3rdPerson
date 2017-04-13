@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 <Level>
-  <Wave startTimeWave="3" health="50" speed="90" shootRatio="0.200000003" enemyType="8" enemyBehaviour="2" sizeWave="1" delayBetweenEnemies="0.5" waypointDirection_x="0" waypointDirection_y="0" waypointDirection_z="0" Screen_x="1325" Screen_y="38">
+  <Wave startTimeWave="3" health="50" speed="90" shootRatio="0.200000003" enemyType="8" enemyBehaviour="2" sizeWave="1" delayBetweenEnemies="0.5">
     <Waypoints>
       <WavePoint World_x="-0.0934032053" World_y="-87.3607254" World_z="-48.6630707" Screen_x="959" Screen_y="19" />
       <WavePoint World_x="46.4579659" World_y="-87.2539902" World_z="-15.1128311" Screen_x="1458" Screen_y="378" />
@@ -12,7 +12,7 @@
       <WavePoint World_x="1.28324103" World_y="-92.3250122" World_z="38.3985329" Screen_x="973" Screen_y="929" />
     </Waypoints>
   </Wave>
-  <Wave startTimeWave="0" health="1" speed="40" shootRatio="5" enemyType="3" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5" waypointDirection_x="0" waypointDirection_y="0" waypointDirection_z="0" Screen_x="503" Screen_y="48">
+  <Wave startTimeWave="0" health="1" speed="40" shootRatio="5" enemyType="3" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5">
     <Waypoints>
       <WavePoint World_x="-42.3603134" World_y="-84.8392334" World_z="-31.7475624" Screen_x="492" Screen_y="189" />
       <WavePoint World_x="-22.367897" World_y="-91.7581711" World_z="-32.8651085" Screen_x="732" Screen_y="205" />
@@ -34,7 +34,7 @@
       <WavePoint World_x="-33.3327332" World_y="-87.5740356" World_z="34.924469" Screen_x="604" Screen_y="913" />
     </Waypoints>
   </Wave>
-  <Wave startTimeWave="0" health="1" speed="40" shootRatio="5" enemyType="4" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5" waypointDirection_x="0" waypointDirection_y="0" waypointDirection_z="0" Screen_x="532" Screen_y="76">
+  <Wave startTimeWave="0" health="1" speed="40" shootRatio="5" enemyType="4" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5">
     <Waypoints>
       <WavePoint World_x="-39.0760078" World_y="-83.6340637" World_z="-38.4500771" Screen_x="523" Screen_y="110" />
       <WavePoint World_x="-23.1867065" World_y="-88.8799286" World_z="-39.5314331" Screen_x="716" Screen_y="124" />
@@ -49,7 +49,7 @@
       <WavePoint World_x="48.4307365" World_y="-86.9436417" World_z="9.76051807" Screen_x="1481" Screen_y="645" />
     </Waypoints>
   </Wave>
-  <Wave startTimeWave="0" health="1" speed="40" shootRatio="5" enemyType="6" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5" waypointDirection_x="0" waypointDirection_y="0" waypointDirection_z="0" Screen_x="526" Screen_y="54">
+  <Wave startTimeWave="0" health="1" speed="40" shootRatio="5" enemyType="6" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5">
     <Waypoints>
       <WavePoint World_x="-39.6972237" World_y="-82.3261948" World_z="-40.5774307" Screen_x="509" Screen_y="78" />
       <WavePoint World_x="41.1938667" World_y="-82.8579254" World_z="-37.9160728" Screen_x="1425" Screen_y="112" />
@@ -59,7 +59,7 @@
       <WavePoint World_x="45.3340645" World_y="-88.7056351" World_z="8.72538948" Screen_x="1438" Screen_y="632" />
     </Waypoints>
   </Wave>
-  <Wave startTimeWave="0" health="1" speed="50" shootRatio="5" enemyType="7" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5" waypointDirection_x="0" waypointDirection_y="0" waypointDirection_z="0" Screen_x="564" Screen_y="66">
+  <Wave startTimeWave="0" health="1" speed="50" shootRatio="5" enemyType="7" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5">
     <Waypoints>
       <WavePoint World_x="-39.9359512" World_y="-82.8212738" World_z="-39.3161011" Screen_x="509" Screen_y="96" />
       <WavePoint World_x="-39.0380707" World_y="-82.0507965" World_z="-41.757576" Screen_x="515" Screen_y="64" />

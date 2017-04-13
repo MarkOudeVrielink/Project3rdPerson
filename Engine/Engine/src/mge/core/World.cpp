@@ -32,16 +32,16 @@ void World::add(GameObject* pChild)
 	//check if is light and is in world 
 	if (this->getName() == "root")
 	{
-		cout << "ROOT DETECTED" << endl;
+		cout << "" << endl;
 	}
 	if (this->getName() == "root" && typeid(*pChild) == typeid (Light))
 	{
-		cout << "LIGHT NOT IN ROOT" << endl;
+		cout << "" << endl;
 		_lights->push_back((Light*)pChild);
 	}
 	else if (typeid(pChild) == typeid (Light))
 	{
-		cout << "LIGHT NOT IN ROOT" << endl;
+		cout << "" << endl;
 		_lights->push_back((Light*)pChild);
 	}
 	GameObject::add(pChild);

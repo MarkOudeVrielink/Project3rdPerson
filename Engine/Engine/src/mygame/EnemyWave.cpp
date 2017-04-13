@@ -20,6 +20,10 @@ EnemyWave::EnemyWave()
 
 EnemyWave::~EnemyWave()
 {
+	for (auto wavepoint : _wayPoints)
+	{
+		delete wavepoint;
+	}
 	cout << "Destroying Enemy Wave...." << endl;
 	cout << "WTF should not being destoyed" << endl;
 }
@@ -45,7 +49,7 @@ Waypoint* EnemyWave::GetMainWaypointDirection()
 	return _mainWaypointDirection;
 }
 //Return reference of the list of all the waypoints
-const std::vector<Waypoint*>* EnemyWave::getWaypoints() const
+std::vector<Waypoint*>* EnemyWave::getWaypoints() 
 {
 	return &_wayPoints;
 }
@@ -229,6 +233,27 @@ void EnemyWave::TestEditorMode()
 {
 	_editorMode = true;
 }
+
+void EnemyWave::ClearWaypoints()
+{
+	for (auto waypoint : _wayPoints)
+	{
+		delete waypoint;
+
+	}
+	_wayPoints.clear();
+
+}
+
+void EnemyWave::CheckDragWaypoint()
+{
+	
+}
+
+void EnemyWave::DeleteWaypoint()
+{
+}
+
 
 #pragma region getters
 const float * EnemyWave::getStartTime() const

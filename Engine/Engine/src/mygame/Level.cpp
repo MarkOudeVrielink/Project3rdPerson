@@ -16,6 +16,10 @@ Level::Level(sf::RenderWindow *pWindow) : _window(pWindow)
 
 Level::~Level()
 {
+	for (auto wave : _waves)
+	{
+		delete wave;// = NULL;
+	}
 }
 //TODO:: Add current wave setSize
 //TODO:: Add current wave setDelayBetweenEnemies
@@ -35,7 +39,7 @@ void Level::CreateMainWaypointMoveDirection(glm::vec3 pWolrdWaypointPos, sf::Vec
 //Add reference to the world
 void Level::ReferenceWorld(World* pWorld, GameObject* pParent)
 {
-	if(this != nullptr)
+	if(this != NULL)
 		_world = pWorld;
 
 	_gameObjectsParent = pParent;
@@ -53,6 +57,7 @@ int Level::getIndexWave()
 //Return true when all the level waves have been completed <-ADD
 bool Level::RunLevel(sf::Time* pTime)
 {
+	//First dialogue that is show before the game starts
 	if (!_world->getDialogue(1))
 	{
 		_world->setDialogue(true, 1);
@@ -156,7 +161,13 @@ EnemyWave * Level::DeleteWave()
 		return nullptr;
 	}
 }
-
+EnemyWave * Level::ClearWave()
+{
+	_currentEnemyWave->ClearWaypoints();
+		return _waves.at(_indexWave);
+	
+	
+}
 std::vector<EnemyWave*>* Level::getWaves()
 {
 	return &_waves;
