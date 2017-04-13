@@ -158,20 +158,14 @@ void MGEDemo::LoadMeshes()
 	sf::Clock meshClock;
 
 	_world->GetResourceManager()->loadMesh(Meshes::Player, config::MGE_MODEL_PATH + "ship.obj");
-
+		
 	_world->GetResourceManager()->loadMesh(Meshes::Yogurt, config::MGE_MODEL_PATH + "Yogurt_90.obj");
-	_world->GetResourceManager()->loadMesh(Meshes::Sushi, config::MGE_MODEL_PATH + "Sushi_90.obj");
-	//_world->GetResourceManager()->loadMesh(Meshes::Sandwich, config::MGE_MODEL_PATH + "Sandwich_90.obj");
-	//_world->GetResourceManager()->loadMesh(Meshes::Potato, config::MGE_MODEL_PATH + "Potato_90.obj");
-	//_world->GetResourceManager()->loadMesh(Meshes::Pizza, config::MGE_MODEL_PATH + "Pizza_90.obj");
-	//_world->GetResourceManager()->loadMesh(Meshes::Muffin, config::MGE_MODEL_PATH + "Muffin_90.obj");
-
-	//_world->GetResourceManager()->loadMesh(Meshes::Yogurt, config::MGE_MODEL_PATH + "yogurt.obj");
-	//_world->GetResourceManager()->loadMesh(Meshes::Sushi, config::MGE_MODEL_PATH + "sushi.obj");
-	_world->GetResourceManager()->loadMesh(Meshes::Sandwich, config::MGE_MODEL_PATH + "sandwich.obj");
-	_world->GetResourceManager()->loadMesh(Meshes::Potato, config::MGE_MODEL_PATH + "potato.obj");
-	_world->GetResourceManager()->loadMesh(Meshes::Pizza, config::MGE_MODEL_PATH + "pizza.obj");
-	_world->GetResourceManager()->loadMesh(Meshes::Muffin, config::MGE_MODEL_PATH + "cupcake.obj");
+	//_world->GetResourceManager()->loadMesh(Meshes::Sushi, config::MGE_MODEL_PATH + "Sushi_90.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Sushi, config::MGE_MODEL_PATH + "SushiPivotHead.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Sandwich, config::MGE_MODEL_PATH + "Sandwich_90.obj");
+	
+	_world->GetResourceManager()->loadMesh(Meshes::Potato, config::MGE_MODEL_PATH + "potato.obj");	
+	_world->GetResourceManager()->loadMesh(Meshes::Pizza, config::MGE_MODEL_PATH + "PizzaCrustPivot.obj");
 	_world->GetResourceManager()->loadMesh(Meshes::Boss, config::MGE_MODEL_PATH + "boss.obj");
 
 
@@ -179,8 +173,7 @@ void MGEDemo::LoadMeshes()
 	_world->GetResourceManager()->loadMesh(Meshes::BulletSushi, config::MGE_MODEL_PATH + "Projectile(Sushi).obj");
 	_world->GetResourceManager()->loadMesh(Meshes::BulletSandwich, config::MGE_MODEL_PATH + "Projectile(Tomato).obj");
 	_world->GetResourceManager()->loadMesh(Meshes::BulletPotato, config::MGE_MODEL_PATH + "lazer.obj");
-	_world->GetResourceManager()->loadMesh(Meshes::BulletPizza, config::MGE_MODEL_PATH + "Projectile(Mushroom).obj");
-	_world->GetResourceManager()->loadMesh(Meshes::BulletMuffin, config::MGE_MODEL_PATH + "Projectile(Crumb).obj");
+	_world->GetResourceManager()->loadMesh(Meshes::BulletPizza, config::MGE_MODEL_PATH + "Projectile(Mushroom).obj");	
 	_world->GetResourceManager()->loadMesh(Meshes::BulletBoss, config::MGE_MODEL_PATH + "lazer.obj");
 
 	_world->GetResourceManager()->loadMesh(Meshes::PickUp, config::MGE_MODEL_PATH + "PickUp(AirFreshner).obj");
@@ -224,8 +217,7 @@ void MGEDemo::LoadMaterials()
 	_world->GetResourceManager()->loadMaterial(Materials::Sushi, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sushi_texture_AO.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Sandwich, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sandwich_texture_AO.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Potato, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Potato_texture_AO.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Pizza, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Pizza_texture_AO.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::Muffin, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Muffin_texture_AO.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Pizza, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Pizza_texture_AO.png")));	
 	_world->GetResourceManager()->loadMaterial(Materials::Boss, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Boss_texture_AO.png")));
 
 	_world->GetResourceManager()->loadMaterial(Materials::BulletYogurt, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Projectile_yoghurt_texture.png")));
@@ -233,7 +225,6 @@ void MGEDemo::LoadMaterials()
 	_world->GetResourceManager()->loadMaterial(Materials::BulletSandwich, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Projectile_tomato_texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::BulletPotato, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "laser.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::BulletPizza, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Projectile_Mushroom_texture.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::BulletMuffin, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Projectile_Crumb_texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::BulletBoss, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "LaserBOSS.png")));
 
 	_world->GetResourceManager()->loadMaterial(Materials::PickUp, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "PickUp_airfreshner_texture.png")));
@@ -281,12 +272,8 @@ void MGEDemo::_updateHud() {
 	_debugHud->setDebugInfo(debugInfo);
 	//_debugHud->draw();
 
-	_menuScreen->UpdateHUD();
-
-	if (!_levelEditor->getActive()) {		
-		//_world->getHud()->draw();
-	}
-
+	_menuScreen->UpdateHUD();			
+	_world->getHud()->draw();
 }
 
 MGEDemo::~MGEDemo()

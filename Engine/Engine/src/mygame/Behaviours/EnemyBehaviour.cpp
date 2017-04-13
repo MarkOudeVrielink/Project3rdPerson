@@ -166,60 +166,74 @@ void EnemyBehaviour::_animate()
 	switch (_enemyType)
 	{
 	case Materials::Yogurt:
-		if (_animationTime < 0.5) {
-			_owner->Slerp(glm::vec3(1, 0, 1), -1.40, 0.05);
+		if (_animationTime <= 0.5) {
+			_owner->Slerp(glm::vec3(1, 0, 1), -1.10, 0.05);
 		}
-		else if (_animationTime < 1.0) {
-			_owner->Slerp(glm::vec3(0, 0, 1), 0.52, 0.05);
-		}
-		else if (_animationTime > 1.5) {
+		else if (_animationTime <= 1) {
+			_owner->Slerp(glm::vec3(0, 0, 1), 1.5, 0.03);
+			_owner->Slerp(glm::vec3(1, 0, 0), -0.9, 0.04);
+		}		
+		else if (_animationTime >= 1) {
 			_animationTime = 0;
 		}
 		break;
 
 	case Materials::Pizza:
-		if (_animationTime < 0.5) {
-			_owner->Slerp(glm::vec3(1, 0, 0), -0.78, 0.08);
+		if (_animationTime <= 0.25) {
+			_owner->Slerp(glm::vec3(1, 0, 0), -0.34, 0.08);
 		}
-		else if (_animationTime < 1.5) {
-			_owner->Slerp(glm::vec3(1, 0, 0), 0.78, 0.08);
+		else if (_animationTime <= 0.5) {
+			_owner->Slerp(glm::vec3(1, 0, 0), 0.174, 0.08);
 		}
-		else if (_animationTime > 2) {
+		else if (_animationTime >= 0.5) {
 			_animationTime = 0;
 		}
 		break;
 
 	case Materials::Sushi:
-		if (_animationTime < 0.2) {
-			_owner->Slerp(glm::vec3(0, 1, 0), 0.5, 0.05);
+		if (_animationTime <= 0.15) {
+			_owner->Slerp(glm::vec3(1, 0, 0), 0.8, 0.05);
+			_owner->Slerp(glm::vec3(0, 1, 0), 0.72, 0.03);
+			_owner->Slerp(glm::vec3(0, 0, 1), 0.9, 0.05);
 		}
-		else if (_animationTime <= 0.4) {
-			_owner->Slerp(glm::vec3(1, 0, 0), -0.9, 0.05);
+		else if (_animationTime <= 0.45) {
+			_owner->Slerp(glm::vec3(1, 0, 0), -0.8, 0.05);
+			_owner->Slerp(glm::vec3(0, 1, 0), 0.72, 0.03);
+			_owner->Slerp(glm::vec3(0, 0, 1), -0.9, 0.05);
+		}	
+		else if (_animationTime <= 0.6) {
+			_owner->Slerp(glm::vec3(1, 0, 0), 0.8, 0.05);
+			_owner->Slerp(glm::vec3(0, 1, 0), -0.72, 0.03);
+			_owner->Slerp(glm::vec3(0, 0, 1), -0.9, 0.05);
 		}
-		else if (_animationTime < 0.7) {
-			_owner->Slerp(glm::vec3(0, 1, 0), -0.6, 0.05);
+		else if (_animationTime <= 0.75) {
+			_owner->Slerp(glm::vec3(1, 0, 0), -0.8, 0.05);
+			_owner->Slerp(glm::vec3(0, 1, 0), -0.72, 0.03);
+			_owner->Slerp(glm::vec3(0, 0, 1), 0.9, 0.05);
 		}
-		else if (_animationTime >= 0.7) {
+		else if (_animationTime >= 0.75) {
 			_animationTime = 0;
 		}
 		break;
 
 	case Materials::Sandwich:
-		if (_animationTime <= 0.3) {
+		if (_animationTime <= 0.1) {
 			_owner->Slerp(glm::vec3(0, 1, 0), 1.1, 0.08);
+			_owner->Slerp(glm::vec3(0, 0, 1), 1.9, 0.08);
 			_ownerBody->translate(btVector3(0.4, 0, 0));
 		}
-		else if (_animationTime < 0.8) {
+		else if (_animationTime < 0.3) {
 			_owner->Slerp(glm::vec3(0, 1, 0), 0, 0.08);
 		}
-		else if (_animationTime < 1.0) {
+		else if (_animationTime < 0.4) {
 			_owner->Slerp(glm::vec3(0, 1, 0), -1.1, 0.08);
+			_owner->Slerp(glm::vec3(0, 0, 1), -1.9, 0.08);
 			_ownerBody->translate(btVector3(-0.4, 0, 0));
 		}
-		else if (_animationTime < 1.5) {
+		else if (_animationTime < 0.6) {
 			_owner->Slerp(glm::vec3(0, 1, 0), 0, 0.08);			
 		}
-		else if (_animationTime > 1.6) {
+		else if (_animationTime > 0.6) {
 			_animationTime = 0;
 		}
 		break;

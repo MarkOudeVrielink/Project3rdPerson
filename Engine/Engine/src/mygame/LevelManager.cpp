@@ -108,22 +108,22 @@ void LevelManager::InitializeBackground()
 	//_backgroundPlane_0->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_0));
 	//_world->add(_backgroundPlane_0);
 
-	_backgroundPlane_1 = new GameObject("background plane", glm::vec3(0, -560, 0));
-	_backgroundPlane_1->scale(glm::vec3(15, 10, 10));
-	_backgroundPlane_1->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
-	_backgroundPlane_1->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_1));
-	_world->add(_backgroundPlane_1);
+	//_backgroundPlane_1 = new GameObject("background plane", glm::vec3(0, -560, 0));
+	//_backgroundPlane_1->scale(glm::vec3(15, 10, 10));
+	//_backgroundPlane_1->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
+	//_backgroundPlane_1->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_1));
+	//_world->add(_backgroundPlane_1);
 
-	_backgroundPlane_2 = new GameObject("background plane", glm::vec3(0, -400, 0));
-	_backgroundPlane_2->scale(glm::vec3(20, 10, 10));
-	_backgroundPlane_2->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
-	_backgroundPlane_2->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_2));
-	//_world->add(_backgroundPlane_2);
+	//_backgroundPlane_2 = new GameObject("background plane", glm::vec3(0, -400, 0));
+	//_backgroundPlane_2->scale(glm::vec3(20, 10, 10));
+	//_backgroundPlane_2->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
+	//_backgroundPlane_2->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_2));
+	////_world->add(_backgroundPlane_2);
 
-	_backgroundPlane_3 = new GameObject("background plane", glm::vec3(0, -300, 0));
-	_backgroundPlane_3->scale(glm::vec3(15, 10, 10));
-	_backgroundPlane_3->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
-	_backgroundPlane_3->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_3));
+	//_backgroundPlane_3 = new GameObject("background plane", glm::vec3(0, -300, 0));
+	//_backgroundPlane_3->scale(glm::vec3(15, 10, 10));
+	//_backgroundPlane_3->setMesh(_world->GetResourceManager()->getMesh(Meshes::BackGround));
+	//_backgroundPlane_3->setMaterial(_world->GetResourceManager()->getMaterial(Materials::BackGround_3));
 //	_world->add(_backgroundPlane_3);
 	
 #pragma endregion
@@ -143,9 +143,9 @@ void LevelManager::_updateBackground(float pStep)
 	////TODO: stop when border is reached.
 	//if (_time.getElapsedTime().asSeconds() < 500) {
 		//_backgroundPlane_0->translate(glm::vec3(0, 0, pStep / 16));
-		_backgroundPlane_1->translate(glm::vec3(0, 0, pStep / 12));
-		_backgroundPlane_2->translate(glm::vec3(0, 0, pStep / 8));
-		_backgroundPlane_3->translate(glm::vec3(0, 0, pStep / 6));
+		//_backgroundPlane_1->translate(glm::vec3(0, 0, pStep / 12));
+		//_backgroundPlane_2->translate(glm::vec3(0, 0, pStep / 8));
+		//_backgroundPlane_3->translate(glm::vec3(0, 0, pStep / 6));
 	//}
 }
 
