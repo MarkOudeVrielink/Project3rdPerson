@@ -69,7 +69,24 @@ btQuaternion Actor::getRotation()
 	return _rotation;
 }
 
-void Actor::SetRotation(glm::vec3 pAxis, btScalar pAngle)
+void Actor::setRotation(glm::vec3 pAxis, btScalar pAngle)
+{	
+	//Create a quaternion with that's rotated towards the right angle.
+	btQuaternion newRotation = _rigidBody->getWorldTransform().getRotation();		
+
+	//Set the newRotation to the correct angle.
+	newRotation.setRotation(btVector3(pAxis.x, pAxis.y, pAxis.z), pAngle);
+		
+	//Get the objects current transform.
+	btTransform trans;
+	trans.setFromOpenGLMatrix(glm::value_ptr(getWorldTransform()));
+
+	//Set the new rotation.
+	trans.setRotation(newRotation);
+	_rigidBody->setWorldTransform(trans);
+}
+
+void Actor::Slerp(glm::vec3 pAxis, btScalar pAngle)
 {
 	//Create a quaternion with that's rotated towards the right angle.
 	btQuaternion newRotation = _rigidBody->getWorldTransform().getRotation();
@@ -81,6 +98,27 @@ void Actor::SetRotation(glm::vec3 pAxis, btScalar pAngle)
 	//Get the slerp quaternion, in otherwords get the rotation we have to set to.
 	btQuaternion slerp = oldrotation.slerp(newRotation, 0.1f);
 	
+	//Get the objects current transform.
+	btTransform trans;
+	trans.setFromOpenGLMatrix(glm::value_ptr(getWorldTransform()));
+
+	//Set the new rotation.
+	trans.setRotation(slerp);
+	_rigidBody->setWorldTransform(trans);
+}
+
+void Actor::Slerp(glm::vec3 pAxis, btScalar pAngle, btScalar pSlerpRate)
+{
+	//Create a quaternion with that's rotated towards the right angle.
+	btQuaternion newRotation = _rigidBody->getWorldTransform().getRotation();
+	btQuaternion oldrotation = newRotation;
+
+	//Set the newRotation to the correct angle.
+	newRotation.setRotation(btVector3(pAxis.x, pAxis.y, pAxis.z), pAngle);
+
+	//Get the slerp quaternion, in otherwords get the rotation we have to set to.
+	btQuaternion slerp = oldrotation.slerp(newRotation, pSlerpRate);
+
 	//Get the objects current transform.
 	btTransform trans;
 	trans.setFromOpenGLMatrix(glm::value_ptr(getWorldTransform()));

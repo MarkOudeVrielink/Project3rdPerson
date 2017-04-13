@@ -39,6 +39,7 @@ public:
 	float getScale(int pIndex);
 	void SpawnExplosion();
 	void AiKamikase(float pStep);
+		
 private:
 	std::vector<Waypoint*>* _wayPoints;
 	Waypoint *_tarjet = nullptr;
@@ -76,6 +77,10 @@ private:
 	Mesh*				_dropMesh;
 	AbstractMaterial*	_dropMaterial;
 	EnemyMaterial*		_enemyMaterial;
+
+	float		_animationTime = 0;
+	sf::Clock	_animtionClock;
+	void		_animate();
 
 	//Mesh*				_dropMesh;
 	//AbstractMaterial*	_dropMaterial;

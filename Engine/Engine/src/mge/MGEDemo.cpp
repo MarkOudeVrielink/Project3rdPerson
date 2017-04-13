@@ -159,15 +159,15 @@ void MGEDemo::LoadMeshes()
 
 	_world->GetResourceManager()->loadMesh(Meshes::Player, config::MGE_MODEL_PATH + "ship.obj");
 
-	//_world->GetResourceManager()->loadMesh(Meshes::Yogurt, config::MGE_MODEL_PATH + "Yogurt_90.obj");
-	//_world->GetResourceManager()->loadMesh(Meshes::Sushi, config::MGE_MODEL_PATH + "Sushi_90.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Yogurt, config::MGE_MODEL_PATH + "Yogurt_90.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Sushi, config::MGE_MODEL_PATH + "Sushi_90.obj");
 	//_world->GetResourceManager()->loadMesh(Meshes::Sandwich, config::MGE_MODEL_PATH + "Sandwich_90.obj");
 	//_world->GetResourceManager()->loadMesh(Meshes::Potato, config::MGE_MODEL_PATH + "Potato_90.obj");
 	//_world->GetResourceManager()->loadMesh(Meshes::Pizza, config::MGE_MODEL_PATH + "Pizza_90.obj");
 	//_world->GetResourceManager()->loadMesh(Meshes::Muffin, config::MGE_MODEL_PATH + "Muffin_90.obj");
 
-	_world->GetResourceManager()->loadMesh(Meshes::Yogurt, config::MGE_MODEL_PATH + "yogurt.obj");
-	_world->GetResourceManager()->loadMesh(Meshes::Sushi, config::MGE_MODEL_PATH + "sushi.obj");
+	//_world->GetResourceManager()->loadMesh(Meshes::Yogurt, config::MGE_MODEL_PATH + "yogurt.obj");
+	//_world->GetResourceManager()->loadMesh(Meshes::Sushi, config::MGE_MODEL_PATH + "sushi.obj");
 	_world->GetResourceManager()->loadMesh(Meshes::Sandwich, config::MGE_MODEL_PATH + "sandwich.obj");
 	_world->GetResourceManager()->loadMesh(Meshes::Potato, config::MGE_MODEL_PATH + "potato.obj");
 	_world->GetResourceManager()->loadMesh(Meshes::Pizza, config::MGE_MODEL_PATH + "pizza.obj");
@@ -283,7 +283,9 @@ void MGEDemo::_updateHud() {
 
 	_menuScreen->UpdateHUD();
 
-	_world->getHud()->draw();
+	if (!_levelEditor->getActive()) {		
+		//_world->getHud()->draw();
+	}
 
 }
 

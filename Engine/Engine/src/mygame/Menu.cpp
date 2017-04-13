@@ -38,8 +38,8 @@ Menu::~Menu()
 
 void Menu::InitializeMenu(tgui::Gui* pGuiRef)
 {
-	_world->GetResourceManager()->PlayMusic(Music::MenuTheme);
-	_world->GetResourceManager()->SetVolume(80.0f);
+	//_world->GetResourceManager()->PlayMusic(Music::MenuTheme);
+	//_world->GetResourceManager()->SetVolume(80.0f);
 
 	_guiRef = pGuiRef;
 

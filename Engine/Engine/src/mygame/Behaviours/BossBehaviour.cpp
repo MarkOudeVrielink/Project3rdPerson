@@ -59,7 +59,7 @@ void BossBehaviour::update(float pStep)
 	switch (_bossState) {
 	case 0: //Idle
 		delay = 2;
-		_owner->SetRotation(glm::vec3(0, 1, 0), 0);
+		_owner->Slerp(glm::vec3(0, 1, 0), 0);
 		if (behaviourClock.getElapsedTime().asSeconds() - timeSinceLastBehaviourChange.asSeconds() > delay)
 		{
 			timeSinceLastBehaviourChange = behaviourClock.getElapsedTime();
@@ -74,18 +74,18 @@ void BossBehaviour::update(float pStep)
 		delay = 6;
 		if (behaviourClock.getElapsedTime().asSeconds() - timeSinceLastBehaviourChange.asSeconds() > delay)
 		{
-			_owner->SetRotation(glm::vec3(0, 1, 0), 0);
+			_owner->Slerp(glm::vec3(0, 1, 0), 0);
 			timeSinceLastBehaviourChange = behaviourClock.getElapsedTime();
 			_bossState = BossState::Idle;
 		}
 		RotateAndshoot(pStep);
 		break;
 	case 2:	//Spawn kamikase
-		_owner->SetRotation(glm::vec3(0, 1, 0), 0);
+		_owner->Slerp(glm::vec3(0, 1, 0), 0);
 		delay = 5;
 		if (behaviourClock.getElapsedTime().asSeconds() - timeSinceLastBehaviourChange.asSeconds() > delay)
 		{
-			_owner->SetRotation(glm::vec3(0, 1, 0), 0);
+			_owner->Slerp(glm::vec3(0, 1, 0), 0);
 			timeSinceLastBehaviourChange = behaviourClock.getElapsedTime();
 			_bossState = BossState::Idle;
 		}
@@ -97,7 +97,7 @@ void BossBehaviour::update(float pStep)
 			ChargePlayer(pStep);
 		else if (chargedAgainstPlayer &&GoToSpawnPosition(pStep))
 		{
-			_owner->SetRotation(glm::vec3(0, 1, 0), 0);
+			_owner->Slerp(glm::vec3(0, 1, 0), 0);
 			_moveSpeed = 60;
 			_bossState = BossState::Idle;
 			chargedAgainstPlayer = false;
@@ -105,7 +105,7 @@ void BossBehaviour::update(float pStep)
 		break;
 	case 4:	 //20% health Bounce through screen while rotating and shooting, maybe also spawning enemies 
 		delay = 6;
-		_owner->SetRotation(glm::vec3(0, 1, 0), 0);
+		_owner->Slerp(glm::vec3(0, 1, 0), 0);
 		if(!AiBasicDone)
 		AiBasicDone = AiBasic(pStep);
 		else if (AiBasicDone && GoToSpawnPosition(pStep))
@@ -123,7 +123,7 @@ void BossBehaviour::RotateAndshoot(float pStep)
 {
 	_angle2 += pStep * 5;
 	//_angle2 = 0;
-	_owner->SetRotation(glm::vec3(0, 1, 0), _angle2);
+	_owner->Slerp(glm::vec3(0, 1, 0), _angle2);
 
 	if (shootClock.getElapsedTime().asSeconds() - timeSinceLastShoot.asSeconds() > _shootRatio)//shoot
 	{
@@ -178,13 +178,13 @@ bool BossBehaviour::ChargePlayer(float pStep)
 		if (!_playerDirectionSaved && !_world->getPlayerDead()) {
 			_directionToPlayer = _world->getMainPlayer()->getWorldPosition();			
 			_playerDirectionSaved = true;
-			_owner->SetRotation(glm::vec3(0, 1, 0), 0);
+			_owner->Slerp(glm::vec3(0, 1, 0), 0);
 			_moveSpeed = 250;
 			glm::vec3 pos = _owner->getWorldPosition();
 			float dX = pos.x - _directionToPlayer.x;
 			float dZ = pos.z - _directionToPlayer.z;
 			_angle = atan2(dX, dZ);
-			_owner->SetRotation(glm::vec3(0, 1, 0), _angle);
+			_owner->Slerp(glm::vec3(0, 1, 0), _angle);
 
 			pos = _owner->getWorldPosition();
 			delta.x = _directionToPlayer.x - pos.x;
@@ -218,7 +218,7 @@ bool BossBehaviour::ChargePlayer(float pStep)
 	{
 		SpawnEnemiesKamikase(pStep);
 		_angle2 -= pStep * 30;
-		_owner->SetRotation(glm::vec3(0, 1, 0), _angle2);
+		_owner->Slerp(glm::vec3(0, 1, 0), _angle2);
 	}
 	return false;
 }
@@ -230,7 +230,7 @@ bool BossBehaviour::GoToSpawnPosition(float pStep)
 	float dX = pos.x - _originalSpawn.x;
 	float dZ = pos.z - _originalSpawn.z;
 	_angle = atan2(dX, dZ);
-	_owner->SetRotation(glm::vec3(0, 1, 0), _angle);
+	_owner->Slerp(glm::vec3(0, 1, 0), _angle);
 	glm::vec2 delta = glm::vec2(_originalSpawn.x, _originalSpawn.z) - glm::vec2(pos.x, pos.z);
 	_ownerBody->translate(btVector3(delta.x * _moveSpeed *pStep, 0.0f, delta.y * _moveSpeed*pStep));	 //Move toward target with set speed.
 	float length = glm::length(delta);
@@ -388,7 +388,7 @@ bool BossBehaviour::AiBasic(float pStep)
 	//_angle2 = atan2(dX, dZ);
 
 	
-	_owner->SetRotation(glm::vec3(0, 1, 0), _angle2);
+	_owner->Slerp(glm::vec3(0, 1, 0), _angle2);
 	
 
 	glm::vec2 delta = glm::vec2(target.x, target.z) - glm::vec2(pos.x, pos.z);

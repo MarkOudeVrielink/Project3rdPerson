@@ -45,7 +45,9 @@ public:
 	ActorType	getType();
 
 	btQuaternion	getRotation();
-	void			SetRotation(glm::vec3 pAxis, btScalar pAngle);	
+	void			setRotation(glm::vec3 pAxis, btScalar pAngle);
+	void			Slerp(glm::vec3 pAxis, btScalar pAngle);	
+	void			Slerp(glm::vec3 pAxis, btScalar pAngle, btScalar pSlerpRate);
 	//void			SetRotation(btQuaternion pRotation, glm::vec3 pAxis, btScalar pAngle);
 	void			Destroy();
 

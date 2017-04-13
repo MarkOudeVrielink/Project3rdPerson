@@ -89,7 +89,7 @@ void BulletBehaviour::setBulletDirection(glm::vec3 pDirection)
 }
 void BulletBehaviour::setBulletRotation(glm::vec3 pAxis, float pAngle)
 {
-	_owner->SetRotation(pAxis,pAngle);
+	_owner->Slerp(pAxis,pAngle);
 }
 
 glm::vec3 BulletBehaviour::getBulletDirection()

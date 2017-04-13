@@ -59,8 +59,11 @@ void EnemyBehaviour::SaveOriginalTransform()
 	_originalTransform = _owner->getTransform();
 }
 
+
+
 void EnemyBehaviour::update(float pStep)
 {
+	_animate();
 
 	if (!_levelEditorMode && !_kamikase) {
 		AiBasic(pStep);
@@ -69,20 +72,7 @@ void EnemyBehaviour::update(float pStep)
 		AiKamikase(pStep);
 	else
 		UpdateEditorMode(pStep);
-
-	/*	///TODO: Apply rotation with Slerp to smoothly look at the next waypoint while moving
-		///May help http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-17-quaternions/
-		//_owner->setTransform(glm::inverse(glm::lookAt(tarjet, tarjet + _owner->getWorldPosition(), glm::vec3(0, 1, 0))));
-		glm::vec3 forward = glm::normalize( _owner->getLocalPosition() - tarjet);
-		glm::vec3 right = glm::normalize(glm::cross(glm::vec3(0, 1, 0), forward));
-		glm::vec3 up = glm::cross(forward, right);
-
-		_owner->setTransform(
-			glm::mat4(glm::vec4(right, 0), glm::vec4(up, 0), glm::vec4(forward, 0), glm::vec4(_owner->getLocalPosition(), 1))
-		);
-		cout << _owner->getWorldPosition() << endl;
-		*/
-
+	
 }
 
 void EnemyBehaviour::OnCollision(Actor * pOther)
@@ -169,6 +159,83 @@ Materials::ID EnemyBehaviour::getEnemyType()
 }
 #pragma endregion
 
+void EnemyBehaviour::_animate()
+{
+	_animationTime += _animtionClock.restart().asSeconds();
+
+	switch (_enemyType)
+	{
+	case Materials::Yogurt:
+		if (_animationTime < 0.5) {
+			_owner->Slerp(glm::vec3(1, 0, 1), -1.40, 0.05);
+		}
+		else if (_animationTime < 1.0) {
+			_owner->Slerp(glm::vec3(0, 0, 1), 0.52, 0.05);
+		}
+		else if (_animationTime > 1.5) {
+			_animationTime = 0;
+		}
+		break;
+
+	case Materials::Pizza:
+		if (_animationTime < 0.5) {
+			_owner->Slerp(glm::vec3(1, 0, 0), -0.78, 0.08);
+		}
+		else if (_animationTime < 1.5) {
+			_owner->Slerp(glm::vec3(1, 0, 0), 0.78, 0.08);
+		}
+		else if (_animationTime > 2) {
+			_animationTime = 0;
+		}
+		break;
+
+	case Materials::Sushi:
+		if (_animationTime < 0.2) {
+			_owner->Slerp(glm::vec3(0, 1, 0), 0.5, 0.05);
+		}
+		else if (_animationTime <= 0.4) {
+			_owner->Slerp(glm::vec3(1, 0, 0), -0.9, 0.05);
+		}
+		else if (_animationTime < 0.7) {
+			_owner->Slerp(glm::vec3(0, 1, 0), -0.6, 0.05);
+		}
+		else if (_animationTime >= 0.7) {
+			_animationTime = 0;
+		}
+		break;
+
+	case Materials::Sandwich:
+		if (_animationTime <= 0.3) {
+			_owner->Slerp(glm::vec3(0, 1, 0), 1.1, 0.08);
+			_ownerBody->translate(btVector3(0.4, 0, 0));
+		}
+		else if (_animationTime < 0.8) {
+			_owner->Slerp(glm::vec3(0, 1, 0), 0, 0.08);
+		}
+		else if (_animationTime < 1.0) {
+			_owner->Slerp(glm::vec3(0, 1, 0), -1.1, 0.08);
+			_ownerBody->translate(btVector3(-0.4, 0, 0));
+		}
+		else if (_animationTime < 1.5) {
+			_owner->Slerp(glm::vec3(0, 1, 0), 0, 0.08);			
+		}
+		else if (_animationTime > 1.6) {
+			_animationTime = 0;
+		}
+		break;
+
+	case Materials::Potato:
+		_owner->setRotation(glm::vec3(0, 0, 1), _animationTime * 10); //Multiplier to speed up rotation.
+		if (_animationTime >= 360)
+			_animationTime = 0;
+		break;
+	default:
+		break;
+	}
+
+
+}
+
 //Pass the frame length and move the enemy the distance it should move in that frame
 // Approx -> 0.01666666 length of frame * 60 = is equal to one sec
 void EnemyBehaviour::AiBasic(float pStep)
@@ -213,7 +280,7 @@ void EnemyBehaviour::AiBasic(float pStep)
 	_angle = atan2(dX, dZ);
 
 	//if (_wayPoints->size() >= (float)_index) {
-	_owner->SetRotation(glm::vec3(0, 1, 0), _angle);
+	//_owner->setRotation(glm::vec3(0, 1, 0), _angle);
 	//}
 
 	glm::vec2 delta = glm::vec2(target.x, target.z) - glm::vec2(pos.x, pos.z);
@@ -239,6 +306,7 @@ void EnemyBehaviour::AiBasic(float pStep)
 		SpawnBullet();
 	}
 }
+
 //The same AI but going to the previous waypoint
 void EnemyBehaviour::AiBasicBackWards(float pStep)
 {
@@ -273,7 +341,7 @@ void EnemyBehaviour::AiBasicBackWards(float pStep)
 
 	if (_index >= 0) //check if there is a waypoint behind
 	{//If we haven´t reached the last waypoint keep rotating
-		_owner->SetRotation(glm::vec3(0, 1, 0), _angle);
+		_owner->Slerp(glm::vec3(0, 1, 0), _angle);
 	}
 
 	glm::vec2 delta = glm::vec2(target.x, target.z) - glm::vec2(pos.x, pos.z);
@@ -310,7 +378,7 @@ void EnemyBehaviour::SpawnDrop(int pAmount)
 			int randomType = rand() % (10 - 1) + 1;
 			ObjectActor* pickup = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith);
 			
-			pickup->SetRotation(glm::vec3(1, 0, 0), 90);
+			pickup->Slerp(glm::vec3(1, 0, 0), 90);
 			pickup->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::ID(20+ random_integer)));
 			pickup->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::ID(20 + random_integer)));
 			pickup->scale(glm::vec3(1, 1, 1)*getScale(20 + random_integer));
@@ -410,14 +478,12 @@ float EnemyBehaviour::getScale(int pIndex)
 		break;
 	}
 }
+
 void EnemyBehaviour::SpawnExplosion()
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition();
-
-
+	
 	ObjectActor* explosion = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_StaticObject, CF::COL_NOTHING, CF::pickupCollidesWith);
-	explosion->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Explosion));
-	explosion->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Explosion));
 	//explosion->setActorBehaviour(new VanishBehaviour(2.0f));
 	//ObjectActor* explosion = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_StaticObject, CF::COL_NOTHING, CF::pickupCollidesWith);		
 	explosion->setActorBehaviour(new VanishBehaviour(config::MGE_TEXTURE_PATH + "mini_explosion.png"));

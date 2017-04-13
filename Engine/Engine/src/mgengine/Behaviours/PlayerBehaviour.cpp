@@ -332,7 +332,7 @@ void PlayerBehaviour::Move()
 	_force = glm::vec3(_horizontalInput, 0, _verticalInput);//TODO: why does it not normalize?
 	_force *= _maxSpeed;
 	
-	_owner->SetRotation(glm::vec3(0, 0, 1), 0);
+	_owner->Slerp(glm::vec3(0, 0, 1), 0);
 	_ownerBody->translate(btVector3(_force.x, _force.y, _force.z));
 }
 
@@ -341,26 +341,26 @@ void PlayerBehaviour::_checkInput(bool& h, bool& v)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 		_verticalInput <= -1 ? -1 : _verticalInput -= _acceleration;
 
-		_owner->SetRotation(glm::vec3(1, 0, 0), -_tiltAngle);
+		_owner->Slerp(glm::vec3(1, 0, 0), -_tiltAngle);
 		v = true;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 		_verticalInput >= 1 ? 1 : _verticalInput += _acceleration;
 
-		_owner->SetRotation(glm::vec3(1, 0, 0), _tiltAngle);
+		_owner->Slerp(glm::vec3(1, 0, 0), _tiltAngle);
 		v = true;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		_horizontalInput >= 1 ? 1 : _horizontalInput += _acceleration;
 
-		_owner->SetRotation(glm::vec3(0, 0, 1), -_tiltAngle);
+		_owner->Slerp(glm::vec3(0, 0, 1), -_tiltAngle);
 		_rightPressed = true;
 		h = true;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		_horizontalInput <= -1 ? -1 : _horizontalInput -= _acceleration;
 
-		_owner->SetRotation(glm::vec3(0, 0, 1), _tiltAngle);
+		_owner->Slerp(glm::vec3(0, 0, 1), _tiltAngle);
 		_leftPressed = true;
 		h = true;
 	}
