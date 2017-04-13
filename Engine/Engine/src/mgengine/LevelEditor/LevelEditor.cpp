@@ -297,7 +297,7 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 	table->setBackgroundColor({ 203,201,207 });
 	table->setFixedColumnWidth(0, 80);
 	table->setStripesRowsColor({ 135,206,250 }, { 233,233,233 });
-	_panel->add(table);
+	//_panel->add(table);
 
 	tgui::ComboBox::Ptr button3 = tgui::ComboBox::create();
 	button3->addItem("Type 1");
@@ -324,6 +324,15 @@ void LevelEditorBehaviour::InitializeHud(tgui::Gui* pGuiRef)
 	table->addRow({ "Enemy 2: ", "1", "1","1" });
 	table->addRow({ "Enemy 3: ", "1", "1","1" });
 	table->addRow({ "Enemy 4: ", "1", "1" ,"1" });
+
+	tgui::ListBox::Ptr listBox = theme->load("ListBox");
+	listBox->setSize(250, 120);
+	listBox->setItemHeight(20);
+	listBox->setPosition(10, 340);
+	listBox->addItem("Item 1");
+	listBox->addItem("Item 2");
+	listBox->addItem("Item 3");
+	//_panel->add(listBox);
 
 #pragma endregion end of 9
 #pragma endregion end of the wave properties

@@ -127,7 +127,7 @@ void EnemyBehaviour::UpdateEditorMode(float pStep)
 		while (_secondsAlreadyRendered < *_referenceToArtificialLevelTime - _spawnedTime)//FORWARD
 		{
 			AiBasic(pStep);
-			_secondsAlreadyRendered += 1.0f / 60.0f;//Harcoded guess that we have 60 frames per second
+			_secondsAlreadyRendered += pStep;//IT WAS Harcoded guess that we have 60 frames per second
 
 		}
 
@@ -136,7 +136,7 @@ void EnemyBehaviour::UpdateEditorMode(float pStep)
 		{
 
 			AiBasicBackWards(pStep);
-			_secondsAlreadyRendered -= 1.0f / 60.0f;//Harcoded guess that we have 60 frames per second
+			_secondsAlreadyRendered -= pStep;//IT WAS Harcoded guess that we have 60 frames per second
 		}
 	}
 

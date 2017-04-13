@@ -6,8 +6,6 @@
 class Waypoint
 {
 public:
-	//Waypoint(sf::Vector2f pWayPos, int pOrderInList, int pWaveIndex, sf::RenderWindow *pWindow);
-	//Waypoint(sf::Vector2f pWayPos, int pOrderInList, int pWaveIndex, sf::RenderWindow * pWindow, Camera * pCamera);
 	Waypoint(glm::vec3 pWorldWayPos, sf::Vector2f pWcreenWayPos, int pOrderInList, int pWaveIndex, sf::RenderWindow * pWindow);
 	~Waypoint();
 	void CreateWaypoint(sf::Vector2i pWayPos);
@@ -15,7 +13,6 @@ public:
 	void MainWaypoint();
 	void SecondaryWaypoint();
 	sf::RenderWindow * getRenderWindow();
-	//std::vector<sf::CircleShape> _wayPoints;
 	sf::Vector2f getScreenPosition();
 	glm::vec3 getWorldPos();
 	void setScreenPosition(sf::Vector2f pScreenPos);
