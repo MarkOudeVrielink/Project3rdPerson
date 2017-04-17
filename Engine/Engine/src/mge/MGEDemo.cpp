@@ -157,7 +157,7 @@ void MGEDemo::LoadMeshes()
 	std::cout << "<==================================>\n" << std::endl;
 	sf::Clock meshClock;
 
-	_world->GetResourceManager()->loadMesh(Meshes::Player, config::MGE_MODEL_PATH + "ship.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::Player, config::MGE_MODEL_PATH + "ship2.obj");
 		
 	_world->GetResourceManager()->loadMesh(Meshes::Yogurt, config::MGE_MODEL_PATH + "Yogurt_90.obj");
 	//_world->GetResourceManager()->loadMesh(Meshes::Sushi, config::MGE_MODEL_PATH + "Sushi_90.obj");
@@ -174,7 +174,7 @@ void MGEDemo::LoadMeshes()
 	_world->GetResourceManager()->loadMesh(Meshes::BulletSandwich, config::MGE_MODEL_PATH + "Projectile(Tomato).obj");
 	_world->GetResourceManager()->loadMesh(Meshes::BulletPotato, config::MGE_MODEL_PATH + "lazer.obj");
 	_world->GetResourceManager()->loadMesh(Meshes::BulletPizza, config::MGE_MODEL_PATH + "Projectile(Mushroom).obj");	
-	_world->GetResourceManager()->loadMesh(Meshes::BulletBoss, config::MGE_MODEL_PATH + "lazer.obj");
+	_world->GetResourceManager()->loadMesh(Meshes::BulletBoss, config::MGE_MODEL_PATH + "BossBullet.obj");
 
 	_world->GetResourceManager()->loadMesh(Meshes::PickUp, config::MGE_MODEL_PATH + "PickUp(AirFreshner).obj");
 
@@ -212,7 +212,7 @@ void MGEDemo::LoadMaterials()
 
 	//_materialLock.lock();
 
-	_world->GetResourceManager()->loadMaterial(Materials::Player, new PlayerMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::Player, new PlayerMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship2.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Yogurt, new EnemyMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Yogurt_Texture_AO.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Sushi, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sushi_texture_AO.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::Sandwich, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Sandwich_texture_AO.png")));
@@ -225,7 +225,7 @@ void MGEDemo::LoadMaterials()
 	_world->GetResourceManager()->loadMaterial(Materials::BulletSandwich, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Projectile_tomato_texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::BulletPotato, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "laser.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::BulletPizza, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Projectile_Mushroom_texture.png")));
-	_world->GetResourceManager()->loadMaterial(Materials::BulletBoss, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "LaserBOSS.png")));
+	_world->GetResourceManager()->loadMaterial(Materials::BulletBoss, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "bossbullet.png")));
 
 	_world->GetResourceManager()->loadMaterial(Materials::PickUp, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "PickUp_airfreshner_texture.png")));
 	_world->GetResourceManager()->loadMaterial(Materials::AirFreshener, new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "AirFreshner_Texture.png")));

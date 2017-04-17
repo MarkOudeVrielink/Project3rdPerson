@@ -85,14 +85,14 @@ void BossBehaviour::update(float pStep)
 		delay = 5;
 		if (behaviourClock.getElapsedTime().asSeconds() - timeSinceLastBehaviourChange.asSeconds() > delay)
 		{
-			_owner->Slerp(glm::vec3(0, 1, 0), 0);
+		//	_owner->rotate(pStep, glm::vec3(0, 1, 0));
 			timeSinceLastBehaviourChange = behaviourClock.getElapsedTime();
 			_bossState = BossState::Idle;
 		}
 		SpawnEnemiesKamikase(pStep);
 		break;
 	case 3: //Charge to player
-	//	_owner->SetRotation(glm::vec3(0, 1, 0), 0);
+		_owner->Slerp(glm::vec3(0, 1, 0), 0);
 		if (!chargedAgainstPlayer)
 			ChargePlayer(pStep);
 		else if (chargedAgainstPlayer &&GoToSpawnPosition(pStep))
@@ -105,7 +105,7 @@ void BossBehaviour::update(float pStep)
 		break;
 	case 4:	 //20% health Bounce through screen while rotating and shooting, maybe also spawning enemies 
 		delay = 6;
-		_owner->Slerp(glm::vec3(0, 1, 0), 0);
+		_owner->Slerp(glm::vec3(0, 1, 0),0);
 		if(!AiBasicDone)
 		AiBasicDone = AiBasic(pStep);
 		else if (AiBasicDone && GoToSpawnPosition(pStep))
@@ -121,9 +121,9 @@ void BossBehaviour::update(float pStep)
 }
 void BossBehaviour::RotateAndshoot(float pStep)
 {
-	_angle2 += pStep * 5; 
+	_angle2 += pStep *5; 
 	//_angle2 = 0;
-	_owner->Slerp(glm::vec3(0, 1, 0), _angle2);
+	_owner->rotate(_angle2, glm::vec3(0, 1, 0));
 
 	if (shootClock.getElapsedTime().asSeconds() - timeSinceLastShoot.asSeconds() > _shootRatio)//shoot
 	{
@@ -137,35 +137,41 @@ void BossBehaviour::SpawnEnemiesKamikase(float pStep)
 {
 	if (shootClock.getElapsedTime().asSeconds() - timeSinceLastShoot.asSeconds() > 1)//spawn
 	{
-		_wayPointsKamikase = *_wayPoints;
-		timeSinceLastShoot = shootClock.getElapsedTime();
+		for (int i = 0; i < 2; i++) {
+			_wayPointsKamikase = *_wayPoints;
+			timeSinceLastShoot = shootClock.getElapsedTime();
 
-		glm::vec3 spawnPoint = _owner->getWorldPosition();// +directions.at(i)*.25f;//radius(?)
-		ControlledActor* Enemy1 = new ControlledActor(_world, "Enemy", spawnPoint, new btSphereShape(5), ActorType::Type_Enemy, 1, CF::COL_ENEMY, CF::enemyCollidesWith);
-		Waypoint * SpawnWaypoint = new Waypoint(spawnPoint, sf::Vector2f(500, 500), 1, 580, _wayPoints->at(0)->getRenderWindow());
-		glm::vec3 posplayerglmvec3;
-		if(!_world->getPlayerDead())
-		 posplayerglmvec3 = _world->getMainPlayer()->getWorldPosition();
-		else
-		 posplayerglmvec3 = glm::vec3(0,0,-10000);
-		Waypoint * playerPos = new Waypoint(glm::vec3(posplayerglmvec3.x, posplayerglmvec3.y, posplayerglmvec3.z), sf::Vector2f(500, 500), 1, 580, SpawnWaypoint->getRenderWindow());
+			glm::vec3 spawnPoint = _owner->getWorldPosition();// +directions.at(i)*.25f;//radius(?)
+			spawnPoint.x = spawnPoint.x/2;
+			spawnPoint.x = i * 2* spawnPoint.x + spawnPoint.x;
+			ControlledActor* Enemy1 = new ControlledActor(_world, "Enemy", spawnPoint, new btSphereShape(5), ActorType::Type_Enemy, 1, CF::COL_ENEMY, CF::enemyCollidesWith);
+			Waypoint * SpawnWaypoint = new Waypoint(spawnPoint, sf::Vector2f(500, 500), 1, 580, _wayPoints->at(0)->getRenderWindow());
+			glm::vec3 posplayerglmvec3;
+			if (!_world->getPlayerDead())
+				posplayerglmvec3 = _world->getMainPlayer()->getWorldPosition();
+			else
+				posplayerglmvec3 = glm::vec3(0, 0, -10000);
+			Waypoint * playerPos = new Waypoint(glm::vec3(posplayerglmvec3.x, posplayerglmvec3.y, posplayerglmvec3.z), sf::Vector2f(500, 500), 1, 580, SpawnWaypoint->getRenderWindow());
 
-		cout << "ENEMY Kamikase CREATED" << endl;
-		_wayPointsKamikase.clear();
-		_wayPointsKamikase.push_back(SpawnWaypoint);
-		_wayPointsKamikase.push_back(playerPos);
-		Enemy1->setMesh(_world->GetResourceManager()->getMesh(Meshes::Potato));
-		Enemy1->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Potato));
-		EnemyBehaviour* behave = new EnemyBehaviour(&_wayPointsKamikase, _movingStep);
-		behave->setSpeed(50);
-		behave->setEnemyType(Materials::Potato);
-		behave->setShootRatio(100);
-		behave->setEnemyType(_enemyType);
-		Enemy1->SetHealth(1);
-		Enemy1->setActorBehaviour(behave);
+			cout << "ENEMY Kamikase CREATED" << endl;
+			_wayPointsKamikase.clear();
+			_wayPointsKamikase.push_back(SpawnWaypoint);
+			_wayPointsKamikase.push_back(playerPos);
+			Enemy1->setMesh(_world->GetResourceManager()->getMesh(Meshes::Potato));
+			Enemy1->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Potato));
+			EnemyBehaviour* behave = new EnemyBehaviour(&_wayPointsKamikase, _movingStep);
+			behave->setSpeed(50);
+			behave->setEnemyType(Materials::Potato);
+			behave->setShootRatio(100);
+			behave->setEnemyType(_enemyType);
+			Enemy1->SetHealth(1);
+			Enemy1->setActorBehaviour(behave);
 
-		_owner->getParent()->add(Enemy1);
+			_owner->getParent()->add(Enemy1);
+		}
 	}
+	_angle2 += pStep * 10;
+	_owner->rotate(_angle2, glm::vec3(0, 1, 0));
 
 }
 bool BossBehaviour::ChargePlayer(float pStep)
@@ -217,8 +223,8 @@ bool BossBehaviour::ChargePlayer(float pStep)
 	else
 	{
 		SpawnEnemiesKamikase(pStep);
-		_angle2 -= pStep * 30;
-		_owner->Slerp(glm::vec3(0, 1, 0), _angle2);
+		_angle2 -= pStep*30;
+		_owner->rotate(_angle2,glm::vec3(0, 1, 0));
 	}
 	return false;
 }
@@ -230,7 +236,7 @@ bool BossBehaviour::GoToSpawnPosition(float pStep)
 	float dX = pos.x - _originalSpawn.x;
 	float dZ = pos.z - _originalSpawn.z;
 	_angle = atan2(dX, dZ);
-	_owner->Slerp(glm::vec3(0, 1, 0), _angle);
+	_owner->Slerp(glm::vec3(0, 1, 0), 0);
 	glm::vec2 delta = glm::vec2(_originalSpawn.x, _originalSpawn.z) - glm::vec2(pos.x, pos.z);
 	_ownerBody->translate(btVector3(delta.x * _moveSpeed *pStep, 0.0f, delta.y * _moveSpeed*pStep));	 //Move toward target with set speed.
 	float length = glm::length(delta);
@@ -284,8 +290,8 @@ void BossBehaviour::SpawnBullet()
 		glm::vec3 spawnPoint = _owner->getWorldPosition() + directions.at(i)*.25f;//radius(?)
 		ObjectActor* bullet = new ObjectActor(_owner->getWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_ENEMYBULLET, CF::enemyBulletCollidesWith);
 		BulletBehaviour * bulletBehave0 = new BulletBehaviour(0.6f, 1.0f, 3.0f, Direction::Custom, BulletOwner::Enemy);
-		bullet->scale(glm::vec3(10, 10, 10));
-		bullet->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Bullet));
+		bullet->scale(glm::vec3(2, 2, 2));
+		bullet->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::BulletBoss));
 		bullet->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::BulletBoss));
 		bullet->setActorBehaviour(bulletBehave0);
 		bulletBehave0->setBulletDirection(glm::rotate(directions.at(i), _angle2, glm::vec3(0, 1, 0)));//Down
@@ -302,8 +308,8 @@ void BossBehaviour::SpawnBullet(float pBulletPower, glm::vec3 pDirection, float 
 		glm::vec3 spawnPoint = _owner->getWorldPosition() + directions.at(i)*.25f;//radius(?)
 		ObjectActor* bullet = new ObjectActor(_owner->getWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_ENEMYBULLET, CF::enemyBulletCollidesWith);
 		BulletBehaviour * bulletBehave0 = new BulletBehaviour(0.6f, 1.0f, 3.0f, Direction::Custom, BulletOwner::Enemy);
-		bullet->scale(glm::vec3(10, 10, 10));
-		bullet->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Bullet));
+		bullet->scale(glm::vec3(2, 2, 2));
+		bullet->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::BulletBoss));
 		bullet->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::BulletBoss));
 		bullet->setActorBehaviour(bulletBehave0);
 		bulletBehave0->setBulletDirection(glm::rotate(directions.at(i), _angle2, glm::vec3(0, 1, 0)));//Down
