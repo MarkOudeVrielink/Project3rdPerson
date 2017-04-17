@@ -489,44 +489,44 @@ void Menu::StartGame()
 	//////// ENEMY BIOS TGUI CREATION //////////////////
 #pragma region EnemyBIOS
 	_enemyBio1 = tgui::Picture::create();
-	_enemyBio1->setTexture(config::MGE_TEXTURE_PATH + "bricks.jpg", false);
+	_enemyBio1->setTexture(config::MGE_TEXTURE_PATH + "info_enemies/yoghurt.png", false);
 	_guiRef->add(_enemyBio1);
-	_enemyBio1->setPosition(400, 800);
+	_enemyBio1->setPosition(600, 50);
 	_enemyBio1->scale(.5f, .5f);
 	_enemyBio1->hide();
 
 	_enemyBio2 = tgui::Picture::create();
-	_enemyBio2->setTexture(config::MGE_TEXTURE_PATH + "bricks.jpg", false);
+	_enemyBio2->setTexture(config::MGE_TEXTURE_PATH + "info_enemies/Sushi.png", false);
 	_guiRef->add(_enemyBio2);
-	_enemyBio2->setPosition(400, 800);
+	_enemyBio2->setPosition(600, 50);
 	_enemyBio2->scale(.5f, .5f);
 	_enemyBio2->hide();
 
 	_enemyBio3 = tgui::Picture::create();
-	_enemyBio3->setTexture(config::MGE_TEXTURE_PATH + "bricks.jpg", false);
+	_enemyBio3->setTexture(config::MGE_TEXTURE_PATH + "info_enemies/Sandwich.png", false);
 	_guiRef->add(_enemyBio3);
-	_enemyBio3->setPosition(400, 800);
+	_enemyBio3->setPosition(600, 50);
 	_enemyBio3->scale(.5f, .5f);
 	_enemyBio3->hide();
 
 	_enemyBio4 = tgui::Picture::create();
-	_enemyBio4->setTexture(config::MGE_TEXTURE_PATH + "bricks.jpg", false);
+	_enemyBio4->setTexture(config::MGE_TEXTURE_PATH + "info_enemies/Potato.png", false);
 	_guiRef->add(_enemyBio4);
-	_enemyBio4->setPosition(400, 800);
+	_enemyBio4->setPosition(600, 50);
 	_enemyBio4->scale(.5f, .5f);
 	_enemyBio4->hide();
 
 	_enemyBio5 = tgui::Picture::create();
-	_enemyBio5->setTexture(config::MGE_TEXTURE_PATH + "bricks.jpg", false);
+	_enemyBio5->setTexture(config::MGE_TEXTURE_PATH + "info_enemies/Pizza.png", false);
 	_guiRef->add(_enemyBio5);
-	_enemyBio5->setPosition(400, 800);
-	_enemyBio5->scale(.5f, .5f);
+	_enemyBio5->setPosition(600, 50);
+	//_enemyBio5->scale(.5f, .5f);
 	_enemyBio5->hide();
 	
 	_enemyBio6 = tgui::Picture::create();
-	_enemyBio6->setTexture(config::MGE_TEXTURE_PATH + "bricks.jpg", false);
+	_enemyBio6->setTexture(config::MGE_TEXTURE_PATH + "info_enemies/Boss.png", false);
 	_guiRef->add(_enemyBio6);
-	_enemyBio6->setPosition(400, 800);
+	_enemyBio6->setPosition(600, 50);
 	_enemyBio6->scale(.5f, .5f);
 	_enemyBio6->hide();
 #pragma endregion 
