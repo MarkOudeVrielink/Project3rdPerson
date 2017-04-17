@@ -105,7 +105,7 @@ void BossBehaviour::update(float pStep)
 		break;
 	case 4:	 //20% health Bounce through screen while rotating and shooting, maybe also spawning enemies 
 		delay = 6;
-		_owner->Slerp(glm::vec3(0, 1, 0),0);
+		//_owner->Slerp(glm::vec3(0, 1, 0),0);
 		if(!AiBasicDone)
 		AiBasicDone = AiBasic(pStep);
 		else if (AiBasicDone && GoToSpawnPosition(pStep))
@@ -121,11 +121,11 @@ void BossBehaviour::update(float pStep)
 }
 void BossBehaviour::RotateAndshoot(float pStep)
 {
-	_angle2 += pStep *5; 
+	_angle2 += pStep *2.78; 
 	//_angle2 = 0;
 	_owner->rotate(_angle2, glm::vec3(0, 1, 0));
 
-	if (shootClock.getElapsedTime().asSeconds() - timeSinceLastShoot.asSeconds() > _shootRatio)//shoot
+	if (shootClock.getElapsedTime().asSeconds() - timeSinceLastShoot.asSeconds() > _shootRatio*.8f)//shoot
 	{
 		timeSinceLastShoot = shootClock.getElapsedTime();
 		SpawnBullet(1,glm::vec3(0,0,1),_angle2);
@@ -135,15 +135,16 @@ void BossBehaviour::RotateAndshoot(float pStep)
 //Hardcoded properties
 void BossBehaviour::SpawnEnemiesKamikase(float pStep)
 {
-	if (shootClock.getElapsedTime().asSeconds() - timeSinceLastShoot.asSeconds() > 1)//spawn
+	if (shootClock.getElapsedTime().asSeconds() - timeSinceLastShoot.asSeconds() > .58f)//spawn
 	{
 		for (int i = 0; i < 2; i++) {
 			_wayPointsKamikase = *_wayPoints;
 			timeSinceLastShoot = shootClock.getElapsedTime();
 
 			glm::vec3 spawnPoint = _owner->getWorldPosition();// +directions.at(i)*.25f;//radius(?)
-			spawnPoint.x = spawnPoint.x/2;
-			spawnPoint.x = i * 2* spawnPoint.x + spawnPoint.x;
+			//spawnPoint.x = spawnPoint.x/2;
+			spawnPoint.z -= 2;
+			spawnPoint.x = i * -80 + spawnPoint.x+40;
 			ControlledActor* Enemy1 = new ControlledActor(_world, "Enemy", spawnPoint, new btSphereShape(5), ActorType::Type_Enemy, 1, CF::COL_ENEMY, CF::enemyCollidesWith);
 			Waypoint * SpawnWaypoint = new Waypoint(spawnPoint, sf::Vector2f(500, 500), 1, 580, _wayPoints->at(0)->getRenderWindow());
 			glm::vec3 posplayerglmvec3;
@@ -160,7 +161,7 @@ void BossBehaviour::SpawnEnemiesKamikase(float pStep)
 			Enemy1->setMesh(_world->GetResourceManager()->getMesh(Meshes::Potato));
 			Enemy1->setMaterial(_world->GetResourceManager()->getMaterial(Materials::Potato));
 			EnemyBehaviour* behave = new EnemyBehaviour(&_wayPointsKamikase, _movingStep);
-			behave->setSpeed(50);
+			behave->setSpeed(70);
 			behave->setEnemyType(Materials::Potato);
 			behave->setShootRatio(100);
 			behave->setEnemyType(_enemyType);
@@ -391,7 +392,7 @@ bool BossBehaviour::AiBasic(float pStep)
 	glm::vec3 pos = _owner->getWorldPosition();
 	btScalar dX = pos.x - target.x;
 	btScalar dZ = pos.z - target.z;
-	//_angle2 = atan2(dX, dZ);
+	_angle2 = atan2(dX, dZ);
 
 	
 	_owner->Slerp(glm::vec3(0, 1, 0), _angle2);

@@ -1,74 +1,33 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 <Level>
-  <Wave startTimeWave="30" health="50" speed="90" shootRatio="0.200000003" enemyType="8" enemyBehaviour="2" sizeWave="1" delayBetweenEnemies="0.5">
+  <Wave startTimeWave="0" health="30" speed="90" shootRatio="0.140000001" enemyType="8" enemyBehaviour="2" sizeWave="1" delayBetweenEnemies="0.5">
     <Waypoints>
-      <WavePoint World_x="-0.0934032053" World_y="-87.3607254" World_z="-48.6630707" Screen_x="959" Screen_y="19" />
-      <WavePoint World_x="46.4579659" World_y="-87.2539902" World_z="-15.1128311" Screen_x="1458" Screen_y="378" />
-      <WavePoint World_x="1.3593148" World_y="-90.8126678" World_z="41.8474808" Screen_x="974" Screen_y="971" />
-      <WavePoint World_x="-50.039505" World_y="-85.8758163" World_z="-11.017868" Screen_x="414" Screen_y="420" />
-      <WavePoint World_x="1.8685931" World_y="-87.3851929" World_z="-48.5832748" Screen_x="980" Screen_y="20" />
-      <WavePoint World_x="30.1649685" World_y="-94.9950333" World_z="-8.12524128" Screen_x="1257" Screen_y="460" />
-      <WavePoint World_x="-38.5249252" World_y="-91.9200363" World_z="-8.15705872" Screen_x="568" Screen_y="457" />
-      <WavePoint World_x="1.28324103" World_y="-92.3250122" World_z="38.3985329" Screen_x="973" Screen_y="929" />
-    </Waypoints>
-  </Wave>
-  <Wave startTimeWave="20" health="1" speed="40" shootRatio="5" enemyType="3" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5">
-    <Waypoints>
-      <WavePoint World_x="-42.3603134" World_y="-84.8392334" World_z="-31.7475624" Screen_x="492" Screen_y="189" />
-      <WavePoint World_x="-22.367897" World_y="-91.7581711" World_z="-32.8651085" Screen_x="732" Screen_y="205" />
-      <WavePoint World_x="4.6236124" World_y="-94.0108566" World_z="-33.7724724" Screen_x="1006" Screen_y="204" />
-      <WavePoint World_x="27.656498" World_y="-90.1300735" World_z="-33.34198" Screen_x="1247" Screen_y="194" />
-      <WavePoint World_x="42.1729698" World_y="-85.5633392" World_z="-30.0059319" Screen_x="1421" Screen_y="211" />
-      <WavePoint World_x="41.8229752" World_y="-88.9030609" World_z="-18.6302338" Screen_x="1400" Screen_y="344" />
-      <WavePoint World_x="15.9052868" World_y="-97.8706284" World_z="-12.9753618" Screen_x="1112" Screen_y="416" />
-      <WavePoint World_x="-19.3544598" World_y="-97.3245773" World_z="-12.3826876" Screen_x="774" Screen_y="421" />
-      <WavePoint World_x="-35.1895409" World_y="-92.9746933" World_z="-10.8351927" Screen_x="606" Screen_y="431" />
-      <WavePoint World_x="-41.7364731" World_y="-90.7824173" World_z="-4.07658195" Screen_x="530" Screen_y="498" />
-      <WavePoint World_x="-39.858017" World_y="-91.3713379" World_z="7.91299438" Screen_x="552" Screen_y="621" />
-      <WavePoint World_x="-15.3774319" World_y="-97.8410187" World_z="13.8083134" Screen_x="813" Screen_y="672" />
-      <WavePoint World_x="18.9076118" World_y="-97.7040482" World_z="9.81942844" Screen_x="1141" Screen_y="634" />
-      <WavePoint World_x="37.9628868" World_y="-91.7492981" World_z="11.8695393" Screen_x="1347" Screen_y="661" />
-      <WavePoint World_x="41.4738045" World_y="-88.3616486" World_z="21.728878" Screen_x="1399" Screen_y="770" />
-      <WavePoint World_x="21.2105846" World_y="-92.7028961" World_z="30.9238491" Screen_x="1174" Screen_y="852" />
-      <WavePoint World_x="-16.2051201" World_y="-92.419342" World_z="34.5841064" Screen_x="796" Screen_y="890" />
-      <WavePoint World_x="-33.3327332" World_y="-87.5740356" World_z="34.924469" Screen_x="604" Screen_y="913" />
-    </Waypoints>
-  </Wave>
-  <Wave startTimeWave="5" health="1" speed="40" shootRatio="5" enemyType="4" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5">
-    <Waypoints>
-      <WavePoint World_x="-39.0760078" World_y="-83.6340637" World_z="-38.4500771" Screen_x="523" Screen_y="110" />
-      <WavePoint World_x="-23.1867065" World_y="-88.8799286" World_z="-39.5314331" Screen_x="716" Screen_y="124" />
-      <WavePoint World_x="2.24807858" World_y="-91.419342" World_z="-40.465416" Screen_x="983" Screen_y="126" />
-      <WavePoint World_x="25.2982922" World_y="-88.9536972" World_z="-38.0425453" Screen_x="1226" Screen_y="139" />
-      <WavePoint World_x="37.698288" World_y="-84.9626389" World_z="-36.8807335" Screen_x="1375" Screen_y="134" />
-      <WavePoint World_x="-43.1767273" World_y="-86.6599121" World_z="-25.0165577" Screen_x="494" Screen_y="270" />
-      <WavePoint World_x="38.0736542" World_y="-89.4738159" World_z="-23.3416348" Screen_x="1358" Screen_y="296" />
-      <WavePoint World_x="-41.9494629" World_y="-90.6135101" World_z="-5.42533159" Screen_x="527" Screen_y="484" />
-      <WavePoint World_x="41.7655907" World_y="-90.008461" World_z="-12.4141932" Screen_x="1394" Screen_y="411" />
-      <WavePoint World_x="-37.8720627" World_y="-91.0592041" World_z="16.5507774" Screen_x="571" Screen_y="710" />
-      <WavePoint World_x="48.4307365" World_y="-86.9436417" World_z="9.76051807" Screen_x="1481" Screen_y="645" />
-    </Waypoints>
-  </Wave>
-  <Wave startTimeWave="10" health="1" speed="40" shootRatio="5" enemyType="6" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5">
-    <Waypoints>
-      <WavePoint World_x="-39.6972237" World_y="-82.3261948" World_z="-40.5774307" Screen_x="509" Screen_y="78" />
-      <WavePoint World_x="41.1938667" World_y="-82.8579254" World_z="-37.9160728" Screen_x="1425" Screen_y="112" />
-      <WavePoint World_x="-39.1000633" World_y="-89.1965485" World_z="-22.6971073" Screen_x="550" Screen_y="302" />
-      <WavePoint World_x="41.9395065" World_y="-88.3476105" World_z="-20.8752937" Screen_x="1404" Screen_y="319" />
-      <WavePoint World_x="-45.1810303" World_y="-87.8547974" World_z="15.4986935" Screen_x="479" Screen_y="705" />
-      <WavePoint World_x="45.3340645" World_y="-88.7056351" World_z="8.72538948" Screen_x="1438" Screen_y="632" />
-    </Waypoints>
-  </Wave>
-  <Wave startTimeWave="15" health="1" speed="50" shootRatio="5" enemyType="2" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5">
-    <Waypoints>
-      <WavePoint World_x="-39.9359512" World_y="-82.8212738" World_z="-39.3161011" Screen_x="509" Screen_y="96" />
-      <WavePoint World_x="-39.0380707" World_y="-82.0507965" World_z="-41.757576" Screen_x="515" Screen_y="64" />
-      <WavePoint World_x="32.5425034" World_y="-86.2245102" World_z="-38.8113136" Screen_x="1313" Screen_y="119" />
-      <WavePoint World_x="-47.0510902" World_y="-86.2887039" World_z="-18.4514065" Screen_x="450" Screen_y="340" />
-      <WavePoint World_x="36.0185242" World_y="-90.0759354" World_z="-24.269165" Screen_x="1334" Screen_y="288" />
-      <WavePoint World_x="39.0923805" World_y="-91.6375961" World_z="-8.62187481" Screen_x="1359" Screen_y="452" />
-      <WavePoint World_x="-40.5998306" World_y="-91.0631332" World_z="7.69157934" Screen_x="543" Screen_y="619" />
-      <WavePoint World_x="41.3649178" World_y="-90.606369" World_z="8.91235256" Screen_x="1387" Screen_y="632" />
+      <WavePoint World_x="-2.51994038" World_y="-87.2933121" World_z="-48.7188492" Screen_x="933" Screen_y="18" />
+      <WavePoint World_x="-3.39526057" World_y="-90.7317963" World_z="41.9072227" Screen_x="925" Screen_y="972" />
+      <WavePoint World_x="-30.4489937" World_y="-95.2480698" World_z="-0.814684689" Screen_x="661" Screen_y="532" />
+      <WavePoint World_x="37.3683472" World_y="-92.7079468" World_z="2.97361279" Screen_x="1337" Screen_y="570" />
+      <WavePoint World_x="19.5959606" World_y="-92.5669098" World_z="-32.3630219" Screen_x="1158" Screen_y="213" />
+      <WavePoint World_x="-21.8368893" World_y="-91.5883713" World_z="-33.6856041" Screen_x="737" Screen_y="196" />
+      <WavePoint World_x="-22.3742256" World_y="-93.0079269" World_z="29.136219" Screen_x="735" Screen_y="833" />
+      <WavePoint World_x="23.1212101" World_y="-92.8130569" World_z="29.1744061" Screen_x="1193" Screen_y="834" />
+      <WavePoint World_x="3.41933322" World_y="-99.9415131" World_z="4.36858227e-06" Screen_x="992" Screen_y="540" />
+      <WavePoint World_x="-14.714715" World_y="-98.305603" World_z="-10.9309273" Screen_x="820" Screen_y="436" />
+      <WavePoint World_x="-6.5525589" World_y="-98.8493271" World_z="-13.6335478" Screen_x="898" Screen_y="411" />
+      <WavePoint World_x="5.16847754" World_y="-98.655304" World_z="-15.5054092" Screen_x="1009" Screen_y="393" />
+      <WavePoint World_x="15.2985945" World_y="-98.0061035" World_z="-12.6789684" Screen_x="1106" Screen_y="419" />
+      <WavePoint World_x="20.7086124" World_y="-97.8228302" World_z="-1.35965204" Screen_x="1158" Screen_y="527" />
+      <WavePoint World_x="20.9445782" World_y="-97.4608078" World_z="7.91934824" Screen_x="1161" Screen_y="616" />
+      <WavePoint World_x="16.9203243" World_y="-97.6895447" World_z="13.05581" Screen_x="1122" Screen_y="665" />
+      <WavePoint World_x="7.35571241" World_y="-98.2836151" World_z="16.9181423" Screen_x="1030" Screen_y="701" />
+      <WavePoint World_x="-4.0998559" World_y="-98.3237457" World_z="17.7660465" Screen_x="921" Screen_y="709" />
+      <WavePoint World_x="-13.1247339" World_y="-98.2052994" World_z="13.5447311" Screen_x="835" Screen_y="669" />
+      <WavePoint World_x="-18.9392586" World_y="-97.8675766" World_z="7.95240116" Screen_x="779" Screen_y="616" />
+      <WavePoint World_x="-19.1004868" World_y="-98.1584091" World_z="-0.314838946" Screen_x="778" Screen_y="537" />
+      <WavePoint World_x="-17.750206" World_y="-98.2361145" World_z="-5.88172197" Screen_x="791" Screen_y="484" />
+      <WavePoint World_x="-13.6560221" World_y="-99.0122528" World_z="-3.17581487" Screen_x="831" Screen_y="510" />
+      <WavePoint World_x="-7.25069857" World_y="-99.7298889" World_z="-1.1729027" Screen_x="892" Screen_y="529" />
+      <WavePoint World_x="0.213730201" World_y="-99.9517365" World_z="3.09909272" Screen_x="962" Screen_y="569" />
+      <WavePoint World_x="1.03063774" World_y="-87.6335144" World_z="-48.1591568" Screen_x="970" Screen_y="26" />
     </Waypoints>
   </Wave>
 </Level>
