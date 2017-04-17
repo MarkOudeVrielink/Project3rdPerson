@@ -139,6 +139,101 @@ void World::setDialogueEnded(bool pBool, int pIndex)
 		break;
 	}
 }
+///////////////////ENEMY BIOS////////////////////////////////
+void World::setEnemyBio(bool pBool, int pIndex)
+{
+	switch (pIndex) {
+	case 1:
+		_enemyBio1 = pBool;
+		break;
+	case 2:
+		_enemyBio2 = pBool;
+		break;
+	case 3:
+		_enemyBio3 = pBool;
+		break;
+	case 4:
+		_enemyBio4 = pBool;
+		break;
+	case 5:
+		_enemyBio5 = pBool;
+		break;
+	case 6:
+		_enemyBio6 = pBool;
+		break;
+	}
+}
+bool World::getEnemyBio(int pIndex)
+{
+	switch (pIndex) {
+	case 1:
+		return _enemyBio1;
+		break;
+	case 2:
+		return _enemyBio2;
+		break;
+	case 3:
+		return _enemyBio3;
+		break;
+	case 4:
+		return _enemyBio4;
+		break;
+	case 5:
+		return _enemyBio5;
+		break;
+	case 6:
+		return _enemyBio6;
+		break;
+	}
+}
+
+bool World::getEnemyBioEnded(int pIndex)
+{
+	switch (pIndex) {
+	case 1:
+		return _enemyBio1Ended;
+		break;
+	case 2:
+		return _enemyBio2Ended;
+		break;
+	case 3:
+		return _enemyBio3Ended;
+		break;
+	case 4:
+		return _enemyBio4Ended;
+		break;
+	case 5:
+		return _enemyBio5Ended;
+		break;
+	case 6:
+		return _enemyBio6Ended;
+		break;
+	}
+}
+
+void World::setEnemyBioEnded(bool pBool, int pIndex)
+{
+	switch (pIndex) {
+	case 1:
+		_enemyBio1Ended = pBool;
+		break;
+	case 2:
+		_enemyBio2Ended = pBool;
+		break;
+	case 3:
+		_enemyBio3Ended = pBool;
+		break;
+	case 4:
+		_enemyBio4Ended  = pBool;
+		break;
+	case 5:
+		_enemyBio5Ended = pBool;
+		break;
+	case 6:
+		_enemyBio6Ended = pBool;
+		break;
+	}
+}
 
 void World::setRenderWindow(sf::RenderWindow * pWindow)
 {
@@ -163,6 +258,7 @@ HUD * World::getHud()
 #pragma endregion
 
 #pragma region Actor Gargbage collection
+
 
 /*Destroy all the actors that were set to dirty.*/
 void World::DestroyActors()

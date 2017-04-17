@@ -5,6 +5,7 @@
 #include <SFML\Graphics.hpp>
 #include "Waypoint.h"
 #include "mge\core\World.hpp"
+#include <vector>
 class Level
 {
 public:
@@ -21,6 +22,8 @@ public:
 	int getIndexWave();
 	bool RunLevel(sf::Time* pTime);
 	bool RunLevel(float* pSec);
+	bool CheckIfSpawnBefore(int pType);
+	bool setSpawnBefore(int pType, bool pBool);
 	EnemyWave* getCurrentWave();
 	EnemyWave* NextEnemyWave();
 	EnemyWave* PreviousWave();
@@ -47,7 +50,19 @@ private:
 	bool _dialoguePreGame = false;
 	bool _dialoguePreBos = false;
 	bool _dialoguePosWin = false;
+	
+	bool _enemyType1 = false;
+	bool _enemyType2 = false;
+	bool _enemyType3 = false;
+	bool _enemyType4 = false;
+	bool _enemyType5 = false;
+	bool _enemyType6 = false;
 
+	float _timeWhenDialogueAppear =0;
+	bool startTimer = false;
+	bool dialogue1 = false;
+	float _differenceTimeDialogueAndReal = 0;
+	float realTime = 0;
 };
 
 

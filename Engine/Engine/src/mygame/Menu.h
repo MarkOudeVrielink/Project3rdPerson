@@ -19,6 +19,7 @@ public:
 	void InitializeMenu(tgui::Gui * pGuiRef);
 	virtual void update(float pStep);
 	void checkDialogue();
+	void checkEnemyBio();
 	void UpdateHUD();
 private:
 	void ToLevelEditor();
@@ -45,6 +46,13 @@ private:
 	tgui::Picture::Ptr _posBossDialogue;
 
 
+	tgui::Picture::Ptr _enemyBio1;
+	tgui::Picture::Ptr _enemyBio2;
+	tgui::Picture::Ptr _enemyBio3;
+	tgui::Picture::Ptr _enemyBio4;
+	tgui::Picture::Ptr _enemyBio5;
+	tgui::Picture::Ptr _enemyBio6;
+
 	GameObject *_levelEditorObject = NULL;
 	LevelEditorBehaviour * _levelEditor;
 	sf::RenderWindow* _window;
@@ -58,4 +66,7 @@ private:
 
 	void _flickerLight();
 	int _flicker = 0;
+
+	sf::Clock timer;
+	bool startTimer = false;
 };

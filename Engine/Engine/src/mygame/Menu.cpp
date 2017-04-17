@@ -202,6 +202,7 @@ void Menu::update(float pStep)
 		ToMenu();
 	}
 	checkDialogue();
+	checkEnemyBio();
 	if (_objManager != NULL)
 	{
 		if (!_world->getPlayerDead()) {
@@ -269,8 +270,6 @@ void Menu::checkDialogue()
 			_world->setDialogueEnded(true, 3);
 		}
 	}
-		
-
 	/*if (_objManager != NULL)
 	{
 		PlayerBehaviour * playerBehaviour = dynamic_cast<PlayerBehaviour*> (player->getActorBehaviour());
@@ -286,7 +285,95 @@ void Menu::checkDialogue()
 			_nextLevel->setText(" MAX LEVEL");		
 	}*/
 }
-
+void Menu::checkEnemyBio()
+{
+	float delay = 4;
+	if (_world->getEnemyBio(1) && !_world->getEnemyBioEnded(1)) {
+		_enemyBio1->show();
+		if(!startTimer)
+		{
+			startTimer = true;
+			timer.restart();
+		}
+	
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) || timer.getElapsedTime().asSeconds()>delay)
+		{
+			startTimer = false;
+			_enemyBio1->hide();
+			_world->setEnemyBioEnded(true, 1);
+		}
+	}
+	 if (_world->getEnemyBio(2) && !_world->getEnemyBioEnded(2)) {
+		_enemyBio2->show();
+		if (!startTimer)
+		{
+			startTimer = true;
+			timer.restart();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) || timer.getElapsedTime().asSeconds()>delay)
+		{
+			startTimer = false;
+			_enemyBio2->hide();
+			_world->setEnemyBioEnded(true, 2);
+		}
+	}
+	 if (_world->getEnemyBio(3) && !_world->getEnemyBioEnded(3)) {
+		_enemyBio3->show();
+		if (!startTimer)
+		{
+			startTimer = true;
+			timer.restart();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) || timer.getElapsedTime().asSeconds()>delay)
+		{
+			startTimer = false;
+			_enemyBio3->hide();
+			_world->setEnemyBioEnded(true, 3);
+		}
+	}
+	 if (_world->getEnemyBio(4) && !_world->getEnemyBioEnded(4)) {
+		_enemyBio4->show();
+		if (!startTimer)
+		{
+			startTimer = true;
+			timer.restart();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) || timer.getElapsedTime().asSeconds()>delay)
+		{
+			startTimer = false;
+			_enemyBio4->hide();
+			_world->setEnemyBioEnded(true, 4);
+		}
+	}
+	 if (_world->getEnemyBio(5) && !_world->getEnemyBioEnded(5)) {
+		_enemyBio5->show();
+		if (!startTimer)
+		{
+			startTimer = true;
+			timer.restart();
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) || timer.getElapsedTime().asSeconds()>delay)
+		{
+			startTimer = false;
+			_enemyBio5->hide();
+			_world->setEnemyBioEnded(true, 5);
+		}
+	}
+	 if (_world->getEnemyBio(6) && !_world->getEnemyBioEnded(6)) {
+		 _enemyBio6->show();
+		 if (!startTimer)
+		 {
+			 startTimer = true;
+			 timer.restart();
+		 }
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return) || timer.getElapsedTime().asSeconds()>delay)
+		{
+			startTimer = false;
+			_enemyBio6->hide();
+			_world->setEnemyBioEnded(true, 6);
+		}
+	}
+}
 void Menu::ToLevelEditor()
 {
 	HideMenu();
@@ -374,7 +461,8 @@ void Menu::StartGame()
 	_winScreen->setTexture(config::MGE_TEXTURE_PATH + "Hud, Menu, Screens/WinScreen.jpg", false);
 	_guiRef->add(_winScreen);
 	_winScreen->hide();
-
+	//////// Dialogues TGUI CREATION  //////////////////
+#pragma region Dialogue
 	_preGameDialogue = tgui::Picture::create();
 	
 	_preGameDialogue->setTexture(config::MGE_TEXTURE_PATH + "GalaxyNeedsUs.png", false);
@@ -397,6 +485,52 @@ void Menu::StartGame()
 	_posBossDialogue->scale(.5f, .5f);
 	_posBossDialogue->hide();
 	_world->getHud()->setActive(true);
+#pragma endregion 
+	//////// ENEMY BIOS TGUI CREATION //////////////////
+#pragma region EnemyBIOS
+	_enemyBio1 = tgui::Picture::create();
+	_enemyBio1->setTexture(config::MGE_TEXTURE_PATH + "bricks.jpg", false);
+	_guiRef->add(_enemyBio1);
+	_enemyBio1->setPosition(400, 800);
+	_enemyBio1->scale(.5f, .5f);
+	_enemyBio1->hide();
+
+	_enemyBio2 = tgui::Picture::create();
+	_enemyBio2->setTexture(config::MGE_TEXTURE_PATH + "bricks.jpg", false);
+	_guiRef->add(_enemyBio2);
+	_enemyBio2->setPosition(400, 800);
+	_enemyBio2->scale(.5f, .5f);
+	_enemyBio2->hide();
+
+	_enemyBio3 = tgui::Picture::create();
+	_enemyBio3->setTexture(config::MGE_TEXTURE_PATH + "bricks.jpg", false);
+	_guiRef->add(_enemyBio3);
+	_enemyBio3->setPosition(400, 800);
+	_enemyBio3->scale(.5f, .5f);
+	_enemyBio3->hide();
+
+	_enemyBio4 = tgui::Picture::create();
+	_enemyBio4->setTexture(config::MGE_TEXTURE_PATH + "bricks.jpg", false);
+	_guiRef->add(_enemyBio4);
+	_enemyBio4->setPosition(400, 800);
+	_enemyBio4->scale(.5f, .5f);
+	_enemyBio4->hide();
+
+	_enemyBio5 = tgui::Picture::create();
+	_enemyBio5->setTexture(config::MGE_TEXTURE_PATH + "bricks.jpg", false);
+	_guiRef->add(_enemyBio5);
+	_enemyBio5->setPosition(400, 800);
+	_enemyBio5->scale(.5f, .5f);
+	_enemyBio5->hide();
+	
+	_enemyBio6 = tgui::Picture::create();
+	_enemyBio6->setTexture(config::MGE_TEXTURE_PATH + "bricks.jpg", false);
+	_guiRef->add(_enemyBio6);
+	_enemyBio6->setPosition(400, 800);
+	_enemyBio6->scale(.5f, .5f);
+	_enemyBio6->hide();
+#pragma endregion 
+	
 }
 
 void Menu::HideMenu()
@@ -424,10 +558,25 @@ void Menu::ToMenu()
 		//_scoreLabel->hide();
 		_nextLevel->hide();
 		_multiplierLabel->hide();
-		_world->setDialogue(false, 2);
 		_world->setDialogue(false, 1);
-		_world->setDialogueEnded(false, 2);
+		_world->setDialogue(false, 2);
+		_world->setDialogue(false, 3);
 		_world->setDialogueEnded(false, 1);
+		_world->setDialogueEnded(false, 2);
+		_world->setDialogueEnded(false, 3);
+
+		_world->setEnemyBio(false, 1);
+		_world->setEnemyBio(false, 2);
+		_world->setEnemyBio(false, 3);
+		_world->setEnemyBio(false, 4);
+		_world->setEnemyBio(false, 5);
+		_world->setEnemyBio(false, 6);
+		_world->setEnemyBioEnded(false, 1);
+		_world->setEnemyBioEnded(false, 2);
+		_world->setEnemyBioEnded(false, 3);
+		_world->setEnemyBioEnded(false, 4);
+		_world->setEnemyBioEnded(false, 5);
+		_world->setEnemyBioEnded(false, 6);
 	}
 
 

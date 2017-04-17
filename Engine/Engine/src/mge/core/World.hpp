@@ -45,6 +45,14 @@ class World : public GameObject
 		bool getDialogueEnded(int pIndex);
 
 		void setDialogueEnded(bool pBool, int pIndex);
+		////////////Enemy Bio
+		void setEnemyBio(bool pBool, int pIndex);
+
+		bool getEnemyBio(int pIndex);
+
+		bool getEnemyBioEnded(int pIndex);
+
+		void setEnemyBioEnded(bool pBool, int pIndex);
 
 		void DestroyActors();
 		void setBossDeath(bool pState);
@@ -84,6 +92,21 @@ class World : public GameObject
 		bool _dialoguePreGameEnded = false;
 		bool _dialoguePreBosEnded = false;
 		bool _dialoguePosWinEnded = false;
+
+
+		bool _enemyBio1 = false;
+		bool _enemyBio2 = false;
+		bool _enemyBio3 = false;
+		bool _enemyBio4 = false;
+		bool _enemyBio5 = false;
+		bool _enemyBio6 = false;
+
+		bool _enemyBio1Ended = false;
+		bool _enemyBio2Ended = false;
+		bool _enemyBio3Ended = false;
+		bool _enemyBio4Ended = false;
+		bool _enemyBio5Ended = false;
+		bool _enemyBio6Ended = false;
 };
 
 #endif // WORLD_H

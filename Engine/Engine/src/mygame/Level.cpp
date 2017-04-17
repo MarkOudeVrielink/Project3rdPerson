@@ -20,26 +20,28 @@ Level::~Level()
 	{
 		delete wave;// = NULL;
 	}
+
+
 }
 //TODO:: Add current wave setSize
 //TODO:: Add current wave setDelayBetweenEnemies
 void Level::CreateWaypoint(glm::vec3 pWolrdWaypointPos, sf::Vector2f pScreenWayPos, float pSec)
-{	
+{
 	//cout << pSec << "Time when adding waypoint" << endl;
-	_waves.at(_indexWave)->addWaypoint(new Waypoint(pWolrdWaypointPos,pScreenWayPos, _currentEnemyWave->getWaypoints()->size(), _indexWave, _window), pSec);
+	_waves.at(_indexWave)->addWaypoint(new Waypoint(pWolrdWaypointPos, pScreenWayPos, _currentEnemyWave->getWaypoints()->size(), _indexWave, _window), pSec);
 }
 
 void Level::CreateMainWaypointMoveDirection(glm::vec3 pWolrdWaypointPos, sf::Vector2f pScreenWayPos, float pSec)
 {
 	//cout << pSec << "Time when adding waypoint" << endl;
-	_waves.at(_indexWave)->addMainWaypointDirection(new Waypoint(pWolrdWaypointPos, pScreenWayPos,000, _indexWave, _window), pSec);
+	_waves.at(_indexWave)->addMainWaypointDirection(new Waypoint(pWolrdWaypointPos, pScreenWayPos, 000, _indexWave, _window), pSec);
 
 }
 
 //Add reference to the world
 void Level::ReferenceWorld(World* pWorld, GameObject* pParent)
 {
-	if(this != NULL)
+	if (this != NULL)
 		_world = pWorld;
 
 	_gameObjectsParent = pParent;
@@ -57,29 +59,91 @@ int Level::getIndexWave()
 //Return true when all the level waves have been completed <-ADD
 bool Level::RunLevel(sf::Time* pTime)
 {//Pause probably goes here
+	
 	//First dialogue that is show before the game starts
 	if (!_world->getDialogue(1))
 	{
 		_world->setDialogue(true, 1);
+		if (!startTimer)
+		{
+			startTimer = true;
+			_timeWhenDialogueAppear = pTime->asSeconds();
+			
+		}
 	}
-	else if(_world->getDialogueEnded(1)){
+	else if (_world->getDialogueEnded(1)) {
+		//MAY BE super expensive
+		
+		if (startTimer && !dialogue1)
+		{
+			dialogue1 = true;
+			startTimer = false;			
+			_differenceTimeDialogueAndReal += pTime->asSeconds() - _timeWhenDialogueAppear;
+			_timeWhenDialogueAppear = pTime->asSeconds();
+		}
 		_currentGameTime = pTime;
 		_currentSecInGame = _currentGameTime->asSeconds();
+		realTime = _currentSecInGame;// -_differenceTimeDialogueAndReal; //FIX
 		for (auto &enemyWave : _waves)
 		{
+			
 			//todo: check every wave enemybehaviuor, if is gonna spawn and no enemy of the same type has spawn then stop game and show popup
-			if (enemyWave->CheckSpawnTimeNextEnemy(&_currentSecInGame))
+			if (enemyWave->CheckSpawnTimeNextEnemy(&realTime))
 			{
-				if (*enemyWave->getEnemyBehaviour() == 2 && !_world->getDialogue(2))
+				if ((CheckIfSpawnBefore(*enemyWave->getEnemyType()) && _world->getEnemyBioEnded(*enemyWave->getEnemyType() - 1)))
 				{
-					_world->setDialogue(true, 2);
-					_dialoguePreBos = true;
+					cout << *enemyWave->getEnemyType() << endl;
+					if (startTimer)
+					{
+						startTimer = false;
+						_differenceTimeDialogueAndReal += pTime->asSeconds() - _timeWhenDialogueAppear;
+						_timeWhenDialogueAppear =  pTime->asSeconds();
+					}
+					if (*enemyWave->getEnemyBehaviour() == 2 && !_world->getDialogue(2))
+					{
+						if (!startTimer)
+						{
+							startTimer = true;
+							_timeWhenDialogueAppear = pTime->asMilliseconds();
+						}
+						_world->setDialogue(true, 2);
+						_dialoguePreBos = true;
+					}
+					else if (_dialoguePreBos == true && _world->getDialogueEnded(2))
+					{
+						if (startTimer)
+						{
+							startTimer = false;			
+							_differenceTimeDialogueAndReal += pTime->asSeconds() - _timeWhenDialogueAppear;
+							_timeWhenDialogueAppear =  pTime->asSeconds();
+						}
+						enemyWave->SpawnEnemy(_world, _gameObjectsParent);
+					}
+					else if (*enemyWave->getEnemyBehaviour() != 2)
+					{
+						enemyWave->SpawnEnemy(_world, _gameObjectsParent);
+						if (startTimer)
+						{
+							startTimer = false;
+							_differenceTimeDialogueAndReal += pTime->asSeconds() - _timeWhenDialogueAppear;
+							_timeWhenDialogueAppear = pTime->asSeconds();
+						}
+					}
 				}
-				else if (_dialoguePreBos == true && _world->getDialogueEnded(2))
-					enemyWave->SpawnEnemy(_world, _gameObjectsParent);
-				else if (*enemyWave->getEnemyBehaviour() != 2)
-					enemyWave->SpawnEnemy(_world, _gameObjectsParent);
+				else //If no enemies of that type spawn before, get "stop time" and show presentation
+				{
+					if (!startTimer)
+					{
+						startTimer = true;
+						_timeWhenDialogueAppear = pTime->asSeconds();
+					}
+					realTime = _timeWhenDialogueAppear;
+					setSpawnBefore(*enemyWave->getEnemyType(), true);
+					_world->setEnemyBio(true, *enemyWave->getEnemyType() - 1);
+					break;
+				}
 			}
+			
 		}
 	}
 	return false;
@@ -95,7 +159,51 @@ bool Level::RunLevel(float* pSec)
 
 	return false;
 }
+//Check if it´s the first time an enemy of this type appears
+bool Level::CheckIfSpawnBefore(int pType)
+{
 
+	switch (pType)
+	{
+	case 2:
+		return _enemyType1;
+	case 3:
+		return _enemyType2;
+	case 4:
+		return _enemyType3;
+	case 5:
+		return _enemyType4;
+	case 6:
+		return _enemyType5;
+	case 7:
+	case 8:
+		return _enemyType6;
+	}
+
+	return true;
+}
+bool Level::setSpawnBefore(int pType, bool pBool)
+{
+
+	switch (pType)
+	{
+	case 2:
+		_enemyType1 = pBool;
+	case 3:
+		_enemyType2 = pBool;
+	case 4:
+		_enemyType3 = pBool;
+	case 5:
+		_enemyType4 = pBool;
+	case 6:
+		_enemyType5 = pBool;
+	case 7:
+	case 8:
+		_enemyType6 = pBool;
+	}
+
+	return true;
+}
 EnemyWave * Level::getCurrentWave()
 {
 	return _currentEnemyWave;
@@ -103,7 +211,7 @@ EnemyWave * Level::getCurrentWave()
 //Add breakpoint if we dont have enough waves
 EnemyWave * Level::NextEnemyWave()
 {
-	if (_indexWave < _waves.size()-1)
+	if (_indexWave < _waves.size() - 1)
 	{
 		_indexWave++;
 		//cout << _indexWave << "<NEXT index " << endl;
@@ -127,7 +235,7 @@ EnemyWave * Level::PreviousWave()
 		//cout << _waves.size() << "<waves size " << endl;
 		return _currentEnemyWave;
 	}
-	else 
+	else
 	{
 		//cout << "We should not keep going low in the wave" << endl;
 		return 0;
@@ -165,9 +273,9 @@ EnemyWave * Level::DeleteWave()
 EnemyWave * Level::ClearWave()
 {
 	_currentEnemyWave->ClearWaypoints();
-		return _waves.at(_indexWave);
-	
-	
+	return _waves.at(_indexWave);
+
+
 }
 std::vector<EnemyWave*>* Level::getWaves()
 {
