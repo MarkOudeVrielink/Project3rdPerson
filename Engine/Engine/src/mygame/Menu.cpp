@@ -421,9 +421,13 @@ void Menu::ToMenu()
 		if (!_world->getPlayerDead())
 			delete player;
 		player = NULL;
-		_scoreLabel->hide();
+		//_scoreLabel->hide();
 		_nextLevel->hide();
 		_multiplierLabel->hide();
+		_world->setDialogue(false, 2);
+		_world->setDialogue(false, 1);
+		_world->setDialogueEnded(false, 2);
+		_world->setDialogueEnded(false, 1);
 	}
 
 

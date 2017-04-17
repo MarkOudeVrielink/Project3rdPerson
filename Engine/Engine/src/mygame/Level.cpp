@@ -56,7 +56,7 @@ int Level::getIndexWave()
 
 //Return true when all the level waves have been completed <-ADD
 bool Level::RunLevel(sf::Time* pTime)
-{
+{//Pause probably goes here
 	//First dialogue that is show before the game starts
 	if (!_world->getDialogue(1))
 	{
@@ -67,6 +67,7 @@ bool Level::RunLevel(sf::Time* pTime)
 		_currentSecInGame = _currentGameTime->asSeconds();
 		for (auto &enemyWave : _waves)
 		{
+			//todo: check every wave enemybehaviuor, if is gonna spawn and no enemy of the same type has spawn then stop game and show popup
 			if (enemyWave->CheckSpawnTimeNextEnemy(&_currentSecInGame))
 			{
 				if (*enemyWave->getEnemyBehaviour() == 2 && !_world->getDialogue(2))

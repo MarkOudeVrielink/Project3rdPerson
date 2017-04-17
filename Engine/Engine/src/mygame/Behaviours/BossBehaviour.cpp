@@ -121,7 +121,7 @@ void BossBehaviour::update(float pStep)
 }
 void BossBehaviour::RotateAndshoot(float pStep)
 {
-	_angle2 += pStep * 5;
+	_angle2 += pStep * 5; 
 	//_angle2 = 0;
 	_owner->Slerp(glm::vec3(0, 1, 0), _angle2);
 

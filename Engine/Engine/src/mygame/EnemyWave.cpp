@@ -158,7 +158,7 @@ bool EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
 		Enemy1->setMesh(pWorld->GetResourceManager()->getMesh(Meshes::ID( _enemyType)));
 		Enemy1->setMaterial(pWorld->GetResourceManager()->getMaterial(_enemyType));
 		
-		//cout << "Material set" << endl;
+		//If is not boss behaviour then just spawn an enemy
 		if (_enemyBehaviour != 2) {
 			if (!_editorMode)
 			{
@@ -245,15 +245,6 @@ void EnemyWave::ClearWaypoints()
 
 }
 
-void EnemyWave::CheckDragWaypoint()
-{
-	
-}
-
-void EnemyWave::DeleteWaypoint()
-{
-}
-
 
 #pragma region getters
 const float * EnemyWave::getStartTime() const
@@ -285,6 +276,7 @@ const Materials::ID * EnemyWave::getEnemyType() const
 {
 	return &_enemyType;
 }
+//Get the enemy behaviour type of this wave
 const int * EnemyWave::getEnemyBehaviour() const
 {
 	return &_enemyBehaviour;
