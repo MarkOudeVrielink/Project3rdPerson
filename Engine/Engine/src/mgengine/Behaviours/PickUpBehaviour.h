@@ -18,6 +18,8 @@ private:
 	float _speed;
 	float _points;
 	float _charge;
+	float _rotation = 0;
+	int _random;
 };
 
 #endif // !PICKUPBEHAVIOUR_H

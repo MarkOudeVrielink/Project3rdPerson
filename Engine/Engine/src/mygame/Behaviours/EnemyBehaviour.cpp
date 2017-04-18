@@ -392,14 +392,14 @@ void EnemyBehaviour::SpawnDrop(int pAmount)
 
 			auto random_integer = uni(rng);
 			int randomType = rand() % (10 - 1) + 1;
-			ObjectActor* pickup = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(2.0f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith);
+			ObjectActor* pickup = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(3.0f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith);
 			
-			pickup->Slerp(glm::vec3(1, 0, 0), 90);
+			//pickup->Slerp(glm::vec3(1, 0, 0), 90);
 			pickup->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::ID(20+ random_integer)));
-			pickup->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::ID(20 + random_integer)));
+			pickup->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::ID(23+ random_integer)));
 			pickup->scale(glm::vec3(1, 1, 1)*getScale(20 + random_integer));
 			pickup->setActorBehaviour(new PickUpBehaviour(1, 10, 10));
-			_owner->getWorld()->add(pickup);
+			_owner->getParent()->add(pickup);
 		}
 	}
 
