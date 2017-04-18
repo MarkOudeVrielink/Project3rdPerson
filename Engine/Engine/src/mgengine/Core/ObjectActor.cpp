@@ -1,4 +1,5 @@
 #include "ObjectActor.h"
+#include "mge\core\World.hpp"
 
 /*Create a deafault ObjectActor.*/
 ObjectActor::ObjectActor(World* pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, float pMass)
@@ -30,4 +31,19 @@ void ObjectActor::OnCollision(Actor * pActor)
 {
 	if (_actorBehaviour)
 		_actorBehaviour->OnCollision(pActor);
+}
+
+void ObjectActor::Reset()
+{
+	Actor::Reset();
+}
+
+void ObjectActor::ReCreate(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, short pCollisionGroup, short pCollisionMask, float pMass)
+{
+	Actor::ReCreate(pWorld, pName, pPosition, pCollider, pType, pCollisionGroup, pCollisionMask, pMass);
+}
+
+void ObjectActor::_setDirty()
+{
+	_world->ResetObject(this);
 }

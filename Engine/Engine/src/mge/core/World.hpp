@@ -5,6 +5,9 @@
 #include "mgengine/Collision/CollisionManager.h"
 #include "mgengine/Resources/ResourceManager.h"
 
+#include "mgengine\Core\ObjectActor.h"
+#include "mgengine\Core\ControlledActor.h"
+
 #include <string>
 #include <list>
 #include <SFML/Graphics.hpp>
@@ -55,9 +58,14 @@ class World : public GameObject
 		void setEnemyBioEnded(bool pBool, int pIndex);
 
 		void DestroyActors();
+		void ResetObjects();
 		void setBossDeath(bool pState);
 		bool getBossDeath();
 		void SetDirtyActor(Actor* pActor);
+
+		void ResetObject(GameObject* pObject);
+		void ResetObject(ControlledActor* pObject);
+		void ResetObject(ObjectActor* pObject);
 
 		
 	protected:
@@ -76,8 +84,12 @@ class World : public GameObject
 		CollisionManager*	_physicsManager;
 		ResourceManager*	_resourceManager;
 		GameObject* _player;
+		
+		std::list<Actor*>	_dirtyActors;	
 
-		std::list<Actor*>	_dirtyActors;		
+		std::list<GameObject*>		_gameObjects;
+		std::list<ControlledActor*> _controlledActors;
+		std::list<ObjectActor*>		_objectActors;
 
 		sf::RenderWindow*	_window;
 

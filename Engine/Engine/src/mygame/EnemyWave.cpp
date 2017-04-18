@@ -7,6 +7,8 @@
 #include "mygame\Behaviours\BossBehaviour.h"
 #include "mgengine\Collision\CollisionFilters.h"
 
+#include "mgengine\Core\ObjectPool.h"
+
 EnemyWave::EnemyWave()
 {
 	for (int i = 0; i < 5;i++)
@@ -150,8 +152,8 @@ bool EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
 		//AbstractMaterial* textureMaterial2 = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "potato.png"));
 
 		//Enemy* Enemy1 = new Enemy("Enemy", pos);
-		ControlledActor* Enemy1 = new ControlledActor(pWorld, "Enemy", pos, new btSphereShape(5), ActorType::Type_Enemy, 1,  CF::COL_ENEMY, CF::enemyCollidesWith);
-		
+	
+		ControlledActor* Enemy1 = ObjectPool::getInstance()->getControlledActor(pWorld, "Enemy", pos, new btSphereShape(5), ActorType::Type_Enemy, 1, CF::COL_ENEMY, CF::enemyCollidesWith);
 		//cout << "ENEMY CREATED" << endl;
 		AbstractMaterial* textureMaterial2 = new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png"));
 

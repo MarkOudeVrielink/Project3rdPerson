@@ -113,7 +113,8 @@ void AbstractGame::run()
 
 				
 				/*Destroy all the actors in the world that were set to 'dirty'*/
-				_world->DestroyActors();
+				//_world->DestroyActors();
+				_world->ResetObjects();
 				_update(timePerFrame.asSeconds() );
 		    }
 			

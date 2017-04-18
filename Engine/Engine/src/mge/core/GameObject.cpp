@@ -207,3 +207,29 @@ glm::vec3 GameObject::getScale()
 	return _scale;
 }
 
+void GameObject::Reset()
+{
+	_parent->remove(this);
+
+	if (_behaviour) {
+		delete _behaviour;
+		_behaviour = nullptr;
+	}
+
+	while (_children.size() > 0) {
+		GameObject* child = _children[0];
+		remove(child);
+		//delete child; perhaps needed not sure.
+	}
+	
+	_mesh = nullptr;	
+	_material = nullptr;
+	
+}
+
+void GameObject::ReCreate(std::string pName, glm::vec3 pPosition)
+{
+	_transform = glm::translate(glm::mat4(), pPosition);
+	_name = pName;
+}
+

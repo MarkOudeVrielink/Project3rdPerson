@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 <Level>
-  <Wave startTimeWave="0" health="1" speed="1" shootRatio="5" enemyType="4" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5">
+  <Wave startTimeWave="15" health="1" speed="30" shootRatio="5" enemyType="4" enemyBehaviour="0" sizeWave="5" delayBetweenEnemies="0.5">
     <Waypoints>
       <WavePoint World_x="-33.9443016" World_y="-86.9818192" World_z="-35.8042641" Screen_x="595" Screen_y="155" />
       <WavePoint World_x="-1.27337801" World_y="-91.615387" World_z="-40.0624352" Screen_x="947" Screen_y="131" />
@@ -50,7 +50,7 @@
       <WavePoint World_x="21.8773975" World_y="-92.1716003" World_z="-32.0277176" Screen_x="1182" Screen_y="215" />
     </Waypoints>
   </Wave>
-  <Wave startTimeWave="0" health="1" speed="50" shootRatio="5" enemyType="4" enemyBehaviour="0" sizeWave="15" delayBetweenEnemies="0.5">
+  <Wave startTimeWave="5" health="1" speed="50" shootRatio="5" enemyType="3" enemyBehaviour="0" sizeWave="15" delayBetweenEnemies="0.5">
     <Waypoints>
       <WavePoint World_x="-38.4991341" World_y="-84.7259674" World_z="-36.5968246" Screen_x="535" Screen_y="136" />
       <WavePoint World_x="-21.5535507" World_y="-88.0314331" World_z="-42.2600174" Screen_x="731" Screen_y="91" />

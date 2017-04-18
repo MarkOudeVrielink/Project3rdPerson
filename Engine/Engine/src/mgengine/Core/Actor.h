@@ -49,7 +49,10 @@ public:
 	void			Slerp(glm::vec3 pAxis, btScalar pAngle);	
 	void			Slerp(glm::vec3 pAxis, btScalar pAngle, btScalar pSlerpRate);
 	//void			SetRotation(btQuaternion pRotation, glm::vec3 pAxis, btScalar pAngle);
-	void			Destroy();
+	void	Destroy();
+
+	virtual void Reset();
+	virtual void ReCreate(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, short pCollisionGroup, short pCollisionMask, float pMass);
 
 	/*To make sure it alligns properly on the heap when dynamically allocating it. Otherwise the compiler cannot guarantee correct memory usage.*/
 	void*	operator new(size_t i)
@@ -66,7 +69,7 @@ protected:
 	void _removeRigidBodyFromWorld();
 	void _ajustPosition();
 		
-	void _setDirty();
+	virtual void _setDirty();
 
 	glm::mat4 _floatToMat4(float* pMatrix);	
 

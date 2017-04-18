@@ -33,10 +33,15 @@ public:
 	float GetHealth();
 	void SetHealth(float pHealth);
 	void TakeDamage(float pDamage);
+	
+	virtual void Reset();
+	virtual void ReCreate(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, short pCollisionGroup, short pCollisionMask, float pMass, float pHealth, float pPower);
 
 private:
 	float _health;
 	float _strength;
+
+	virtual void _setDirty();
 };
 
 #endif // !CONTROLLEDACTOR_H

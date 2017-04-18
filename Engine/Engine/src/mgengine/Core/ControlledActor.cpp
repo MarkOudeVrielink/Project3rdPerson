@@ -58,3 +58,24 @@ void ControlledActor::TakeDamage(float pDamage)
 		}
 	}
 }
+
+void ControlledActor::Reset()
+{
+	Actor::Reset();
+
+	_health = 0;
+	_strength = 0;
+}
+
+void ControlledActor::ReCreate(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, short pCollisionGroup, short pCollisionMask, float pMass, float pHealth, float pPower)
+{
+	Actor::ReCreate(pWorld, pName, pPosition, pCollider, pType, pCollisionGroup, pCollisionMask, pMass);
+
+	_health = pHealth;
+	_strength = pPower;
+}
+
+void ControlledActor::_setDirty()
+{
+	_world->ResetObject(this);
+}

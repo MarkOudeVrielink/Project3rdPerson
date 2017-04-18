@@ -69,6 +69,9 @@ class GameObject
 
 		glm::vec3 getScale();
 
+		virtual void Reset();
+		virtual void ReCreate(std::string pName, glm::vec3 pPosition);
+
 	protected:
 		std::string		_name;
 		glm::mat4		_transform;

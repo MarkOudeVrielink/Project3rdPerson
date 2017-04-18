@@ -134,6 +134,31 @@ void Actor::Destroy()
 	_setDirty();	
 }
 
+void Actor::Reset()
+{
+	GameObject::Reset();
+
+	_removeRigidBodyFromWorld();
+
+	if (_actorBehaviour) {
+		delete _actorBehaviour;
+		_actorBehaviour = NULL;
+	}
+
+	_world = nullptr;	
+	_type = ActorType::Type_StaticObject;
+}
+
+void Actor::ReCreate(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, short pCollisionGroup, short pCollisionMask, float pMass)
+{
+	GameObject::ReCreate(pName, pPosition);
+
+	_world = pWorld;
+	_type = pType;
+
+	_initRigidBody(pCollider, pCollisionGroup, pCollisionMask);
+}
+
 void Actor::OnCollision(Actor * pOther)
 {
 }
@@ -157,7 +182,8 @@ void Actor::_ajustPosition() {
 
 void Actor::_setDirty()
 {
-	_world->SetDirtyActor(this);
+	//_world->SetDirtyActor(this);
+	_world->ResetObject(this);
 }
 
 void Actor::_initRigidBody(btCollisionShape * pCollider)

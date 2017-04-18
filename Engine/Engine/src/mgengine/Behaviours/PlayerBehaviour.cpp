@@ -18,6 +18,8 @@
 #include "mge\config.hpp"
 #include "mgengine\UI\HUD.h"
 
+#include "mgengine\Core\ObjectPool.h"
+
 PlayerBehaviour::PlayerBehaviour(float pSpeed) : AbstractActorBehaviour(), _maxSpeed(pSpeed)
 {
 	_spawnOffset			= glm::vec3(0, 0, -3.0f);
@@ -189,8 +191,8 @@ void PlayerBehaviour::setup()
 void PlayerBehaviour::SpawnNova()
 {	
 	glm::vec3 spawnPoint = glm::vec3(0, 0, 0);
-	
-	ObjectActor* nova = new ObjectActor(_owner->getWorld(), "Nova", spawnPoint, new btBoxShape(btVector3(50,1,80)), ActorType::Type_Nova, CF::COL_PLAYERNOVA, CF::playerNovaCollidesWith, 1);
+		
+	ObjectActor* nova = ObjectPool::getInstance()->getObjectActor(_owner->getWorld(), "Nova", spawnPoint, new btBoxShape(btVector3(50, 1, 80)), ActorType::Type_Nova, CF::COL_PLAYERNOVA, CF::playerNovaCollidesWith, 1);
 	nova->setActorBehaviour(new BulletBehaviour(0, 10, 0.5f));
 	nova->scale(glm::vec3(70, 0, 70));
 	
@@ -438,7 +440,8 @@ void PlayerBehaviour::SpawnBullet(float pBulletPower)
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition() + _spawnOffset;
 
-	ObjectActor* bullet = new ObjectActor(_owner->getWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_PLAYERBULLET, CF::playerBulletCollidesWith, 1);
+	ObjectActor* bullet = ObjectPool::getInstance()->getObjectActor(_owner->getWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_PLAYERBULLET, CF::playerBulletCollidesWith, 1);
+	
 	bullet->scale(glm::vec3(10, 10, 10));
 	bullet->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Bullet));
 	bullet->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Bullet));
@@ -450,7 +453,7 @@ void PlayerBehaviour::SpawnBullet(float pBulletPower, glm::vec3 pDirection)
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition() + _spawnOffset;
 
-	ObjectActor* bullet = new ObjectActor(_owner->getWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_PLAYERBULLET, CF::playerBulletCollidesWith, 1);
+	ObjectActor* bullet = ObjectPool::getInstance()->getObjectActor(_owner->getWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_PLAYERBULLET, CF::playerBulletCollidesWith, 1);
 	bullet->scale(glm::vec3(10, 10, 10));
 	bullet->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Bullet));
 	bullet->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Bullet));
@@ -467,7 +470,7 @@ void PlayerBehaviour::SpawnBullet(float pBulletPower, glm::vec3 pDirection, floa
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition() + _spawnOffset;
 
-	ObjectActor* bullet = new ObjectActor(_owner->getWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_PLAYERBULLET, CF::playerBulletCollidesWith, 1);
+	ObjectActor* bullet = ObjectPool::getInstance()->getObjectActor(_owner->getWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_PLAYERBULLET, CF::playerBulletCollidesWith, 1);
 	bullet->scale(glm::vec3(10, 10, 10));
 	bullet->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::Bullet));
 	bullet->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::Bullet));

@@ -15,6 +15,8 @@
 #include "mgengine\Collision\CollisionFilters.h"
 #include "mge\config.hpp"
 
+#include "mgengine\Core\ObjectPool.h"
+
 #include <list>
 #include <glm.hpp>
 
@@ -391,9 +393,9 @@ void EnemyBehaviour::SpawnDrop(int pAmount)
 			std::uniform_int_distribution<int> uni(1, 7); // guaranteed unbiased
 
 			auto random_integer = uni(rng);
-			int randomType = rand() % (10 - 1) + 1;
-			ObjectActor* pickup = new ObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(3.0f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith);
-			
+			int randomType = rand() % (10 - 1) + 1;		
+			ObjectActor* pickup = ObjectPool::getInstance()->getObjectActor(_owner->getWorld(), "pickup", spawnPoint, new btSphereShape(3.0f), ActorType::Type_PickUp, CF::COL_PICKUP, CF::pickupCollidesWith);
+
 			//pickup->Slerp(glm::vec3(1, 0, 0), 90);
 			pickup->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::ID(20+ random_integer)));
 			pickup->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::ID(23+ random_integer)));
@@ -410,7 +412,8 @@ void EnemyBehaviour::SpawnBullet()
 {
 	glm::vec3 spawnPoint = _owner->getWorldPosition() + glm::vec3(0, 0, 2.5f);
 
-	ObjectActor* bullet = new ObjectActor(_owner->getWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_ENEMYBULLET, CF::enemyBulletCollidesWith);
+	ObjectActor* bullet = ObjectPool::getInstance()->getObjectActor(_owner->getWorld(), "bullet", spawnPoint, new btSphereShape(0.4f), ActorType::Type_Bullet, CF::COL_ENEMYBULLET, CF::enemyBulletCollidesWith);
+
 	//bullet->scale(glm::vec3(0.5f, 0.5f, 0.5f));
 	bullet->setMesh(_owner->getWorld()->GetResourceManager()->getMesh(Meshes::ID(getBulletTypeBasedOnEnemy(_enemyType))));
 	bullet->setMaterial(_owner->getWorld()->GetResourceManager()->getMaterial(Materials::ID(getBulletTypeBasedOnEnemy(_enemyType))));
