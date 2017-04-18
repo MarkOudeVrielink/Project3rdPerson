@@ -43,7 +43,13 @@ void ObjectActor::ReCreate(World * pWorld, std::string pName, glm::vec3 pPositio
 	Actor::ReCreate(pWorld, pName, pPosition, pCollider, pType, pCollisionGroup, pCollisionMask, pMass);
 }
 
+void ObjectActor::Destroy()
+{
+	_setDirty();
+}
+
 void ObjectActor::_setDirty()
 {
+	//_world->SetDirtyActor(this);
 	_world->ResetObject(this);
 }

@@ -46,17 +46,7 @@ void ControlledActor::SetHealth(float pHealth)
 
 void ControlledActor::TakeDamage(float pDamage)
 {
-	_health -= pDamage;
-	
-	if (_health <= 0) {
-		if (_type == ActorType::Type_Enemy) {
-			//EnemyBehaviour* behavior = (EnemyBehaviour*)_actorBehaviour;
-			//behavior->SpawnDrop();//INPUT amount of drops enemies drop.
-			_world->GetResourceManager()->PlaySound(SoundEffect::Enemy_Death_1, 10.0f);
-			//
-			Destroy();
-		}
-	}
+	_health -= pDamage;		
 }
 
 void ControlledActor::Reset()
@@ -70,12 +60,18 @@ void ControlledActor::Reset()
 void ControlledActor::ReCreate(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, short pCollisionGroup, short pCollisionMask, float pMass, float pHealth, float pPower)
 {
 	Actor::ReCreate(pWorld, pName, pPosition, pCollider, pType, pCollisionGroup, pCollisionMask, pMass);
-
+	
 	_health = pHealth;
 	_strength = pPower;
 }
 
+void ControlledActor::Destroy()
+{
+	_setDirty();
+}
+
 void ControlledActor::_setDirty()
 {
+	//_world->SetDirtyActor(this);
 	_world->ResetObject(this);
 }

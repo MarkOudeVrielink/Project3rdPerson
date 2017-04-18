@@ -149,14 +149,14 @@ void Actor::Reset()
 	_type = ActorType::Type_StaticObject;
 }
 
-void Actor::ReCreate(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, short pCollisionGroup, short pCollisionMask, float pMass)
+void Actor::ReCreate(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape* pCollider, ActorType pType, short pCollisionGroup, short pCollisionMask, float pMass)
 {
 	GameObject::ReCreate(pName, pPosition);
 
 	_world = pWorld;
 	_type = pType;
-
-	_initRigidBody(pCollider, pCollisionGroup, pCollisionMask);
+	
+	_initRigidBody(pCollider, pCollisionGroup, pCollisionMask);	
 }
 
 void Actor::OnCollision(Actor * pOther)

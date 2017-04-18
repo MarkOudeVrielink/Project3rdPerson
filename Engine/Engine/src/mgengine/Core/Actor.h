@@ -49,7 +49,7 @@ public:
 	void			Slerp(glm::vec3 pAxis, btScalar pAngle);	
 	void			Slerp(glm::vec3 pAxis, btScalar pAngle, btScalar pSlerpRate);
 	//void			SetRotation(btQuaternion pRotation, glm::vec3 pAxis, btScalar pAngle);
-	void	Destroy();
+	virtual void	Destroy();
 
 	virtual void Reset();
 	virtual void ReCreate(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, short pCollisionGroup, short pCollisionMask, float pMass);

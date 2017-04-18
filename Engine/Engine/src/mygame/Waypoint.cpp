@@ -16,6 +16,15 @@ Waypoint::Waypoint(glm::vec3 pWorldWayPos, sf::Vector2f pScreenWayPos, int pOrde
 	//cout << pWorldWayPos.x << endl;
 }
 
+Waypoint::Waypoint(glm::vec3 pWorldWayPos, sf::Vector2f pScreenWayPos, int pOrderInList, int pWaveIndex, sf::Font pFont, sf::RenderWindow * pWindow)
+	:_worldWaypointPosition(pWorldWayPos), _screenWaypointPosition(pScreenWayPos), _positionInWaveList(pOrderInList), _waveIndex(pWaveIndex)
+{
+	_font = pFont;
+	_window = pWindow;
+	_createDebugInfo();
+	
+}
+
 Waypoint::~Waypoint()
 {
 	

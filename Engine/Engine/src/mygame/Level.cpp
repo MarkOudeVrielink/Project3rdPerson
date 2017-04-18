@@ -1,6 +1,7 @@
 #include "Level.h"
 #include <SFML\Graphics.hpp>
 #include <SFML\Graphics\RenderWindow.hpp>
+#include "mge/config.hpp"
 //EmptyLEvel
 Level::Level()
 {
@@ -11,7 +12,10 @@ Level::Level(sf::RenderWindow *pWindow) : _window(pWindow)
 {
 	_waves.push_back(new EnemyWave());
 	_currentEnemyWave = _waves.at(_indexWave);
+	if (!_font.loadFromFile(config::MGE_FONT_PATH + "arial.ttf")) {
+		cout << _font.getInfo().family << "Could not load font, exiting..." << endl;
 
+	}
 }
 
 Level::~Level()
@@ -28,13 +32,13 @@ Level::~Level()
 void Level::CreateWaypoint(glm::vec3 pWolrdWaypointPos, sf::Vector2f pScreenWayPos, float pSec)
 {
 	//cout << pSec << "Time when adding waypoint" << endl;
-	_waves.at(_indexWave)->addWaypoint(new Waypoint(pWolrdWaypointPos, pScreenWayPos, _currentEnemyWave->getWaypoints()->size(), _indexWave, _window), pSec);
+	_waves.at(_indexWave)->addWaypoint(new Waypoint(pWolrdWaypointPos, pScreenWayPos, _currentEnemyWave->getWaypoints()->size(), _indexWave,_font, _window), pSec);
 }
 
 void Level::CreateMainWaypointMoveDirection(glm::vec3 pWolrdWaypointPos, sf::Vector2f pScreenWayPos, float pSec)
 {
 	//cout << pSec << "Time when adding waypoint" << endl;
-	_waves.at(_indexWave)->addMainWaypointDirection(new Waypoint(pWolrdWaypointPos, pScreenWayPos, 000, _indexWave, _window), pSec);
+	_waves.at(_indexWave)->addMainWaypointDirection(new Waypoint(pWolrdWaypointPos, pScreenWayPos, 000, _indexWave, _font, _window), pSec);
 
 }
 

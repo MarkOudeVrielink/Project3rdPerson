@@ -89,7 +89,7 @@ void EnemyBehaviour::OnCollision(Actor * pOther)
 
 			//_enemyMaterial->setDamaged(true);
 			_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Enemy_Hit);
-
+			
 			if (owner->GetHealth() <= 0) {
 				SpawnExplosion();
 				SpawnDrop();
@@ -99,6 +99,7 @@ void EnemyBehaviour::OnCollision(Actor * pOther)
 					playerBehaviour->addScore(10.0f);
 					cout << "Enemy Destroyed, Score Added: " << playerBehaviour->getScore() << endl;
 				}
+				_owner->getWorld()->GetResourceManager()->PlaySound(SoundEffect::Enemy_Death_1, 10.0f);
 				owner->Destroy();
 			}
 

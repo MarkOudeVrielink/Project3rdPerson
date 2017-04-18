@@ -63,6 +63,7 @@ private:
 	bool dialogue1 = false;
 	float _differenceTimeDialogueAndReal = 0;
 	float realTime = 0;
+	sf::Font _font;
 };
 
 

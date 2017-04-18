@@ -63,7 +63,7 @@ ObjectActor * ObjectPool::getObjectActor(World * pWorld, std::string pName, glm:
 	{		
 		ObjectActor* resource = _objectActors.front();
 		resource->ReCreate(pWorld, pName, pPosition, pCollider, pType, pCollisionGroup, pCollisionMask, pMass);
-		_objectActors.pop_front();
+		_objectActors.pop_front();		
 		return resource;
 	}
 }
@@ -71,14 +71,15 @@ ObjectActor * ObjectPool::getObjectActor(World * pWorld, std::string pName, glm:
 ControlledActor* ObjectPool::getControlledActor(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, short pCollisionGroup, short pCollisionMask, float pMass, float pHealth, float pPower)
 {
 	if (_controlledActors.empty())
-	{		
+	{			
 		return new ControlledActor(pWorld, pName, pPosition, pCollider, pType, pCollisionGroup, pCollisionMask, pMass, pHealth, pPower);
 	}
 	else
-	{		
+	{	
 		ControlledActor* resource = _controlledActors.front();
+		std::cout << "[" << resource << "]" << "reused" << std::endl;
 		resource->ReCreate(pWorld, pName, pPosition, pCollider, pType, pCollisionGroup, pCollisionMask, pMass, pHealth, pPower);
-		_controlledActors.pop_front();
+		_controlledActors.pop_front();			
 		return resource;
 	}
 }
@@ -90,14 +91,15 @@ void ObjectPool::returnObject(GameObject * object)
 }
 
 void ObjectPool::returnObject(ObjectActor * object)
-{
+{	
 	object->Reset();
 	_objectActors.push_back(object);
 }
 
 void ObjectPool::returnObject(ControlledActor * object)
-{
+{		
 	object->Reset();
+	std::cout << "[" << object << "]" << "reset" << std::endl;
 	_controlledActors.push_back(object);
 }
 

@@ -7,6 +7,8 @@ class Waypoint
 {
 public:
 	Waypoint(glm::vec3 pWorldWayPos, sf::Vector2f pWcreenWayPos, int pOrderInList, int pWaveIndex, sf::RenderWindow * pWindow);
+	Waypoint(glm::vec3 pWorldWayPos, sf::Vector2f pWcreenWayPos, int pOrderInList, int pWaveIndex, sf::Font pFont, sf::RenderWindow * pWindow);
+
 	~Waypoint();
 	void CreateWaypoint(sf::Vector2i pWayPos);
 	void Draw();
