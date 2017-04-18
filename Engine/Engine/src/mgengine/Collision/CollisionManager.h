@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <map>
+#include <list>
 #include "btBulletDynamicsCommon.h"
 #include "mgengine\Core\Actor.h"
 

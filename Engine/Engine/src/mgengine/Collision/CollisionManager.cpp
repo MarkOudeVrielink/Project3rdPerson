@@ -29,7 +29,7 @@ void CollisionManager::AddCollisionActor(btRigidBody * pBody, Actor * pActor)
 	_physicsBodies.push_back(new physicsObject(pBody, pActor));
 	_physicsWorld->addRigidBody(pBody);
 
-	pBody->setUserPointer(_physicsBodies[_physicsBodies.size() - 1]);
+	pBody->setUserPointer(_physicsBodies.back());
 }
 
 /*Adds the rigidbody to the physicsworld.
@@ -41,12 +41,17 @@ void CollisionManager::AddCollisionActor(btRigidBody* pBody, Actor* pActor, shor
 	_physicsBodies.push_back(new physicsObject(pBody, pActor));
 	_physicsWorld->addRigidBody(pBody, pGroup, pMask);	
 	
-	pBody->setUserPointer(_physicsBodies[_physicsBodies.size()-1]);	
+	pBody->setUserPointer(_physicsBodies.back());	
 }
 
-void CollisionManager::RemoveCollisionActor(btRigidBody* pBody) {
-	//TODO: remove given Actor from the vector.
+void CollisionManager::RemoveCollisionActor(btRigidBody* pBody) {	
 	_physicsWorld->removeRigidBody(pBody);
+	for (unsigned int i = 0; i < _physicsBodies.size(); i++) {
+		if (_physicsBodies.at(i)->body == pBody) {
+			_physicsBodies.erase(_physicsBodies.begin()+i);	
+			break;
+		}
+	}
 }
 
 void CollisionManager::SimulatePhysics(float pTimeStep) {
