@@ -55,17 +55,18 @@ PlayerBehaviour::PlayerBehaviour(float pSpeed) : AbstractActorBehaviour(), _maxS
 	_tiltAngle				= 1.3f;
 
 	_score					= 0;
-		
+	
 }
 
 
 PlayerBehaviour::~PlayerBehaviour() {
 	_owner->getWorld()->setPlayerDead(true);
-
+	//check for health 
+	ControlledActor* player = (ControlledActor*)_owner;
+	_owner->getWorld()->getHud()->updateHealth(3);
 }
  
 void PlayerBehaviour::update(float pStep) {	
-	
 	Move();
 	//_score = 1000;
 	if( _score < 500)
@@ -85,6 +86,9 @@ void PlayerBehaviour::update(float pStep) {
 	float delay = 1.3f;
 	if (ScoreClock.getElapsedTime().asSeconds() - timeSinceLastDeadEnemy.asSeconds() > delay)
 	{
+		
+
+
 		_comboMultiplier = 1;
 		_owner->getWorld()->getHud()->updateMultiplier(_comboMultiplier);
 	}

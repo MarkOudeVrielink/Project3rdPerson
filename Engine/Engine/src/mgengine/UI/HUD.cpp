@@ -107,7 +107,7 @@ void HUD::draw()
 
 void HUD::updateHealth(int pHealth)
 {
-	_healthBar.setScale(_healthBarSize.x, _healthBarSize.y * pHealth / 10 * 3);
+	_healthBar.setScale(_healthBarSize.x, _healthBarSize.y * pHealth/ 3);
 }
 
 void HUD::updateCharge(float pCharge)
