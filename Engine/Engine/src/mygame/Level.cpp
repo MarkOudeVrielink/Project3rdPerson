@@ -96,7 +96,7 @@ bool Level::RunLevel(sf::Time* pTime)
 			{
 				if ((CheckIfSpawnBefore(*enemyWave->getEnemyType()) && _world->getEnemyBioEnded(*enemyWave->getEnemyType() - 1)))
 				{
-					cout << *enemyWave->getEnemyType() << endl;
+					//cout << *enemyWave->getEnemyType() << endl;
 					if (startTimer)
 					{
 						startTimer = false;

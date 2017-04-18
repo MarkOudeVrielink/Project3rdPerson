@@ -153,7 +153,7 @@ bool EnemyWave::SpawnEnemy(World * pWorld, GameObject * pWaveParent)
 
 		//Enemy* Enemy1 = new Enemy("Enemy", pos);
 	
-		ControlledActor* Enemy1 = ObjectPool::getInstance()->getControlledActor(pWorld, "Enemy", pos, new btSphereShape(5), ActorType::Type_Enemy, 1, CF::COL_ENEMY, CF::enemyCollidesWith);
+		ControlledActor* Enemy1 = ObjectPool::getInstance()->getControlledActor(pWorld, "Enemy", pos, new btSphereShape(5), ActorType::Type_Enemy, CF::COL_ENEMY, CF::enemyCollidesWith, 1);
 		//cout << "ENEMY CREATED" << endl;
 		//AbstractMaterial* textureMaterial2 = new LightMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ship.png"));
 

@@ -145,8 +145,9 @@ void Actor::Reset()
 		_actorBehaviour = NULL;
 	}
 
-	_world = nullptr;	
-	_type = ActorType::Type_StaticObject;
+	_rigidBody	= nullptr;
+	_world		= nullptr;	
+	_type		= ActorType::Type_StaticObject;
 }
 
 void Actor::ReCreate(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape* pCollider, ActorType pType, short pCollisionGroup, short pCollisionMask, float pMass)
@@ -155,7 +156,7 @@ void Actor::ReCreate(World * pWorld, std::string pName, glm::vec3 pPosition, btC
 
 	_world = pWorld;
 	_type = pType;
-	
+		
 	_initRigidBody(pCollider, pCollisionGroup, pCollisionMask);	
 }
 

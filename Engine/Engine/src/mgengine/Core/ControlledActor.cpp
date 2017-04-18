@@ -59,8 +59,8 @@ void ControlledActor::Reset()
 
 void ControlledActor::ReCreate(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, short pCollisionGroup, short pCollisionMask, float pMass, float pHealth, float pPower)
 {
-	Actor::ReCreate(pWorld, pName, pPosition, pCollider, pType, pCollisionGroup, pCollisionMask, pMass);
-	
+ 	Actor::ReCreate(pWorld, pName, pPosition, pCollider, pType, pCollisionGroup, pCollisionMask, pMass);
+	std::cout << "group + mask " << pCollisionGroup << " " << pCollisionMask << std::endl;
 	_health = pHealth;
 	_strength = pPower;
 }

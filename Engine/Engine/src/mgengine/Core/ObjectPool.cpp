@@ -70,9 +70,10 @@ ObjectActor * ObjectPool::getObjectActor(World * pWorld, std::string pName, glm:
 
 ControlledActor* ObjectPool::getControlledActor(World * pWorld, std::string pName, glm::vec3 pPosition, btCollisionShape * pCollider, ActorType pType, short pCollisionGroup, short pCollisionMask, float pMass, float pHealth, float pPower)
 {
+	std::cout<< "g + m " << pCollisionGroup << " " << pCollisionMask << std::endl;
 	if (_controlledActors.empty())
 	{			
-		return new ControlledActor(pWorld, pName, pPosition, pCollider, pType, pCollisionGroup, pCollisionMask, pMass, pHealth, pPower);
+		return new ControlledActor(pWorld, pName, pPosition, pCollider, pType, pMass, pCollisionGroup, pCollisionMask, pHealth, pPower);
 	}
 	else
 	{	
