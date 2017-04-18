@@ -84,6 +84,7 @@ void PlayerBehaviour::update(float pStep) {
 	if (ScoreClock.getElapsedTime().asSeconds() - timeSinceLastDeadEnemy.asSeconds() > delay)
 	{
 		_comboMultiplier = 1;
+		_owner->getWorld()->getHud()->updateMultiplier(_comboMultiplier);
 	}
 }
 
