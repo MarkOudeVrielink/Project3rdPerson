@@ -520,7 +520,7 @@ void Menu::StartGame()
 	_enemyBio5->setTexture(config::MGE_TEXTURE_PATH + "info_enemies/Pizza.png", false);
 	_guiRef->add(_enemyBio5);
 	_enemyBio5->setPosition(600, 50);
-	//_enemyBio5->scale(.5f, .5f);
+	_enemyBio5->scale(.5f, .5f);
 	_enemyBio5->hide();
 	
 	_enemyBio6 = tgui::Picture::create();
